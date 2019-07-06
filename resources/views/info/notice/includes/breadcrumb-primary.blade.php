@@ -1,0 +1,1 @@
+{{ __('info-notice.UserNoticeManager') }}

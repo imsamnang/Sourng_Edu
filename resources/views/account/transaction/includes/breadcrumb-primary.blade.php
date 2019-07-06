@@ -1,0 +1,1 @@
+{{ __('acc_breadcrumb_trans_Transaction_Manager') }} 

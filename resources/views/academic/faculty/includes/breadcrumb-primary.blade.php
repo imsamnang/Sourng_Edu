@@ -1,0 +1,1 @@
+{{ __('Faculty.Faculty/Level/ClassManager') }}

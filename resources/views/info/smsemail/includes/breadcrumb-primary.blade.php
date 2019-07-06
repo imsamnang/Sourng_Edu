@@ -1,0 +1,1 @@
+{{ __('info-smsemail.SMS/Email Manager') }}

@@ -1,0 +1,1 @@
+{{ __('bc_panel_studentManager') }}

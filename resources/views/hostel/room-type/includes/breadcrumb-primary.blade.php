@@ -1,0 +1,1 @@
+{{ __('hostel.breadcrum.RoomTypeManager') }}

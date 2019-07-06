@@ -1,0 +1,1 @@
+{{ __('hostel.brecrumb.ResidentManage')}}

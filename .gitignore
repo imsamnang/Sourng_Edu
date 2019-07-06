@@ -1,0 +1,15 @@
+/node_modules
+/public/hot
+/public/storage
+/public/assignments/*
+/storage/*.key
+/ref
+.idea
+.idea/*
+.idea/workspace.xml
+/.vagrant
+/tests
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log

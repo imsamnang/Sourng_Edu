@@ -1,0 +1,1 @@
+{{__('acc_fee_collec_Fee_Collection_Manager') }} 

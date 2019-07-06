@@ -1,0 +1,1 @@
+{{ __('bed-status.HostelBedStatusManager') }}

@@ -1,0 +1,1 @@
+{{ __('staff_note_Staff_Note_Manager') }} 

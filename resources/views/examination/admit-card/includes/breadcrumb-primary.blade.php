@@ -1,0 +1,1 @@
+{{__('Admit_Card_Manager')}}

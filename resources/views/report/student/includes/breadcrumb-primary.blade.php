@@ -1,0 +1,1 @@
+{{ __('report-student.StudentReportManager') }}
