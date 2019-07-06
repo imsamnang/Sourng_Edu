@@ -4,6 +4,7 @@
 /public/assignments/*
 /storage/*.key
 /ref
+/vendor	
 .idea
 .idea/*
 .idea/workspace.xml
