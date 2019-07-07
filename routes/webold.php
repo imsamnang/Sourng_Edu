@@ -977,7 +977,7 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
     Route::put('/update-book/{id}','ProjectActivities\AddnewbookController@updatebook')->name('edit-book.update');
     Route::get('/readbook-now','ProjectActivities\ReadbookController@index')->name('readbook-now');
 
- //=====================Short Course==============Ratha
+  //=====================Short Course==============Ratha
     Route::get('/shortcourse-list','ProjectActivities\ShortCourseController@ShortCourse')->name('projects.shortcourse');
     Route::get('/register','ProjectActivities\ShortcourseController@ShowForm')->name('shortcourse.create');
     Route::get('/shortcourse_detail/{id}','ProjectActivities\ShortcourseController@ShortCourse_detail')->name('projects.shortcourse_detail');
@@ -991,45 +991,49 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
     Route::get('/longcourse-list','ProjectActivities\LongcourseController@showLonglist')->name('projects.longcourse');
     Route::get('/longcourse/register','ProjectActivities\LongcourseController@ShowLongForm')->name('longcourse.create');
     Route::post('/longcourse/register_save','ProjectActivities\LongcourseController@SaveLongCourse')->name('longcourse.savedata');
+    // Route::view('ProjectActivities/shortcourse/add','ProjectActivities/courses/shortcourse/add');
    
 });
 
+
 //Quiz Route
-  // Quiz Subject
-  Route::group(['as'=>'quiz.','prefix'=>'quiz/','namespace'=>'Quiz','middleware' =>['auth']],function (){
-    Route::get('','QuizController@index')->name('subject.index');
-    Route::get('create/new','QuizController@create')->name('subject.create');
-    Route::post('quiz','QuizController@store')->name('subject.store');
-    Route::get('{quiz}/show','QuizController@show')->name('subject.show');
-    Route::delete('{quiz}/delete', 'QuizController@destroy')->name('subject.destroy');
-  });
 
-  // Quiz Questions
-  Route::group(['as'=>'quiz.','prefix'=>'quiz/','namespace'=>'Quiz','middleware' =>['auth']],function (){
-    Route::get('{subject}/question/create','QuestionsController@create')->name('question.create');
-    Route::post('{subject}/question/store','QuestionsController@store')->name('question.store');
-    Route::get('{subject}/question/edit','QuestionsController@edit')->name('question.edit');
-    Route::get('{subject}/{question}/show','QuestionsController@show')->name('question.show');
-    Route::post('{subject}/question/update','QuestionsController@update')->name('question.update');
-    Route::get('question/{subject}/destroy','QuestionsController@destroy')->name('question.destroy');
-  // Quiz Answers
-    Route::post('answer/{subject}/save','QuestionsController@saveAnswer')->name('answer.store');    
-  });
+// // Quiz Subject
+//   Route::prefix('exam/')->group(function(){
+//     Route::get('','Quiz\QuizController@index')->name('exam.index');
+//     Route::get('create/new','Quiz\QuizController@create')->name('exam.create');
+//     Route::post('save','Quiz\QuizController@store')->name('exam.store');
+//     Route::get('{exam}/show','Quiz\QuizController@show')->name('exam.show');
+//     Route::delete('{exam}/delete', 'Quiz\QuizController@destroy')->name('exam.destroy');
+//   });
 
- // Take Quiz
-  Route::get('{quiz}/start','Quiz\QuizController@start')->name('quiz.start');
+//   // Quiz Questions
+//   Route::prefix('exam/')->group(function(){
+//     Route::get('{exam}/question/create','Quiz\QuestionsController@create')->name('exam.question.create');
+//     Route::post('{exam}/question/store','Quiz\QuestionsController@store')->name('exam.question.store');
+//     Route::get('{exam}/question/edit','Quiz\QuestionsController@edit')->name('exam.question.edit');
+//     Route::get('{exam}/{question}/show','Quiz\QuestionsController@show')->name('exam.question.show');
+//     Route::post('{exam}/question/update','Quiz\QuestionsController@update')->name('exam.question.update');
+//     Route::get('question/{question}/destroy','Quiz\QuestionsController@destroy')->name('exam.question.destroy');
+//   // Quiz Answers
+//     Route::post('answer/{question}/save','Quiz\QuestionsController@saveAnswer')->name('exam.answer.store');    
+//   });
 
-// Submit Quiz
-  Route::post('{quiz}/submit','Quiz\QuizResultsController@store')->name('quiz.submit');
+//  // Take Quiz
+//   Route::get('{quiz}/start','Quiz\QuizController@start')->name('quiz.start');
 
-// Quiz Results
-  Route::get('{quiz}/results','Quiz\QuizResultsController@index')->name('quiz.results');
 
-//Test Result
-  Route::get('test', function (){
-      $user = auth()->user();
-      return ($user->quiz_results);
-  });  
+// // Submit Quiz
+//   Route::post('{quiz}/submit','Quiz\QuizResultsController@store')->name('quiz.submit');
+
+// // Quiz Results
+//   Route::get('{quiz}/results','Quiz\QuizResultsController@index')->name('quiz.results');
+
+// //Test Result
+//   Route::get('test', function (){
+//       $user = auth()->user();
+//       dd($user->quiz_results);
+//   });  
 
 
 
