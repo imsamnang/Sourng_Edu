@@ -47,12 +47,25 @@ class LongcourseController extends Controller
         $longcourse->curriculum_endorsement_id= $request->cbo_curriculum;
         $longcourse->curriculum_author_id= $request->cbo_author;
         $longcourse->promotion_start_date= $request->txt_start_date;
-        $longcourse->academic_year= $request->cbo_pro_duration;
+        $longcourse->academic_year= $request->academic_year;
         $longcourse->batch_group= $request->txt_batch_name;
         $longcourse->status= 1;
         $longcourse->register_status= 1;
         $longcourse->save();
         return redirect()->back()->with('success','Data Saved Successfully');
+    }
+
+    public function edit(Request $request, $id)
+    {       
+
+        $program_type= ProgramType::all();
+        $overal_fund= OveralFund::all();
+        $curriculum_endo= CurriculumEndorsement::all();
+        $curriculum_author= CurriculumAuthor::all();
+        $faculty= Faculty::WHERE('course_type_id',2)->get();
+        // $faculty= Faculty::all();
+        $longcourse =LongCourse::findOrFail($id);
+        return view('ProjectActivities.courses.longcourse.edit', compact('program_type','overal_fund','curriculum_endo','curriculum_author','faculty','longcourse'));
     }
 }
 

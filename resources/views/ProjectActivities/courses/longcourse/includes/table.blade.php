@@ -57,7 +57,7 @@
                             <i class="ace-icon fa fa-eye bigger-130"></i>
                         </a>
 
-                        <a href="{{ $row->id }}" class="btn btn-primary btn-minier btn-success">
+                        <a href="{{ route('longcourse.edit',$row->id) }}" class="btn btn-primary btn-minier btn-success">
                             <i class="ace-icon fa fa-pencil bigger-130"></i>
                         </a>
 

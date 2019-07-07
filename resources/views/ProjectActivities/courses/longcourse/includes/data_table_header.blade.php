@@ -1,4 +1,4 @@
- <h4 class="header large lighter blue" style="font-family:'Khmer OS Battamang'"><i class="fa fa-list" aria-hidden="true"></i>&nbsp; Short Course </h4>
+ <h4 class="header large lighter blue" style="font-family:'Khmer OS Battamang'"><i class="fa fa-list" aria-hidden="true"></i>&nbsp; Long Course </h4>
 <div class="clearfix" style="margin-bottom: 15px;">
 
     <span class="easy-link-menu">

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class LongCourse extends BaseModel
 {
+  public $timestamps= false;
   protected $table = 'course_long';
   protected $fillable = ['faculties_id', 'program_type_id','overall_fund_id',
                           'curriculum_endorsement_id','curriculum_author_id',
