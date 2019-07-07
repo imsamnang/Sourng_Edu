@@ -8,7 +8,6 @@ use App\Models\Quiz\Question;
 use App\Models\Quiz\QuestionQuiz;
 use App\Models\Quiz\SubjectQuiz;
 use Illuminate\Http\Request;
-// use Illuminate\Support\Facades\Response;
 
 class QuizController extends Controller
 {
@@ -16,7 +15,6 @@ class QuizController extends Controller
   {
     $generalSetting = GeneralSetting::findOrFail(1)->first();
     $subjects = SubjectQuiz::all();
-    // return $subjects;
     return view('quizs.subject',compact('generalSetting','subjects'));
   }
 
@@ -38,7 +36,7 @@ class QuizController extends Controller
       'status'  => $request->active
     ]);
 
-    return redirect()->route('exam.show', $quiz->slug);
+    return redirect()->route('quiz.subject.show', $quiz->slug);
   }
 
   public function show($quiz)
@@ -82,14 +80,14 @@ class QuizController extends Controller
 
   public function start($quiz)
   {
-      $quiz = SubjectQuiz::where('slug', $quiz)->get()->first();
-      $question_id = QuestionQuiz::where('subject_quiz_id', $quiz->id)->get();
-      $questions = collect();
-      foreach ($question_id as $id){
-          $question = Question::with('options', 'answers')->where('id', $id->question_id)->first();
-          $questions->push($question);
-      }
-      return view('quizs.start', compact('quiz', 'questions'));
+    $quiz = SubjectQuiz::where('slug', $quiz)->get()->first();
+    $question_id = QuestionQuiz::where('subject_quiz_id', $quiz->id)->get();
+    $questions = collect();
+    foreach ($question_id as $id){
+        $question = Question::with('options', 'answers')->where('id', $id->question_id)->first();
+        $questions->push($question);
+    }
+    return view('quizs.start', compact('quiz', 'questions'));
   }
 
 // public function getBeforeStartTest($id){

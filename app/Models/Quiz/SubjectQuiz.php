@@ -2,13 +2,12 @@
 
 namespace App\Models\Quiz;
 
-
 use App\Models\Quiz\Question;
 use Illuminate\Database\Eloquent\Model;
 
 class SubjectQuiz extends Model
 {
-  // protected $table ='subjects_quizs';
+  protected $table ='subjects_quizzes';
 	protected $fillable=[
                       'title',
                       'slug',

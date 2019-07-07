@@ -37,7 +37,7 @@ class QuestionsController extends Controller
       $option = new Option($option);
       $question->options()->save($option);
     }
-    return redirect()->route('exam.show', $quiz->slug);
+    return redirect()->route('quiz.subject.show', $quiz->slug);
   }
 
   public function show($quiz, $question)

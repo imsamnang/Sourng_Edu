@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Quiz;
 
 use App\Http\Controllers\Controller;
-use App\Models\Question;
-use App\Models\QuestionQuiz;
-use App\Models\SubjectQuiz;
+use App\Models\Quiz\Question;
+use App\Models\Quiz\QuestionQuiz;
+use App\Models\Quiz\SubjectQuiz;
 use Illuminate\Http\Request;
 
 class TakeQuizController extends Controller

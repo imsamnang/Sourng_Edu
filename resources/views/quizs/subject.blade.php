@@ -36,10 +36,10 @@
                 <tr>
                     <td>{{ $quiz->title }}</td>
                     <td>
-                      <a href="{{ route('exam.show',$quiz->slug) }}">View Quiz</a>
+                      <a href="{{ route('quiz.subject.show',$quiz->slug) }}">View Quiz</a>
                     </td>
                     <td>
-                      <a href="{{ route('exam.question.create',$quiz->slug) }}" class="btn btn-info">Add Questions</a>
+                      <a href="{{ route('quiz.question.create',$quiz->slug) }}" class="btn btn-info">Add Questions</a>
                     </td>
                     <td>
                       @if(count($quiz->questions) <= 1) 
@@ -53,7 +53,7 @@
                     </td>
                     <td>
                       <a href="#" class="btn btn-danger" onclick="return deleteObject({{$quiz->id}})">Remove</a>
-                      <form id="deleteObject-{{$quiz->id}}" action="{{route('exam.destroy',$quiz->id) }}" method="POST">
+                      <form id="deleteObject-{{$quiz->id}}" action="{{route('quiz.subject.destroy',$quiz->id) }}" method="POST">
                         {{csrf_field()}}
                         {{method_field('DELETE')}}
                       </form>
@@ -68,7 +68,7 @@
             </tbody>
         </table>
 
-        <a href="{{ route('exam.create') }}" class="btn btn-info btn-block">Create a new Quiz</a>
+        <a href="{{ route('quiz.subject.create') }}" class="btn btn-info btn-block">Create a new Quiz</a>
     </div>     
     </div>
   {{-- </form> --}}

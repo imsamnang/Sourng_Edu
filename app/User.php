@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Models\QuizResults;
+use App\Models\Quiz\QuizResults;
 use App\Models\Roles;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;

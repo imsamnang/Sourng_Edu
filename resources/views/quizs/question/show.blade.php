@@ -42,11 +42,11 @@
               @endforeach
             </tbody>
           </table>
-          <a href="{{ route('exam.show', $quiz->slug) }}" class="btn btn-info">Back to Quiz</a>
+          <a href="{{ route('quiz.subject.show', $quiz->slug) }}" class="btn btn-info">Back to Quiz</a>
         @else
           <p>Please select your answers for this question</p>
           <hr>
-          {!! Form::open(['method' => 'post', 'route' => [ 'exam.answer.store', $question->slug ]]) !!}
+          {!! Form::open(['method' => 'post', 'route' => [ 'quiz.answer.store', $question->slug ]]) !!}
             @foreach($question->options as $option)
               <div class="checkbox">
                 <label>

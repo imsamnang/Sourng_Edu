@@ -47,7 +47,6 @@ class SubjectQuizController extends Controller
 
   public function edit($id)
   {
-
     $subject = SubjectQuiz::findOrFail($id);
     // return view('quizs.subject.edit',compact('subject','tps'));
     return view('quizs.subject.edit')->withSubject($subject);
