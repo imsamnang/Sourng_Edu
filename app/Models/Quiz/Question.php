@@ -2,7 +2,6 @@
 
 namespace App\Models\Quiz;
 
-
 use App\Models\Quiz\Answer;
 use App\Models\Quiz\Option;
 use App\Models\Quiz\SubjectQuiz;

@@ -18,7 +18,7 @@
             <div class="new-start">
                 <h4>New Quiz</h4>
                 <hr>
-                {!! Form::open(['route'=>['exam.store'],'method'=>'post']) !!}
+                {!! Form::open(['route'=>['quiz.subject.store'],'method'=>'post']) !!}
                 <div class="form-group">
                     {!! Form::label('name', 'Name') !!}
                     {!! Form::input('text', 'name', null, ['class' => 'form-control']) !!}

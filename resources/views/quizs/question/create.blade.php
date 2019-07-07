@@ -17,7 +17,7 @@
             <div class="new-start">
                 <h4>Quiz: {{ $quiz->title }}</h4>
                 <hr>
-                {!! Form::open(['method' => 'post', 'route' => ['exam.question.store', $quiz->slug]]) !!}
+                {!! Form::open(['method' => 'post', 'route' => ['quiz.question.store', $quiz->slug]]) !!}
                 <div class="form-group">
                     {!! Form::label('title', 'Question Title') !!}
                     {!! Form::input('text', 'title', null, ['class' => 'form-control']) !!}
@@ -35,7 +35,7 @@
                 <hr>
 
                 <div class="form-group">
-                    <a href="{{ route('exam.show', $quiz->slug) }}" class="btn btn-info">Back to quiz</a>
+                    <a href="{{ route('quiz.subject.show', $quiz->slug) }}" class="btn btn-info">Back to quiz</a>
                     {!! Form::submit('Submit', ['class' => 'btn btn-info']) !!}
                 </div>
                 {!! Form::close() !!}
