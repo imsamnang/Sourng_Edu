@@ -130,26 +130,26 @@
        @endif
        @foreach ($overal_fund as $row)
        @if($flag=='kh')
-           <option value="{{ $row->id }}"
-            {{ $row->id==$longcourse->id?'selected' :'' }}>
-            {{ $row->title_kh }}
-          </option>
-          @endif
-          @if($flag=='en')
-          <option value="{{ $row->id }}"
-            {{ $row->id==$longcourse->id?'selected' :'' }}>
-            {{ $row->title_en }}
-          </option>
-          @endif 
+       <option value="{{ $row->id }}"
+        {{ $row->id==$longcourse->id?'selected' :'' }}>
+        {{ $row->title_kh }}
+      </option>
+      @endif
+      @if($flag=='en')
+      <option value="{{ $row->id }}"
+        {{ $row->id==$longcourse->id?'selected' :'' }}>
+        {{ $row->title_en }}
+      </option>
+      @endif 
 
-       @endforeach
-     </select>
-   </div>
+      @endforeach
+    </select>
+  </div>
 
   <div class="form-group">
-        <label for="teacher_name">Academic Year</label>
-        <input type="text" name="academic_year" value="{{ $longcourse->academic_year }}" class="form-control input-sm" required="" style="width: 100%">
-      </div>
+    <label for="teacher_name">Academic Year</label>
+    <input type="text" name="academic_year" value="{{ $longcourse->academic_year }}" class="form-control input-sm" required="" style="width: 100%">
+  </div>
 </div>
 
 <div class="col-md-3">
@@ -165,22 +165,22 @@
      @endif
      @foreach ($curriculum_endo as $row)
      @if($flag=='kh')
-           <option value="{{ $row->id }}"
-            {{ $row->id==$longcourse->id?'selected' :'' }}>
-            {{ $row->title_kh }}
-          </option>
-          @endif
-          @if($flag=='en')
-          <option value="{{ $row->id }}"
-            {{ $row->id==$longcourse->id?'selected' :'' }}>
-            {{ $row->title_en }}
-          </option>
-          @endif 
-     @endforeach
-   </select>
- </div>
+     <option value="{{ $row->id }}"
+      {{ $row->id==$longcourse->id?'selected' :'' }}>
+      {{ $row->title_kh }}
+    </option>
+    @endif
+    @if($flag=='en')
+    <option value="{{ $row->id }}"
+      {{ $row->id==$longcourse->id?'selected' :'' }}>
+      {{ $row->title_en }}
+    </option>
+    @endif 
+    @endforeach
+  </select>
+</div>
 
- <div class="form-group">
+<div class="form-group">
   <label for="txt_batch_name">Batch / Group</label>
   <input type="text" name="txt_batch_name" value="{{ $longcourse->batch_group }}" class="form-control input-sm" required="" style="width: 100%">
 </div>
