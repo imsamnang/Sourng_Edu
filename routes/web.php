@@ -992,6 +992,7 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
     Route::get('/longcourse/register','ProjectActivities\LongcourseController@ShowLongForm')->name('longcourse.create');
     Route::post('/longcourse/register_save','ProjectActivities\LongcourseController@SaveLongCourse')->name('longcourse.savedata');
     Route::get('/longcourse/edit/{id}','ProjectActivities\LongcourseController@edit')->name('longcourse.edit');
+    Route::delete('/delete-longcourse/{id}','ProjectActivities\LongcourseController@delete')->name('delete-longcourse.destroy');
    
 });
 

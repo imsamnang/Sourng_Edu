@@ -67,5 +67,13 @@ class LongcourseController extends Controller
         $longcourse =LongCourse::findOrFail($id);
         return view('ProjectActivities.courses.longcourse.edit', compact('program_type','overal_fund','curriculum_endo','curriculum_author','faculty','longcourse'));
     }
+
+    public function delete($id)
+    {
+      $longcourse = LongCourse::find($id);
+      $longcourse->destroy($id);
+      // return redirect()->Route('projects.shortcourse')->with('success','Deleted Successfully');
+      return redirect()->back()->with('success','Data Deleted Successfully');
+  }
 }
 

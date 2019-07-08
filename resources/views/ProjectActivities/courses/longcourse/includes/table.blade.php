@@ -18,7 +18,7 @@
             <th class="hidden-480">@lang('lc_MainSubject')</th>
             <th class="hidden-480">@lang('lc_ProgramType')</th>                    
             <th class="hidden-480">Status</th>
-            <th class="hidden-480">Action</th>
+            <th width="380">Action</th>
           </tr>
         </thead>
           <tbody>
@@ -61,9 +61,18 @@
                             <i class="ace-icon fa fa-pencil bigger-130"></i>
                         </a>
 
-                        <a href="{{ $row->id }}" class="btn btn-primary btn-minier btn-danger bootbox-confirm" >
+                       {{--  <a href="{{ $row->id }}" class="btn btn-primary btn-minier btn-danger bootbox-confirm" >
                             <i class="ace-icon fa fa-trash-o bigger-130"></i>
-                        </a>
+                        </a> --}}
+                        
+                        <button type="button" class="btn btn-xs btn-danger" onclick="deletePost({{$row->id}})" style="padding-left: 5px; padding-right: 5px; padding-top: 0px; padding-bottom: 0px;"><i class="ace-icon fa fa-trash-o bigger-130"></i></button>
+
+                          <form id="delete-form-{{$row->id}}" action="{{ route('delete-longcourse.destroy', $row->id) }}"
+                            method="POST" style="display: none">
+                            @csrf
+                            @method('DELETE')
+                          </form>
+
                     </div>
                     <div class="hidden-md hidden-lg">
                       <div class="inline pos-rel">
@@ -79,16 +88,24 @@
                                 </a>
                             </li>
                             <li>
-                              <a href="{{ $row->id }}" class="tooltip-success" data-rel="tooltip" title="Edit">
+                              <a href="{{ route('longcourse.edit',$row->id) }}" class="tooltip-success" data-rel="tooltip" title="Edit">
                                 <span class="green">
                                     <i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
                                 </span>
                               </a>
                             </li>
                             <li>
-                              <a href="{{ $row->id }}" class="tooltip-error bootbox-confirm" data-rel="tooltip" title="Delete">
+                             {{--  <a href="{{ $row->id }}" class="tooltip-error bootbox-confirm" data-rel="tooltip" title="Delete">
                                 <span class="red "><i class="ace-icon fa fa-trash-o bigger-120"></i></span>
-                              </a>
+                              </a> --}}
+
+                              <button type="button" class="btn btn-xs btn-danger" onclick="deletePost({{$row->id}})" style="padding-left: 5px; padding-right: 5px; padding-top: 0px; padding-bottom: 0px;"><i class="ace-icon fa fa-trash-o bigger-130"></i></button>
+
+                              <form id="delete-form-{{$row->id}}" action="{{ route('delete-longcourse.destroy', $row->id) }}"
+                                method="POST" style="display: none">
+                                @csrf
+                                @method('DELETE')
+                              </form>
                             </li>
                         </ul>
                       </div>
@@ -109,3 +126,26 @@
     </div>
   </div>
 </div>
+<script type="text/javascript">
+          function deletePost(id){
+            Swal.fire({
+              title: 'Are you sure?',
+              text: "You won't be able to revert this!",
+              type: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+              if (result.value) {
+                document.getElementById('delete-form-'+id).submit();
+                Swal.fire(
+                  'Deleted!',
+                  'Your file has been deleted.',
+                  'success'
+                  )
+              }
+            })
+          }
+
+        </script>
