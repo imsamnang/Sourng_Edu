@@ -113,7 +113,7 @@
   </fieldset><br>
 
   <h5 style="color: white; font-family: Khmer OS Battambang;
-  background-color: #438eb9; padding: 10px;">បញ្ជីសិស្សឈ្មោះសិស្សរៀនវគ្គខាងលើ</h5>
+  background-color: #438eb9; padding: 10px;">បញ្ជីឈ្មោះសិស្សរៀនវគ្គខាងលើ</h5>
 
   {{--  //Form Add Studetn to this course --}}
     {{-- <div class="row">
@@ -252,29 +252,6 @@
                               </div>
                               @endsection
                               @section('js')
-{{--                               <script type="text/javascript">
-                                function deletePost(id){
-                                  Swal.fire({
-                                    title: 'Are you sure?',
-                                    text: "You won't be able to revert this!",
-                                    type: 'warning',
-                                    showCancelButton: true,
-                                    confirmButtonColor: '#3085d6',
-                                    cancelButtonColor: '#d33',
-                                    confirmButtonText: 'Yes, delete it!'
-                                  }).then((result) => {
-                                    if (result.value) {
-                                      document.getElementById('delete-form-'+id).submit();
-                                      Swal.fire(
-                                        'Deleted!',
-                                        'Your file has been deleted.',
-                                        'success'
-                                        )
-                                    }
-                                  })
-                                }
-
-                              </script> --}}
                               <script type="text/javascript">
                                 function deletePost(id){
                                   Swal.fire({

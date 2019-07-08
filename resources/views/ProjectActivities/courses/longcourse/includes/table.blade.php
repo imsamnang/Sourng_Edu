@@ -53,7 +53,7 @@
                     <div class="hidden-sm hidden-xs action-buttons">
                         <a href="#">បញ្ជីឈ្មោះសិស្ស <span style="color:red;">(11 នាក់)</span></a> |
                         <a href="#"> ធ្វើបច្ចុប្បន្នភាព</a>
-                        <a href="{{ $row->id }}" class="btn btn-primary btn-minier btn-primary">
+                        <a href="{{ route('project.longcourse_detail',$row->id) }}" class="btn btn-primary btn-minier btn-primary">
                             <i class="ace-icon fa fa-eye bigger-130"></i>
                         </a>
 

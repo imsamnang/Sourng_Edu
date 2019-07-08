@@ -23,5 +23,10 @@ class LongCourse extends BaseModel
     return $this->belongsTo(ProgramType::class,'program_type_id');
   }
 
+  public function overalFundName()
+    {
+      return $this->belongsTo(OveralFund::class,'overall_fund_id');
+    }
+
 
 }
