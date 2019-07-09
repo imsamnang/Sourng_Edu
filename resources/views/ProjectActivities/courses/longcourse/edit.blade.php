@@ -40,18 +40,18 @@
               <option selected disabled>Please Choose </option>
               @endif
               @foreach ($faculty as $row)
-              @if($flag=='kh')
-              <option value="{{ $row->id }}"
-                {{ $row->id==$longcourse->id?'selected' :'' }}>
-                {{ $row->faculty_kh }}
-              </option>
-              @endif
-              @if($flag=='en')
-              <option value="{{ $row->id }}"
-                {{ $row->id==$longcourse->id?'selected' :'' }}>
-                {{ $row->faculty_en }}
-              </option>
-              @endif 
+                  @if($flag=='kh')
+                  <option value="{{ $row->id }}"
+                    {{ $row->id==$longcourse->id?'selected' :'' }}>
+                    {{ $row->faculty_kh }}
+                  </option>
+                  @endif
+                  @if($flag=='en')
+                  <option value="{{ $row->id }}"
+                    {{ $row->id==$longcourse->id?'selected' :'' }}>
+                    {{ $row->faculty_en }}
+                  </option>
+                  @endif 
               @endforeach
             </select>
           </div>
@@ -67,18 +67,18 @@
             <option selected disabled>Please Choose </option>
             @endif
             @foreach ($curriculum_author as $row)
-            @if($flag=='kh')
-            <option value="{{ $row->id }}"
-              {{ $row->id==$longcourse->id?'selected' :'' }}>
-              {{ $row->title_kh }}
-            </option>
-            @endif
-            @if($flag=='en')
-            <option value="{{ $row->id }}"
-              {{ $row->id==$longcourse->id?'selected' :'' }}>
-              {{ $row->title_en }}
-            </option>
-            @endif 
+                @if($flag=='kh')
+                <option value="{{ $row->id }}"
+                  {{ $row->id==$longcourse->id?'selected' :'' }}>
+                  {{ $row->title_kh }}
+                </option>
+                @endif
+                @if($flag=='en')
+                <option value="{{ $row->id }}"
+                  {{ $row->id==$longcourse->id?'selected' :'' }}>
+                  {{ $row->title_en }}
+                </option>
+                @endif 
             @endforeach
           </select>
         </div>

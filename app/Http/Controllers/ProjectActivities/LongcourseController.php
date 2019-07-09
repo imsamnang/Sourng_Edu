@@ -69,7 +69,7 @@ class LongcourseController extends Controller
         $curriculum_endo= CurriculumEndorsement::all();
         $curriculum_author= CurriculumAuthor::all();
         $faculty= Faculty::WHERE('course_type_id',2)->get();
-        // $faculty= Faculty::all();
+        $faculty= Faculty::all();
         $longcourse =LongCourse::findOrFail($id);
         return view('ProjectActivities.courses.longcourse.edit', compact('program_type','overal_fund','curriculum_endo','curriculum_author','faculty','longcourse'));
     }
