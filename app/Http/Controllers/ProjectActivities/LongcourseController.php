@@ -74,6 +74,26 @@ class LongcourseController extends Controller
         return view('ProjectActivities.courses.longcourse.edit', compact('program_type','overal_fund','curriculum_endo','curriculum_author','faculty','longcourse'));
     }
 
+    public function update(Request $request, $id)
+    {
+        // return $request->all();
+        $longcourse =LongCourse::findOrFail($id);
+        $longcourse->faculties_id= $request->cbo_subject;
+        $longcourse->program_type_id= $request->cbo_type;
+        $longcourse->overall_fund_id= $request->cbo_fund_overall;
+        $longcourse->curriculum_endorsement_id= $request->cbo_curriculum;
+        $longcourse->curriculum_author_id= $request->cbo_author;
+        $longcourse->promotion_start_date= $request->txt_start_date;
+        $longcourse->academic_year= $request->academic_year;
+        $longcourse->batch_group= $request->txt_batch_name;
+        $longcourse->status= 1;
+        $longcourse->register_status= 1;
+        $longcourse->save();
+        // return redirect()->back()->with('success','Data Updated Successfully');
+        return redirect()->Route('projects.longcourse')->with('success','Updated Successfully');
+        
+    }
+
     public function delete($id)
     {
       $longcourse = LongCourse::find($id);

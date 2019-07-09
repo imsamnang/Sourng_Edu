@@ -139,14 +139,14 @@
   <table class="table table-bordered table-striped table-hover dataTable js-exportable">
     <thead>
       <tr>
-        <th width="50px;">ID</th>
-        <th width="170px;">Student Name</th>
-        <th width="90px;">Sex</th>
-        <th width="150px;">Date Of Birth</th>
-        <th width="100px;">Overal Fund</th>
-        <th width="100px;">Finish?</th>
-        <th width="150px;">Currently Employment?</th>
-        <th width="100px;">Action</th>
+        <th width="50px;">{{ __('shortcoure_detail_ID') }}</th>
+        <th width="170px;">{{ __('shortcoure_detail_StudentName') }}</th>
+        <th width="90px;">{{ __('shortcoure_detail_Sex') }}</th>
+        <th width="150px;">{{ __('shortcoure_detail_DateOfBirth') }}</th>
+        <th width="100px;">{{ __('shortcoure_detail_OveralFund') }}</th>
+        <th width="100px;">{{ __('shortcoure_detail_Finish?') }}</th>
+        <th width="150px;">{{ __('shortcoure_detail_Currently Employment?') }}</th>
+        <th width="100px;">{{ __('shortcoure_detail_Action') }}</th>
       </tr>
     </thead>
     <tbody>

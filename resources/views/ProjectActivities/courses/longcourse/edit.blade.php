@@ -22,8 +22,9 @@
         <h4 style="color: white; font-family: Arial; background-color: #438eb9; padding: 10px;">Edit Long Course</h4>
         <b><hr></b>
         <div class="card-body">
-         <form  action="{{ route('longcourse.savedata') }}" method="post" enctype="multipart/form-data">
-          {{csrf_field()}}
+         <form  action="{{ route('longcourse.update',$longcourse->id) }}" method="post" enctype="multipart/form-data">
+                  {{csrf_field()}}
+                  {{method_field('PUT')}}
           <div class="row">
            <div class="col-md-3">
             <div class="form-group">
@@ -191,7 +192,7 @@
  <div class="col-md-10"></div>
  <div class="col-md-2">
    <a href="{{ route('projects.longcourse') }}" class="btn btn-info btn-sm" style="float: right; margin-left: 5px;">Back</a>
-   <button type="submit" class="btn btn-primary btn-sm" style="float: right;">Save</button>
+   <button type="submit" class="btn btn-primary btn-sm" style="float: right;">Update</button>
  </div>
 </div>
 </form>
