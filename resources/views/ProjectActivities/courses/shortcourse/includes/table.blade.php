@@ -20,7 +20,7 @@
             <th>{{ __('shortcoure_Overal-Fund') }}</th>
 {{--             <th class="hidden-480">@lang('lc_MainSubject')</th>
 <th class="hidden-480">@lang('lc_ProgramType')</th>   --}}                  
-<th class="hidden-480">Status</th>
+<th class="hidden-480">{{ __('staff_frm_search_Status') }}</th>
 <th class="hidden-480">{{ __('shortcoure_Action') }}</th>
 </tr>
 </thead>

@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use App\Models\Faculty;
+use App\Models\Modality;
 use App\Models\OveralFund;
+use App\Models\Province;
 use Illuminate\Database\Eloquent\Model;
 
 class CourseShort extends Model

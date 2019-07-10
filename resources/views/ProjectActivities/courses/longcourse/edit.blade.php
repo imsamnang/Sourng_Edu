@@ -30,8 +30,6 @@
             <div class="form-group">
              <label for="reg_no">Program Main Subject</label>
              <select style="width: 100%" name="cbo_subject" required="">
-              {{-- <option value="{{ $longcourse->id }}">{{ $longcourse->faculty->faculty_kh }}</option> --}}
-
               @if ($flag=='kh')
               <option selected disabled>សូមជ្រើសរើស </option>
               @endif
@@ -39,17 +37,17 @@
               @if ($flag=='en')
               <option selected disabled>Please Choose </option>
               @endif
-              @foreach ($faculty as $row)
+              @foreach ($faculty as $fac)
                   @if($flag=='kh')
-                  <option value="{{ $row->id }}"
-                    {{ $row->id==$longcourse->id?'selected' :'' }}>
-                    {{ $row->faculty_kh }}
+                  <option value="{{ $fac->id }}"
+                    {{ $fac->id==$longcourse->faculties_id?'selected' :'' }}>
+                    {{ $fac->faculty_kh }}
                   </option>
                   @endif
                   @if($flag=='en')
-                  <option value="{{ $row->id }}"
-                    {{ $row->id==$longcourse->id?'selected' :'' }}>
-                    {{ $row->faculty_en }}
+                  <option value="{{ $fac->id }}"
+                    {{ $fac->id==$longcourse->faculties_id?'selected' :'' }}>
+                    {{ $fac->faculty_en }}
                   </option>
                   @endif 
               @endforeach
@@ -66,17 +64,17 @@
             @if ($flag=='en')
             <option selected disabled>Please Choose </option>
             @endif
-            @foreach ($curriculum_author as $row)
+            @foreach ($curriculum_author as $author)
                 @if($flag=='kh')
-                <option value="{{ $row->id }}"
-                  {{ $row->id==$longcourse->id?'selected' :'' }}>
-                  {{ $row->title_kh }}
+                <option value="{{ $author->id }}"
+                  {{ $author->id==$longcourse->curriculum_author_id?'selected' :'' }}>
+                  {{ $author->title_kh }}
                 </option>
                 @endif
                 @if($flag=='en')
-                <option value="{{ $row->id }}"
-                  {{ $row->id==$longcourse->id?'selected' :'' }}>
-                  {{ $row->title_en }}
+                <option value="{{ $author->id }}"
+                  {{ $author->id==$longcourse->curriculum_author_id?'selected' :'' }}>
+                  {{ $author->title_en }}
                 </option>
                 @endif 
             @endforeach
@@ -89,25 +87,25 @@
          <label for="curriculum">Program Type</label>
          <select style="width: 100%" name="cbo_type" required="">
            @if ($flag=='kh')
-           <option selected disabled>សូមជ្រើសរើស </option>
+              <option selected disabled>សូមជ្រើសរើស </option>
            @endif
 
            @if ($flag=='en')
-           <option selected disabled>Please Choose </option>
+              <option selected disabled>Please Choose </option>
            @endif
-           @foreach ($program_type as $row)
-           @if($flag=='kh')
-           <option value="{{ $row->id }}"
-            {{ $row->id==$longcourse->id?'selected' :'' }}>
-            {{ $row->title_kh }}
-          </option>
-          @endif
-          @if($flag=='en')
-          <option value="{{ $row->id }}"
-            {{ $row->id==$longcourse->id?'selected' :'' }}>
-            {{ $row->title_en }}
-          </option>
-          @endif 
+           @foreach ($program_type as $p_type)
+               @if($flag=='kh')
+               <option value="{{ $p_type->id }}"
+                {{ $p_type->id==$longcourse->program_type_id?'selected' :'' }}>
+                {{ $p_type->title_kh }}
+              </option>
+              @endif
+              @if($flag=='en')
+              <option value="{{ $p_type->id }}"
+                {{ $p_type->id==$longcourse->id?'selected' :'' }}>
+                {{ $p_type->title_en }}
+              </option>
+              @endif 
           @endforeach
         </select>
       </div>
@@ -129,17 +127,17 @@
        @if ($flag=='en')
        <option selected disabled>Please Choose </option>
        @endif
-       @foreach ($overal_fund as $row)
+       @foreach ($overal_fund as $ov_fund)
        @if($flag=='kh')
-       <option value="{{ $row->id }}"
-        {{ $row->id==$longcourse->id?'selected' :'' }}>
-        {{ $row->title_kh }}
+       <option value="{{ $ov_fund->id }}"
+        {{ $ov_fund->id==$longcourse->overall_fund_id?'selected' :'' }}>
+        {{ $ov_fund->title_kh }}
       </option>
       @endif
       @if($flag=='en')
-      <option value="{{ $row->id }}"
-        {{ $row->id==$longcourse->id?'selected' :'' }}>
-        {{ $row->title_en }}
+      <option value="{{ $ov_fund->id }}"
+        {{ $ov_fund->id==$longcourse->overall_fund_id?'selected' :'' }}>
+        {{ $ov_fund->title_en }}
       </option>
       @endif 
 
@@ -167,13 +165,13 @@
      @foreach ($curriculum_endo as $row)
      @if($flag=='kh')
      <option value="{{ $row->id }}"
-      {{ $row->id==$longcourse->id?'selected' :'' }}>
+      {{ $row->id==$longcourse->curriculum_endorsement_id?'selected' :'' }}>
       {{ $row->title_kh }}
     </option>
     @endif
     @if($flag=='en')
     <option value="{{ $row->id }}"
-      {{ $row->id==$longcourse->id?'selected' :'' }}>
+      {{ $row->id==$longcourse->curriculum_endorsement_id?'selected' :'' }}>
       {{ $row->title_en }}
     </option>
     @endif 

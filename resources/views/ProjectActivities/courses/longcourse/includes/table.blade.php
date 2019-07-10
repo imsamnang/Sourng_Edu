@@ -1,3 +1,4 @@
+<?php  $flag = app()->getLocale();?>
 <div class="row">
   <div class="col-xs-12">
     @include('projectactivities.courses.longcourse.includes.data_table_header')
@@ -17,8 +18,8 @@
             <th>@lang('lc_BatchName')</th>
             <th class="hidden-480">@lang('lc_MainSubject')</th>
             <th class="hidden-480">@lang('lc_ProgramType')</th>                    
-            <th class="hidden-480">Status</th>
-            <th width="380">Action</th>
+            <th class="hidden-480">{{ __('staff_frm_search_Status') }}</th>
+            <th width="380">{{ __('shortcoure_Action') }}</th>
           </tr>
         </thead>
           <tbody>
@@ -34,8 +35,18 @@
                   </td>
                   <td>{{ $i }}</td>
                   <td class="action-buttons"><a href="{{ $row->id }}">{{ $row->batch_group }} <span style="color:red;">(11 នាក់)</span></a></td>
-                  <td class="hidden-480"><a href="{{ $row->id }}">{{ $row->faculty->faculty_kh }} </a> </td>
-                  <td class="hidden-480"><a href="{{ $row->id }}"> {{ $row->program_type->title_kh }}</a></td>
+                  @if($flag=='kh')
+                    <td class="hidden-480"><a href="{{ $row->id }}">{{ $row->faculty->faculty_kh }} </a> </td>
+                  @endif
+                  @if($flag=='en')
+                    <td class="hidden-480"><a href="{{ $row->id }}">{{ $row->faculty->faculty_en }} </a> </td>
+                  @endif
+                  @if($flag=='kh')
+                    <td class="hidden-480"><a href="{{ $row->id }}"> {{ $row->program_type->title_kh }}</a></td>
+                  @endif
+                  @if($flag=='en')
+                    <td class="hidden-480"><a href="{{ $row->id }}"> {{ $row->program_type->title_en }}</a></td>
+                  @endif
                   <td class="hidden-480 ">
                     <div class="btn-group">
                       {{-- <button data-toggle="dropdown" class="btn btn-primary btn-minier dropdown-toggle {{ $row->status == 'active'?"btn-info":"btn-warning" }}" >

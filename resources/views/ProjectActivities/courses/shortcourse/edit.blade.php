@@ -117,12 +117,12 @@
                     @foreach ($overal_fund as $rows)
                      @if ($flag=='kh')
                       <option value="{{ $rows->id }}"
-                        {{ $rows->id==$shortcourse->overal_fund ?'selected':''}}
+                        {{ $rows->id==$shortcourse->overal_fund_id ?'selected':''}}
                         >( {{ $rows->id}} ) {{ $rows->title_kh}}
                       </option>
                       @else
                       <option value="{{ $rows->id }}"
-                        {{ $rows->id==$shortcourse->overal_fund ?'selected':''}}
+                        {{ $rows->id==$shortcourse->overal_fund_id ?'selected':''}}
                         >( {{ $rows->id}} ) {{ $rows->title_en}}
                       </option>
                       @endif

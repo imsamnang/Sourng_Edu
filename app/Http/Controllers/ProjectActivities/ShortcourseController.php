@@ -174,7 +174,7 @@ class ShortcourseController extends Controller
     ->join('course_short', 'faculties.id', '=', 'course_short.course_code_id')
     ->select('course_short.course_code_id')
     ->where('course_short.id',$id)
-    ->first();        
+    ->first(); 
 
     $data['faculty_selected']=Faculty::findOrFail($need->course_code_id);
     $data['curriculum_End']=CurriculumEndorsement::all();

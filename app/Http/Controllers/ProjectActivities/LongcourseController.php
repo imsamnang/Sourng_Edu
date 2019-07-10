@@ -45,8 +45,8 @@ class LongcourseController extends Controller
 
     function SaveLongCourse(Request $request)
     {
+        // return $request->all();
         $longcourse = new LongCourse();
-
         $longcourse->faculties_id= $request->cbo_subject;
         $longcourse->program_type_id= $request->cbo_type;
         $longcourse->overall_fund_id= $request->cbo_fund_overall;
@@ -65,11 +65,12 @@ class LongcourseController extends Controller
     {       
 
         $program_type= ProgramType::all();
+        // $program_type= ProgramType::WHERE('id')->get();
         $overal_fund= OveralFund::all();
         $curriculum_endo= CurriculumEndorsement::all();
         $curriculum_author= CurriculumAuthor::all();
         $faculty= Faculty::WHERE('course_type_id',2)->get();
-        $faculty= Faculty::all();
+        // $faculty= Faculty::all();
         $longcourse =LongCourse::findOrFail($id);
         return view('ProjectActivities.courses.longcourse.edit', compact('program_type','overal_fund','curriculum_endo','curriculum_author','faculty','longcourse'));
     }
@@ -106,19 +107,19 @@ class LongcourseController extends Controller
   function LongCourse_detail(Request $request, $id)
   {   
     $longcourse_detail =LongCourse::findOrFail($id);
+    // return $longcourse_detail;
     $student=Student::latest()->paginate(7);
     $overal_fund=OveralFund::all();
     $data=[];
 
     $faculty= Faculty::WHERE('course_type_id',2)->get();        
     $need = DB::table('faculties')
-    ->join('course_short', 'faculties.id', '=', 'course_short.course_code_id')
-    ->select('course_short.course_code_id')
-    ->where('course_short.id',$id)
-    ->first();        
+    ->join('course_long', 'faculties.id', '=', 'course_long.faculties_id')
+    ->select('course_long.faculties_id')
+    ->where('course_long.id',$id)
+    ->first();
+    $data['faculty_selected']=Faculty::findOrFail($need->faculties_id);
 
-    $data['faculty_selected']=Faculty::findOrFail($need->course_code_id);
-        // return $data;
     return view('ProjectActivities.courses.longcourse.longcourse_detail', compact('longcourse_detail','faculty','overal_fund','data','student'));
 
    }

@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Faculty;
+use App\Models\OveralFund;
+use App\Models\ProgramType;
 use Illuminate\Database\Eloquent\Model;
 
 class LongCourse extends BaseModel
