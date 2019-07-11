@@ -35,26 +35,22 @@
     <!--[if lte IE 9]>
     <link rel="stylesheet" href="{{ asset('assets/css/ace-ie.min.css') }}" />
     <![endif]-->
-
     <!-- inline styles related to this page -->
-    {{-- <link rel="stylesheet" href="http://schoolmis.edu/css/dashboard.css" /> --}}
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}" />
     <!-- ace settings handler -->
     <script src="{{ asset('assets/js/ace-extra.min.js') }}"></script>
-    <!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
-    <!--[if lte IE 8]>
-    <script src="{{ asset('assets/js/html5shiv.min.js') }}"></script>
-    <script src="{{ asset('assets/js/respond.min.js') }}"></script>
-    <![endif]-->
     <link rel="stylesheet" href="{{ asset('assets/css/jquery-ui.custom.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap-datepicker3.min.css') }}" />
     {{-- <link href="{{ asset('assets/css/toastr.min.css') }}" rel="stylesheet"> --}}
     <link rel="stylesheet" href="{{ asset('assets/css/toastr.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/sweetalert2/sweetalert2.min.css') }}" />
+<<<<<<< HEAD
     <script src="{{ asset('assets/js/jquery-2.1.4.min.js') }}"></script>
     
+=======
+>>>>>>> 66b2d2ca64ab56d73e15a658918ea85392c96fd2
     @stack('custom-css')
 
 </head>
-{{--<header class="onlyprint">header text for print<!--Content Goes Here--></header>--}}
+

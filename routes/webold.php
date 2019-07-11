@@ -13,8 +13,7 @@ Route::get('/locale/{locale}',function($locale){
   Route::delete('translations/destroy/{key}', 'LanguageTranslationController@destroy')->name('translations.destroy');
   Route::post('translations/create', 'LanguageTranslationController@store')->name('translations.create');
   Route::get('check-translation', function(){
-    \App::setLocale('fr');
-    
+    \App::setLocale('fr');    
     dd(__('website'));
   });
 
@@ -905,8 +904,6 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
       Route::post('bulk-action',       ['as' => '.bulk-action',      'middleware' => ['ability:super-admin,download-bulk-action'],          'uses' => 'DownloadController@bulkAction']);
   });
 
-
-
 // Route::prefix('studenthealth')->group(function(){
   //   Route::get('/','StudentHealth\StudentController@index')->name('studenthealth');
   //   Route::get('/registration','StudentHealth\StudentController@registration')->name('studenthealth.registration');
@@ -925,11 +922,8 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
   // });
 
 /*student-register route */
-
   // Route::get('/student-register/register','StudentRegister\StudentregisterController@register')->name('stu.register');
   // Route::post('/student-register','StudentRegister\StudentregisterController@save')->name('stu.store');
-
-
 
 // Manage Projects
   Route::prefix('projects')->group(function(){
@@ -954,9 +948,6 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
     Route::get('/staff-list','Staff\StaffController@staffList')->name('staff-list');
     Route::get('/staff-add','Staff\StaffController@staffAdd')->name('staff-add');
     Route::post('/staff-save','Staff\StaffController@save')->name('staff-save');
-
-  //========= StudentTestController ==== SENG Sourng
-    // Route::get('/pretest/{student_id}/{course_id}','ProjectActivities\StudentTestController@preTest')->name('preTest');
 
     //========== Manage Courses =========== SENG Sourng
     Route::get('/project-book','ProjectActivities\BookController@index')->name('project-book');
@@ -984,9 +975,7 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
     Route::post('/store','ProjectActivities\ShortcourseController@SaveCourse')->name('shortcourse.savedata');
     Route::get('/update-course/{id}','ProjectActivities\ShortcourseController@editshortcourse')->name('edit-shortcourse.edit');
     Route::put('/update-shortcourse/{id}','ProjectActivities\ShortcourseController@update_shortcourse')->name('update-book.update');
-
     Route::delete('/delete-shortcourse/{id}','ProjectActivities\ShortcourseController@delete_shortcourse')->name('delete-shortcourse.destroy');
-
   //======================Long Course=============Ratha
     Route::get('/longcourse-list','ProjectActivities\LongcourseController@showLonglist')->name('projects.longcourse');
     Route::get('/longcourse/register','ProjectActivities\LongcourseController@ShowLongForm')->name('longcourse.create');
@@ -998,42 +987,42 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
 
 //Quiz Route
 
-// // Quiz Subject
-//   Route::prefix('exam/')->group(function(){
-//     Route::get('','Quiz\QuizController@index')->name('exam.index');
-//     Route::get('create/new','Quiz\QuizController@create')->name('exam.create');
-//     Route::post('save','Quiz\QuizController@store')->name('exam.store');
-//     Route::get('{exam}/show','Quiz\QuizController@show')->name('exam.show');
-//     Route::delete('{exam}/delete', 'Quiz\QuizController@destroy')->name('exam.destroy');
-//   });
+  // // Quiz Subject
+  //   Route::prefix('exam/')->group(function(){
+  //     Route::get('','Quiz\QuizController@index')->name('exam.index');
+  //     Route::get('create/new','Quiz\QuizController@create')->name('exam.create');
+  //     Route::post('save','Quiz\QuizController@store')->name('exam.store');
+  //     Route::get('{exam}/show','Quiz\QuizController@show')->name('exam.show');
+  //     Route::delete('{exam}/delete', 'Quiz\QuizController@destroy')->name('exam.destroy');
+  //   });
 
-//   // Quiz Questions
-//   Route::prefix('exam/')->group(function(){
-//     Route::get('{exam}/question/create','Quiz\QuestionsController@create')->name('exam.question.create');
-//     Route::post('{exam}/question/store','Quiz\QuestionsController@store')->name('exam.question.store');
-//     Route::get('{exam}/question/edit','Quiz\QuestionsController@edit')->name('exam.question.edit');
-//     Route::get('{exam}/{question}/show','Quiz\QuestionsController@show')->name('exam.question.show');
-//     Route::post('{exam}/question/update','Quiz\QuestionsController@update')->name('exam.question.update');
-//     Route::get('question/{question}/destroy','Quiz\QuestionsController@destroy')->name('exam.question.destroy');
-//   // Quiz Answers
-//     Route::post('answer/{question}/save','Quiz\QuestionsController@saveAnswer')->name('exam.answer.store');    
-//   });
+  //   // Quiz Questions
+  //   Route::prefix('exam/')->group(function(){
+  //     Route::get('{exam}/question/create','Quiz\QuestionsController@create')->name('exam.question.create');
+  //     Route::post('{exam}/question/store','Quiz\QuestionsController@store')->name('exam.question.store');
+  //     Route::get('{exam}/question/edit','Quiz\QuestionsController@edit')->name('exam.question.edit');
+  //     Route::get('{exam}/{question}/show','Quiz\QuestionsController@show')->name('exam.question.show');
+  //     Route::post('{exam}/question/update','Quiz\QuestionsController@update')->name('exam.question.update');
+  //     Route::get('question/{question}/destroy','Quiz\QuestionsController@destroy')->name('exam.question.destroy');
+  //   // Quiz Answers
+  //     Route::post('answer/{question}/save','Quiz\QuestionsController@saveAnswer')->name('exam.answer.store');    
+  //   });
 
-//  // Take Quiz
-//   Route::get('{quiz}/start','Quiz\QuizController@start')->name('quiz.start');
+  //  // Take Quiz
+  //   Route::get('{quiz}/start','Quiz\QuizController@start')->name('quiz.start');
 
 
-// // Submit Quiz
-//   Route::post('{quiz}/submit','Quiz\QuizResultsController@store')->name('quiz.submit');
+  // // Submit Quiz
+  //   Route::post('{quiz}/submit','Quiz\QuizResultsController@store')->name('quiz.submit');
 
-// // Quiz Results
-//   Route::get('{quiz}/results','Quiz\QuizResultsController@index')->name('quiz.results');
+  // // Quiz Results
+  //   Route::get('{quiz}/results','Quiz\QuizResultsController@index')->name('quiz.results');
 
-// //Test Result
-//   Route::get('test', function (){
-//       $user = auth()->user();
-//       dd($user->quiz_results);
-//   });  
+  // //Test Result
+  //   Route::get('test', function (){
+  //       $user = auth()->user();
+  //       dd($user->quiz_results);
+  //   });  
 
 
 

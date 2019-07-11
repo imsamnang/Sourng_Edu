@@ -53,7 +53,6 @@
     @if($flag=='en')
     <td class="hidden-480"><a href="#"> {{ $row->overalFund->title_en }}</a></td>
     @endif
-
     
     <td class="hidden-480 ">
       <div class="btn-group">
@@ -110,7 +109,7 @@
                                     <i class="ace-icon fa fa-pencil bigger-120"></i>
                                   </span>
                                 </a>
-                            {{--     <a href="{{ route('edit-shortcourse.edit',$row->id) }}" class="btn btn-primary btn-minier btn-success">
+                               {{-- <a href="{{ route('edit-shortcourse.edit',$row->id) }}" class="btn btn-primary btn-minier btn-success">
                                   <i class="ace-icon fa fa-pencil bigger-130"></i>
                                 </a> --}}
                               </li>
