@@ -1,4 +1,4 @@
- <h4 class="header large lighter blue"><i class="fa fa-list" aria-hidden="true"></i>&nbsp;ShortCourse @lang('Panel_List') </h4>
+ <h4 class="header large lighter blue"><i class="fa fa-list" aria-hidden="true"></i>&nbsp;{{ __('shortcoure_ShortCourse') }}</h4>
 <div class="clearfix" style="margin-bottom: 15px;">
 
     <span class="easy-link-menu">
@@ -11,5 +11,5 @@
     <span class="pull-right tableTools-container"></span>
 </div>
 <div class="table-header">
-    Staff @lang('Panel_st_Record') 
+    {{ __('shortcoure_ShortCourse') }} @lang('Panel_st_Record') 
 </div>

@@ -1,3 +1,4 @@
+<?php  $flag = app()->getLocale();?>
 <div class="row">
   <div class="col-xs-12">
     @include('projectactivities.courses.shortcourse.includes.data_table_header')
@@ -37,10 +38,23 @@
     </td>
     <td>{{ $i }}</td>
     {{-- <td class="action-buttons"><a href="{{ $row->id }}">{{ $row->batch_group }} <span style="color:red;">(11 នាក់)</span></a></td> --}}
+    @if($flag=='kh')
     <td class="hidden-480"><a href="#">{{ $row->faculty->faculty_kh }} </a> </td>
+    @endif
+    @if($flag=='en')
+    <td class="hidden-480"><a href="#">{{ $row->faculty->faculty_en }} </a> </td>
+    @endif
     <td class="hidden-480"><a href="#"> {{ $row->course_name }}</a></td>
     <td class="hidden-480"><a href="#"> {{ $row->total_training_hour }}</a></td>
+    
+    @if($flag=='kh')
     <td class="hidden-480"><a href="#"> {{ $row->overalFund->title_kh }}</a></td>
+    @endif
+    @if($flag=='en')
+    <td class="hidden-480"><a href="#"> {{ $row->overalFund->title_en }}</a></td>
+    @endif
+
+    
     <td class="hidden-480 ">
       <div class="btn-group">
                       {{-- <button data-toggle="dropdown" class="btn btn-primary btn-minier dropdown-toggle {{ $row->status == 'active'?"btn-info":"btn-warning" }}" >

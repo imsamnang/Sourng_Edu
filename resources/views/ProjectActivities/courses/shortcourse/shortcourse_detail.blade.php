@@ -168,30 +168,20 @@
                                               <center>
 
                                                 <a href="#" type="button" data-toggle="modal" data-target="#exampleModal">
-                                                  Change Fund
+                                                  {{ __('shortcoure_detail_ChangeFund') }}
                                                 </a>
                                                 <!-- Modal -->
                                                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="example" aria-hidden="true">
                                                   <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
                                                       <div class="modal-header">
-                                                        <h4 class="modal-title" id="example">Change Overal Fund</h4>
+                                                        <h3 class="modal-title" id="example">{{ __('shortcoure_detail_ChangeFund') }}</h3>
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                           <span aria-hidden="true">&times;</span>
                                                         </button>
                                                       </div>
                                                       <div class="modal-body">
                                                         <form method="post" action="">
-                                                          {{-- <select name="cbo_fund_overall" style="width: 100%">
-                                                            <option value="0">ជ្រើសខាងក្រោម៖ </option>
-                                                            <option value="1">មូល​និធិ​ជាតិ​បណ្ដុះ​បណ្ដាល (NTF)</option>
-                                                            <option value="2">ថវិកា​ទ្រទ្រង់​គ្រឹះស្ថាន</option>
-                                                            <option value="3">មូល​និធិ​ពិសេស​របស់​សម្តេច​តេជោ​នាយក​រដ្ឋមន្រ្តី (SF)</option>
-                                                            <option value="4">កម្មវិធី​បណ្ដុះ​បណ្ដាល​ជំនាញ​តាម​លិខិត​បញ្ជាក់ (VSTP)</option>
-                                                            <option value="5">គម្រោង​សាក​ល្បង​លើ​បច្ចេក​ទេស​ក្រោយ​ប្រមូលផល</option>
-                                                            <option value="6">សិក្សា​បង់ថ្លៃ</option>
-                                                            <option value="7">ផ្សេងៗ</option>
-                                                          </select> --}}
                                                           <select style="width: 100%" name="cbo_fund_overall">
                                                             @if ($flag=='kh')
                                                             <option selected disabled>សូមជ្រើសរើស </option>
@@ -211,7 +201,7 @@
                                                       </div>
                                                       <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-                                                        <button type="button" class="btn btn-primary btn-sm">Save</button>
+                                                        <button type="button" class="btn btn-primary btn-sm">{{ __('shortcoure_Save') }}</button>
                                                       </div>
                                                     </div>
                                                   </div>
@@ -220,7 +210,7 @@
                                                 |
                                                 <a href="#" {{-- class="btn btn-primary btn-minier btn-primary" --}}>
                                                   {{-- <i class="ace-icon fa fa-pencil bigger-130"> --}}</i>
-                                                  Delete
+                                                    {{ __('shortcoure_detail_Delete') }}
                                                 </a>
 
                                                 {{-- <button type="button" class="btn btn-xs btn-danger" onclick="deletePost({{$post->id}})" style="padding-left: 5px; padding-right: 5px; padding-top: 0px; padding-bottom: 0px;"><i class="ace-icon fa fa-trash-o bigger-130"></i></button>

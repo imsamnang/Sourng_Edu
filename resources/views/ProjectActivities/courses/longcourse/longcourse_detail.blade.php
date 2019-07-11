@@ -18,7 +18,7 @@
     <fieldset>
       <table>
         <tbody><tr>
-          <td style="width: 160px;"><strong>Program Main Subject</strong></td>
+          <td style="width: 160px;"><strong>{{ __('longcourse-detail_ProgramMainSubject') }}</strong></td>
           <td style="width: 240px; font-size: 14px; color: red;">
             @if($flag=='kh')
             <p>{{ $longcourse_detail->faculty->faculty_kh }}</p>
@@ -27,7 +27,7 @@
             <p>{{ $longcourse_detail->faculty->faculty_en }}</p>
             @endif
           </td>
-          <td style="width: 160px;"><strong>Program Type</strong></td>
+          <td style="width: 160px;"><strong>{{ __('longcourse-detail_Program Type') }}</strong></td>
           <td style="width: 240px; font-size: 14px; color: red;">
             @if($flag=='kh')
             <p>{{ $longcourse_detail->program_type->title_kh }}</p>
@@ -39,7 +39,7 @@
           </td>
         </tr>
         <tr>
-          <td style="width: 160px;"><strong>Overall Fund</strong></td>
+          <td style="width: 160px;"><strong>{{ __('longcourse-detail_OveralFund') }}</strong></td>
           <td colspan="3" style="font-size: 14px; color: red;">
             @if($flag=='kh')
             <p>{{ $longcourse_detail->overalFundName->title_kh }}</p>
@@ -51,11 +51,11 @@
           </td>
         </tr>
         <tr>
-          <td style="width: 160px;"><strong>Promotion Start Date:</strong></td>
+          <td style="width: 160px;"><strong>{{ __('longcourse-detail_PromotionStartDate') }}</strong></td>
           <td style="width: 240px; font-size: 14px; color: red;">
             <p>{{ $longcourse_detail->promotion_start_date }}</p>
           </td>
-          <td style="width: 160px;"><strong>:</strong></td>
+          <td style="width: 160px;"><strong>{{ __('Studytime') }}</strong></td>
           <td style="width: 240px; font-size: 14px; color: red;">
             <p>{{ $longcourse_detail->academic_year }}</p> 
           </td>
@@ -74,14 +74,14 @@
     <table class="table table-bordered table-striped table-hover dataTable js-exportable">
       <thead>
         <tr>
-          <th width="50px;">ID</th>
-          <th width="170px;">Student Name</th>
-          <th width="90px;">Sex</th>
-          <th width="150px;">Date Of Birth</th>
-          <th width="100px;">Overal Fund</th>
-          <th width="100px;">Finish?</th>
-          <th width="150px;">Currently Employment?</th>
-          <th width="100px;">Action</th>
+        <th width="50px;">{{ __('shortcoure_detail_ID') }}</th>
+        <th width="170px;">{{ __('shortcoure_detail_StudentName') }}</th>
+        <th width="90px;">{{ __('shortcoure_detail_Sex') }}</th>
+        <th width="150px;">{{ __('shortcoure_detail_DateOfBirth') }}</th>
+        <th width="100px;">{{ __('shortcoure_detail_OveralFund') }}</th>
+        <th width="100px;">{{ __('shortcoure_detail_Finish?') }}</th>
+        <th width="150px;">{{ __('shortcoure_detail_Currently Employment?') }}</th>
+        <th width="100px;">{{ __('shortcoure_detail_Action') }}</th>
         </tr>
       </thead>
       <tbody>
@@ -100,16 +100,16 @@
             <center>
 
               <a href="#" type="button" data-toggle="modal" data-target="#exampleModal">
-                Change Fund
+                {{ __('shortcoure_detail_ChangeFund') }}
               </a>
               |
-              <a href="#">Delete</a>
+              <a href="#">{{ __('shortcoure_detail_Delete') }}</a>
               <!-- Modal Form -->
               <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="example" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h4 class="modal-title" id="example">Change Overal Fund</h4>
+                      <h3 class="modal-title" id="example">{{ __('shortcoure_detail_ChangeFund') }}</h3>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
@@ -134,8 +134,8 @@
                       </form>
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-primary btn-sm">Save</button>
+                      <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">{{ __('Close') }}</button>
+                      <button type="button" class="btn btn-primary btn-sm">{{ __('shortcoure_Save') }}</button>
                     </div>
                   </div>
                 </div>

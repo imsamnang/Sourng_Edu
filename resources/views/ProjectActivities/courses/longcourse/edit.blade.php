@@ -19,7 +19,7 @@
       @endif
       <div class="card table-bordered" style="margin-top: 15px; margin-left: 15px; margin-right: 15px; padding-left: 30px; padding-right: 30px; padding-bottom: 30px; padding-top: 5px; border-color: #79b0ce;">
         <b><hr></b>
-        <h4 style="color: white; font-family: Arial; background-color: #438eb9; padding: 10px;">Edit Long Course</h4>
+        <h4 style="color: white; font-family: Arial; background-color: #438eb9; padding: 10px;">{{ __('longcourse-EditLongCourse') }}</h4>
         <b><hr></b>
         <div class="card-body">
          <form  action="{{ route('longcourse.update',$longcourse->id) }}" method="post" enctype="multipart/form-data">
@@ -28,7 +28,7 @@
           <div class="row">
            <div class="col-md-3">
             <div class="form-group">
-             <label for="reg_no">Program Main Subject</label>
+             <label for="reg_no">{{ __('longcourse-detail_ProgramMainSubject') }}</label>
              <select style="width: 100%" name="cbo_subject" required="">
               @if ($flag=='kh')
               <option selected disabled>សូមជ្រើសរើស </option>
@@ -55,7 +55,7 @@
           </div>
 
           <div class="form-group">
-           <label for="curriculum-author">Curriculum Author</label>
+           <label for="curriculum-author">{{ __('longcourse-detail_CurriculumAuthor') }}</label>
            <select style="width: 100%" name="cbo_author" required="">
             @if ($flag=='kh')
             <option selected disabled>សូមជ្រើសរើស </option>
@@ -84,7 +84,7 @@
 
       <div class="col-md-3">
         <div class="form-group">
-         <label for="curriculum">Program Type</label>
+         <label for="curriculum">{{ __('longcourse-detail_Program Type') }}</label>
          <select style="width: 100%" name="cbo_type" required="">
            @if ($flag=='kh')
               <option selected disabled>សូមជ្រើសរើស </option>
@@ -111,14 +111,14 @@
       </div>
 
       <div class="form-group">
-        <label for="teacher_name">Promotion Start Date</label>
+        <label for="teacher_name">{{ __('longcourse-detail_PromotionStartDate') }}</label>
         <input type="date" name="txt_start_date" value="{{ $longcourse->promotion_start_date }}" class="form-control input-sm" required="" style="width: 100%">
       </div>
     </div>
 
     <div class="col-md-3">
      <div class="form-group">
-      <label for="overal_fund">Overal Fund</label>
+      <label for="overal_fund">{{ __('longcourse-detail_OveralFund') }}</label>
       <select style="width: 100%" name="cbo_fund_overall">
        @if ($flag=='kh')
        <option selected disabled>សូមជ្រើសរើស </option>
@@ -146,14 +146,14 @@
   </div>
 
   <div class="form-group">
-    <label for="teacher_name">Academic Year</label>
+    <label for="teacher_name">{{ __('longcourse-detail_AcademicYear') }}</label>
     <input type="text" name="academic_year" value="{{ $longcourse->academic_year }}" class="form-control input-sm" required="" style="width: 100%">
   </div>
 </div>
 
 <div class="col-md-3">
  <div class="form-group">
-   <label for="curriculum">Curriculum Endorsement</label>
+   <label for="curriculum">{{ __('longcourse-detail_CurriculumEndorsement') }}</label>
    <select style="width: 100%" name="cbo_curriculum" required="">
      @if ($flag=='kh')
      <option selected disabled>សូមជ្រើសរើស </option>
@@ -180,7 +180,7 @@
 </div>
 
 <div class="form-group">
-  <label for="txt_batch_name">Batch / Group</label>
+  <label for="txt_batch_name">{{ __('longcourse-detail_Batch/Group') }}</label>
   <input type="text" name="txt_batch_name" value="{{ $longcourse->batch_group }}" class="form-control input-sm" required="" style="width: 100%">
 </div>
 </div>
@@ -189,8 +189,8 @@
 <div class="row">
  <div class="col-md-10"></div>
  <div class="col-md-2">
-   <a href="{{ route('projects.longcourse') }}" class="btn btn-info btn-sm" style="float: right; margin-left: 5px;">Back</a>
-   <button type="submit" class="btn btn-primary btn-sm" style="float: right;">Update</button>
+   <a href="{{ route('projects.longcourse') }}" class="btn btn-info btn-sm" style="float: right; margin-left: 5px;">{{ __('longcourse-Back') }}</a>
+   <button type="submit" class="btn btn-primary btn-sm" style="float: right;">{{ __('longcourse-Update') }}</button>
  </div>
 </div>
 </form>

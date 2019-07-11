@@ -173,7 +173,7 @@
               <div class="row">
                <div class="col-md-10"></div>
                <div class="col-md-2">
-                 <a href="{{ route('projects.longcourse') }}" class="btn btn-info btn-sm" style="float: right; margin-left: 5px;">Back</a>
+                 <a href="{{ route('projects.longcourse') }}" class="btn btn-info btn-sm" style="float: right; margin-left: 5px;">{{ __('longcourse-Back') }}</a>
                  <button type="submit" class="btn btn-primary btn-sm" style="float: right;">{{ __('longcourse-detail_Save') }}</button>
                </div>
               </div>

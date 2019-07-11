@@ -18,7 +18,7 @@
     @endif
   <div class="card table-bordered" style="margin-top: 15px; margin-left: 15px; margin-right: 15px; padding-left: 30px; padding-right: 30px; padding-bottom: 30px; padding-top: 5px; border-color: #79b0ce;">
     <b><hr></b>
-    <h4 style="color: white; font-family: Arial; background-color: #438eb9; padding: 10px;">Register Short Course</h4>
+    <h4 style="color: white; font-family: Arial; background-color: #438eb9; padding: 10px;">{{ __('shortcoure_EditShortCourse') }}</h4>
     <b><hr></b>
     <div class="card-body">
       <form  action="{{ route('update-book.update',$shortcourse->id) }}" method="post" enctype="multipart/form-data">
@@ -173,7 +173,7 @@
         </div>
 
         <b><hr></b>
-        <h4 style="color: white; font-family: Arial; background-color: #438eb9; padding: 10px;">Training Location Detail</h4>
+        <h4 style="color: white; font-family: Arial; background-color: #438eb9; padding: 10px;">{{ __('shortcoure_TrainingLocationDetail') }}</h4>
         <b><hr></b>
 
         <div class="row">
@@ -256,8 +256,8 @@
         <div class="row">
           <div class="col-md-10"></div>
           <div class="col-md-2">
-            <a href="{{ route('projects.shortcourse') }}" class="btn btn-info btn-sm" style="float: right; margin-left: 5px;">Back</a>
-            <button type="submit" class="btn btn-primary btn-sm" style="float: right;">Update</button>
+            <a href="{{ route('projects.shortcourse') }}" class="btn btn-info btn-sm" style="float: right; margin-left: 5px;">{{ __('shortcoure_Back') }}</a>
+            <button type="submit" class="btn btn-primary btn-sm" style="float: right;">{{ __('shortcoure_Update') }}</button>
           </div>
         </div>
 
