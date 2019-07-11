@@ -959,8 +959,7 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
     // Route::get('/pretest/{student_id}/{course_id}','ProjectActivities\StudentTestController@preTest')->name('preTest');
 
     //========== Manage Courses =========== SENG Sourng
-    Route::get('/project-book','ProjectActivities\BookController@index')->name('project-book');
-    
+    Route::get('/project-book','ProjectActivities\BookController@index')->name('project-book');    
     Route::get('/admin-project','ProjectActivities\ProjectActivitiesController@admin_project')->name('admin-project');
     Route::get('/user-project','ProjectActivities\ProjectActivitiesController@user_project')->name('user-project');
 

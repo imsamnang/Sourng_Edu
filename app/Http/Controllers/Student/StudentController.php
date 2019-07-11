@@ -1061,6 +1061,7 @@ class StudentController extends CollegeBaseController
 
         // return view('projectactivities.students.index', compact('data'));
         return view('projectactivities.students.index',compact('data')); 
+        // return view(parent::loadDataToView($this->view_path.'.index'), compact('data'));
     }
 
 }

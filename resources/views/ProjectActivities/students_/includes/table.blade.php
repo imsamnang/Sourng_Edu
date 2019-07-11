@@ -1,9 +1,9 @@
 <div class="row">
     <div class="col-xs-12">
         <h4 class="header large lighter blue"><i class="fa fa-list" aria-hidden="true"></i>&nbsp; @lang('Panel_List') </h4>
-        <div class="clearfix" >
+        <div class="clearfix">
 
-            <span class="easy-link-menu" >
+            <span class="easy-link-menu">
                     <a href="{{url('projects/student-register1')}}" class="btn-success btn-sm bulk-action-btn" attr-action-type="active"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;@lang('btn_st_Add')</a>
                     <a class="btn-primary btn-sm bulk-action-btn" attr-action-type="active"><i class="fa fa-check" aria-hidden="true"></i>&nbsp;@lang('btn_st_Active')</a>
                 <a class="btn-warning btn-sm bulk-action-btn" attr-action-type="in-active"><i class="fa fa-remove" aria-hidden="true"></i>&nbsp;@lang('btn_st_inActive')</a>
@@ -12,12 +12,12 @@
 
             <span class="pull-right tableTools-container"></span>
         </div>
-        <div class="table-header" >
+        <div class="table-header">
             {{-- {{ $panel }}​ @lang('Panel_st_Record')  --}}
         </div>
         <!-- div.table-responsive -->
             <!-- div.table-responsive -->
-        <div class="table-responsive" style="margin-top:12px;">
+        <div class="table-responsive">
             {!! Form::open() !!}
             <table id="dynamic-table" class="table table-striped table-bordered table-hover">
 

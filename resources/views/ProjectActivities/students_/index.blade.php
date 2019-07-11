@@ -2,10 +2,11 @@
 
 @section('css')
     <!-- page specific plugin styles -->
+    @include('name')
 
 @endsection
 
-@section('menu-panel')
+@section('menu-panel')    
     @include('projectactivities.layout.menu.menu_admin')
 @endsection
 
@@ -184,12 +185,20 @@
         }
 
     </script>
-    {{-- @include('includes.scripts.inputMask_script')
+    {{-- 
+    
+    @include('includes.scripts.inputMask_script')
     @include('includes.scripts.delete_confirm')
     @include('includes.scripts.bulkaction_confirm')
     @include('includes.scripts.dataTable_scripts')
-  @include('includes.scripts.datepicker_script') --}}
+    @include('includes.scripts.datepicker_script') 
+    
+    --}}
 
-  {{-- @include('projectactivities.students.includes.dataTable_scripts') --}}
+    @include('students.includes.dataTable_scripts')
 
-    @endsection
+
+
+
+@endsection
+    
