@@ -1036,14 +1036,7 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
       return ($user->quiz_results);
   });  
 
-
-
-
-
-
-
-
-
+// don't use 
   // Route::prefix('quiz/')->group(function(){
   //   Route::resource('topics', 'Quiz\TopicsController');
   //   Route::post('topics_mass_destroy', ['uses' => 'Quiz\TopicsController@massDestroy', 'as' => 'topics.mass_destroy']);

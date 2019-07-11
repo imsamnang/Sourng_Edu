@@ -1,52 +1,27 @@
 @include('projectactivities.includes.header')
     <body class="no-skin">
-    {{--Preloader Css--}}
-    {{-- <style>
-        #overlay {
-            background: #E4E6E9;
-            color: #666666;
-            position: fixed;
-            height: 100%;
-            width: 100%;
-            z-index: 1000;
-            top: 0;
-            left: 0;
-            float: left;
-            text-align: center;
-            padding-top: 25%;
-            font-size: 4em;
-        }
-    </style>
-    <div id="overlay">
-        <i class="ace-icon fa fa-spinner fa-spin blue bigger-125"></i>
-    </div> --}}
-        {{-- @include('layouts.includes.nav') --}}
         @include('projectactivities.layout.nav')
-
         <div class="main-container ace-save-state" id="main-container">
             <script type="text/javascript">
                 try{ace.settings.loadState('main-container')}catch(e){}
-            </script>
-        {{-- @include('layouts.includes.menu') --}}
-        {{-- @include('projectactivities.layout.menu.menu_admin')  --}}            
+            </script> 
             @yield('menu-panel')
-
             @yield('content')
-            
             @include('projectactivities.includes.footer')
-
             <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
                 <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
             </a>
         </div>
-        
-        <!-- /.main-container -->
 
-        <!-- page specific plugin scripts -->
-        <!-- ace scripts -->
-        <script src="{{ asset('assets/js/ace-elements.min.js') }}"></script>
-        <script src="{{ asset('assets/js/ace.min.js') }}"></script>
-
+    <script src="{{ asset('assets/js/jquery-2.1.4.min.js') }}"></script>
+    <script src="{{ asset('assets/js/ace-elements.min.js') }}"></script>
+    <script src="{{ asset('assets/js/ace.min.js') }}"></script>
+    <script type="text/javascript">
+       if('ontouchstart' in document.documentElement) document.write("<script src='{{ asset('assets/js/jquery.mobile.custom.min.js') }}'>"+"<"+"/script>");
+    </script>
+    <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/js/toastr.min.js') }}"></script>
+    <script src="{{ asset('assets/sweetalert2/sweetalert2.all.min.js') }}"></script>
         <!-- inline scripts related to this page -->
         <script type="text/javascript">
             jQuery(function($) {
@@ -96,7 +71,7 @@
                 });
             });
         </script>
-
+    @include('projectactivities.students.includes.dataTable_scripts')        
         @stack('custom-js')
 
     </body>
