@@ -134,11 +134,12 @@
             }
         });
 
-<<<<<<< HEAD
   {{-- @include('projectactivities.students.includes.dataTable_scripts') --}}
-=======
+
     }
->>>>>>> 66b2d2ca64ab56d73e15a658918ea85392c96fd2
+
+
+    }
 
 </script>
 {{-- @include('includes.scripts.inputMask_script') --}}

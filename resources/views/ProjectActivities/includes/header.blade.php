@@ -45,11 +45,8 @@
     {{-- <link href="{{ asset('assets/css/toastr.min.css') }}" rel="stylesheet"> --}}
     <link rel="stylesheet" href="{{ asset('assets/css/toastr.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/sweetalert2/sweetalert2.min.css') }}" />
-<<<<<<< HEAD
+
     <script src="{{ asset('assets/js/jquery-2.1.4.min.js') }}"></script>
-    
-=======
->>>>>>> 66b2d2ca64ab56d73e15a658918ea85392c96fd2
     @stack('custom-css')
 
 </head>
