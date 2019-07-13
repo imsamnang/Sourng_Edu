@@ -37,7 +37,7 @@
                     <th>@lang('tbl_Student_Name')</th>
                     {{-- <th>Phone</th> --}}
                     <th>ភេទ​</th>
-                    <th>ឆ្នាំកំណើត</th>
+                    <th class="hidden-480">ឆ្នាំកំណើត</th>
                     <th>Phone</th>
                     {{-- <th>@lang('tbl_Status')</th> --}}
                     <th></th>
@@ -61,7 +61,7 @@
                             <td><a href="{{ $student->id }}">{{ $student->reg_no }}</a></td>
                             <td><a href="{{ $student->id }}"> {{ $student->first_name.' '.$student->middle_name.' '. $student->last_name }}</a></td>
                             <td><div>{{ $student->gender }}</div></td>
-                            <td><div>{{ date('Y-m-d', strtotime($student->date_of_birth)) }}</div></td>
+                            <td class="hidden-480 "><div>{{ date('Y-m-d', strtotime($student->date_of_birth)) }}</div></td>
                            
                             <td><div>{{ $student->mobile_1 }}</div></td>
                            
