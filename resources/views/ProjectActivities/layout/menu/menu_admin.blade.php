@@ -45,7 +45,7 @@
         </li>
 
         <li class="{!! request()->is('/')?'active':'' !!}">
-                <a href="{{ route('longcourse') }}" >
+                <a href="{{ route('projects.longcourse') }}" >
                     <i class="menu-icon fa fa-book"></i>
                     <span class="menu-text">
                         @lang('m_LongCourse')                                            
@@ -107,7 +107,7 @@
                     <b class="arrow"></b>
                 </li>
                 <li class="{!! request()->is('exam')?'active':'' !!}  hover">
-                    <a href="{{ route('exam.index') }}">
+                    <a href="{{ route('quiz.subject.index') }}">
                         <i class="menu-icon fa fa-caret-right"></i>
                         @lang('Create New Quiz')
                     </a>
