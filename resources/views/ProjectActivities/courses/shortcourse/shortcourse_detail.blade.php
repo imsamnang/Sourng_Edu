@@ -1,18 +1,21 @@
 @extends('projectactivities.layout.master')
 <?php  $flag = app()->getLocale();?>
+
+
 @section('menu-panel')
 @include('projectactivities.layout.menu.menu_admin')
 @endsection
 
-@section('css')
+@push('custom-css')
+<link rel="stylesheet" href="{{ asset('assets/css/chosen.min.css') }}" />
 
-@endsection
+@endpush
 @section('content')
 
 <div class="card table-bordered" style="margin-top: 15px; margin-left: 15px; margin-right: 15px; padding-left: 30px; padding-right: 30px; padding-bottom: 30px; padding-top: 5px; border-color: #79b0ce;">
- 
-  <h5 style="color: white; font-family: Khmer OS Battambang;
-  background-color: #438eb9; padding: 10px;">លម្អិតវគ្គខ្លី</h5>
+
+  <h5 style="color: white; font-family: Khmer OS Battambang; font-size: 24px;
+  background-color: #438eb9; padding: 10px;">បញ្ជីឈ្មោះសិស្ស S- {{ $shortcourse_detail->id }}</h5>
   
   <div class="card-body">
     <fieldset>
@@ -28,8 +31,8 @@
               <p>{{ $shortcourse_detail->faculty->faculty_en }}</p>
               @endif
             </td>
-            <td style="width: 160px;"><strong>  {{ __('shortcoure_Course_Name') }}</strong></td>
-            <td style="width: 240px; font-size: 14px; color: red;">
+            <td class="hidden-480" style="width: 160px;"><strong>  {{ __('shortcoure_Course_Name') }}</strong></td>
+            <td class="hidden-480" style="width: 240px; font-size: 14px; color: red;">
               @if ($flag=='kh')
               <p>{{ $shortcourse_detail->course_name }}</p>
               @endif
@@ -39,7 +42,7 @@
             </td>
           </tr>
 
-          <tr style="margin: 15px;">
+          <tr class="hidden-480"style="margin: 15px;">
             <td style="width: 160px;"><strong>{{ __('shortcoure_Overal-Fund') }}</strong></td>
             <td colspan="3" style="font-size: 14px; color: red;">
              @if ($flag=='kh')
@@ -64,6 +67,7 @@
 
           <td style="width: 160px;"> </td>
           <td style="width: 240px;"> </td>
+
         </tr>
 
         <tr style="margin: 15px;">
@@ -88,7 +92,7 @@
           <td style="width: 160px;"><strong>{{ __('shortcoure_TrainingLocation_Detail') }} </strong></td>
 
           <td colspan="3" style="font-size: 14px; color: red;">
-            
+
             @if ($flag=='kh')
             <p>{{ $shortcourse_detail->provinceName->name_kh }}</p>
             @endif
@@ -112,8 +116,127 @@
     </tbody></table>
   </fieldset><br>
 
+{{-- Add Students --}}
+            <h5 style="color: white; font-family: Khmer OS Battambang;
+  background-color: #438eb9; padding: 10px;">បន្ថែមសិស្ស</h5>
+    
+          <div class="card-body">
+          <form   action="{{ route('shortcourse_detail.savedata') }}" method="post" enctype="multipart/form-data">
+            {{csrf_field()}}
+            <div class="row">
+                      <div class="col-md-2">
+                        <div class="form-group">
+                         <label>ជ្រើសរើសសិស្ស</label>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          {{-- <input type="text" name="student_name" style="width: 100%"> --}}
+                          <select multiple="" name="student_name[]" class="chosen-select form-control" id="form-field-select-4" data-placeholder="ជ្រើសរើសសិស្ស..." style="width: 100% !important" >
+                            @foreach ($student as $stu)
+
+                              <option value="{{ $stu->id }}">{{ $stu->first_name }} - {{ $stu->last_name }} , {{ $stu->gender }} , {{ $stu->date_of_birth }} , ID: {{ $stu->id }}</option>
+
+                            @endforeach
+                          </select>
+                        </div>
+
+  
+                    </div>
+
+                     <div class="col-md-2">
+                        <div class="form-group">
+                          <button type="submit" class="btn btn-primary btn-sm" class="form-control">បន្ថែមសិស្ស</button>
+                        </div>
+                      </div>
+
+              </div>
+
+                     
+            </div>
+            <div class="row">
+                    
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        {{-- <label for="reg_no">{{ __('shortcoure_Course-Code') }}</label> --}}
+                        <input type="hidden" name="cbo_faculty" value="{{ $shortcourse_detail->id  }}">
+                     
+                      </div>
+                    </div>
+            
+
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                          {{-- <label for="reg_no">{{ __('shortcoure_Overal-Fund') }}</label> --}}
+                          <input type="hidden" name="cbo_overalfund" value="{{ $shortcourse_detail->overalFund->id  }}">
+                        </div>
+                      </div>
+
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          {{-- <label for="reg_no">Institute</label> --}}
+                          <input type="hidden" name="Institute" value="">
+                        </div>
+                      </div>
+                      
+              </div>
+          </form>
+        </div>
+
+{{-- End add student --}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<?php $TF=0; ?>
+ @foreach ($shortcoursestudent as $key=> $post)
+      @if (strtoupper($post->stu->gender)=='FEMALE')
+         <?php $TF=$TF+1; ?>
+      @endif  
+
+ @endforeach
+
+
+
   <h5 style="color: white; font-family: Khmer OS Battambang;
-  background-color: #438eb9; padding: 10px;">បញ្ជីឈ្មោះសិស្សរៀនវគ្គខាងលើ</h5>
+  background-color: #438eb9; padding: 10px;">ចំនួន​សិស្ស​សរុប​ក្នុង​វគ្គ {{ $shortcoursestudent->count() }} នាក់ (ស្រី {{ $TF }} នាក់)</h5>
 
   {{--  //Form Add Studetn to this course --}}
     {{-- <div class="row">
@@ -135,14 +258,14 @@
   {{--   //End Form add student --}}
 
 
-
-  <table class="table table-bordered table-striped table-hover dataTable js-exportable">
+  <table id="dynamic-table" class="table table-striped table-bordered table-hover">
     <thead>
       <tr>
         <th width="50px;">{{ __('shortcoure_detail_ID') }}</th>
         <th width="170px;">{{ __('shortcoure_detail_StudentName') }}</th>
-        <th width="90px;">{{ __('shortcoure_detail_Sex') }}</th>
-        <th width="150px;">{{ __('shortcoure_detail_DateOfBirth') }}</th>
+        {{-- <th width="90px;">{{ __('shortcoure_detail_Sex') }}</th> --}}
+        <th width="100px;">Course Name</th>
+        {{-- <th width="150px;">{{ __('shortcoure_detail_DateOfBirth') }}</th> --}}
         <th width="100px;">{{ __('shortcoure_detail_OveralFund') }}</th>
         <th width="100px;">{{ __('shortcoure_detail_Finish?') }}</th>
         <th width="150px;">{{ __('shortcoure_detail_Currently Employment?') }}</th>
@@ -150,120 +273,105 @@
       </tr>
     </thead>
     <tbody>
-      @foreach ($student as $key=> $post)
+      @foreach ($shortcoursestudent as $key=> $post)
       <tr>
         <td>{{$key+1}}</td>
-        <td>{{$post->first_name}}</td>
-        <td>{{ $post->gender }}</td>
-        <td>{{$post->date_of_birth}}</td>
+        <td>{{$post->stu->first_name}} -{{$post->stu->last_name}} , {{$post->stu->gender}} (ID: {{$post->stu->id}})</td>
+        <td>{{ $post->Course_Short->course_name }}</td>
+        <td>{{$post->overalFund->title_kh}}</td>
         <td>
-                                           {{--  <a href="{{ asset('documents'.DIRECTORY_SEPARATOR.'staff'.DIRECTORY_SEPARATOR.ViewHelper::getStaffById( $post->member_id ).'/'.$post->file) }}" target="_blank">
-                                                <i class="ace-icon fa fa-download bigger-120"></i> &nbsp;{{ $post->file }}
-                                              </a> --}}
-                                            </td>
-                                            <td></td>
-                                            <td></td>
+             {{--  <a href="{{ asset('documents'.DIRECTORY_SEPARATOR.'staff'.DIRECTORY_SEPARATOR.ViewHelper::getStaffById( $post->member_id ).'/'.$post->file) }}" target="_blank">
+                  <i class="ace-icon fa fa-download bigger-120"></i> &nbsp;{{ $post->file }}
+                </a> --}}
+              </td>
+              <td></td>
+              {{-- <td></td> --}}
 
-                                            <td>
-                                              <center>
+              <td>
+                <center>
 
-                                                <a href="#" type="button" data-toggle="modal" data-target="#exampleModal">
-                                                  {{ __('shortcoure_detail_ChangeFund') }}
-                                                </a>
-                                                <!-- Modal -->
-                                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="example" aria-hidden="true">
-                                                  <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                      <div class="modal-header">
-                                                        <h3 class="modal-title" id="example">{{ __('shortcoure_detail_ChangeFund') }}</h3>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                          <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                      </div>
-                                                      <div class="modal-body">
-                                                        <form method="post" action="">
-                                                          <select style="width: 100%" name="cbo_fund_overall">
-                                                            @if ($flag=='kh')
-                                                            <option selected disabled>សូមជ្រើសរើស </option>
-                                                            @else
-                                                            <option selected disabled>Please Choose </option>
-                                                            @endif
+                  <a href="#" type="button" data-toggle="modal" data-target="#exampleModal">
+                    {{ __('shortcoure_detail_ChangeFund') }}
+                  </a>
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="example" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h3 class="modal-title" id="example">{{ __('shortcoure_detail_ChangeFund') }}</h3>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <form method="post" action="">
+                            <select style="width: 100%" name="cbo_fund_overall">
+                              @if ($flag=='kh')
+                              <option selected disabled>សូមជ្រើសរើស </option>
+                              @else
+                              <option selected disabled>Please Choose </option>
+                              @endif
 
-                                                            @foreach ($overal_fund as $row){
-                                                            @if ($flag=='kh')
-                                                            <option value="{{ $row->id }}">{{ $row->title_kh}}</option>
-                                                            @else
-                                                            <option value="{{ $row->id }}">{{ $row->title_en}}</option>                                  
-                                                            @endif
-                                                            @endforeach
-                                                          </select>
-                                                        </form>
-                                                      </div>
-                                                      <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-                                                        <button type="button" class="btn btn-primary btn-sm">{{ __('shortcoure_Save') }}</button>
-                                                      </div>
-                                                    </div>
-                                                  </div>
-                                                </div><!-- End Modal Form -->
+                              @foreach ($overal_fund as $row){
+                              @if ($flag=='kh')
+                              <option value="{{ $row->id }}">{{ $row->title_kh}}</option>
+                              @else
+                              <option value="{{ $row->id }}">{{ $row->title_en}}</option>                                  
+                              @endif
+                              @endforeach
+                            </select>
+                          </form>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-primary btn-sm">{{ __('shortcoure_Save') }}</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div><!-- End Modal Form -->
 
-                                                |
-                                                <a href="#" {{-- class="btn btn-primary btn-minier btn-primary" --}}>
-                                                  {{-- <i class="ace-icon fa fa-pencil bigger-130"> --}}</i>
-                                                    {{ __('shortcoure_detail_Delete') }}
-                                                </a>
+                  |
+                  <a href="#" {{-- class="btn btn-primary btn-minier btn-primary" --}}>
+                    {{-- <i class="ace-icon fa fa-pencil bigger-130"> --}}</i>
+                    {{ __('shortcoure_detail_Delete') }}
+                  </a>
 
-                                                {{-- <button type="button" class="btn btn-xs btn-danger" onclick="deletePost({{$post->id}})" style="padding-left: 5px; padding-right: 5px; padding-top: 0px; padding-bottom: 0px;"><i class="ace-icon fa fa-trash-o bigger-130"></i></button>
+                  {{-- <button type="button" class="btn btn-xs btn-danger" onclick="deletePost({{$post->id}})" style="padding-left: 5px; padding-right: 5px; padding-top: 0px; padding-bottom: 0px;"><i class="ace-icon fa fa-trash-o bigger-130"></i></button>
 
-                                                <form id="delete-form-{{$post->id}}" action="{{ route('shortcoursedetail.delete', $post->id) }}"
-                                                  method="POST" style="display: none">
-                                                  @csrf
-                                                  @method('DELETE')
-                                                </form> --}}
-                                              </center>
-                                            </td>
-                                          </tr>
-                                          @endforeach
+                  <form id="delete-form-{{$post->id}}" action="{{ route('shortcoursedetail.delete', $post->id) }}"
+                    method="POST" style="display: none">
+                    @csrf
+                    @method('DELETE')
+                  </form> --}}
+                </center>
+              </td>
+            </tr>
+            @endforeach
 
 
-                                          
-                                        </tbody>
-                                      </table>
-                                    </div>
-                                    <div class="row">
-                                      {{-- //Pagination --}}
-                                      <div class="col-md-12 align-left">
-                                        {{ $student->onEachSide(1)->links() }}
-                                      </div>
-                                    </div>
-                                    {{-- End pagination --}}
-                                  </div>
-                                </div>
-                              </div>
-                              @endsection
-                              @section('js')
-                              <script type="text/javascript">
-                                function deletePost(id){
-                                  Swal.fire({
-                                    title: 'Are you sure?',
-                                    text: "You won't be able to revert this!",
-                                    type: 'warning',
-                                    showCancelButton: true,
-                                    confirmButtonColor: '#3085d6',
-                                    cancelButtonColor: '#d33',
-                                    confirmButtonText: 'Yes, delete it!'
-                                  }).then((result) => {
-                                    if (result.value) {
-                                      document.getElementById('delete-form-'+id).submit();
-                                      Swal.fire(
-                                        'Deleted!',
-                                        'Your file has been deleted.',
-                                        'success'
-                                        )
-                                    }
-                                  })
-                                }
+            
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        {{-- //Pagination --}}
+        
+      </div>
+      {{-- End pagination --}}
+    </div>
+  </div>
+</div>
+@endsection
+@push('custom-js')
+<script src="{{ asset('assets/js/chosen.jquery.min.js') }}"></script>
+<script type="text/javascript">
+  $('#form-field-select-4').chosen();
 
-                              </script>
 
-                              @endsection
+
+
+</script>
+
+
+
+@endpush

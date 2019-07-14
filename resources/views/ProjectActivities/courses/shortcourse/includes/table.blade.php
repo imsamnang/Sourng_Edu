@@ -22,7 +22,7 @@
 {{--             <th class="hidden-480">@lang('lc_MainSubject')</th>
 <th class="hidden-480">@lang('lc_ProgramType')</th>   --}}                  
 <th class="hidden-480">{{ __('staff_frm_search_Status') }}</th>
-<th class="hidden-480">{{ __('shortcoure_Action') }}</th>
+<th>{{ __('shortcoure_Action') }}</th>
 </tr>
 </thead>
 <tbody>
@@ -39,19 +39,19 @@
     <td>{{ $i }}</td>
     {{-- <td class="action-buttons"><a href="{{ $row->id }}">{{ $row->batch_group }} <span style="color:red;">(11 នាក់)</span></a></td> --}}
     @if($flag=='kh')
-    <td class="hidden-480"><a href="#">{{ $row->faculty->faculty_kh }} </a> </td>
+    <td class="action-buttons"><a href="#">{{ $row->faculty->faculty_kh }} </a> <span style="color:red;">({{ App\Models\Courseshortstudent::where('course_short_id',$row->id)->count() }} នាក់)</span></td>
     @endif
     @if($flag=='en')
-    <td class="hidden-480"><a href="#">{{ $row->faculty->faculty_en }} </a> </td>
+    <td><a href="#">{{ $row->faculty->faculty_en }} </a><span style="color:red;">({{ App\Models\Courseshortstudent::where('course_short_id',$row->id)->count() }} នាក់)</span> </td>
     @endif
-    <td class="hidden-480"><a href="#"> {{ $row->course_name }}</a></td>
-    <td class="hidden-480"><a href="#"> {{ $row->total_training_hour }}</a></td>
+    <td><a href="#"> {{ $row->course_name }}</a></td>
+    <td><a href="#"> {{ $row->total_training_hour }}</a></td>
     
     @if($flag=='kh')
-    <td class="hidden-480"><a href="#"> {{ $row->overalFund->title_kh }}</a></td>
+    <td><a href="#"> {{ $row->overalFund->title_kh }}</a></td>
     @endif
     @if($flag=='en')
-    <td class="hidden-480"><a href="#"> {{ $row->overalFund->title_en }}</a></td>
+    <td><a href="#"> {{ $row->overalFund->title_en }}</a></td>
     @endif
     
     <td class="hidden-480 ">
@@ -69,9 +69,9 @@
                     </td>                      
                     <td>
                       <div class="hidden-sm hidden-xs action-buttons">
-                      <a href="#">បញ្ជីឈ្មោះសិស្ស <span style="color:red;">(11 នាក់)</span></a> |
-                        <a href="#"> ធ្វើបច្ចុប្បន្នភាព</a>
+                      <a href="{{route('projects.shortcourse_detail',$row->id)}}">បញ្ជីឈ្មោះសិស្ស <span style="color:red;">({{ App\Models\Courseshortstudent::where('course_short_id',$row->id)->count() }} នាក់)</span></a>
 
+                      
                         <a href="{{route('projects.shortcourse_detail',$row->id)}}" class="btn btn-primary btn-minier btn-primary">
                           <i class="ace-icon fa fa-eye bigger-130"></i>
                         </a>
