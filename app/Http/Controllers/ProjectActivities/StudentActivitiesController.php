@@ -62,13 +62,13 @@ class StudentActivitiesController extends Controller
 
     }
 
-    public function studentRegister($id)
-    {
-        $data=[];
-        $data['subjectCourseID']=$id;
-        $data['subjectTitle']=Subject::findOrFail($id);
-        return view('projectactivities.student-register',compact('data'));
-    }
+    // public function studentRegister($id)
+    // {
+    //     $data=[];
+    //     $data['subjectCourseID']=$id;
+    //     $data['subjectTitle']=Subject::findOrFail($id);
+    //     return view('projectactivities.student-register',compact('data'));
+    // }
 
     public function store(Request $request)
     {    

@@ -945,8 +945,11 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
     
     // Student Project
     Route::get('/student-list','Student\StudentController@studentList')->name('student-list');
-    Route::get('/student-register/{id}','ProjectActivities\StudentActivitiesController@studentRegister');
-    Route::post('/student-register','ProjectActivities\StudentActivitiesController@store')->name('stu.pro.save');
+    Route::get('/student/registerv2/{id}','Student\StudentController@Register2');
+
+    Route::post('/student/SaveRegister2','Student\StudentController@SaveRegister2')->name('studentRegister2.save');
+
+    // Route::post('/SaveRegister2','ProjectActivities\StudentActivitiesController@store')->name('stu.pro.save');
     Route::get('/student-register/{id}/edit','ProjectActivities\StudentActivitiesController@studentEdit');
     Route::PUT('/student-register/{id}/Update','ProjectActivities\StudentActivitiesController@studentUpdate');  
 

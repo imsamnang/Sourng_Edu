@@ -2,36 +2,37 @@
 
 namespace App\Http\Controllers\Student;
 
+use App\User;
+use Image, URL;
+use ViewHelper;
+use App\Models\Note;
+use App\Models\Faculty;
+use App\Models\Student;
+use App\Models\Subject;
+use App\Models\Document;
+use App\Models\Semester;
+use App\Traits\UserScope;
+use App\Models\Attendance;
+use App\Models\Attendence;
+use App\Models\Addressinfo;
+use App\Models\AcademicInfo;
+use App\Models\AlertSetting;
+use App\Models\ParentDetail;
+use Illuminate\Http\Request;
+use App\Models\LibraryMember;
+use App\Models\StudentParent;
+use App\Models\StudentStatus;
+use App\Traits\SmsEmailScope;
+use App\Models\GuardianDetail;
+use App\Models\ResidentHistory;
+use App\Models\StudentGuardian;
+use App\Models\TransportHistory;
+use App\Models\StudentAddressinfo;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\CollegeBaseController;
 use App\Http\Requests\Student\Registration\AddValidation;
 use App\Http\Requests\Student\Registration\EditValidation;
-use App\Models\AcademicInfo;
-use App\Models\Addressinfo;
-use App\Models\AlertSetting;
-use App\Models\Attendance;
-use App\Models\Attendence;
-use App\Models\Document;
-use App\Models\Faculty;
-use App\Models\GuardianDetail;
-use App\Models\LibraryMember;
-use App\Models\Note;
-use App\Models\ParentDetail;
-use App\Models\ResidentHistory;
-use App\Models\Semester;
-use App\Models\Student;
-use App\Models\StudentAddressinfo;
-use App\Models\StudentGuardian;
-use App\Models\StudentParent;
-use App\Models\StudentStatus;
-use App\Models\TransportHistory;
-use App\Traits\SmsEmailScope;
-use App\Traits\UserScope;
-use App\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Crypt;
-use Illuminate\Support\Facades\Validator;
-use Image, URL;
-use ViewHelper;
 
 class StudentController extends CollegeBaseController
 {
@@ -1059,5 +1060,70 @@ class StudentController extends CollegeBaseController
         return view('projectactivities.students.index',compact('data')); 
         // return view(parent::loadDataToView($this->view_path.'.index'), compact('data'));
     }
+
+    // Open Second Form Register Student
+    public function Register2($id)
+    {
+        $data=[];
+        $data['subjectCourseID']=$id;
+        $data['subjectTitle']=Subject::findOrFail($id);
+        return view('projectactivities.students.registerv2',compact('data'));
+    }
+
+    // Save Student Second form
+public function SaveRegister2(Request $request) 
+    {
+
+    // return $request;
+
+    $stu = new Student();
+    $addressInfos=new Addressinfo();
+    $stu->reg_no = $request->reg_no;
+    $stu->reg_date = $request->reg_date;
+    $stu->created_by=1;
+    $stu->university_reg = $request->university_reg;
+    $stu->faculty=$request->faculty;
+    $stu->semester=$request->semester;
+    $stu->status=$request->status;
+    $stu->first_name=$request->first_name;
+    $stu->middle_name=$request->middle_name;
+    $stu->last_name=$request->last_name;
+    $stu->date_of_birth=$request->date_of_birth;
+    $stu->gender=$request->gender;
+    $stu->blood_group=$request->blood_group;
+    $stu->nationality=$request->nationality;
+    $stu->mother_tongue=$request->mother_tongue;
+    $stu->email=$request->email;
+    $stu->extra_info=$request->extra_info;
+    // $stu->student_main_image=$request->student_main_image;
+    $stu->save();
+
+    $addressInfos=[
+            'created_by'=>1,
+            'students_id'=
+            ];
+
+
+
+
+    // Alert::success('Success Title', 'Success Message');
+        return redirect()->back();
+    // if($stu->save()){
+    //   $adinfo = new Addressinfo ();
+    //   $adinfo->created_by = 1;
+    //   $adinfo->students_id =  $stu->id;
+    //   $adinfo->home_phone =  $stu->phone;
+    //   $adinfo->mobile_1 =  $stu->mobile;
+    //   $adinfo->temp_address =  $stu->temp_address;
+    //   $adinfo->state =  $stu->state;
+    //   $adinfo->country =  $stu->country;
+    //   $adinfo->save();
+    //   Alert::success('Success Title', 'Success Message');
+    //   return redirect()->back();
+    // }
+
+
+    }
+
 
 }
