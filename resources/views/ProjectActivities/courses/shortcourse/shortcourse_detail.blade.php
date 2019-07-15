@@ -136,7 +136,17 @@
                           <select multiple="" name="student_name[]" class="chosen-select form-control" id="form-field-select-4" data-placeholder="ជ្រើសរើសសិស្ស..." style="width: 100% !important" >
                             @foreach ($student as $stu)
 
-                              <option value="{{ $stu->id }}">{{ $stu->first_name }} - {{ $stu->last_name }} , {{ $stu->gender }} , {{ $stu->date_of_birth }} , ID: {{ $stu->id }}</option>
+                            <?php 
+                                $gender=ucfirst($stu->gender);
+                                  if($gender=='MALE'){
+                                    $gender='M';
+                                  }else {
+                                    $gender='F';
+                                  }
+                            
+                            ?>
+
+                              <option value="{{ $stu->id }}">{{ $stu->first_name }} - {{ $stu->last_name }} , {{ $gender }} , {{ Carbon\Carbon::parse($stu->date_of_birth)->format('d-m-Y') }} , ID:# {{ $stu->id }}</option>
 
                             @endforeach
                           </select>
@@ -212,10 +222,11 @@
         <th width="170px;">{{ __('shortcoure_detail_StudentName') }}</th>
         {{-- <th width="90px;">{{ __('shortcoure_detail_Sex') }}</th> --}}
         <th width="100px;">{{ __('shortcoure_Course_Name') }}</th>
+        <th class="hidden-480">Course Name</th>
         {{-- <th width="150px;">{{ __('shortcoure_detail_DateOfBirth') }}</th> --}}
-        <th width="100px;">{{ __('shortcoure_detail_OveralFund') }}</th>
-        <th width="100px;">{{ __('shortcoure_detail_Finish?') }}</th>
-        <th width="150px;">{{ __('shortcoure_detail_Currently Employment?') }}</th>
+        <th class="hidden-480" width="100px;">{{ __('shortcoure_detail_OveralFund') }}</th>
+        <th class="hidden-480" width="100px;">{{ __('shortcoure_detail_Finish?') }}</th>
+        <th class="hidden-480" width="150px;">{{ __('shortcoure_detail_Currently Employment?') }}</th>
         <th width="100px;">{{ __('shortcoure_detail_Action') }}</th>
       </tr>
     </thead>
@@ -286,6 +297,75 @@
                 </center>
               </td>
             </tr>
+        <td class="hidden-480">{{ $post->Course_Short->course_name }}</td>
+        <td class="hidden-480">{{$post->overalFund->title_kh}}</td>
+        <td class="hidden-480">
+        {{--  <a href="{{ asset('documents'.DIRECTORY_SEPARATOR.'staff'.DIRECTORY_SEPARATOR.ViewHelper::getStaffById( $post->member_id ).'/'.$post->file) }}" target="_blank">
+            <i class="ace-icon fa fa-download bigger-120"></i> &nbsp;{{ $post->file }}
+          </a> --}}
+        </td>
+        <td class="hidden-480"></td>
+        {{-- <td></td> --}}
+
+        <td>
+          <center>
+
+            <a href="#" type="button" data-toggle="modal" data-target="#exampleModal">
+              {{ __('shortcoure_detail_ChangeFund') }}
+            </a>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="example" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h3 class="modal-title" id="example">{{ __('shortcoure_detail_ChangeFund') }}</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form method="post" action="">
+                      <select style="width: 100%" name="cbo_fund_overall">
+                        @if ($flag=='kh')
+                        <option selected disabled>សូមជ្រើសរើស </option>
+                        @else
+                        <option selected disabled>Please Choose </option>
+                        @endif
+
+                        @foreach ($overal_fund as $row){
+                        @if ($flag=='kh')
+                        <option value="{{ $row->id }}">{{ $row->title_kh}}</option>
+                        @else
+                        <option value="{{ $row->id }}">{{ $row->title_en}}</option>                                  
+                        @endif
+                        @endforeach
+                      </select>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary btn-sm">{{ __('shortcoure_Save') }}</button>
+                  </div>
+                </div>
+              </div>
+            </div><!-- End Modal Form -->
+
+            |
+            <a href="#" {{-- class="btn btn-primary btn-minier btn-primary" --}}>
+              {{-- <i class="ace-icon fa fa-pencil bigger-130"> --}}</i>
+              {{ __('shortcoure_detail_Delete') }}
+            </a>
+
+            {{-- <button type="button" class="btn btn-xs btn-danger" onclick="deletePost({{$post->id}})" style="padding-left: 5px; padding-right: 5px; padding-top: 0px; padding-bottom: 0px;"><i class="ace-icon fa fa-trash-o bigger-130"></i></button>
+
+            <form id="delete-form-{{$post->id}}" action="{{ route('shortcoursedetail.delete', $post->id) }}"
+              method="POST" style="display: none">
+              @csrf
+              @method('DELETE')
+            </form> --}}
+          </center>
+        </td>
+      </tr>
             @endforeach
           </tbody>
         </table>
@@ -324,5 +404,6 @@
 
         </script>
 
+@include('projectactivities.staff.includes.dataTable_scripts') 
 
 @endpush

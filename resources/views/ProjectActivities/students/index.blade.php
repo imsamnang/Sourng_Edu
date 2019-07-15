@@ -134,7 +134,7 @@
             }
         });
 
-  {{-- @include('projectactivities.students.includes.dataTable_scripts') --}}
+  
 
     }
 
@@ -146,5 +146,6 @@
 {{-- @include('includes.scripts.delete_confirm') --}}
 {{-- @include('includes.scripts.bulkaction_confirm') --}}
 {{-- @include('includes.scripts.datepicker_script') --}}
-{{-- @include('projectactivities.students.includes.dataTable_scripts') --}}
+@include('projectactivities.students.includes.dataTable_scripts')
+
 @endpush

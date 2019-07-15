@@ -181,5 +181,6 @@
     @include('includes.scripts.bulkaction_confirm')
     @include('includes.scripts.dataTable_scripts')
  {{--   @include('includes.scripts.datepicker_script')--}}
+   
 
     @endsection

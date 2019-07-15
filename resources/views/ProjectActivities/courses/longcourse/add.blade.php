@@ -1,12 +1,12 @@
                      <?php  $flag = app()->getLocale();?>
                      @extends('projectactivities.layout.master')
 
-                     @section('css')
+                     @push('custom-css')
                      <!-- page specific plugin styles -->
                      <link rel="stylesheet" href="{{ asset('assets/font-awesome/4.5.0/css/font-awesome.min.css') }}" />
                      <link rel="stylesheet" href="{{ asset('assets/css/jquery-ui.custom.min.css') }}" />
                      <link rel="stylesheet" href="{{ asset('assets/css/bootstrap-datepicker3.min.css') }}" />
-                     @endsection
+                     @endpush
                      @section('menu-panel')
                      @include('projectactivities.layout.menu.menu_admin')
                      @endsection
@@ -18,8 +18,8 @@
                     </div>
                     @endif
                     <div class="card table-bordered" style="margin-top: 15px; margin-left: 15px; margin-right: 15px; padding-left: 30px; padding-right: 30px; padding-bottom: 30px; padding-top: 5px; border-color: #79b0ce;">
-                      <b><hr></b>
-                      <h4 style="color: white; font-family: Arial; background-color: #438eb9; padding: 10px;">{{ __('longcourse-detail_RegisterLongCourse') }}</h4>
+                     
+                      <h4 style="color: white; font-family: 'Khmer OS Battambang'; font-size:24px; background-color: #438eb9; padding: 10px;">{{ __('longcourse-detail_RegisterLongCourse') }}</h4>
                       <b><hr></b>
                       <div class="card-body">
                        <form  action="{{ route('longcourse.savedata') }}" method="post" enctype="multipart/form-data">
@@ -105,8 +105,11 @@
                     </div>
 
                     <div class="form-group">
-                      <label for="teacher_name">{{ __('longcourse-detail_PromotionStartDate') }}</label>
+                      <label for="txt_start_date">{{ __('longcourse-detail_PromotionStartDate') }}</label>
                       <input type="date" name="txt_start_date" class="form-control input-sm" required="" style="width: 100%">
+                   
+                      {{-- <input data-date-format="yyyy-mm-dd" class="form-control date-picker border-form input-mask-date" required="" name="txt_start_date" type="text" id="txt_start_date"> --}}
+                   
                     </div>
                   </div>
 
@@ -183,15 +186,17 @@
 
               @endsection
 
-              @section('js')
+              @push('custom-js')
 
-              <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-              <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-              <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+                <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+                {{-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> --}}
 
 
-              @include('includes.scripts.inputMask_script')
-              @include('includes.scripts.datepicker_script')
+                @include('includes.scripts.inputMask_script')
+                @include('includes.scripts.datepicker_script')
 
-              @endsection
+                @include('includes.scripts.datepicker_script')
+
+              @endpush
 

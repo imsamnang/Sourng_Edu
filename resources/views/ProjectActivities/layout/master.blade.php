@@ -7,13 +7,14 @@
             </script> 
             @yield('menu-panel')
             @yield('content')
+            
             @include('projectactivities.includes.footer')
             <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
                 <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
             </a>
         </div>
 
-    <script src="{{ asset('assets/js/jquery-2.1.4.min.js') }}"></script>
+    {{-- <script src="{{ asset('assets/js/jquery-2.1.4.min.js') }}"></script> --}}
     <script src="{{ asset('assets/js/ace-elements.min.js') }}"></script>
     <script src="{{ asset('assets/js/ace.min.js') }}"></script>
     <script type="text/javascript">
@@ -71,7 +72,8 @@
                 });
             });
         </script>
-    @include('projectactivities.students.includes.dataTable_scripts')        
+
+    {{-- @include('projectactivities.students.includes.dataTable_scripts')         --}}
         @stack('custom-js')
 
     </body>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\ProjectActivities;
 use App\Http\Controllers\Controller;
 use App\Models\Commune;
 use Carbon\Carbon;
+
 // use Illuminate\Support\Carbon;
 use App\Models\CourseShort;
 use App\Models\CurriculumAuthor;
@@ -170,7 +171,7 @@ class ShortcourseController extends Controller
     $provinces= Province::all();
     $district= District::all();
     $comnune= Commune::all();
-    $student=Student::latest()->paginate(7);
+    $student=Student::all();
     $overal_fund=OveralFund::all();
     $data=[];
 
@@ -188,7 +189,10 @@ class ShortcourseController extends Controller
     $curriculum_End= CurriculumEndorsement::all();
     $curriculum_author=CurriculumAuthor::all();
     $modality= Modality::all();
-    return view('ProjectActivities.courses.shortcourse.shortcourse_detail', compact('shortcourse_detail','faculty','curriculum_End','curriculum_author','modality','overal_fund','data','provinces','district','comnune','student','shortcoursestudent'));
+    return view('ProjectActivities.courses.shortcourse.shortcourse_detail', 
+        compact('shortcourse_detail','faculty','curriculum_End',
+        'curriculum_author','modality','overal_fund','data','provinces',
+        'district','comnune','student','shortcoursestudent'));
         // return view('ProjectActivities.courses.shortcourse.shortcourse_detail', compact('shortcourse_detail'));
 }
 
