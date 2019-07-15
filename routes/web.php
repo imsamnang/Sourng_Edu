@@ -80,7 +80,7 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
       Route::post('{id}/password',                ['as' => '.password',           'uses' => 'HomeController@password']);
       Route::get('notice',                        ['as' => '.notice',             'uses' => 'HomeController@notice']);
 
-      //guardian's student wise summary routes
+//guardian's student wise summary routes
       Route::get('students',                      ['as' => '.students',               'uses' => 'HomeController@students']);
       Route::get('students/{id}/profile',         ['as' => '.students.profile',       'uses' => 'HomeController@studentProfile']);
       Route::get('students/{id}/fees',            ['as' => '.students.fees',          'uses' => 'HomeController@fees']);
@@ -932,7 +932,7 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
 
 
 // Manage Projects
-  Route::prefix('projects')->group(function(){
+    Route::prefix('projects')->group(function(){
     Route::get('/','ProjectActivities\ProjectActivitiesController@index')->name('projects');
     Route::post('/login','ProjectActivities\ProjectActivitiesController@authenticate')->name('projects.login');
     Route::get('/staff-register','ProjectActivities\StaffActivitiesController@staffRegister')->name('staff-register');
@@ -1037,7 +1037,9 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
   Route::get('test', function (){
       $user = auth()->user();
       return ($user->quiz_results);
-  });  
+  });
+
+  
 
 // don't use 
   // Route::prefix('quiz/')->group(function(){

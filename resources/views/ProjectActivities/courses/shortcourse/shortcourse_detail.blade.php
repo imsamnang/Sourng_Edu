@@ -106,11 +106,11 @@
       <tr style="margin: 15px;">
         <td style="width: 160px;"><strong>{{ __('shortcoure_Start-Date') }}:</strong></td>
         <td style="width: 240px; font-size: 14px; color: red;">
-          <label value="{{ $shortcourse_detail->start_date }}">{{ $shortcourse_detail->start_date }}</label>
-        </td>
+          <label value="{{ date('d-m-Y',strtotime($shortcourse_detail->start_date)) }}">{{ date('d-m-Y',strtotime($shortcourse_detail->start_date)) }}</label>
+        </td> 
         <td style="width: 160px;"><strong>{{ __('shortcoure_EndDate') }}</strong></td>
         <td style="width: 240px; font-size: 14px; color: red;">
-          <label value="{{ $shortcourse_detail->end_date }}">{{ $shortcourse_detail->end_date }}</label>
+          <label value="{{ date('d-m-Y',strtotime($shortcourse_detail->end_date)) }}">{{ date('d-m-Y',strtotime($shortcourse_detail->end_date)) }}</label>
         </td>
       </tr>
     </tbody></table>

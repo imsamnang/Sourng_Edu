@@ -166,10 +166,7 @@ class ShortcourseController extends Controller
   {   
     $shortcourse_detail =CourseShort::findOrFail($id);
     // $shortcoursestudent=Courseshortstudent::all();
-
-
     $shortcoursestudent=Courseshortstudent::WHERE('course_short_id',$shortcourse_detail->id)->get();
-
     $provinces= Province::all();
     $district= District::all();
     $comnune= Commune::all();
