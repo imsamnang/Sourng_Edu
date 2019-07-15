@@ -215,8 +215,8 @@ function SaveCourse_detail(Request $request)
 
         public function ShortCoursedetail_delete($id)
         {
-          $student = Student::find($id);
-          $student->destroy($id);
+          $shortcoursestudent = Courseshortstudent::find($id);
+          $shortcoursestudent->destroy($id);
               // return redirect()->Route('projects.shortcourse')->with('success','Deleted Successfully');
           return redirect()->back()->with('success','Data Deleted Successfully');
         }
