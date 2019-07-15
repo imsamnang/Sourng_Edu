@@ -118,7 +118,7 @@
 
 {{-- Add Students --}}
             <h5 style="color: white; font-family: Khmer OS Battambang;
-  background-color: #438eb9; padding: 10px;">បន្ថែមសិស្ស</h5>
+  background-color: #438eb9; padding: 10px; margin-bottom: 30px;">បន្ថែមសិស្ស</h5>
     
           <div class="card-body">
           <form   action="{{ route('shortcourse_detail.savedata') }}" method="post" enctype="multipart/form-data">
@@ -126,7 +126,7 @@
             <div class="row">
                       <div class="col-md-2">
                         <div class="form-group">
-                         <label>ជ្រើសរើសសិស្ស</label>
+                          <center><label>ជ្រើសរើសសិស្ស</label></center>
                         </div>
                       </div>
 
@@ -212,24 +212,7 @@
   <h5 style="color: white; font-family: Khmer OS Battambang;
   background-color: #438eb9; padding: 10px;">ចំនួន​សិស្ស​សរុប​ក្នុង​វគ្គ {{ $shortcoursestudent->count() }} នាក់ (ស្រី {{ $TF }} នាក់)</h5>
 
-  {{--  //Form Add Studetn to this course --}}
-    {{-- <div class="row">
-      <form method="post" action="">
-        <div class="col-md-1">
-          <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-sm">
-              Add Student
-            </button>
-          </div>
-        </div>
-        <div class="col-md-4">
-         <div class="form-group">
-          <input type="text" class="form-control-sm" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Student Name" style="width: 100%">
-        </div>
-      </div>
-    </form>
-  </div> --}}
-  {{--   //End Form add student --}}
+
 
 
   <table id="dynamic-table" class="table table-striped table-bordered table-hover">
@@ -238,6 +221,7 @@
         <th width="50px;">{{ __('shortcoure_detail_ID') }}</th>
         <th width="170px;">{{ __('shortcoure_detail_StudentName') }}</th>
         {{-- <th width="90px;">{{ __('shortcoure_detail_Sex') }}</th> --}}
+        <th width="100px;">{{ __('shortcoure_Course_Name') }}</th>
         <th class="hidden-480">Course Name</th>
         {{-- <th width="150px;">{{ __('shortcoure_detail_DateOfBirth') }}</th> --}}
         <th class="hidden-480" width="100px;">{{ __('shortcoure_detail_OveralFund') }}</th>
@@ -251,6 +235,68 @@
       <tr>
         <td>{{$key+1}}</td>
         <td>{{$post->stu->first_name}} -{{$post->stu->last_name}} , {{$post->stu->gender}} (ID: {{$post->stu->id}})</td>
+        <td>{{ $post->Course_Short->course_name }}</td>
+        <td>{{$post->overalFund->title_kh}}</td>
+        <td></td>
+        <td></td>
+        <td>
+                <center>
+
+                  <a href="#" type="button" data-toggle="modal" data-target="#exampleModal">
+                    {{ __('shortcoure_detail_ChangeFund') }}
+                  </a>
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="example" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h3 class="modal-title" id="example">{{ __('shortcoure_detail_ChangeFund') }}</h3>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <form method="post" action="">
+                            <select style="width: 100%" name="cbo_fund_overall">
+                              @if ($flag=='kh')
+                              <option selected disabled>សូមជ្រើសរើស </option>
+                              @else
+                              <option selected disabled>Please Choose </option>
+                              @endif
+
+                              @foreach ($overal_fund as $row){
+                              @if ($flag=='kh')
+                              <option value="{{ $row->id }}">{{ $row->title_kh}}</option>
+                              @else
+                              <option value="{{ $row->id }}">{{ $row->title_en}}</option>                                  
+                              @endif
+                              @endforeach
+                            </select>
+                          </form>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-primary btn-sm">{{ __('shortcoure_Save') }}</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div><!-- End Modal Form -->
+                  |
+                  <a href="#" onclick="deletePost({{$post->id}})" style="padding-left: 5px; padding-right: 5px; padding-top: 0px; padding-bottom: 0px;">
+                    {{ __('shortcoure_detail_Delete') }}
+
+                  </a>
+
+                  {{-- <button type="button" class="btn btn-xs btn-danger" onclick="deletePost({{$post->id}})" style="padding-left: 5px; padding-right: 5px; padding-top: 0px; padding-bottom: 0px;">{{ __('shortcoure_detail_Delete') }}</button> --}}
+
+                  <form id="delete-form-{{$post->id}}" action="{{ route('shortcourse_detail.destroy', $post->id) }}"
+                    method="POST" style="display: none">
+                    @csrf
+                    @method('DELETE')
+                  </form>
+                </center>
+              </td>
+            </tr>
         <td class="hidden-480">{{ $post->Course_Short->course_name }}</td>
         <td class="hidden-480">{{$post->overalFund->title_kh}}</td>
         <td class="hidden-480">
@@ -321,17 +367,9 @@
         </td>
       </tr>
             @endforeach
-
-
-            
           </tbody>
         </table>
       </div>
-      <div class="row">
-        {{-- //Pagination --}}
-        
-      </div>
-      {{-- End pagination --}}
     </div>
   </div>
 </div>
@@ -340,11 +378,31 @@
 <script src="{{ asset('assets/js/chosen.jquery.min.js') }}"></script>
 <script type="text/javascript">
   $('#form-field-select-4').chosen();
-
-
-
-
 </script>
+
+<script type="text/javascript">
+          function deletePost(id){
+            Swal.fire({
+              title: 'Are you sure?',
+              text: "You won't be able to revert this!",
+              type: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+              if (result.value) {
+                document.getElementById('delete-form-'+id).submit();
+                Swal.fire(
+                  'Deleted!',
+                  'Your file has been deleted.',
+                  'success'
+                  )
+              }
+            })
+          }
+
+        </script>
 
 @include('projectactivities.staff.includes.dataTable_scripts') 
 
