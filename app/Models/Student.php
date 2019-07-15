@@ -59,4 +59,12 @@ class Student extends BaseModel
     //     return $this->hasOne(Faculty::class, 'students_id', 'id');
     // }
 
+    public function scopeFemale($query)
+    {
+       return $query->where('gender','=','FEMALE')->count();
+    }
+    public function scopeMale($query)
+    {
+       return $query->where('gender','=','MALE')->count();
+    }
 }
