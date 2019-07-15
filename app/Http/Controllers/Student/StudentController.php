@@ -1098,10 +1098,10 @@ public function SaveRegister2(Request $request)
     // $stu->student_main_image=$request->student_main_image;
     $stu->save();
 
-    $addressInfos=[
-            'created_by'=>1,
-            'students_id'=
-            ];
+    // $addressInfos=[
+    //         'created_by'=>1,
+    //         'students_id'=
+    //         ];
 
 
 
