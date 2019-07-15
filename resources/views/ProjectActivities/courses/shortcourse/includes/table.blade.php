@@ -17,8 +17,8 @@
             <th>{{ __('shortcoure_id') }}</th>
             <th>{{ __('shortcoure_Course-Code') }}</th>
             <th>{{ __('shortcoure_Course_Name') }}</th>
-            <th>{{ __('shortcoure_Total_Training_Houre') }}</th>
-            <th>{{ __('shortcoure_Overal-Fund') }}</th>
+            <th class="hidden-480">{{ __('shortcoure_Total_Training_Houre') }}</th>
+            <th class="hidden-480">{{ __('shortcoure_Overal-Fund') }}</th>
 {{--             <th class="hidden-480">@lang('lc_MainSubject')</th>
 <th class="hidden-480">@lang('lc_ProgramType')</th>   --}}                  
 <th class="hidden-480">{{ __('staff_frm_search_Status') }}</th>
@@ -44,14 +44,14 @@
     @if($flag=='en')
     <td><a href="{{ route('projects.coursedetail',$row->id) }}">{{ $row->faculty->faculty_en }} </a><span style="color:red;">({{ App\Models\Courseshortstudent::where('course_short_id',$row->id)->count() }} នាក់)</span> </td>
     @endif
-    <td><a href="#"> {{ $row->course_name }}</a></td>
-    <td><a href="#"> {{ $row->total_training_hour }}</a></td>
+    <td ><a href="#"> {{ $row->course_name }}</a></td>
+    <td class="hidden-480"><a href="#"> {{ $row->total_training_hour }}</a></td>
     
     @if($flag=='kh')
-    <td><a href="#"> {{ $row->overalFund->title_kh }}</a></td>
+    <td class="hidden-480"><a href="#"> {{ $row->overalFund->title_kh }}</a></td>
     @endif
     @if($flag=='en')
-    <td><a href="#"> {{ $row->overalFund->title_en }}</a></td>
+    <td class="hidden-480"><a href="#"> {{ $row->overalFund->title_en }}</a></td>
     @endif
     
     <td class="hidden-480 ">
