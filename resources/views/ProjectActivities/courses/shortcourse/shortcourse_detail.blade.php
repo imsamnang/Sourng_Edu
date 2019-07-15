@@ -346,6 +346,6 @@
 
 </script>
 
-
+@include('projectactivities.staff.includes.dataTable_scripts') 
 
 @endpush

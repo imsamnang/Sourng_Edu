@@ -2,10 +2,10 @@
 
 @extends('projectactivities.layout.master')
 
-@section('css')
+@push('custom-css')
     <!-- page specific plugin styles -->
 
-@endsection
+@endpush
 
 @section('menu-panel')
     @include('projectactivities.layout.menu.menu_admin')
@@ -21,7 +21,7 @@
   </div>
 @endsection
 
-@section('js')
+@push('custom-js')
     {{-- @include('includes.scripts.jquery_validation_scripts') --}}
 
 
@@ -33,5 +33,6 @@
     @include('includes.scripts.dataTable_scripts')
     @include('includes.scripts.datepicker_script') --}}
 
-    @include('projectactivities.courses.shortcourse.includes.dataTable_scripts')
-@endsection
+    {{-- @include('projectactivities.courses.shortcourse.includes.dataTable_scripts') --}}
+    @include('projectactivities.staff.includes.dataTable_scripts') 
+@endpush

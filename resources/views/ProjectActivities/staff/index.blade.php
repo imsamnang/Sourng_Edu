@@ -1,9 +1,9 @@
 @extends('projectactivities.layout.master')
 
-@section('css')
+@push('custom-css')
     <!-- page specific plugin styles -->
 
-@endsection
+@endpush
 
 @section('menu-panel')
     @include('projectactivities.layout.menu.menu_admin')
@@ -47,7 +47,7 @@
     @endsection
 
 
-@section('js')
+@push('custom-js')
 
     {{-- @include('includes.scripts.jquery_validation_scripts') --}}
 
@@ -192,6 +192,9 @@
     @include('includes.scripts.dataTable_scripts')
   @include('includes.scripts.datepicker_script') --}}
 
-  @include('projectactivities.students.includes.dataTable_scripts')
+  {{-- @include('includes.scripts.dataTable_scripts') --}}
 
-    @endsection
+  {{-- @include('projectactivities.students.includes.dataTable_scripts') --}}
+  @include('projectactivities.staff.includes.dataTable_scripts') 
+
+    @endpush

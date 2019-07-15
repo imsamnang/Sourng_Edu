@@ -1,9 +1,10 @@
+<?php $Flag=App()->getLocale();?>
 @extends('projectactivities.layout.master')
 
 @push('custom-css')
     <!-- page specific plugin styles -->
-    <link rel="stylesheet" href="{{ asset('assets/css/jquery-ui.custom.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap-datepicker3.min.css') }}" />
+    {{-- <link rel="stylesheet" href="{{ asset('assets/css/jquery-ui.custom.min.css') }}" /> --}}
+    
 
 @endpush
 
@@ -21,7 +22,7 @@
 </head>
 <div class="main-content">
     <div class="container">
-    <h2>Register New Student</h2>
+    <h2 style="font-family: 'Khmer OS Battambang'; font-size:28px; padding:10px 5px 5px 5px; ">ចុះឈ្មោះសិស្សថ្មី</h2>
     <form method="POST" action="{{route('studentRegister2.save')}}" accept-charset="UTF-8" class="form-horizontal" id="validation-form" enctype="multipart/form-data">
         {{csrf_field()}}
         <div class="tabbable">
@@ -29,9 +30,7 @@
             <li class="active">
             <a style="font-family: 'Khmer OS Battambang'; font-size:18px; padding:10px 5px 10px 5px; " data-toggle="tab" href="#registrationinfo">ព័ត៌មានទូទៅសិស្ស​</a>
             </li>
-            <li class="">
-            <a style="font-family: 'Khmer OS Battambang'; font-size:18px; padding:10px 5px 10px 5px; " data-toggle="tab" href="#profileimage">កូដមុខវិជ្ជា​ : #{{ $data['subjectCourseID'] }} ​ វគ្គដែលជ្រើសរើស: {{ $data['subjectTitle']->title }}</a>
-            </li>
+            
         </ul>
         <div class="tab-content">
             <div id="registrationinfo" class="tab-pane active">
@@ -45,6 +44,7 @@
 
                 <label for="reg_date" class="col-sm-2 control-label">{{ __('st-register.RegDate') }}</label>
                 <div class="col-sm-2">
+                    
                 <input data-date-format="yyyy-mm-dd" class="form-control date-picker border-form input-mask-date" required="" name="reg_date" type="text" id="reg_date">
                 </div>
 
@@ -121,9 +121,14 @@
         <label for="gender" class="col-sm-2 control-label">{{ __('st-register.Gender') }}</label>
         <div class="col-sm-2">
             <select class="form-control border-form" required="" id="gender" name="gender">
-            <option value="" selected="selected"></option>
-            <option value="MALE">{{ __('st-register.Male') }}</option>
-            <option value="FEMALE">{{ __('st-register.Male') }}</option>
+            {{-- <option value="1" selected="selected"></option> --}}
+            @foreach ($data['Gender'] as $gender)
+                @if ($Flag=='kh')
+                    <option value="{{$gender->id}}">{{$gender->gender_kh}}</option>
+                @else
+                    <option value="{{$gender->id}}">{{$gender->gender_en}}</option>
+                @endif               
+            @endforeach           
             </select>
         </div>
 
@@ -276,14 +281,14 @@
 
 
         <div class="form-group">
-            {{-- <label for="student_main_image" class="col-sm-2 control-label">{{ __('st-register.StudentProfilePicture') }}</label>
+            <label for="student_main_image" class="col-sm-2 control-label">{{ __('st-register.StudentProfilePicture') }}</label>
             <div class="col-sm-6">
                 <input class="form-control border-form" name="student_main_image" type="file" id="student_main_image">
             </div>
                 <img id="" class="img-responsive" alt="Avatar" src="http://eduims.sourngedu.com/assets/images/avatars/profile-pic.jpg" width="100px">
-            </div> --}}
+            </div>
 
-            <input type="file" name="image" class="form-control">
+            {{-- <input type="file" name="student_main_image" class="form-control"> --}}
 
         </div>
         </div>

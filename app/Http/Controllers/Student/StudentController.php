@@ -6,6 +6,8 @@ use App\User;
 use Image, URL;
 use ViewHelper;
 use App\Models\Note;
+use App\Models\Gender;
+use App\Models\Upload;
 use App\Models\Faculty;
 use App\Models\Student;
 use App\Models\Subject;
@@ -17,6 +19,7 @@ use App\Models\Attendence;
 use App\Models\Addressinfo;
 use App\Models\AcademicInfo;
 use App\Models\AlertSetting;
+
 use App\Models\ParentDetail;
 use Illuminate\Http\Request;
 use App\Models\LibraryMember;
@@ -28,6 +31,7 @@ use App\Models\ResidentHistory;
 use App\Models\StudentGuardian;
 use App\Models\TransportHistory;
 use App\Models\StudentAddressinfo;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\CollegeBaseController;
@@ -1062,11 +1066,12 @@ class StudentController extends CollegeBaseController
     }
 
     // Open Second Form Register Student
-    public function Register2($id)
+    public function Register2()
     {
         $data=[];
-        $data['subjectCourseID']=$id;
-        $data['subjectTitle']=Subject::findOrFail($id);
+        $data['Gender']=Gender::all();
+        // $data['subjectCourseID']=$id;
+        // $data['subjectTitle']=Subject::findOrFail($id);
         return view('projectactivities.students.registerv2',compact('data'));
     }
 
@@ -1074,13 +1079,18 @@ class StudentController extends CollegeBaseController
 public function SaveRegister2(Request $request) 
     {
 
-    // return $request;
-
+    // return $request->all();
+    $stu_Image=new Upload();
     $stu = new Student();
-    $addressInfos=new Addressinfo();
+   
+
+    // return Auth::user()->institute_id;
+    $stu->institute_id=Auth::user()->institute_id;
+    $stu->created_by=Auth::user()->id;
+
     $stu->reg_no = $request->reg_no;
     $stu->reg_date = $request->reg_date;
-    $stu->created_by=1;
+    // $stu->created_by=1;
     $stu->university_reg = $request->university_reg;
     $stu->faculty=$request->faculty;
     $stu->semester=$request->semester;
@@ -1095,13 +1105,46 @@ public function SaveRegister2(Request $request)
     $stu->mother_tongue=$request->mother_tongue;
     $stu->email=$request->email;
     $stu->extra_info=$request->extra_info;
-    // $stu->student_main_image=$request->student_main_image;
-    $stu->save();
 
-    // $addressInfos=[
-    //         'created_by'=>1,
-    //         'students_id'=
-    //         ];
+    // $stu->student_image=$stu_Image->imageUpload('student_main_image',$stu->student_image,'images/studentProfile');
+
+    if ($request->hasFile('student_main_image')) {
+        $dir = 'images/studentProfile/';
+        $extension = strtolower($request->file('student_main_image')->getClientOriginalExtension()); // get image extension
+        $fileName = str_random() . '.' . $extension; // rename image
+        $request->file('student_main_image')->move($dir, $fileName);
+        $stu->student_image = $fileName;
+    }
+
+    // $stu_Image->imageUpload('student_main_image',$stu->student_image,'images/studentProfile');
+
+    // $stu->student_main_image=$request->student_main_image;
+
+    if($stu->save()){
+        
+
+        $addressInfos=[
+            'created_by'=>1,
+            'students_id'=>$stu->id,
+            'created_by'=>$stu->created_by,
+            'address'=>$request->address , 
+            'state'=>$request->state,
+            'country'=>$request->country,
+            'temp_address'=>$request->temp_address,
+            'temp_state'=>$request->temp_state,
+            'temp_country'=>$request->temp_country,
+            'home_phone'=>$request->home_phone,
+            'mobile_1'=>$request->mobile_1, 
+            'mobile_2'=>$request->mobile_2          
+            ];
+
+        $StuAddress=Addressinfo::create($addressInfos);
+        // $addressInfos->save();
+    }
+
+    
+
+    
 
 
 

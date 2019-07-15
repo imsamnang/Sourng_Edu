@@ -945,7 +945,7 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
     
     // Student Project
     Route::get('/student-list','Student\StudentController@studentList')->name('student-list');
-    Route::get('/student/registerv2/{id}','Student\StudentController@Register2');
+    Route::get('/student/registerv2','Student\StudentController@Register2');
 
     Route::post('/student/SaveRegister2','Student\StudentController@SaveRegister2')->name('studentRegister2.save');
 

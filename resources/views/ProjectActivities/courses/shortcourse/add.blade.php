@@ -25,10 +25,10 @@
         <p>{{ $message }}</p>
       </div>
       @endif
-      <div class="card table-bordered" style="margin-top: 15px; margin-left: 15px; margin-right: 15px; padding-left: 30px; padding-right: 30px; padding-bottom: 30px; padding-top: 5px; border-color: #79b0ce;">
-        <b><hr></b>
-        <h4 style="color: white; font-family: Khmer OS Battambang; background-color: #438eb9; padding: 10px;">{{ __('shortcoure_Register-Short-Course') }}</h4>
-        <b><hr></b>
+      <div class="card table-bordered" style="margin-top: 25px; margin-left: 15px; margin-right: 15px; padding-left: 30px; padding-right: 30px; padding-bottom: 10px; padding-top: 5px; border-color: #79b0ce;">
+       
+        <h4 style=" margin-top: -25px; color: white; font-family: 'Khmer OS Battambang'; font-size:24px; background-color: #438eb9; padding: 10px;">{{ __('shortcoure_Register-Short-Course') }}</h4>
+     
         <div class="card-body">
           <form  action="{{ route('shortcourse.savedata') }}" method="post" enctype="multipart/form-data">
             {{csrf_field()}}
@@ -167,7 +167,7 @@
                 </div>
               </div>
             </div>
-            <b><hr></b>
+            
             <h4 style="color: white; font-family: Khmer OS Battambang; background-color: #438eb9; padding: 10px;">{{ __('shortcoure_TrainingLocation_Detail') }}</h4>
             <b><hr></b>
             <div class="row">
@@ -267,7 +267,7 @@
           </form>
         </div>
       </div> 
-
+      <div style="margin-top:20px;"></div>
       @endsection
 
       @push('custom-js')
