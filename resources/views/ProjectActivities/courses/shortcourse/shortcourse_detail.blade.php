@@ -189,42 +189,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <?php $TF=0; ?>
  @foreach ($shortcoursestudent as $key=> $post)
       @if (strtoupper($post->stu->gender)=='FEMALE')

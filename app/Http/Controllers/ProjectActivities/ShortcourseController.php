@@ -199,8 +199,7 @@ function SaveCourse_detail(Request $request)
     {
                      
 
-        // $Courseshortstudent->student_id= $request->student_name;
-        // return $request->student_name;
+    //code Insert more data
 
         foreach ($request->student_name as $student_id) {
             $Courseshortstudent=new Courseshortstudent();
@@ -213,8 +212,6 @@ function SaveCourse_detail(Request $request)
 
         }
 
-        // return $Courseshortstudent;
-        // $Courseshortstudent->save();
         return redirect()->back()->with('success','Data Saved Successfully');
     }
 
@@ -225,6 +222,37 @@ function SaveCourse_detail(Request $request)
           $student->destroy($id);
               // return redirect()->Route('projects.shortcourse')->with('success','Deleted Successfully');
           return redirect()->back()->with('success','Data Deleted Successfully');
+        }
+
+
+        public function ViewCourseDetail(Request $request, $id)
+        {
+            $shortcourse_detail =CourseShort::findOrFail($id);
+                // $shortcoursestudent=Courseshortstudent::all();
+                $shortcoursestudent=Courseshortstudent::WHERE('course_short_id',$shortcourse_detail->id)->get();
+
+                $provinces= Province::all();
+                $district= District::all();
+                $comnune= Commune::all();
+                $student=Student::latest()->paginate(7);
+                $overal_fund=OveralFund::all();
+                $data=[];
+
+                $faculty= Faculty::WHERE('course_type_id',1)->get();        
+                $need = DB::table('faculties')
+                ->join('course_short', 'faculties.id', '=', 'course_short.course_code_id')
+                ->select('course_short.course_code_id')
+                ->where('course_short.id',$id)
+                ->first(); 
+
+                $data['faculty_selected']=Faculty::findOrFail($need->course_code_id);
+                $data['curriculum_End']=CurriculumEndorsement::all();
+
+                    // return $data;
+                $curriculum_End= CurriculumEndorsement::all();
+                $curriculum_author=CurriculumAuthor::all();
+                $modality= Modality::all();
+                return view('ProjectActivities.courses.shortcourse.course_detail', compact('shortcourse_detail','faculty','curriculum_End','curriculum_author','modality','overal_fund','data','provinces','district','comnune','student','shortcoursestudent'));
         }
 
         

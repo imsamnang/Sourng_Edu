@@ -987,6 +987,8 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
               //===============Short Course Detail============Ratha
     Route::get('/shortcourse_detail/{id}','ProjectActivities\ShortcourseController@ShortCourse_detail')->name('projects.shortcourse_detail');
     Route::post('/shortcourse_detail/store','ProjectActivities\ShortcourseController@SaveCourse_detail')->name('shortcourse_detail.savedata');
+            //=================View Course Detail==============Ratha
+    Route::get('/shortcourse/detail/{id}','ProjectActivities\ShortCourseController@ViewCourseDetail')->name('projects.coursedetail');
 
   //======================Long Course=============Ratha
     Route::get('/longcourse-list','ProjectActivities\LongcourseController@showLonglist')->name('projects.longcourse');

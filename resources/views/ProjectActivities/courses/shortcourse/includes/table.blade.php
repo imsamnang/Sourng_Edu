@@ -39,10 +39,10 @@
     <td>{{ $i }}</td>
     {{-- <td class="action-buttons"><a href="{{ $row->id }}">{{ $row->batch_group }} <span style="color:red;">(11 នាក់)</span></a></td> --}}
     @if($flag=='kh')
-    <td class="action-buttons"><a href="#">{{ $row->faculty->faculty_kh }} </a> <span style="color:red;">({{ App\Models\Courseshortstudent::where('course_short_id',$row->id)->count() }} នាក់)</span></td>
+    <td class="action-buttons"><a href="{{ route('projects.coursedetail',$row->id) }}">{{ $row->faculty->faculty_kh }} </a> <span style="color:red;">({{ App\Models\Courseshortstudent::where('course_short_id',$row->id)->count() }} នាក់)</span></td>
     @endif
     @if($flag=='en')
-    <td><a href="#">{{ $row->faculty->faculty_en }} </a><span style="color:red;">({{ App\Models\Courseshortstudent::where('course_short_id',$row->id)->count() }} នាក់)</span> </td>
+    <td><a href="{{ route('projects.coursedetail',$row->id) }}">{{ $row->faculty->faculty_en }} </a><span style="color:red;">({{ App\Models\Courseshortstudent::where('course_short_id',$row->id)->count() }} នាក់)</span> </td>
     @endif
     <td><a href="#"> {{ $row->course_name }}</a></td>
     <td><a href="#"> {{ $row->total_training_hour }}</a></td>
