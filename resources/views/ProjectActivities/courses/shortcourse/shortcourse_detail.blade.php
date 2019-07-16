@@ -218,9 +218,9 @@
   <table id="dynamic-table" class="table table-striped table-bordered table-hover">
     <thead>
       <tr>
-        <th width="50px;">{{ __('shortcoure_detail_ID') }}</th>
-        <th width="370px;">{{ __('shortcoure_detail_StudentName') }}</th>       
-        <th width="200px;">{{ __('shortcoure_Course_Name') }}</th>   
+        <th >{{ __('shortcoure_detail_ID') }}</th>
+        <th >{{ __('shortcoure_detail_StudentName') }}</th>       
+        <th >{{ __('shortcoure_Course_Name') }}</th>   
 
         <th class="hidden-480" >{{ __('shortcoure_detail_OveralFund') }}</th>
         <th class="hidden-480" >{{ __('shortcoure_detail_Finish?') }}</th>
