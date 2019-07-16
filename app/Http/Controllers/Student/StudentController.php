@@ -113,6 +113,7 @@ class StudentController extends CollegeBaseController
     {
       $data = [];
       $data['blank_ins'] = new Student();
+      $data['gender']=Gender::all();
       $data['faculties'] = $this->activeFaculties();
       $academicStatus = StudentStatus::select('id', 'title')->Active()->pluck('title','id')->toArray();
       $data['academic_status'] = array_prepend($academicStatus,'Select Status',0);
@@ -338,6 +339,7 @@ class StudentController extends CollegeBaseController
     public function edit(Request $request, $id)
     {
       $data = [];
+      
       $data['row'] = Student::select('students.id','students.reg_no', 'students.reg_date', 'students.university_reg',
           'students.faculty','students.semester', 'students.academic_status', 'students.first_name', 'students.middle_name',
           'students.last_name', 'students.date_of_birth', 'students.gender', 'students.blood_group', 'students.nationality',
@@ -363,6 +365,7 @@ class StudentController extends CollegeBaseController
 
       if (!$data['row'])
           return parent::invalidRequest();
+    $data['gender']=Gender::all();
       $data['faculties'] = $this->activeFaculties();
       $semester = Semester::select('id', 'semester')->where('id','=',$data['row']->semester)->Active()->pluck('semester','id')->toArray();
       $data['semester'] = array_prepend($semester,'Select Semester',0);
