@@ -241,11 +241,11 @@
         <td>
             <center>
 
-                <a href="#" type="button" data-toggle="modal" data-target="#exampleModal">
+                <a href="#" type="button" data-toggle="modal" data-target="#edit">
                   {{ __('shortcoure_detail_ChangeFund') }}
                 </a>
                 <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="example" aria-hidden="true">
+                <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="example" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
                       <div class="modal-header">
@@ -255,8 +255,10 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <form method="post" action="">
-                          <select style="width: 100%" name="cbo_fund_overall">
+                        <form method="post" action="#">
+                                  {{csrf_field()}}
+                                  {{method_field('PUT')}}
+                          <select style="width: 100%" name="change_fund" id="change_fund">
                             @if ($flag=='kh')
                             <option selected disabled>សូមជ្រើសរើស </option>
                             @else
@@ -275,7 +277,7 @@
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary btn-sm">{{ __('shortcoure_Save') }}</button>
+                        <button type="submit" class="btn btn-primary btn-sm">{{ __('shortcoure_Save') }}</button>
                       </div>
                     </div>
                   </div>
@@ -337,6 +339,8 @@
 
         </script>
 
-@include('projectactivities.staff.includes.dataTable_scripts') 
+      @include('projectactivities.staff.includes.dataTable_scripts') 
+
+      
 
 @endpush
