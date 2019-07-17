@@ -987,12 +987,12 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
     Route::put('/update-shortcourse/{id}','ProjectActivities\ShortcourseController@update_shortcourse')->name('update-book.update');
 
     Route::delete('/delete-shortcourse/{id}','ProjectActivities\ShortcourseController@delete_shortcourse')->name('delete-shortcourse.destroy');
-              //===============Short Course Detail============Ratha
+                              //===============Short Course Detail============Ratha
     Route::get('/shortcourse_detail/viewenrollmentv/{id}','ProjectActivities\ShortcourseController@ShortCourse_detail')->name('projects.shortcourse_detail');
     Route::post('/shortcourse_detail/store','ProjectActivities\ShortcourseController@SaveCourse_detail')->name('shortcourse_detail.savedata');
     Route::delete('/shortcourse-detail/delete/{id}','ProjectActivities\ShortcourseController@ShortCoursedetail_delete')->name('shortcourse_detail.destroy');
 
-            //=================View Course Detail==============Ratha
+                               //=================View Course Detail==============Ratha
     Route::get('/shortcourse/detail/{id}','ProjectActivities\ShortCourseController@ViewCourseDetail')->name('projects.coursedetail');
 
   //======================Long Course=============Ratha
@@ -1003,7 +1003,9 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
     Route::put('/update-longcourse/{id}','ProjectActivities\LongcourseController@update')->name('longcourse.update');
 
     Route::delete('/delete-longcourse/{id}','ProjectActivities\LongcourseController@delete')->name('delete-longcourse.destroy');
+                            //==============Long Course Detail==========Ratha
     Route::get('/longcourse_detail/{id}','ProjectActivities\LongcourseController@LongCourse_detail')->name('project.longcourse_detail');
+    Route::post('/longcourse_detail/store','ProjectActivities\LongcourseController@SaveLongCourse_detail')->name('longcourse_detail.savedata');
    
 });
 
