@@ -1,3 +1,4 @@
+<?php $flag=App()->getLocale();  ?>
 <div class="row">
     <div class="col-sm-12 align-right hidden-print">
         <a href="#" class="" onclick="window.print();">
@@ -134,7 +135,16 @@
             <div class="profile-info-row">
                 <div class="profile-info-name"> Gender : </div>
                 <div class="profile-info-value">
-                    <span class="editable" id="student_name">{{ $data['student']->gender }}</span>
+                    <span class="editable" id="student_name">
+                        {{-- {{ $data['student']->gender }} --}}
+                        @if ($flag=='kh')
+                            {{$data['student']->gender==1?'ប្រុស':'ស្រី'}}                            
+                        @else
+                        {{$data['student']->gender==1?'Male':'Female'}}
+                        @endif
+
+
+                    </span>
                 </div>
                 <div class="profile-info-name"> Blood Group : </div>
                 <div class="profile-info-value">

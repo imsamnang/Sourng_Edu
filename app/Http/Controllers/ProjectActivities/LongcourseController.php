@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\ProjectActivities;
 
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use App\Models\Commune;
 use App\Models\CurriculumAuthor;
 use App\Models\CurriculumEndorsement;
@@ -10,6 +11,7 @@ use App\Models\District;
 use App\Models\Faculty;
 use App\Models\GeneralSetting;
 use App\Models\LongCourse;
+use App\Models\Courselongstudent;
 use App\Models\Modality;
 use App\Models\OveralFund;
 use App\Models\ProgramType;
@@ -123,5 +125,25 @@ class LongcourseController extends Controller
     return view('ProjectActivities.courses.longcourse.longcourse_detail', compact('longcourse_detail','faculty','overal_fund','data','student'));
 
    }
+
+   function SaveLongCourse_detail(Request $request)
+{
+
+    //code Insert more data
+
+    foreach ($request->student_name as $student_id) {
+        $Courselongstudent=new Courselongstudent();
+
+        $Courselongstudent->course_short_id= $request->cbo_faculty;
+        $Courselongstudent->overal_fund_id= $request->cbo_overalfund;
+        $Courselongstudent->institute_id= 1;
+        $Courselongstudent->student_id= $student_id;
+        // return $Courselongstudent;
+        $Courselongstudent->save();
+
+    }
+
+    return redirect()->back()->with('success','Data Saved Successfully');
+}
 }
 

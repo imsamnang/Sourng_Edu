@@ -4,9 +4,10 @@
 @include('projectactivities.layout.menu.menu_admin')
 @endsection
 
-@section('css')
+@push('custom-css')
+<link rel="stylesheet" href="{{ asset('assets/css/chosen.min.css') }}" />
 
-@endsection
+@endpush
 @section('content')
 
 <div class="card table-bordered" style="margin-top: 15px; margin-left: 15px; margin-right: 15px; padding-left: 30px; padding-right: 30px; padding-bottom: 30px; padding-top: 5px; border-color: #79b0ce;">
@@ -68,12 +69,115 @@
         </tr>
       </tbody></table>
     </fieldset>
-    <h5 style="color: white; font-family: Khmer OS Battambang;
-    background-color: #438eb9; padding: 10px; margin-bottom: 15px;">បញ្ជីឈ្មោះសិស្សរៀនវគ្គខាងលើ</h5>
 
-    <table class="table table-bordered table-striped table-hover dataTable js-exportable">
-      <thead>
-        <tr>
+
+    {{-- Add Students --}}
+    <h5 style="color: white; font-family: Khmer OS Battambang;
+    background-color: #438eb9; padding: 10px; margin-bottom: 30px;">បន្ថែមសិស្ស</h5>
+    
+    <div class="card-body">
+      <form   action="{{ route('longcourse_detail.savedata') }}" method="post" enctype="multipart/form-data">
+        {{csrf_field()}}
+        <div class="row">
+          <div class="col-md-2">
+            <div class="form-group">
+              <center><label>ជ្រើសរើសសិស្ស</label></center>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              {{-- <input type="text" name="student_name" style="width: 100%"> --}}
+              <select multiple="" name="student_name[]" class="chosen-select form-control" id="form-field-select-4" data-placeholder="ជ្រើសរើសសិស្ស..." style="width: 100% !important" >
+                @foreach ($student as $stu)
+
+                <?php 
+                $gender=ucfirst($stu->gender);
+                if($gender=='MALE'){
+                  $gender='M';
+                }else {
+                  $gender='F';
+                }
+
+                ?>
+
+                <option value="{{ $stu->id }}">{{ $stu->first_name }} - {{ $stu->last_name }} , {{ $gender }} , {{ Carbon\Carbon::parse($stu->date_of_birth)->format('d-m-Y') }} , ID:# {{ $stu->id }}</option>
+
+                @endforeach
+              </select>
+            </div>
+
+
+          </div>
+
+          <div class="col-md-2">
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary btn-sm" class="form-control">បន្ថែមសិស្ស</button>
+            </div>
+          </div>
+
+        </div>
+
+
+      </div>
+      <div class="row">
+
+        <div class="col-md-3">
+          <div class="form-group">
+
+            <input type="hidden" name="cbo_faculty" value="{{ $longcourse_detail->id  }}">
+
+          </div>
+        </div>
+
+
+
+        <div class="col-md-3">
+          <div class="form-group">
+            
+            <input type="hidden" name="cbo_overalfund" value="{{ $longcourse_detail->overalFundName->id  }}">
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="form-group">
+            {{-- <label for="reg_no">Institute</label> --}}
+            <input type="hidden" name="Institute" value="">
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </div>
+
+  {{-- End add student --}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h5 style="color: white; font-family: Khmer OS Battambang;
+  background-color: #438eb9; padding: 10px; margin-bottom: 15px;">បញ្ជីឈ្មោះសិស្សរៀនវគ្គខាងលើ</h5>
+
+  <table class="table table-bordered table-striped table-hover dataTable js-exportable">
+    <thead>
+      <tr>
         <th width="50px;">{{ __('shortcoure_detail_ID') }}</th>
         <th width="170px;">{{ __('shortcoure_detail_StudentName') }}</th>
         <th width="90px;">{{ __('shortcoure_detail_Sex') }}</th>
@@ -82,110 +186,119 @@
         <th width="100px;">{{ __('shortcoure_detail_Finish?') }}</th>
         <th width="150px;">{{ __('shortcoure_detail_Currently Employment?') }}</th>
         <th width="100px;">{{ __('shortcoure_detail_Action') }}</th>
-        </tr>
-      </thead>
-      <tbody>
-        @foreach ($student as $key=> $post)
-        <tr>
-          <td>{{$key+1}}</td>
-          <td>{{$post->first_name}}</td>
-          <td>{{ $post->gender }}</td>
-          <td>{{$post->date_of_birth}}</td>
-          <td>
-          </td>
-          <td></td>
-          <td></td>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach ($student as $key=> $post)
+      <tr>
+        <td>{{$key+1}}</td>
+        <td>{{$post->first_name}}</td>
+        <td>{{ $post->gender }}</td>
+        <td>{{$post->date_of_birth}}</td>
+        <td>
+        </td>
+        <td></td>
+        <td></td>
 
-          <td>
-            <center>
+        <td>
+          <center>
 
-              <a href="#" type="button" data-toggle="modal" data-target="#exampleModal">
-                {{ __('shortcoure_detail_ChangeFund') }}
-              </a>
-              |
-              <a href="#">{{ __('shortcoure_detail_Delete') }}</a>
-              <!-- Modal Form -->
-              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="example" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h3 class="modal-title" id="example">{{ __('shortcoure_detail_ChangeFund') }}</h3>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      <form method="post" action="">
-                        <select style="width: 100%" name="cbo_fund_overall">
-                              @if ($flag=='kh')
-                              <option selected disabled>សូមជ្រើសរើស </option>
-                              @else
-                              <option selected disabled>Please Choose </option>
-                              @endif
+            <a href="#" type="button" data-toggle="modal" data-target="#exampleModal">
+              {{ __('shortcoure_detail_ChangeFund') }}
+            </a>
+            |
+            <a href="#">{{ __('shortcoure_detail_Delete') }}</a>
+            <!-- Modal Form -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="example" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h3 class="modal-title" id="example">{{ __('shortcoure_detail_ChangeFund') }}</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form method="post" action="">
+                      <select style="width: 100%" name="cbo_fund_overall">
+                        @if ($flag=='kh')
+                        <option selected disabled>សូមជ្រើសរើស </option>
+                        @else
+                        <option selected disabled>Please Choose </option>
+                        @endif
 
-                              @foreach ($overal_fund as $row){
-                              @if ($flag=='kh')
-                              <option value="{{ $row->id }}">{{ $row->title_kh}}</option>
-                              @else
-                              <option value="{{ $row->id }}">{{ $row->title_en}}</option>                                  
-                              @endif
-                              @endforeach
-                        </select>
-                      </form>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">{{ __('Close') }}</button>
-                      <button type="button" class="btn btn-primary btn-sm">{{ __('shortcoure_Save') }}</button>
-                    </div>
+                        @foreach ($overal_fund as $row){
+                        @if ($flag=='kh')
+                        <option value="{{ $row->id }}">{{ $row->title_kh}}</option>
+                        @else
+                        <option value="{{ $row->id }}">{{ $row->title_en}}</option>                                  
+                        @endif
+                        @endforeach
+                      </select>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">{{ __('Close') }}</button>
+                    <button type="button" class="btn btn-primary btn-sm">{{ __('shortcoure_Save') }}</button>
                   </div>
                 </div>
-              </div><!-- End Modal Form -->
+              </div>
+            </div><!-- End Modal Form -->
 
-              
-                    
 
-                                              </center>
-                                            </td>
-                                          </tr>
-                                          @endforeach       
-                                        </tbody>
-                                      </table>
-                                    </div>
-                                    <div class="row">
-                                      {{-- //Pagination --}}
-                                      <div class="col-md-12 align-left">
-                                        {{ $student->onEachSide(1)->links() }}
-                                      </div>
-                                    </div>
-                                    {{-- End pagination --}}
-                                  </div>
-                                </div>
-                              </div>
 
-                              @endsection
-                              @section('js')
-                              <script type="text/javascript">
-                                function deletePost(id){
-                                  Swal.fire({
-                                    title: 'Are you sure?',
-                                    text: "You won't be able to revert this!",
-                                    type: 'warning',
-                                    showCancelButton: true,
-                                    confirmButtonColor: '#3085d6',
-                                    cancelButtonColor: '#d33',
-                                    confirmButtonText: 'Yes, delete it!'
-                                  }).then((result) => {
-                                    if (result.value) {
-                                      document.getElementById('delete-form-'+id).submit();
-                                      Swal.fire(
-                                        'Deleted!',
-                                        'Your file has been deleted.',
-                                        'success'
-                                        )
-                                    }
-                                  })
-                                }
 
-                              </script>
+          </center>
+        </td>
+      </tr>
+      @endforeach       
+    </tbody>
+  </table>
+</div>
+<div class="row">
+  {{-- //Pagination --}}
+  <div class="col-md-12 align-left">
+    {{ $student->onEachSide(1)->links() }}
+  </div>
+</div>
+{{-- End pagination --}}
+</div>
+</div>
+</div>
 
-                              @endsection
+@endsection
+@push('custom-js')
+<script src="{{ asset('assets/js/chosen.jquery.min.js') }}"></script>
+<script type="text/javascript">
+  $('#form-field-select-4').chosen();
+</script>
+
+<script type="text/javascript">
+  function deletePost(id){
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.value) {
+        document.getElementById('delete-form-'+id).submit();
+        Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+          )
+      }
+    })
+  }
+
+</script>
+
+@include('projectactivities.staff.includes.dataTable_scripts') 
+
+
+
+@endpush

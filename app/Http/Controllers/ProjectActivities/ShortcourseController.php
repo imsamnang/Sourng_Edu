@@ -194,6 +194,7 @@ function ShortCourse_detail(Request $request, $id)
   $curriculum_End= CurriculumEndorsement::all();
   $curriculum_author=CurriculumAuthor::all();
   $modality= Modality::all();
+  
   return view('ProjectActivities.courses.shortcourse.shortcourse_detail', 
       compact('shortcourse_detail','faculty','curriculum_End',
           'curriculum_author','modality','overal_fund','data','provinces',
