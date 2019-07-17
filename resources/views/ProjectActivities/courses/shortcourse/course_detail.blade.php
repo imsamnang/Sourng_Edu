@@ -18,103 +18,117 @@
   background-color: #438eb9; padding: 10px;">កម្មវិធីលម្អិត S- {{ $shortcourse_detail->id }}</h5>
   
   <div class="card-body">
-    <fieldset>
-      <table>
-        <tbody>
-          <tr style="margin: 15px;">
-            <td style="width: 160px;"><strong>{{ __('shortcoure_Course-Code') }}</strong></td>
-            <td style="width: 240px; font-size: 14px; color: red;">
-              @if ($flag=='kh')
-              <p>{{ $shortcourse_detail->faculty->faculty_kh }}</p>
-              @endif
-              @if ($flag=='en')
-              <p>{{ $shortcourse_detail->faculty->faculty_en }}</p>
-              @endif
-            </td>
-            <td class="hidden-480" style="width: 160px;"><strong>  {{ __('shortcoure_Course_Name') }}</strong></td>
-            <td class="hidden-480" style="width: 240px; font-size: 14px; color: red;">
-              @if ($flag=='kh')
-              <p>{{ $shortcourse_detail->course_name }}</p>
-              @endif
-              @if ($flag=='en')
-              <p>{{ $shortcourse_detail->course_name }}</p>
-              @endif
-            </td>
-          </tr>
+      
+            <div class="row">
+                  <div class="col-md-4">
+                        <div class="form-group">
+                            <label><strong>{{ __('shortcoure_Course-Code') }}</strong></label>
+                             @if ($flag=='kh')
+                              <label class="responsive" style="color: red;margin-left: 28px;">{{ $shortcourse_detail->faculty->faculty_kh }}</label>
+                              @endif
+                              @if ($flag=='en')
+                              <label class="responsive" style="color: red;margin-left: 28px;">{{ $shortcourse_detail->faculty->faculty_en }}</label>
+                              @endif
+                        </div>
+                        
+                  </div>
 
-          <tr class="hidden-480"style="margin: 15px;">
-            <td style="width: 160px;"><strong>{{ __('shortcoure_Overal-Fund') }}</strong></td>
-            <td colspan="3" style="font-size: 14px; color: red;">
-             @if ($flag=='kh')
-             <p>{{ $shortcourse_detail->overalFund->title_kh }}</p>
-             @endif
-             @if ($flag=='en')
-             <p>{{ $shortcourse_detail->overalFund->title_en }}</p>
-             @endif
-           </td>
-         </tr>
+                  <div class="col-md-4">
+                        <div class="form-group">
+                            <label><strong>{{ __('shortcoure_Course_Name') }}</strong></label>&emsp;
+                                @if ($flag=='kh')
+                                <label style="color: red;margin-left: 10px;">{{ $shortcourse_detail->course_name }}</label>
+                                @endif
+                                @if ($flag=='en')
+                                <label style="color: red;margin-left: 10px;">{{ $shortcourse_detail->course_name }}</label>
+                                @endif
+                        </div>
+                  </div>
+            </div>
+              
+            <div class="row">
+                    <div class="col-md-4">
+                          <div class="form-group">
+                              <label><strong>{{ __('shortcoure_Overal-Fund') }}</strong></label>&emsp;
+                                   @if ($flag=='kh')
+                                   <label class="responsive" style="color: red;margin-left: 20px;">{{ $shortcourse_detail->overalFund->title_kh }}</label>
+                                   @endif
+                                   @if ($flag=='en')
+                                   <label class="responsive" style="color: red;margin-left: 20px;">{{ $shortcourse_detail->overalFund->title_en }}</label>
+                                   @endif
+                          </div>
+                    </div>
 
-         <tr style="margin: 15px;">
-          <td style="width: 160px;"><strong>{{ __('shortcoure_Total_Training_Houre') }}</strong></td>
-          <td style="width: 240px; font-size: 14px; color: red;">
-            @if ($flag=='kh')
-            <p>{{ $shortcourse_detail->total_training_hour }}</p>
-            @endif
-            @if ($flag=='en')
-            <p>{{ $shortcourse_detail->total_training_hour }}</p>
-            @endif
-          </td>
+                    <div class="col-md-4">
+                          <div class="form-group">
+                              <label><strong>Training Houre</strong></label>&emsp;
+                                @if ($flag=='kh')
+                                <label style="color: red; margin-left: 5px;">{{ $shortcourse_detail->total_training_hour }}</labelp>
+                                @endif
+                                @if ($flag=='en')
+                                <label style="color: red; margin-left: 5px;">{{ $shortcourse_detail->total_training_hour }}</label>
+                                @endif
+                          </div>
+                    </div>
+            </div>
 
-          <td style="width: 160px;"> </td>
-          <td style="width: 240px;"> </td>
+            <div class="row">
+                  <div class="col-md-4">
+                        <div class="form-group">
+                            <label><strong>Teacher Name</strong></label>&emsp;
+                                 @if ($flag=='kh')
+                                 <label style="color: red;margin-left: 5px;">សន សុផល</label>
+                                 @endif
+                                 @if ($flag=='en')
+                                 <label style="color: red;margin-left: 5px;">សន សុផល</label>
+                                 @endif
+                        </div>
+                  </div>
 
-        </tr>
+                  <div class="col-md-4">
+                        <div class="form-group">
+                            <label><strong>{{ __('shortcoure_Modality') }}</strong></label>&emsp;
+                                  @if ($flag=='kh')
+                                  <label style="color: red; margin-left: 46px;">{{ $shortcourse_detail->modalityName->modality_kh }}</label>
+                                  @endif
+                                  @if ($flag=='en')
+                                  <label style="color: red; margin-left: 46px;">{{ $shortcourse_detail->modalityName->modality_en }}</label>
+                                  @endif
+                        </div>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-md-4">
+                    <div class="form-group">
+                        <label><strong>Training Place</strong></label>&emsp;
+                              @if ($flag=='kh')
+                              <label style="color: red; margin-left: 8px;">{{ $shortcourse_detail->province->name_kh }}</label>
+                              @endif
+                              @if ($flag=='en')
+                              <label style="color: red; margin-left: 8px;">{{ $shortcourse_detail->province->name_en }}</label>
+                              @endif
+                    </div>
+              </div>
 
-        <tr style="margin: 15px;">
-          <td style="width: 160px;"><strong>{{ __('shortcoure_Teacher_Name(1)') }}</strong></td>
-          <td colspan="3" style="font-size: 14px; color: red;">
-          សន សុផល (tel: 012 628 151 | dob: 1970-06-15) </td>
-        </tr>
+              <div class="col-md-4">
+                    <div class="form-group">
+                        <label><strong>{{ __('shortcoure_Start-Date') }}</strong></label>&emsp;
+                        <label value="{{ date('d-m-Y',strtotime($shortcourse_detail->start_date)) }}" style="color: red; margin-left: 35px;">{{ date('d-m-Y',strtotime($shortcourse_detail->start_date)) }}</label>
+                    </div>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-md-4">
+                    <div class="form-group">
+                        <label><strong>{{ __('shortcoure_EndDate') }}</strong></label>&emsp;
+                        <label value="{{ date('d-m-Y',strtotime($shortcourse_detail->end_date)) }}" style="color: red; margin-left: 38px;">{{ date('d-m-Y',strtotime($shortcourse_detail->end_date)) }}</label>
+                    </div>
+              </div>
+            </div>
+  </div>
 
-        <tr style="margin: 15px;">
-          <td style="width: 160px;"><strong>{{ __('shortcoure_Modality') }}</strong></td>
-          <td colspan="3" style="font-size: 14px; color: red;">
-            @if ($flag=='kh')
-            <p>{{ $shortcourse_detail->modalityName->modality_kh }}</p>
-            @endif
-            @if ($flag=='en')
-            <p>{{ $shortcourse_detail->modalityName->modality_en }}</p>
-            @endif
-          </td>
-        </tr>
-
-        <tr style="margin: 15px;">
-          <td style="width: 160px;"><strong>{{ __('shortcoure_TrainingLocation_Detail') }} </strong></td>
-
-          <td colspan="3" style="font-size: 14px; color: red;">
-
-            @if ($flag=='kh')
-            <p>{{ $shortcourse_detail->province->name_kh }}</p>
-            @endif
-            @if ($flag=='en')
-            <p>{{ $shortcourse_detail->province->name_en }}</p>
-            @endif
-          </td>
-        </td>
-      </tr>
-
-      <tr style="margin: 15px;">
-        <td style="width: 160px;"><strong>{{ __('shortcoure_Start-Date') }}:</strong></td>
-        <td style="width: 240px; font-size: 14px; color: red;">
-          <label value="{{ $shortcourse_detail->start_date }}">{{ $shortcourse_detail->start_date }}</label>
-        </td>
-        <td style="width: 160px;"><strong>{{ __('shortcoure_EndDate') }}</strong></td>
-        <td style="width: 240px; font-size: 14px; color: red;">
-          <label value="{{ $shortcourse_detail->end_date }}">{{ $shortcourse_detail->end_date }}</label>
-        </td>
-      </tr>
-    </tbody></table>
-  </fieldset><br>
   <a href="{{ route('projects.shortcourse') }}" style="float: right; margin:0px;padding: 0px;">Back</a>
 @endsection
 @push('custom-js')
