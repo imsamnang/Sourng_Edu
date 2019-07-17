@@ -1,5 +1,6 @@
+<?php  $flag = App()->getLocale();?>
 @extends('projectactivities.layout.master')
-<?php  $flag = app()->getLocale();?>
+
 
 
 @section('menu-panel')
@@ -41,7 +42,6 @@
               @endif
             </td>
           </tr>
-
           <tr class="hidden-480"style="margin: 15px;">
             <td style="width: 160px;"><strong>{{ __('shortcoure_Overal-Fund') }}</strong></td>
             <td colspan="3" style="font-size: 14px; color: red;">
@@ -53,7 +53,6 @@
              @endif
            </td>
          </tr>
-
          <tr style="margin: 15px;">
           <td style="width: 160px;"><strong>{{ __('shortcoure_Total_Training_Houre') }}</strong></td>
           <td style="width: 240px; font-size: 14px; color: red;">
@@ -64,18 +63,14 @@
             <p>{{ $shortcourse_detail->total_training_hour }}</p>
             @endif
           </td>
-
           <td style="width: 160px;"> </td>
           <td style="width: 240px;"> </td>
-
         </tr>
-
         <tr style="margin: 15px;">
           <td style="width: 160px;"><strong>{{ __('shortcoure_Teacher_Name(1)') }}</strong></td>
           <td colspan="3" style="font-size: 14px; color: red;">
           សន សុផល (tel: 012 628 151 | dob: 1970-06-15) </td>
         </tr>
-
         <tr style="margin: 15px;">
           <td style="width: 160px;"><strong>{{ __('shortcoure_Modality') }}</strong></td>
           <td colspan="3" style="font-size: 14px; color: red;">
@@ -87,22 +82,18 @@
             @endif
           </td>
         </tr>
-
         <tr style="margin: 15px;">
           <td style="width: 160px;"><strong>{{ __('shortcoure_TrainingLocation_Detail') }} </strong></td>
-
           <td colspan="3" style="font-size: 14px; color: red;">
-
             @if ($flag=='kh')
-            <p>{{ $shortcourse_detail->provinceName->name_kh }}</p>
+            <p>{{ $shortcourse_detail->province->name_kh }}</p>
             @endif
             @if ($flag=='en')
-            <p>{{ $shortcourse_detail->provinceName->name_en }}</p>
+            <p>{{ $shortcourse_detail->province->name_en }}</p>
             @endif
           </td>
         </td>
       </tr>
-
       <tr style="margin: 15px;">
         <td style="width: 160px;"><strong>{{ __('shortcoure_Start-Date') }}:</strong></td>
         <td style="width: 240px; font-size: 14px; color: red;">
@@ -115,106 +106,75 @@
       </tr>
     </tbody></table>
   </fieldset><br>
-
 {{-- Add Students --}}
             <h5 style="color: white; font-family: Khmer OS Battambang;
-  background-color: #438eb9; padding: 10px; margin-bottom: 30px;">បន្ថែមសិស្ស</h5>
-    
+  background-color: #438eb9; padding: 10px; margin-bottom: 30px;">បន្ថែមសិស្ស</h5>    
           <div class="card-body">
           <form   action="{{ route('shortcourse_detail.savedata') }}" method="post" enctype="multipart/form-data">
             {{csrf_field()}}
             <div class="row">
-                      <div class="col-md-2">
-                        <div class="form-group">
-                          <center><label>ជ្រើសរើសសិស្ស</label></center>
-                        </div>
-                      </div>
-
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          {{-- <input type="text" name="student_name" style="width: 100%"> --}}
-                          <select multiple="" name="student_name[]" class="chosen-select form-control" id="form-field-select-4" data-placeholder="ជ្រើសរើសសិស្ស..." style="width: 100% !important" >
-                            @foreach ($student as $stu)
-
-                            <?php 
-                                $gender=ucfirst($stu->gender);
-                                  if($gender=='MALE'){
-                                    $gender='M';
-                                  }else {
-                                    $gender='F';
-                                  }
-                            
-                            ?>
-
-                              <option value="{{ $stu->id }}">{{ $stu->first_name }} - {{ $stu->last_name }} , {{ $gender }} , {{ Carbon\Carbon::parse($stu->date_of_birth)->format('d-m-Y') }} , ID:# {{ $stu->id }}</option>
-
-                            @endforeach
-                          </select>
-                        </div>
-
-  
-                    </div>
-
-                     <div class="col-md-2">
-                        <div class="form-group">
-                          <button type="submit" class="btn btn-primary btn-sm" class="form-control">បន្ថែមសិស្ស</button>
-                        </div>
-                      </div>
-
+              <div class="col-md-2">
+                <div class="form-group">
+                  <center><label>ជ្រើសរើសសិស្ស</label></center>
+                </div>
               </div>
-
-                     
+              <div class="col-md-6">
+                <div class="form-group">
+                  {{-- <input type="text" name="student_name" style="width: 100%"> --}}
+                  <select multiple="" name="student_name[]" class="chosen-select form-control" id="form-field-select-4" data-placeholder="ជ្រើសរើសសិស្ស..." style="width: 100% !important" >
+                    @foreach ($student as $stu)
+                    <?php 
+                      $gender=$stu->gender;//ucfirst($stu->gender);
+                        if($flag=='kh'){
+                          $gender=$gender=='1'?'ប':'ស';
+                        }else {
+                          $gender=$gender=='1'?'M':'F';
+                        }                            
+                    ?>
+                      <option value="{{ $stu->id }}">{{ $stu->first_name }} - {{ $stu->last_name }} , {{ $gender }} , {{ Carbon\Carbon::parse($stu->date_of_birth)->format('Y-m-d') }} , ID:# {{ $stu->id }}</option>
+                    @endforeach
+                  </select>
+                </div>  
+              </div>
+              <div class="col-md-2">
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-sm" class="form-control">បន្ថែមសិស្ស</button>
+                  </div>
+              </div>
+              </div>                    
             </div>
-            <div class="row">
-                    
-                    <div class="col-md-3">
-                      <div class="form-group">
-                        {{-- <label for="reg_no">{{ __('shortcoure_Course-Code') }}</label> --}}
-                        <input type="hidden" name="cbo_faculty" value="{{ $shortcourse_detail->id  }}">
-                     
-                      </div>
-                    </div>
-            
-
-
-                    <div class="col-md-3">
-                        <div class="form-group">
-                          {{-- <label for="reg_no">{{ __('shortcoure_Overal-Fund') }}</label> --}}
-                          <input type="hidden" name="cbo_overalfund" value="{{ $shortcourse_detail->overalFund->id  }}">
-                        </div>
-                      </div>
-
-                      <div class="col-md-3">
-                        <div class="form-group">
-                          {{-- <label for="reg_no">Institute</label> --}}
-                          <input type="hidden" name="Institute" value="">
-                        </div>
-                      </div>
-                      
+            <div class="row">                    
+              <div class="col-md-3">
+                <div class="form-group">
+                  {{-- <label for="reg_no">{{ __('shortcoure_Course-Code') }}</label> --}}
+                  <input type="hidden" name="cbo_faculty" value="{{ $shortcourse_detail->id  }}">
+                </div>
+              </div>  
+              <div class="col-md-3">
+                  <div class="form-group">
+                    {{-- <label for="reg_no">{{ __('shortcoure_Overal-Fund') }}</label> --}}
+                    <input type="hidden" name="cbo_overalfund" value="{{ $shortcourse_detail->overalFund->id  }}">
+                  </div>
               </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  {{-- <label for="reg_no">Institute</label> --}}
+                  <input type="hidden" name="Institute" value="">
+                </div>
+              </div>                      
+            </div>
           </form>
         </div>
 
 {{-- End add student --}}
-
-
-
 <?php $TF=0; ?>
  @foreach ($shortcoursestudent as $key=> $post)
-      @if (strtoupper($post->stu->gender)=='FEMALE')
-         <?php $TF=$TF+1; ?>
-      @endif  
-
+    @if (strtoupper($post->stu->gender)=='2')
+       <?php $TF=$TF+1; ?>
+    @endif
  @endforeach
-
-
-
   <h5 style="color: white; font-family: Khmer OS Battambang;
   background-color: #438eb9; padding: 10px;">ចំនួន​សិស្ស​សរុប​ក្នុង​វគ្គ {{ $shortcoursestudent->count() }} នាក់ (ស្រី {{ $TF }} នាក់)</h5>
-
-
-
-
   <table id="dynamic-table" class="table table-striped table-bordered table-hover">
     <thead>
       <tr>
@@ -232,8 +192,21 @@
     <tbody>
       @foreach ($shortcoursestudent as $key=> $post)
       <tr>
+
+          {{-- {{$post->stu->gender}} --}}
+
         <td>{{$key+1}}</td>
-        <td>{{$post->stu->first_name}} -{{$post->stu->last_name}} , {{$post->stu->gender}} (ID: {{$post->stu->id}})</td>
+        <td>{{$post->stu->first_name}} -{{$post->stu->last_name}} , 
+          <span style="color:red;">
+              @if ($flag=='en')
+                {{$post->stu->gender==1?'M':'F'}} 
+              @endif
+              @if ($flag=='kh')
+              {{$post->stu->gender==1?'ប':'ស'}} 
+            @endif
+          </span>
+          
+          ( ID: <a href="#"> {{$post->stu->id}}</a> )</td>
         <td>{{ $post->Course_Short->course_name }}</td>
         <td class="hidden-480" >{{$post->overalFund->title_kh}}</td>
         <td class="hidden-480" ></td>
@@ -304,6 +277,7 @@
             @endforeach
           </tbody>
         </table>
+        
       </div>
     </div>
   </div>

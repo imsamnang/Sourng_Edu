@@ -1,3 +1,4 @@
+<?php  $flag = App()->getLocale();?>
 <div class="row">
     <div class="col-xs-12">
         <h4 class="header large lighter blue"><i class="fa fa-list" aria-hidden="true"></i>&nbsp; @lang('Panel_List') </h4>
@@ -38,7 +39,7 @@
                     {{-- <th>Phone</th> --}}
                     <th>ភេទ​</th>
                     <th class="hidden-480">ឆ្នាំកំណើត</th>
-                    <th>Phone</th>
+                    <th class="hidden-480">Phone / Mail</th>
                     {{-- <th>@lang('tbl_Status')</th> --}}
                     <th></th>
                 </tr>
@@ -60,10 +61,18 @@
                             {{--<td>{{ \Carbon\Carbon::parse($student->reg_date)->format('Y-m-d')}} </td>--}}
                             <td><a href="{{ $student->id }}">{{ $student->reg_no }}</a></td>
                             <td><a href="{{ $student->id }}"> {{ $student->first_name.' '.$student->middle_name.' '. $student->last_name }}</a></td>
-                            <td><div>{{ $student->gender }}</div></td>
+                            <td><div>
+                                @if ($flag=='kh')
+                                    {{$student->gender==1?'ប':'ស'}}
+                                @endif
+                                @if ($flag=='en')
+                                    {{$student->gender==1?'M':'F'}}
+                                @endif
+                            
+                            </div></td>
                             <td class="hidden-480 "><div>{{ date('Y-m-d', strtotime($student->date_of_birth)) }}</div></td>
                            
-                            <td><div>{{ $student->mobile_1 }}</div></td>
+                            <td class="hidden-480"><div>{{ $student->email }}</div></td>
                            
                             {{-- <td class="hidden-480 ">
                                 <div class="btn-group">

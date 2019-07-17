@@ -23,16 +23,12 @@
 
 @push('custom-js')
     {{-- @include('includes.scripts.jquery_validation_scripts') --}}
-
-
-    <!-- inline scripts related to this page -->
-  
+    <!-- inline scripts related to this page -->  
     {{-- @include('includes.scripts.inputMask_script')
     @include('includes.scripts.delete_confirm')
     @include('includes.scripts.bulkaction_confirm')
     @include('includes.scripts.dataTable_scripts')
     @include('includes.scripts.datepicker_script') --}}
-
     {{-- @include('projectactivities.courses.shortcourse.includes.dataTable_scripts') --}}
     @include('projectactivities.staff.includes.dataTable_scripts') 
 @endpush

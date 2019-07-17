@@ -906,7 +906,6 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
   });
 
 
-
 // Route::prefix('studenthealth')->group(function(){
   //   Route::get('/','StudentHealth\StudentController@index')->name('studenthealth');
   //   Route::get('/registration','StudentHealth\StudentController@registration')->name('studenthealth.registration');
@@ -932,6 +931,12 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
 
 
 // Manage Projects
+  // get district and commune
+    Route::get('get-district-list','ProjectActivities\ShortcourseController@getDistrictList');
+    Route::get('get-commune-list','ProjectActivities\ShortcourseController@getCommuneList');
+    Route::get('get-district-list-kh','ProjectActivities\ShortcourseController@getDistrictListKh');
+    Route::get('get-commune-list-kh','ProjectActivities\ShortcourseController@getCommuneListKh');    
+
     Route::prefix('projects')->group(function(){
     Route::get('/','ProjectActivities\ProjectActivitiesController@index')->name('projects');
     Route::post('/login','ProjectActivities\ProjectActivitiesController@authenticate')->name('projects.login');
@@ -983,7 +988,7 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
     Route::get('/shortcourse-list','ProjectActivities\ShortCourseController@ShortCourse')->name('projects.shortcourse');
     Route::get('/register','ProjectActivities\ShortcourseController@ShowForm')->name('shortcourse.create');
     Route::post('/store','ProjectActivities\ShortcourseController@SaveCourse')->name('shortcourse.savedata');
-    Route::get('/update-course/{id}','ProjectActivities\ShortcourseController@editshortcourse')->name('edit-shortcourse.edit');
+    Route::get('/edit-course/{id}','ProjectActivities\ShortcourseController@editshortcourse')->name('edit-shortcourse.edit');
     Route::put('/update-shortcourse/{id}','ProjectActivities\ShortcourseController@update_shortcourse')->name('update-book.update');
 
     Route::delete('/delete-shortcourse/{id}','ProjectActivities\ShortcourseController@delete_shortcourse')->name('delete-shortcourse.destroy');
@@ -993,6 +998,7 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
     Route::delete('/shortcourse-detail/delete/{id}','ProjectActivities\ShortcourseController@ShortCoursedetail_delete')->name('shortcourse_detail.destroy');
 
                                //=================View Course Detail==============Ratha
+  //=================View Course Detail==============Ratha
     Route::get('/shortcourse/detail/{id}','ProjectActivities\ShortCourseController@ViewCourseDetail')->name('projects.coursedetail');
 
   //======================Long Course=============Ratha
