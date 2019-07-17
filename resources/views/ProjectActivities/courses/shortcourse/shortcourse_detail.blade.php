@@ -1,25 +1,16 @@
 <?php  $flag = App()->getLocale();?>
 @extends('projectactivities.layout.master')
-
-
-
 @section('menu-panel')
-@include('projectactivities.layout.menu.menu_admin')
+  @include('projectactivities.layout.menu.menu_admin')
 @endsection
-
 @push('custom-css')
-<link rel="stylesheet" href="{{ asset('assets/css/chosen.min.css') }}" />
-
+  <link rel="stylesheet" href="{{ asset('assets/css/chosen.min.css') }}" />
 @endpush
 @section('content')
-
 <div class="card table-bordered" style="margin-top: 15px; margin-left: 15px; margin-right: 15px; padding-left: 30px; padding-right: 30px; padding-bottom: 30px; padding-top: 5px; border-color: #79b0ce;">
-
   <h5 style="color: white; font-family: Khmer OS Battambang; font-size: 24px;
   background-color: #438eb9; padding: 10px;">បញ្ជីឈ្មោះសិស្ស S- {{ $shortcourse_detail->id }}</h5>
-  
-  <div class="card-body">
-
+    <div class="card-body">
             <div class="row">
                   <div class="col-md-4">
                         <div class="form-group">
@@ -30,10 +21,8 @@
                               @if ($flag=='en')
                               <label class="responsive" style="color: red;margin-left: 28px;">{{ $shortcourse_detail->faculty->faculty_en }}</label>
                               @endif
-                        </div>
-                        
+                        </div>                        
                   </div>
-
                   <div class="col-md-4">
                         <div class="form-group">
                             <label><strong>{{ __('shortcoure_Course_Name') }}</strong></label>&emsp;
@@ -45,10 +34,8 @@
                                 @endif
                         </div>
                   </div>
-            </div>
-              
+            </div>              
             <div class="row">
-
                     <div class="col-md-4">
                           <div class="form-group">
                               <label><strong>{{ __('shortcoure_Overal-Fund') }}</strong></label>&emsp;
@@ -60,7 +47,6 @@
                                    @endif
                           </div>
                     </div>
-
                     <div class="col-md-4">
                           <div class="form-group">
                               <label><strong>Training Houre</strong></label>&emsp;
@@ -73,7 +59,6 @@
                           </div>
                     </div>
             </div>
-
             <div class="row">
               <div class="col-md-4">
                     <div class="form-group">
@@ -86,7 +71,6 @@
                              @endif
                     </div>
               </div>
-
               <div class="col-md-4">
                     <div class="form-group">
                         <label><strong>{{ __('shortcoure_Modality') }}</strong></label>&emsp;
@@ -98,8 +82,7 @@
                               @endif
                     </div>
               </div>
-            </div>
-            
+            </div>            
             <div class="row">
               <div class="col-md-4">
                     <div class="form-group">
@@ -112,15 +95,13 @@
                               @endif
                     </div>
               </div>
-
               <div class="col-md-4">
                     <div class="form-group">
                         <label><strong>{{ __('shortcoure_Start-Date') }}</strong></label>&emsp;
                         <label value="{{ date('d-m-Y',strtotime($shortcourse_detail->start_date)) }}" style="color: red; margin-left: 35px;">{{ date('d-m-Y',strtotime($shortcourse_detail->start_date)) }}</label>
                     </div>
               </div>
-            </div>
-            
+            </div>            
             <div class="row">
               <div class="col-md-4">
                     <div class="form-group">
@@ -129,9 +110,6 @@
                     </div>
               </div>
             </div>
-
-
-
             <h5 style="color: white; font-family: Khmer OS Battambang; background-color: #438eb9; padding: 10px; margin-bottom: 30px;">បន្ថែមសិស្ស</h5>    
           <div class="card-body">
           <form   action="{{ route('shortcourse_detail.savedata') }}" method="post" enctype="multipart/form-data">
