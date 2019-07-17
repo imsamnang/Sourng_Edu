@@ -94,10 +94,10 @@
           <td colspan="3" style="font-size: 14px; color: red;">
 
             @if ($flag=='kh')
-            <p>{{ $shortcourse_detail->provinceName->name_kh }}</p>
+            <p>{{ $shortcourse_detail->province->name_kh }}</p>
             @endif
             @if ($flag=='en')
-            <p>{{ $shortcourse_detail->provinceName->name_en }}</p>
+            <p>{{ $shortcourse_detail->province->name_en }}</p>
             @endif
           </td>
         </td>
