@@ -163,7 +163,6 @@ class ShortcourseController extends Controller
   {
     $shortcourse = CourseShort::find($id);
     $shortcourse->destroy($id);
-    // return redirect()->Route('projects.shortcourse')->with('success','Deleted Successfully');
     return redirect()->back()->with('success','Data Deleted Successfully');
   }
 
@@ -171,7 +170,6 @@ class ShortcourseController extends Controller
 function ShortCourse_detail(Request $request, $id)
 {   
   $shortcourse_detail =CourseShort::findOrFail($id);
-  // $shortcoursestudent=Courseshortstudent::all();
   $shortcoursestudent=Courseshortstudent::WHERE('course_short_id',$shortcourse_detail->id)->get();
   $provinces= Province::all();
   $district= District::all();
@@ -182,15 +180,14 @@ function ShortCourse_detail(Request $request, $id)
 
   $faculty= Faculty::WHERE('course_type_id',1)->get();        
   $need = DB::table('faculties')
-  ->join('course_short', 'faculties.id', '=', 'course_short.course_code_id')
-  ->select('course_short.course_code_id')
-  ->where('course_short.id',$id)
-  ->first(); 
+          ->join('course_short', 'faculties.id', '=', 'course_short.course_code_id')
+          ->select('course_short.course_code_id')
+          ->where('course_short.id',$id)
+          ->first(); 
 
   $data['faculty_selected']=Faculty::findOrFail($need->course_code_id);
   $data['curriculum_End']=CurriculumEndorsement::all();
 
-      // return $data;
   $curriculum_End= CurriculumEndorsement::all();
   $curriculum_author=CurriculumAuthor::all();
   $modality= Modality::all();
@@ -199,7 +196,6 @@ function ShortCourse_detail(Request $request, $id)
       compact('shortcourse_detail','faculty','curriculum_End',
           'curriculum_author','modality','overal_fund','data','provinces',
           'district','comnune','student','shortcoursestudent'));
-      // return view('ProjectActivities.courses.shortcourse.shortcourse_detail', compact('shortcourse_detail'));
 }
 
 function SaveCourse_detail(Request $request)
