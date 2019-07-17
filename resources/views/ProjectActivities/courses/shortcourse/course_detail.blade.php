@@ -24,12 +24,18 @@
           <tr style="margin: 15px;">
             <td style="width: 160px;"><strong>{{ __('shortcoure_Course-Code') }}</strong></td>
             <td style="width: 240px; font-size: 14px; color: red;">
-              @if ($flag=='kh')
+              {{-- @if ($flag=='kh')
               <p>{{ $shortcourse_detail->faculty->faculty_kh }}</p>
               @endif
               @if ($flag=='en')
               <p>{{ $shortcourse_detail->faculty->faculty_en }}</p>
-              @endif
+              @endif --}}
+              <?php 
+                $fact=$flag=='kh'?$shortcourse_detail->faculty->faculty_kh:$shortcourse_detail->faculty->faculty_en;
+                echo $fact;
+              ?>
+
+
             </td>
             <td class="hidden-480" style="width: 160px;"><strong>  {{ __('shortcoure_Course_Name') }}</strong></td>
             <td class="hidden-480" style="width: 240px; font-size: 14px; color: red;">
