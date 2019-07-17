@@ -4,19 +4,25 @@ namespace App\Http\Controllers\ProjectActivities;
 
 use Auth;
 
-use App\User;
 use App\Role;
+use App\User;
 
 use Image, URL;
 use ViewHelper;
+use App\Models\Book;
+use App\Models\Staff;
 use App\Models\Student;
 use App\Models\Subject;
 use App\Models\Document;
+use App\Models\Institute;
 use App\Traits\UserScope;
 use App\Models\Addressinfo;
+use App\Models\BookMasters;
+use App\Models\BookCategory;
 use Illuminate\Http\Request;
 use App\Models\GeneralSetting;
 use App\Models\StaffDesignation;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Validator;
@@ -115,6 +121,27 @@ class ProjectActivitiesController extends Controller
     ->ORWHERE('contact_number',$r->email)                          
     ->first();
     $data['userRole']=Role::WHERE('id',$data['UserReader']->role_id)->first();
+    $data['YourInstitute']=Institute::WHERE('id',Auth::user()->institute_id)->first();
+    // $data['allStudents']=DB::table('students')
+    //                     ->select(DB::raw('count(*)'))           
+    //                     // ->groupBy('institute_id')
+    //                     ->where('institute_id',Auth::user()->institute_id)
+    //                     ->get();
+
+    $data['allStudents']=Student::all()->where('institute_id',Auth::user()->institute_id)->count();
+    $data['allStudentsF']=Student::all()
+                          ->where('institute_id',Auth::user()->institute_id)
+                          ->where('gender',2)
+                          ->count();
+
+    $data['allStaffs']=Staff::all()->where('institute_id',Auth::user()->institute_id)->count();
+    $data['allStaffsF']=Student::all()
+                        ->where('institute_id',Auth::user()->institute_id)
+                        ->where('gender',2)
+                        ->count();
+    $data['allBooks']=Book::all()->where('institute_id',Auth::user()->institute_id)->count();
+    $data['book_categories']=BookCategory::all()->where('institute_id',Auth::user()->institute_id)->count();
+    $data['book_masters']=BookMasters::all()->where('institute_id',Auth::user()->institute_id)->count();
     // return $data;
     if(Auth::check()) {
         return view('ProjectActivities.dashboard.project-dashboard',compact('data'));
