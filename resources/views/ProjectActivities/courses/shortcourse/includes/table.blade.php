@@ -97,7 +97,7 @@
                             </button>
                             <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
                               <li>
-                                <a href="{{ $row->id }}" class="tooltip-success" data-rel="tooltip" title="Edit">
+                                <a href="{{route('projects.shortcourse_detail',$row->id)}}" class="tooltip-success" data-rel="tooltip" title="Edit">
                                   <span class="blue">
                                     <i class="ace-icon fa fa-eye bigger-120"></i>
                                   </span>

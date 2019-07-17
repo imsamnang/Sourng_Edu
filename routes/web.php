@@ -997,8 +997,8 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
     Route::post('/shortcourse_detail/store','ProjectActivities\ShortcourseController@SaveCourse_detail')->name('shortcourse_detail.savedata');
     Route::delete('/shortcourse-detail/delete/{id}','ProjectActivities\ShortcourseController@ShortCoursedetail_delete')->name('shortcourse_detail.destroy');
 
-                               //=================View Course Detail==============Ratha
-  //=================View Course Detail==============Ratha
+                              
+                                      //=================View Course Detail==============Ratha
     Route::get('/shortcourse/detail/{id}','ProjectActivities\ShortCourseController@ViewCourseDetail')->name('projects.coursedetail');
 
   //======================Long Course=============Ratha

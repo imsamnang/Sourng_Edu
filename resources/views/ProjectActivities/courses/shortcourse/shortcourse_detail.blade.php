@@ -19,96 +19,120 @@
   background-color: #438eb9; padding: 10px;">បញ្ជីឈ្មោះសិស្ស S- {{ $shortcourse_detail->id }}</h5>
   
   <div class="card-body">
-    <fieldset>
-      <table>
-        <tbody>
-          <tr style="margin: 15px;">
-            <td style="width: 160px;"><strong>{{ __('shortcoure_Course-Code') }}</strong></td>
-            <td style="width: 240px; font-size: 14px; color: red;">
-              @if ($flag=='kh')
-              <p>{{ $shortcourse_detail->faculty->faculty_kh }}</p>
-              @endif
-              @if ($flag=='en')
-              <p>{{ $shortcourse_detail->faculty->faculty_en }}</p>
-              @endif
-            </td>
-            <td class="hidden-480" style="width: 160px;"><strong>  {{ __('shortcoure_Course_Name') }}</strong></td>
-            <td class="hidden-480" style="width: 240px; font-size: 14px; color: red;">
-              @if ($flag=='kh')
-              <p>{{ $shortcourse_detail->course_name }}</p>
-              @endif
-              @if ($flag=='en')
-              <p>{{ $shortcourse_detail->course_name }}</p>
-              @endif
-            </td>
-          </tr>
-          <tr class="hidden-480"style="margin: 15px;">
-            <td style="width: 160px;"><strong>{{ __('shortcoure_Overal-Fund') }}</strong></td>
-            <td colspan="3" style="font-size: 14px; color: red;">
-             @if ($flag=='kh')
-             <p>{{ $shortcourse_detail->overalFund->title_kh }}</p>
-             @endif
-             @if ($flag=='en')
-             <p>{{ $shortcourse_detail->overalFund->title_en }}</p>
-             @endif
-           </td>
-         </tr>
-         <tr style="margin: 15px;">
-          <td style="width: 160px;"><strong>{{ __('shortcoure_Total_Training_Houre') }}</strong></td>
-          <td style="width: 240px; font-size: 14px; color: red;">
-            @if ($flag=='kh')
-            <p>{{ $shortcourse_detail->total_training_hour }}</p>
-            @endif
-            @if ($flag=='en')
-            <p>{{ $shortcourse_detail->total_training_hour }}</p>
-            @endif
-          </td>
-          <td style="width: 160px;"> </td>
-          <td style="width: 240px;"> </td>
-        </tr>
-        <tr style="margin: 15px;">
-          <td style="width: 160px;"><strong>{{ __('shortcoure_Teacher_Name(1)') }}</strong></td>
-          <td colspan="3" style="font-size: 14px; color: red;">
-          សន សុផល (tel: 012 628 151 | dob: 1970-06-15) </td>
-        </tr>
-        <tr style="margin: 15px;">
-          <td style="width: 160px;"><strong>{{ __('shortcoure_Modality') }}</strong></td>
-          <td colspan="3" style="font-size: 14px; color: red;">
-            @if ($flag=='kh')
-            <p>{{ $shortcourse_detail->modalityName->modality_kh }}</p>
-            @endif
-            @if ($flag=='en')
-            <p>{{ $shortcourse_detail->modalityName->modality_en }}</p>
-            @endif
-          </td>
-        </tr>
-        <tr style="margin: 15px;">
-          <td style="width: 160px;"><strong>{{ __('shortcoure_TrainingLocation_Detail') }} </strong></td>
-          <td colspan="3" style="font-size: 14px; color: red;">
-            @if ($flag=='kh')
-            <p>{{ $shortcourse_detail->province->name_kh }}</p>
-            @endif
-            @if ($flag=='en')
-            <p>{{ $shortcourse_detail->province->name_en }}</p>
-            @endif
-          </td>
-        </td>
-      </tr>
-      <tr style="margin: 15px;">
-        <td style="width: 160px;"><strong>{{ __('shortcoure_Start-Date') }}:</strong></td>
-        <td style="width: 240px; font-size: 14px; color: red;">
-          <label value="{{ date('d-m-Y',strtotime($shortcourse_detail->start_date)) }}">{{ date('d-m-Y',strtotime($shortcourse_detail->start_date)) }}</label>
-        </td> 
-        <td style="width: 160px;"><strong>{{ __('shortcoure_EndDate') }}</strong></td>
-        <td style="width: 240px; font-size: 14px; color: red;">
-          <label value="{{ date('d-m-Y',strtotime($shortcourse_detail->end_date)) }}">{{ date('d-m-Y',strtotime($shortcourse_detail->end_date)) }}</label>
-        </td>
-      </tr>
-    </tbody></table>
-  </fieldset><br>
-{{-- Add Students --}}
-            <h5 style="color: white; font-family: Khmer OS Battambang;
-  background-color: #438eb9; padding: 10px; margin-bottom: 30px;">បន្ថែមសិស្ស</h5>    
+
+            <div class="row">
+                  <div class="col-md-4">
+                        <div class="form-group">
+                            <label><strong>{{ __('shortcoure_Course-Code') }}</strong></label>
+                             @if ($flag=='kh')
+                              <label class="responsive" style="color: red;margin-left: 28px;">{{ $shortcourse_detail->faculty->faculty_kh }}</label>
+                              @endif
+                              @if ($flag=='en')
+                              <label class="responsive" style="color: red;margin-left: 28px;">{{ $shortcourse_detail->faculty->faculty_en }}</label>
+                              @endif
+                        </div>
+                        
+                  </div>
+
+                  <div class="col-md-4">
+                        <div class="form-group">
+                            <label><strong>{{ __('shortcoure_Course_Name') }}</strong></label>&emsp;
+                                @if ($flag=='kh')
+                                <label style="color: red;margin-left: 10px;">{{ $shortcourse_detail->course_name }}</label>
+                                @endif
+                                @if ($flag=='en')
+                                <label style="color: red;margin-left: 10px;">{{ $shortcourse_detail->course_name }}</label>
+                                @endif
+                        </div>
+                  </div>
+            </div>
+              
+            <div class="row">
+
+                    <div class="col-md-4">
+                          <div class="form-group">
+                              <label><strong>{{ __('shortcoure_Overal-Fund') }}</strong></label>&emsp;
+                                   @if ($flag=='kh')
+                                   <label class="responsive" style="color: red;margin-left: 20px;">{{ $shortcourse_detail->overalFund->title_kh }}</label>
+                                   @endif
+                                   @if ($flag=='en')
+                                   <label class="responsive" style="color: red;margin-left: 20px;">{{ $shortcourse_detail->overalFund->title_en }}</label>
+                                   @endif
+                          </div>
+                    </div>
+
+                    <div class="col-md-4">
+                          <div class="form-group">
+                              <label><strong>Training Houre</strong></label>&emsp;
+                                @if ($flag=='kh')
+                                <label style="color: red; margin-left: 5px;">{{ $shortcourse_detail->total_training_hour }}</labelp>
+                                @endif
+                                @if ($flag=='en')
+                                <label style="color: red; margin-left: 5px;">{{ $shortcourse_detail->total_training_hour }}</label>
+                                @endif
+                          </div>
+                    </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                    <div class="form-group">
+                        <label><strong>Teacher Name</strong></label>&emsp;
+                             @if ($flag=='kh')
+                             <label style="color: red;margin-left: 5px;">សន សុផល</label>
+                             @endif
+                             @if ($flag=='en')
+                             <label style="color: red;margin-left: 5px;">សន សុផល</label>
+                             @endif
+                    </div>
+              </div>
+
+              <div class="col-md-4">
+                    <div class="form-group">
+                        <label><strong>{{ __('shortcoure_Modality') }}</strong></label>&emsp;
+                              @if ($flag=='kh')
+                              <label style="color: red; margin-left: 46px;">{{ $shortcourse_detail->modalityName->modality_kh }}</label>
+                              @endif
+                              @if ($flag=='en')
+                              <label style="color: red; margin-left: 46px;">{{ $shortcourse_detail->modalityName->modality_en }}</label>
+                              @endif
+                    </div>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-md-4">
+                    <div class="form-group">
+                        <label><strong>Training Place</strong></label>&emsp;
+                              @if ($flag=='kh')
+                              <label style="color: red; margin-left: 8px;">{{ $shortcourse_detail->province->name_kh }}</label>
+                              @endif
+                              @if ($flag=='en')
+                              <label style="color: red; margin-left: 8px;">{{ $shortcourse_detail->province->name_en }}</label>
+                              @endif
+                    </div>
+              </div>
+
+              <div class="col-md-4">
+                    <div class="form-group">
+                        <label><strong>{{ __('shortcoure_Start-Date') }}</strong></label>&emsp;
+                        <label value="{{ date('d-m-Y',strtotime($shortcourse_detail->start_date)) }}" style="color: red; margin-left: 35px;">{{ date('d-m-Y',strtotime($shortcourse_detail->start_date)) }}</label>
+                    </div>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-md-4">
+                    <div class="form-group">
+                        <label><strong>{{ __('shortcoure_EndDate') }}</strong></label>&emsp;
+                        <label value="{{ date('d-m-Y',strtotime($shortcourse_detail->end_date)) }}" style="color: red; margin-left: 38px;">{{ date('d-m-Y',strtotime($shortcourse_detail->end_date)) }}</label>
+                    </div>
+              </div>
+            </div>
+
+
+
+            <h5 style="color: white; font-family: Khmer OS Battambang; background-color: #438eb9; padding: 10px; margin-bottom: 30px;">បន្ថែមសិស្ស</h5>    
           <div class="card-body">
           <form   action="{{ route('shortcourse_detail.savedata') }}" method="post" enctype="multipart/form-data">
             {{csrf_field()}}
@@ -121,7 +145,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   {{-- <input type="text" name="student_name" style="width: 100%"> --}}
-                  <select multiple="" name="student_name[]" class="chosen-select form-control" id="form-field-select-4" data-placeholder="ជ្រើសរើសសិស្ស..." style="width: 100% !important" >
+                  <select multiple="" name="student_name[]" class="chosen-select form-control" id="form-field-select-4" data-placeholder="ជ្រើសរើសសិស្ស..." style="width: 100% " >
                     @foreach ($student as $stu)
                     <?php 
                       $gender=$stu->gender;//ucfirst($stu->gender);
@@ -175,6 +199,7 @@
  @endforeach
   <h5 style="color: white; font-family: Khmer OS Battambang;
   background-color: #438eb9; padding: 10px;">ចំនួន​សិស្ស​សរុប​ក្នុង​វគ្គ {{ $shortcoursestudent->count() }} នាក់ (ស្រី {{ $TF }} នាក់)</h5>
+  <div class="table-responsive">
   <table id="dynamic-table" class="table table-striped table-bordered table-hover">
     <thead>
       <tr>
@@ -273,48 +298,46 @@
         </td>
         </tr>
        
-
             @endforeach
           </tbody>
         </table>
-        
+      </div>
       </div>
     </div>
   </div>
 </div>
 @endsection
+
 @push('custom-js')
-<script src="{{ asset('assets/js/chosen.jquery.min.js') }}"></script>
-<script type="text/javascript">
-  $('#form-field-select-4').chosen();
-</script>
+      <script src="{{ asset('assets/js/chosen.jquery.min.js') }}"></script>
+      <script type="text/javascript">
+        $('#form-field-select-4').chosen();
+      </script>
 
-<script type="text/javascript">
-          function deletePost(id){
-            Swal.fire({
-              title: 'Are you sure?',
-              text: "You won't be able to revert this!",
-              type: 'warning',
-              showCancelButton: true,
-              confirmButtonColor: '#3085d6',
-              cancelButtonColor: '#d33',
-              confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-              if (result.value) {
-                document.getElementById('delete-form-'+id).submit();
-                Swal.fire(
-                  'Deleted!',
-                  'Your file has been deleted.',
-                  'success'
-                  )
-              }
-            })
-          }
+      <script type="text/javascript">
+                function deletePost(id){
+                  Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                  }).then((result) => {
+                    if (result.value) {
+                      document.getElementById('delete-form-'+id).submit();
+                      Swal.fire(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                        )
+                    }
+                  })
+                }
 
-        </script>
+              </script>
 
-      @include('projectactivities.staff.includes.dataTable_scripts') 
-
-      
+            @include('projectactivities.staff.includes.dataTable_scripts') 
 
 @endpush
