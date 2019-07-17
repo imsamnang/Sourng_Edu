@@ -40,7 +40,9 @@ class CourseShort extends Model
     public function commune()
     {
         return $this->belongsTo(Commune::class,'commune_id','id');
-    }   
+    }
+    
+   
 
   }
 

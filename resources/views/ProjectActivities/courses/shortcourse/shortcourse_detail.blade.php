@@ -1,5 +1,6 @@
+<?php  $flag = App()->getLocale();?>
 @extends('projectactivities.layout.master')
-<?php  $flag = app()->getLocale();?>
+
 
 
 @section('menu-panel')
@@ -85,7 +86,7 @@
           <td style="width: 160px;"><strong>{{ __('shortcoure_TrainingLocation_Detail') }} </strong></td>
           <td colspan="3" style="font-size: 14px; color: red;">
             @if ($flag=='kh')
-            <p>{{ $shortcourse_detail->provinceName->name_kh }}</p>
+            <p>{{ $shortcourse_detail->province->name_kh }}</p>
             @endif
             @if ($flag=='en')
             <p>{{ $shortcourse_detail->province->name_en }}</p>
@@ -123,14 +124,14 @@
                   <select multiple="" name="student_name[]" class="chosen-select form-control" id="form-field-select-4" data-placeholder="ជ្រើសរើសសិស្ស..." style="width: 100% !important" >
                     @foreach ($student as $stu)
                     <?php 
-                      $gender=ucfirst($stu->gender);
-                        if($gender=='MALE'){
-                          $gender='M';
+                      $gender=$stu->gender;//ucfirst($stu->gender);
+                        if($flag=='kh'){
+                          $gender=$gender=='1'?'ប':'ស';
                         }else {
-                          $gender='F';
+                          $gender=$gender=='1'?'M':'F';
                         }                            
                     ?>
-                      <option value="{{ $stu->id }}">{{ $stu->first_name }} - {{ $stu->last_name }} , {{ $gender }} , {{ Carbon\Carbon::parse($stu->date_of_birth)->format('d-m-Y') }} , ID:# {{ $stu->id }}</option>
+                      <option value="{{ $stu->id }}">{{ $stu->first_name }} - {{ $stu->last_name }} , {{ $gender }} , {{ Carbon\Carbon::parse($stu->date_of_birth)->format('Y-m-d') }} , ID:# {{ $stu->id }}</option>
                     @endforeach
                   </select>
                 </div>  
@@ -168,7 +169,7 @@
 {{-- End add student --}}
 <?php $TF=0; ?>
  @foreach ($shortcoursestudent as $key=> $post)
-    @if (strtoupper($post->stu->gender)=='FEMALE')
+    @if (strtoupper($post->stu->gender)=='2')
        <?php $TF=$TF+1; ?>
     @endif
  @endforeach
@@ -191,8 +192,21 @@
     <tbody>
       @foreach ($shortcoursestudent as $key=> $post)
       <tr>
+
+          {{-- {{$post->stu->gender}} --}}
+
         <td>{{$key+1}}</td>
-        <td>{{$post->stu->first_name}} -{{$post->stu->last_name}} , {{$post->stu->gender}} (ID: {{$post->stu->id}})</td>
+        <td>{{$post->stu->first_name}} -{{$post->stu->last_name}} , 
+          <span style="color:red;">
+              @if ($flag=='en')
+                {{$post->stu->gender==1?'M':'F'}} 
+              @endif
+              @if ($flag=='kh')
+              {{$post->stu->gender==1?'ប':'ស'}} 
+            @endif
+          </span>
+          
+          ( ID: <a href="#"> {{$post->stu->id}}</a> )</td>
         <td>{{ $post->Course_Short->course_name }}</td>
         <td class="hidden-480" >{{$post->overalFund->title_kh}}</td>
         <td class="hidden-480" ></td>
@@ -263,6 +277,7 @@
             @endforeach
           </tbody>
         </table>
+        
       </div>
     </div>
   </div>
