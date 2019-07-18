@@ -53,33 +53,6 @@ class ExportExcelController extends Controller
         return Excel::download(new UsersExport, 'users.xlsx');
     }
 	
-	public function export2() 
-    {
-        		
-		$customer_data = DB::table('users')->get()->toArray();
-        $customer_array[] = array('ID', 'Name', 'Email', 'Contact Number', 'Address');
-        foreach($customer_data as $customer)
-        {
-            $customer_array[] = array(
-                'ID'  => $customer->id,
-                'Name'   => $customer->name,
-                'Email'    => $customer->email,
-                'Contact Number'  => $customer->contact_number,
-                'Address'   => $customer->address
-            );
-        }
-         return Excel::store('Customer Data', function($excel) use ($customer_array){
-                $excel->setTitle('Customer Data');
-                $excel->sheet('Customer Data', function($sheet) use ($customer_array){
-                $sheet->fromArray($customer_array, null, 'A1', false, false);
-                });
-        })->download('xlsx');
-		
-		 //return Excel::download(new UsersExport, 'users.xlsx');
-		 
-		
-		
-    }
 	
 	
 
