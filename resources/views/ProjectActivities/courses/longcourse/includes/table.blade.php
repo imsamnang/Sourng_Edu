@@ -34,7 +34,7 @@
                     </label>
                   </td>
                   <td>{{ $i }}</td>
-                  <td class="action-buttons"><a href="{{ $row->id }}">{{ $row->batch_group }} <span style="color:red;">(11 នាក់)</span></a></td>
+                  <td class="action-buttons"><a href="{{ route('projects.longcoursedetail',$row->id) }}">{{ $row->batch_group }} <span style="color:red;">(11 នាក់)</span></a></td>
                   @if($flag=='kh')
                     <td class="hidden-480"><a href="{{ $row->id }}">{{ $row->faculty->faculty_kh }} </a> </td>
                   @endif

@@ -102,7 +102,7 @@
               @endif
               @if($flag=='en')
               <option value="{{ $p_type->id }}"
-                {{ $p_type->id==$longcourse->id?'selected' :'' }}>
+                {{ $p_type->id==$longcourse->program_type_id?'selected' :'' }}>
                 {{ $p_type->title_en }}
               </option>
               @endif 
