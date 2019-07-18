@@ -2,7 +2,6 @@
 
 namespace App\Models\Quiz;
 
-use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class QuizResults extends Model

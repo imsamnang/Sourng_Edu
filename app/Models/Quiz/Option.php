@@ -2,14 +2,11 @@
 
 namespace App\Models\Quiz;
 
-use App\Models\Quiz\Answer;
-use App\Models\Quiz\Question;
-use App\Models\Quiz\SubjectQuiz;
 use Illuminate\Database\Eloquent\Model;
 
 class Option extends Model
 {
-	protected $table = 'options';
+	  protected $table = 'options';
   	protected $fillable = ['question_id','title'];
 
     public function subject(){
