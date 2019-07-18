@@ -905,7 +905,6 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
       Route::post('bulk-action',       ['as' => '.bulk-action',      'middleware' => ['ability:super-admin,download-bulk-action'],          'uses' => 'DownloadController@bulkAction']);
   });
 
-
 // Route::prefix('studenthealth')->group(function(){
   //   Route::get('/','StudentHealth\StudentController@index')->name('studenthealth');
   //   Route::get('/registration','StudentHealth\StudentController@registration')->name('studenthealth.registration');
@@ -1100,65 +1099,37 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
 });
 
 //Quiz Route
+  Route::get('front','Quiz\QuizController@front')->name('front')->middleware('auth');
   // Quiz Subject
   Route::group(['as'=>'quiz.','prefix'=>'quiz/','namespace'=>'Quiz','middleware' =>['auth']],function (){
-    Route::get('','QuizController@index')->name('subject.index');
-    Route::get('create/new','QuizController@create')->name('subject.create');
-    Route::post('quiz','QuizController@store')->name('subject.store');
-    Route::get('{quiz}/show','QuizController@show')->name('subject.show');
-    Route::delete('{quiz}/delete', 'QuizController@destroy')->name('subject.destroy');
-  });
+    Route::get('subject','QuizController@index')->name('subject.index');
+    Route::get('subject/create','QuizController@create')->name('subject.create');
+    Route::post('subject/save','QuizController@store')->name('subject.store');
+    Route::get('subject/{quiz}/show','QuizController@show')->name('subject.show');
+    Route::delete('subject/{quiz}/delete', 'QuizController@destroy')->name('subject.destroy');
 
+    Route::get('takequiz/{quiz}', 'QuizController@takeQuiz')->name('start.quiz');
+    Route::post('nextclick', 'QuizController@nextClickStore')->name('next.quiz');
+    Route::post('finishQuiz', 'QuizController@storeQuiz')->name('finish.quiz');
+    
+    Route::get('/userResults', 'UserController@showAppearedQuiz')->name('user.result');
+    Route::get('/viewSigleResult/{quizappearid}', 'UserController@singleResult')->name('single.result');
+    Route::get('/quizLeaderboard/{quiz}', 'UserController@viewLeaderboard')->name('leaderboard');
+  });
   // Quiz Questions
-  Route::group(['as'=>'quiz.','prefix'=>'quiz/','namespace'=>'Quiz','middleware' =>['auth']],function (){
-    Route::get('{subject}/question/create','QuestionsController@create')->name('question.create');
-    Route::post('{subject}/question/store','QuestionsController@store')->name('question.store');
-    Route::get('{subject}/question/edit','QuestionsController@edit')->name('question.edit');
-    Route::get('{subject}/{question}/show','QuestionsController@show')->name('question.show');
-    Route::post('{subject}/question/update','QuestionsController@update')->name('question.update');
-    Route::get('question/{subject}/destroy','QuestionsController@destroy')->name('question.destroy');
+    Route::group(['as'=>'quiz.','prefix'=>'quiz/','namespace'=>'Quiz','middleware' =>['auth']],function (){
+      Route::get('{question}/question/create','QuestionsController@create')->name('question.create');
+      Route::post('{question}/question/store','QuestionsController@store')->name('question.store');
+      Route::get('{question}/question/edit','QuestionsController@edit')->name('question.edit');
+      Route::get('{subject}/{question}/show','QuestionsController@show')->name('question.show');
+      Route::post('{question}/question/update','QuestionsController@update')->name('question.update');
+      Route::get('question/{question}/destroy','QuestionsController@destroy')->name('question.destroy');
   // Quiz Answers
-    Route::post('answer/{subject}/save','QuestionsController@saveAnswer')->name('answer.store');    
-  });
-
- // Take Quiz
-  Route::get('{quiz}/start','Quiz\QuizController@start')->name('quiz.start');
-
-// Submit Quiz
-  Route::post('{quiz}/submit','Quiz\QuizResultsController@store')->name('quiz.submit');
-
-// Quiz Results
-  Route::get('{quiz}/results','Quiz\QuizResultsController@index')->name('quiz.results');
-
-//Test Result
-  Route::get('test', function (){
-      $user = auth()->user();
-      return ($user->quiz_results);
+    Route::post('answer/{question}/save','QuestionsController@saveAnswer')->name('answer.store');    
   });
 
   
 
-// don't use 
-  // Route::prefix('quiz/')->group(function(){
-  //   Route::resource('topics', 'Quiz\TopicsController');
-  //   Route::post('topics_mass_destroy', ['uses' => 'Quiz\TopicsController@massDestroy', 'as' => 'topics.mass_destroy']);
-
-  //   Route::resource('subjects', 'Quiz\SubjectQuizController');
-  //   Route::post('subjects_mass_destroy', ['uses' => 'Quiz\SubjectQuizController@massDestroy', 'as' => 'subjects.mass_destroy']);
-
-  //   Route::get('subject/{id}','Quiz\SubjectQuizController@createQuestion')->name('subjects.createQuestion');
-  //   Route::post('subject/{id}','Quiz\SubjectQuizController@saveQuestion')->name('subjects.saveQuestion');
-
-  //   Route::resource('questions', 'Quiz\QuestionsController');
-  //   Route::post('questions_mass_destroy', ['uses' => 'Quiz\QuestionsController@massDestroy', 'as' => 'questions.mass_destroy']);
-
-  //   Route::resource('questions_options', 'Quiz\QuestionsOptionsController');
-  //   Route::post('questions_options_mass_destroy', ['uses' => 'Quiz\QuestionsOptionsController@massDestroy', 'as' => 'questions_options.mass_destroy']);
-
-  //   Route::resource('tests', 'Quiz\TestsController');
-  //   Route::resource('results', 'Quiz\ResultsController');
-  //   Route::post('results_mass_destroy', ['uses' => 'Quiz\ResultsController@massDestroy', 'as' => 'results.mass_destroy']);
-  // });
 
  
 // Export data to Excel
