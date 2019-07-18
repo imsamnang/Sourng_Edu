@@ -169,153 +169,141 @@
         </div>
 
 {{-- End add student --}}
-<?php $TF=0; ?>
- @foreach ($shortcoursestudent as $key=> $post)
-    @if (strtoupper($post->stu->gender)=='2')
-       <?php $TF=$TF+1; ?>
-    @endif
- @endforeach
-  <h5 style="color: white; font-family: Khmer OS Battambang;
-  background-color: #438eb9; padding: 10px;">ចំនួន​សិស្ស​សរុប​ក្នុង​វគ្គ {{ $shortcoursestudent->count() }} នាក់ (ស្រី {{ $TF }} នាក់)</h5>
-  <div class="table-responsive">
-  <table id="dynamic-table" class="table table-striped table-bordered table-hover">
-    <thead>
-      <tr>
-        <th >{{ __('shortcoure_detail_ID') }}</th>
-        <th >{{ __('shortcoure_detail_StudentName') }}</th>       
-        <th >{{ __('shortcoure_Course_Name') }}</th>   
+      <?php $TF=0; ?>
+       @foreach ($shortcoursestudent as $key=> $post)
+          @if (strtoupper($post->stu->gender)=='2')
+             <?php $TF=$TF+1; ?>
+          @endif
+       @endforeach
+        <h5 style="color: white; font-family: Khmer OS Battambang;
+        background-color: #438eb9; padding: 10px;">ចំនួន​សិស្ស​សរុប​ក្នុង​វគ្គ {{ $shortcoursestudent->count() }} នាក់ (ស្រី {{ $TF }} នាក់)</h5>
+        <div class="table-responsive">
+          <table id="dynamic-table" class="table table-striped table-bordered table-hover">
+            <thead>
+              <tr>
+                <th >{{ __('shortcoure_detail_ID') }}</th>
+                <th >{{ __('shortcoure_detail_StudentName') }}</th>       
+                <th >{{ __('shortcoure_Course_Name') }}</th>   
 
-        <th class="hidden-480" >{{ __('shortcoure_detail_OveralFund') }}</th>
-        <th class="hidden-480" >{{ __('shortcoure_detail_Finish?') }}</th>
-        <th class="hidden-480" >{{ __('shortcoure_detail_Currently Employment?') }}</th>
+                <th class="hidden-480" >{{ __('shortcoure_detail_OveralFund') }}</th>
+                <th class="hidden-480" >{{ __('shortcoure_detail_Finish?') }}</th>
+                <th class="hidden-480" >{{ __('shortcoure_detail_Currently Employment?') }}</th>
 
-        <th >{{ __('shortcoure_detail_Action') }}</th>
-      </tr>
-    </thead>
-    <tbody>
-      @foreach ($shortcoursestudent as $key=> $post)
-      <tr>
-
-          {{-- {{$post->stu->gender}} --}}
-
-        <td>{{$key+1}}</td>
-        <td>{{$post->stu->first_name}} -{{$post->stu->last_name}} , 
-          <span style="color:red;">
-              @if ($flag=='en')
-                {{$post->stu->gender==1?'M':'F'}} 
-              @endif
-              @if ($flag=='kh')
-              {{$post->stu->gender==1?'ប':'ស'}} 
-            @endif
-          </span>
-          
-          ( ID: <a href="#"> {{$post->stu->id}}</a> )</td>
-        <td>{{ $post->Course_Short->course_name }}</td>
-        <td class="hidden-480" >{{$post->overalFund->title_kh}}</td>
-        <td class="hidden-480" ></td>
-        <td class="hidden-480" ></td>
-        <td>
-            <center>
-
-                <a href="#" type="button" data-toggle="modal" data-target="#edit">
-                  {{ __('shortcoure_detail_ChangeFund') }}
-                </a>
-                <!-- Modal -->
-                <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="example" aria-hidden="true">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h3 class="modal-title" id="example">{{ __('shortcoure_detail_ChangeFund') }}</h3>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                        <form method="post" action="#">
-                                  {{csrf_field()}}
-                                  {{method_field('PUT')}}
-                          <select style="width: 100%" name="change_fund" id="change_fund">
-                            @if ($flag=='kh')
-                            <option selected disabled>សូមជ្រើសរើស </option>
-                            @else
-                            <option selected disabled>Please Choose </option>
-                            @endif
-    
-                            @foreach ($overal_fund as $row){
-                            @if ($flag=='kh')
-                            <option value="{{ $row->id }}">{{ $row->title_kh}}</option>
-                            @else
-                            <option value="{{ $row->id }}">{{ $row->title_en}}</option>                                  
-                            @endif
-                            @endforeach
-                          </select>
-                        </form>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary btn-sm">{{ __('shortcoure_Save') }}</button>
-                      </div>
-                    </div>
-                  </div>
-                </div><!-- End Modal Form -->
-                |
-                <a href="#" onclick="deletePost({{$post->id}})" style="padding-left: 5px; padding-right: 5px; padding-top: 0px; padding-bottom: 0px;">
-                  {{ __('shortcoure_detail_Delete') }}
-    
-                </a>
-    
-                {{-- <button type="button" class="btn btn-xs btn-danger" onclick="deletePost({{$post->id}})" style="padding-left: 5px; padding-right: 5px; padding-top: 0px; padding-bottom: 0px;">{{ __('shortcoure_detail_Delete') }}</button> --}}
-    
-                <form id="delete-form-{{$post->id}}" action="{{ route('shortcourse_detail.destroy', $post->id) }}"
-                  method="POST" style="display: none">
-                  @csrf
-                  @method('DELETE')
-                </form>
-              </center>
-               
-        </td>
-        </tr>
-       
-            @endforeach
-          </tbody>
-        </table>
-      </div>
+                <th >{{ __('shortcoure_detail_Action') }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach ($shortcoursestudent as $key=> $post)
+                <tr>
+                  <td>{{$key+1}}</td>
+                  <td>{{$post->stu->first_name}} -{{$post->stu->last_name}} , 
+                    <span style="color:red;">
+                        @if ($flag=='en')
+                          {{$post->stu->gender==1?'M':'F'}} 
+                        @endif
+                        @if ($flag=='kh')
+                        {{$post->stu->gender==1?'ប':'ស'}} 
+                      @endif
+                    </span>          
+                    ( ID: <a href="#"> {{$post->stu->id}}</a> )</td>
+                  <td>{{ $post->Course_Short->course_name }}</td>
+                  <td class="hidden-480" >{{$post->overalFund->title_kh}}</td>
+                  <td class="hidden-480" ></td>
+                  <td class="hidden-480" ></td>
+                  <td>
+                    <center>
+                      <a href="#" type="button" data-toggle="modal" data-target="#changeFund" class="btn btn-primary btn-xs">
+                        {{ __('shortcoure_detail_ChangeFund') }}
+                      </a>
+                      <a href="#" onclick="deletePost({{$post->id}})" style="padding-left: 5px; padding-right: 5px; padding-top: 0px; padding-bottom: 0px;">
+                        {{ __('shortcoure_detail_Delete') }}    
+                      </a>    
+                      <form id="delete-form-{{$post->id}}" action="{{ route('shortcourse_detail.destroy', $post->id) }}"
+                        method="POST" style="display: none">
+                        @csrf
+                        @method('DELETE')
+                      </form>
+                    </center>               
+                  </td>
+                </tr>       
+              @endforeach
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
 </div>
-@endsection
+  <!-- Modal Change Fund-->
+  <div class="modal fade" id="changeFund" tabindex="-1" role="dialog" aria-labelledby="example" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 style="color: white; font-family: Khmer OS Battambang; background-color: #438eb9; padding: 10px;">
+            {{ __('shortcoure_detail_ChangeFund') }}
+          </h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form method="post" action="#">
+                    {{csrf_field()}}
+                    {{method_field('PUT')}}
+            <select style="width: 100%" name="change_fund" id="change_fund">
+              @if ($flag=='kh')
+              <option selected disabled>សូមជ្រើសរើស </option>
+              @else
+              <option selected disabled>Please Choose </option>
+              @endif
 
+              @foreach ($overal_fund as $row){
+              @if ($flag=='kh')
+              <option value="{{ $row->id }}">{{ $row->title_kh}}</option>
+              @else
+              <option value="{{ $row->id }}">{{ $row->title_en}}</option>                                  
+              @endif
+              @endforeach
+            </select>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary btn-sm">{{ __('shortcoure_Save') }}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Modal Form -->
+@endsection
+                |
 @push('custom-js')
       <script src="{{ asset('assets/js/chosen.jquery.min.js') }}"></script>
       <script type="text/javascript">
         $('#form-field-select-4').chosen();
       </script>
-
       <script type="text/javascript">
-                function deletePost(id){
-                  Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                  }).then((result) => {
-                    if (result.value) {
-                      document.getElementById('delete-form-'+id).submit();
-                      Swal.fire(
-                        'Deleted!',
-                        'Your file has been deleted.',
-                        'success'
-                        )
-                    }
-                  })
-                }
-
-              </script>
-
-            @include('projectactivities.staff.includes.dataTable_scripts') 
+        function deletePost(id){
+          Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+            if (result.value) {
+              document.getElementById('delete-form-'+id).submit();
+              Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+                )
+            }
+          })
+        }
+    </script>
+    @include('projectactivities.staff.includes.dataTable_scripts')
 
 @endpush
