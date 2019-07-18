@@ -97,61 +97,6 @@
 
 
 
-{{--     <fieldset>
-      <table>
-        <tbody><tr>
-          <td style="width: 160px;"><strong>{{ __('longcourse-detail_ProgramMainSubject') }}</strong></td>
-          <td style="width: 240px; font-size: 14px; color: red;">
-            @if($flag=='kh')
-            <p>{{ $longcourse_detail->faculty->faculty_kh }}</p>
-            @endif
-            @if($flag=='en') 
-            <p>{{ $longcourse_detail->faculty->faculty_en }}</p>
-            @endif
-          </td>
-          <td style="width: 160px;"><strong>{{ __('longcourse-detail_Program Type') }}</strong></td>
-          <td style="width: 240px; font-size: 14px; color: red;">
-            @if($flag=='kh')
-            <p>{{ $longcourse_detail->program_type->title_kh }}</p>
-            @endif
-            @if($flag=='en') 
-            <p>{{ $longcourse_detail->program_type->title_en }}</p>
-            @endif
-
-          </td>
-        </tr>
-        <tr>
-          <td style="width: 160px;"><strong>{{ __('longcourse-detail_OveralFund') }}</strong></td>
-          <td colspan="3" style="font-size: 14px; color: red;">
-            @if($flag=='kh')
-            <p>{{ $longcourse_detail->overalFundName->title_kh }}</p>
-            @endif
-            @if($flag=='en') 
-            <p>{{ $longcourse_detail->overalFundName->title_en }}</p>
-            @endif
-
-          </td>
-        </tr>
-        <tr>
-          <td style="width: 160px;"><strong>{{ __('longcourse-detail_PromotionStartDate') }}</strong></td>
-          <td style="width: 240px; font-size: 14px; color: red;">
-            <p>{{ $longcourse_detail->promotion_start_date }}</p>
-          </td>
-          <td style="width: 160px;"><strong>{{ __('Studytime') }}</strong></td>
-          <td style="width: 240px; font-size: 14px; color: red;">
-            <p>{{ $longcourse_detail->academic_year }}</p> 
-          </td>
-        </tr>
-        <tr>
-          <td style="width: 160px;"><strong></strong></td>
-          <td colspan="3" style="font-size: 14px; color: red;">
-            <p>{{ $longcourse_detail->batch_group }}</p>
-          </td>
-        </tr>
-      </tbody></table>
-    </fieldset> --}}
-
-
     {{-- Add Students --}}
     <h5 style="color: white; font-family: Khmer OS Battambang;
     background-color: #438eb9; padding: 10px; margin-bottom: 30px;">បន្ថែមសិស្ស</h5>
@@ -253,7 +198,7 @@
 
 
 
-  <h5 style="color: white; font-family: Khmer OS Battambang;
+{{--   <h5 style="color: white; font-family: Khmer OS Battambang;
   background-color: #438eb9; padding: 10px; margin-bottom: 15px;">បញ្ជីឈ្មោះសិស្សរៀនវគ្គខាងលើ</h5>
 
   <div class="table-responsive">
@@ -340,16 +285,16 @@
 </div>
 <div class="row">
   {{-- //Pagination --}}
-  <div class="col-md-12 align-left">
+{{--   <div class="col-md-12 align-left">
     {{ $student->onEachSide(1)->links() }}
   </div>
 </div>
 {{-- End pagination --}}
+{{-- </div>
 </div>
-</div>
-</div>
+</div> --}}
 
-@endsection
+{{-- @endsection
 @push('custom-js')
 <script src="{{ asset('assets/js/chosen.jquery.min.js') }}"></script>
 <script type="text/javascript">
@@ -379,9 +324,206 @@
   }
 
 </script>
-
 @include('projectactivities.staff.includes.dataTable_scripts') 
+@endpush --}} {{-- --}} 
 
 
 
+
+
+
+
+{{-- //========================New Table===================// --}}
+
+<?php $TF=0; ?>
+       @foreach ($longcoursestudent as $key=> $post)
+          @if (strtoupper($post->stu->gender)=='2')
+             <?php $TF=$TF+1; ?>
+          @endif
+       @endforeach
+        <h5 style="color: white; font-family: Khmer OS Battambang;
+        background-color: #438eb9; padding: 10px;">ចំនួន​សិស្ស​សរុប​ក្នុង​វគ្គ {{ $longcoursestudent->count() }} នាក់ (ស្រី {{ $TF }} នាក់)</h5>
+        <div class="table-responsive">
+          <table id="dynamic-table" class="table table-striped table-bordered table-hover">
+            <thead>
+              <tr>
+                <th >{{ __('shortcoure_detail_ID') }}</th>
+                <th >{{ __('shortcoure_detail_StudentName') }}</th>       
+                <th >{{ __('shortcoure_Course_Name') }}</th>
+                <th class="hidden-480" >{{ __('shortcoure_detail_OveralFund') }}</th>
+                <th class="hidden-480" >{{ __('shortcoure_detail_Finish?') }}</th>
+                <th class="hidden-480" >{{ __('shortcoure_detail_Currently Employment?') }}</th>
+                <th >{{ __('shortcoure_detail_Action') }}</th>
+              </tr>
+            </thead>
+            <tbody id="overal_fund_list">
+              @foreach ($longcoursestudent as $key=> $post)
+                <tr id="{{$post->id}}">
+                  <td>{{$key+1}}</td>
+                  <td>{{$post->stu->first_name}} -{{$post->stu->last_name}} , 
+                    <span style="color:red;">
+                        @if ($flag=='en')
+                          {{$post->stu->gender==1?'M':'F'}} 
+                        @endif
+                        @if ($flag=='kh')
+                        {{$post->stu->gender==1?'ប':'ស'}} 
+                      @endif
+                    </span>          
+                    ( ID: <a href="#"> {{$post->stu->id}}</a> )
+                  </td>
+                  <td>{{ $post->Course_Long->faculties_id }}</td>
+                  @if($flag=='kh')
+                  <td class="hidden-480">{{$post->overalFund->title_kh}}</td>
+                  @endif
+                  @if($flag=='en')
+                  <td class="hidden-480">{{$post->overalFund->title_en}}</td>
+                  @endif
+                  <td class="hidden-480" id="finish"></td>
+                  <td class="hidden-480" id="havework"></td>
+                  <td>
+                    <center>
+                      <a href="#" type="button" data-id="{{$post->id}}" id="editFund">
+                        {{ __('shortcoure_detail_ChangeFund') }}
+                      </a>               
+                      <a href="#" onclick="deletePost({{$post->id}})" style="padding-left: 5px; padding-right: 5px; padding-top: 0px; padding-bottom: 0px;">
+                        {{ __('shortcoure_detail_Delete') }}    
+                      </a>    
+                      {{-- <button type="button" class="btn btn-xs btn-danger" onclick="deletePost({{$post->id}})" style="padding-left: 5px; padding-right: 5px; padding-top: 0px; padding-bottom: 0px;">{{ __('shortcoure_detail_Delete') }}</button> --}}  
+                      <form id="delete-form-{{$post->id}}" action="{{ route('longcourse_detail.destroy', $post->id) }}"
+                        method="POST" style="display: none">
+                        @csrf
+                        @method('DELETE')
+                      </form>
+                    </center>               
+                  </td>
+                </tr>       
+              @endforeach
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- Modal Change Fund-->
+  <div class="modal fade" id="changFund" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <center>          
+            <h3 style="color: white; font-family: Khmer OS Battambang;
+            background-color: #438eb9; padding: 10px;" class="modal-title">
+              {{ __('shortcoure_detail_ChangeFund') }}
+            </h3>
+          </center>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form method="post" action="{{route('projects.longcoursedetail.updatefund')}}" id="frm-update">
+            <input type="hidden" name="id" id="id" value="">
+            <input type="hidden" name="course_long_id" id="course_long_id" value="">
+            <select style="width: 100%" name="overal_fund_id" id="overal_fund_id">
+              @if ($flag=='kh')                                  
+                <option selected disabled>សូមជ្រើសរើស </option>
+              @else
+                <option selected disabled>Please Choose </option>
+              @endif
+              @foreach ($overal_fund as $row){
+                @if ($flag=='kh')
+                  <option value="{{ $row->id }}">{{ $row->title_kh}}</option>
+                @else
+                  <option value="{{ $row->id }}" >{{ $row->title_en}}</option>                                  
+                @endif
+              @endforeach
+            </select>
+            <input type="hidden" name="student_id" id="student_id" value="">
+            <input type="hidden" name="institute_id" id="institute_id" value="">
+            <br/><br/>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary btn-sm">{{ __('shortcoure_Save') }}</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Modal Form -->       
+@endsection
+
+@push('custom-js')
+  <script src="{{ asset('assets/js/chosen.jquery.min.js') }}"></script>
+  <script type="text/javascript">
+      $(document).ready(function(){
+        $.ajaxSetup({
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+        // get overalFund for edit from database
+        $('body').delegate('#overal_fund_list tr #editFund','click',function (e) {
+            e.preventDefault();
+            var id = $(this).data('id');
+            $.get("{{route('projects.longcoursedetail.editfund')}}", {id:id},
+                function (data) {
+                    $('#frm-update').find('#id').val(data.id);
+                    $('#frm-update').find('#course_long_id').val(data.course_long_id);
+                    $('#frm-update').find('#overal_fund_id').val(data.overal_fund_id);
+                    $('#frm-update').find('#student_id').val(data.student_id);
+                    $('#frm-update').find('#institute_id').val(data.institute_id);
+                    $('#changFund').modal('show');
+                },
+            );
+        });
+        //update data to database
+        $('#frm-update').on('submit',function (e) {
+            e.preventDefault();
+            var data = $(this).serialize();
+            var id = $('#id').val();
+            var url =$(this).attr('action');
+            var post = $(this).attr('method');
+            $.ajax({
+                type: post,
+                url: url,
+                data: data,
+                dataTy: 'json',
+                success: function (data) {
+                    console.log(data);
+                    $('#frm-update').trigger('reset');
+                    $('#changFund').modal('hide');
+                    location.reload();                                  }
+            });
+        })
+
+      });
+
+    $('#form-field-select-4').chosen();
+  </script>
+  <script type="text/javascript">
+    function deletePost(id){
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.value) {
+          document.getElementById('delete-form-'+id).submit();
+          Swal.fire(
+            'Deleted!',
+            'Your file has been deleted.',
+            'success'
+            )
+        }
+      })
+    }
+   </script>
+
+        @include('projectactivities.staff.includes.dataTable_scripts') 
 @endpush

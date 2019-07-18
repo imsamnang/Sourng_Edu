@@ -109,6 +109,7 @@ class LongcourseController extends Controller
   function LongCourse_detail(Request $request, $id)
   {   
     $longcourse_detail =LongCourse::findOrFail($id);
+    $longcoursestudent=Courselongstudent::WHERE('course_long_id',$longcourse_detail->id)->get();
     // return $longcourse_detail;
     $student=Student::latest()->paginate(7);
     $overal_fund=OveralFund::all();
@@ -122,7 +123,7 @@ class LongcourseController extends Controller
     ->first();
     $data['faculty_selected']=Faculty::findOrFail($need->faculties_id);
 
-    return view('ProjectActivities.courses.longcourse.longcourse_detail', compact('longcourse_detail','faculty','overal_fund','data','student'));
+    return view('ProjectActivities.courses.longcourse.longcourse_detail', compact('longcourse_detail','faculty','overal_fund','data','student','longcoursestudent'));
 
    }
 
@@ -134,7 +135,7 @@ class LongcourseController extends Controller
         foreach ($request->student_name as $student_id) {
             $Courselongstudent=new Courselongstudent();
 
-            $Courselongstudent->course_short_id= $request->cbo_faculty;
+            $Courselongstudent->course_long_id= $request->cbo_faculty;
             $Courselongstudent->overal_fund_id= $request->cbo_overalfund;
             $Courselongstudent->institute_id= 1;
             $Courselongstudent->student_id= $student_id;
@@ -145,6 +146,14 @@ class LongcourseController extends Controller
 
         return redirect()->back()->with('success','Data Saved Successfully');
     }
+
+        public function LongCoursedetail_delete($id)
+      {
+        $longcoursestudent = Courselongstudent::find($id);
+        $longcoursestudent->destroy($id);
+        // return redirect()->Route('projects.shortcourse')->with('success','Deleted Successfully');
+        return redirect()->back()->with('success','Data Deleted Successfully');
+      }
 
     function ViewLongCourseDetail(Request $request, $id)
       {   
@@ -165,5 +174,34 @@ class LongcourseController extends Controller
         return view('ProjectActivities.courses.longcourse.viewcourse_detail', compact('longcourse_detail','faculty','overal_fund','data','student'));
 
        }
+
+
+       public function Longe_ditFund(Request $request)
+  {
+    if ($request->ajax()) {
+      $editFund = Courselongstudent::findOrFail($request->id);
+      return response()->json($editFund);
+      // return response()->json($request->all());
+    }  
+  }
+
+  public function Long_updateFund(Request $request)
+  {
+    if ($request->ajax()) {
+      $updateFund = Courselongstudent::find($request->id);
+      $updateFund->course_long_id = $request->course_long_id;
+      $updateFund->overal_fund_id = $request->overal_fund_id;
+      $updateFund->student_id = $request->student_id;
+      $updateFund->institute_id = $request->institute_id;
+      $updateFund->save();
+      return response()->json($this->find($updateFund->id));
+      // return response()->json($request->all());
+    }
+  }
+
+    public function find($id)
+  {
+    return $courseShort = Courselongstudent::findOrFail($id);
+  }
 }
 
