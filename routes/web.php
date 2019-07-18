@@ -905,30 +905,6 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
       Route::post('bulk-action',       ['as' => '.bulk-action',      'middleware' => ['ability:super-admin,download-bulk-action'],          'uses' => 'DownloadController@bulkAction']);
   });
 
-// Route::prefix('studenthealth')->group(function(){
-  //   Route::get('/','StudentHealth\StudentController@index')->name('studenthealth');
-  //   Route::get('/registration','StudentHealth\StudentController@registration')->name('studenthealth.registration');
-  //   Route::post('/bulk-action','StudentHealth\StudentController@bulkAction')->name('studenthealth.bulk-action');
-  //   Route::get('/view','StudentHealth\StudentController@view')->name('studenthealth.view');
-  //   Route::get('/active','StudentHealth\StudentController@active')->name('studenthealth.active');
-  //   Route::get('/in-active','StudentHealth\StudentController@in-active')->name('studenthealth.in-active');
-  //   Route::get('/edit','StudentHealth\StudentController@edit')->name('studenthealth.edit');
-  //   Route::get('/delete','StudentHealth\StudentController@delete')->name('studenthealth.delete');
-  //   Route::get('/register','StudentHealth\StudentController@register')->name('studenthealth.register');
-  //   Route::get('/delete','StudentHealth\StudentController@delet')->name('studenthealth.delete');
-  //   Route::get('/findSemester','StudentHealth\StudentController@findSemester')->name('studenthealth.findSemester');
-  //   Route::get('/transfer','StudentHealth\StudentController@transfer')->name('studenthealth.transfer');
-  //   Route::get('/transfering','StudentHealth\StudentController@transfering')->name('studenthealth.transfering');
-  //   Route::get('/import','StudentHealth\StudentController@importStudent')->name('studenthealth.import');
-  // });
-
-/*student-register route */
-
-  // Route::get('/student-register/register','StudentRegister\StudentregisterController@register')->name('stu.register');
-  // Route::post('/student-register','StudentRegister\StudentregisterController@save')->name('stu.store');
-
-
-
 // Manage Projects
   // get district and commune
     Route::get('get-district-list','ProjectActivities\ShortcourseController@getDistrictList');
@@ -1128,11 +1104,7 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
     Route::post('answer/{question}/save','QuestionsController@saveAnswer')->name('answer.store');    
   });
 
-  
-
-
- 
-// Export data to Excel
+  // Export data to Excel
   Route::get('/export_excel', 'ExportExcelController@index');
   Route::get('/export_excel/excel', 'ExportExcelController@excel')->name('export_excel.excel');
 

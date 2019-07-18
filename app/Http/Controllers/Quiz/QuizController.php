@@ -4,11 +4,12 @@ namespace App\Http\Controllers\Quiz;
 
 use App\Http\Controllers\Controller;
 use App\Models\Quiz\AverageScore;
-use App\Models\Quiz\QuizResults;
 use App\Models\Quiz\Question;
 use App\Models\Quiz\QuestionQuiz;
+use App\Models\Quiz\QuizResults;
 use App\Models\Quiz\SubjectQuiz;
 use App\Models\Quiz\UserAnswer;
+use App\Models\Subject;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -18,7 +19,7 @@ class QuizController extends Controller
   {
     // $generalSetting = GeneralSetting::findOrFail(1)->first();
     $allQuiz = SubjectQuiz::all();
-    return view('quizs.subject.index',compact('allQuiz','coundSubQuiz'));
+    return view('ProjectActivities.quizs.subject.index',compact('allQuiz','coundSubQuiz'));
   }
 
   public function front()
@@ -31,18 +32,19 @@ class QuizController extends Controller
                 QuizResults::where('user_id',Auth::user()->id)
                 ->pluck('subject_id'))
                 ->get();
-    return view('quizs.mainquiz',compact('allQuiz','allQuizDone'));
+    return view('ProjectActivities.quizs.mainquiz',compact('allQuiz','allQuizDone'));
   }
 
   public function create()
   {
-    return view('quizs.subject.create');
+    $quizzes = Subject::pluck('title','title');
+    return view('ProjectActivities.quizs.subject.create',compact('quizzes'));
   }
 
   public function store(Request $request)
   {
     $ref = '#'.str_random(10);
-    $slug = str_slug($request->name,'-');
+    $slug = $this->make_slug($request->name);
     $quiz = SubjectQuiz::create([
       'title'  => $request->name,
       'slug'  => $slug,
@@ -61,7 +63,7 @@ class QuizController extends Controller
   public function show($quiz)
   {
     $quiz = SubjectQuiz::where('slug', $quiz)->get()->first();
-    return view('quizs.subject.show', compact('quiz'));
+    return view('ProjectActivities.quizs.subject.show', compact('quiz'));
   }
 
   public function edit($quiz)
@@ -106,7 +108,7 @@ class QuizController extends Controller
         $question = Question::with('options', 'answers')->where('id', $id->question_id)->first();
         $questions->push($question);
     }
-    return view('quizs.start', compact('quiz', 'questions'));
+    return view('ProjectActivities.quizs.start', compact('quiz', 'questions'));
   }
 
   public function takeQuiz($quiz)
@@ -116,7 +118,7 @@ class QuizController extends Controller
     $allQuestion = $sub->questions()->paginate(1);
     $totalQuestionCount = $sub->questions()->count();
     // return view('quizs.appearQuiz',compact('sub','allQuestion'));
-    return view('quizs.start',compact('sub','allQuestion','duration','totalQuestionCount'));
+    return view('ProjectActivities.quizs.start',compact('sub','allQuestion','duration','totalQuestionCount'));
   }
 
   public function nextClickStore(request $request)
@@ -158,7 +160,7 @@ class QuizController extends Controller
     }
     $findQuestion = \DB::table('answers')->where('question_id', $question_id)->first();
     $correctAnsDb = $findQuestion->option_id;
-    $findDuration = \DB::table('subjects_quizzes')->where('id',$quizid)->first();
+    $findDuration = \DB::table('subject_quizzes')->where('id',$quizid)->first();
     $totalTimeForQuestion = $findDuration->question_duration;
     $time_taken = $totalTimeForQuestion - $time_remaining_in_seconds;
     $userResponse->time_taken = $time_taken;
@@ -207,7 +209,7 @@ class QuizController extends Controller
     }
     $findQuestion = \DB::table('answers')->where('question_id', $question_id)->first();
     $correctAnsDb = $findQuestion->option_id;
-    $findDuration = \DB::table('subjects_quizzes')->where('id',$quizid)->first();
+    $findDuration = \DB::table('subject_quizzes')->where('id',$quizid)->first();
     $totalTimeForQuestion = $findDuration->question_duration;
     $time_taken = $totalTimeForQuestion - $time_remaining_in_seconds;
     $userResponse->time_taken = $time_taken;
@@ -251,7 +253,7 @@ class QuizController extends Controller
    $questionsCount = $sub->questions()->count();
    $percentage_correct = 100 * $marks_scored / $questionsCount;
 
-   return view('quizs.finishQuiz', ['percentage_correct' => $percentage_correct, 'questionsCount' => $questionsCount, 'uniqueQuizAppearId' => $uniqueQuizAppearId,'sub'=>$sub,'marks_scored'=>$marks_scored]);
+   return view('ProjectActivities.quizs.finishQuiz', ['percentage_correct' => $percentage_correct, 'questionsCount' => $questionsCount, 'uniqueQuizAppearId' => $uniqueQuizAppearId,'sub'=>$sub,'marks_scored'=>$marks_scored]);
   }
 
 // public function getBeforeStartTest($id){

@@ -65,14 +65,7 @@
                 <li class="{!! request()->is('account/fees')?'active':'' !!}  hover">
                     <a href="#">
                         <i class="menu-icon fa fa-caret-right"></i>
-                        @lang('Topics')
-                    </a>
-                    <b class="arrow"></b>
-                </li>
-                <li class="{!! request()->is('account/fees')?'active':'' !!}  hover">
-                    <a href="#">
-                        <i class="menu-icon fa fa-caret-right"></i>
-                        @lang('Subjects')
+                        @lang('Subjects Quiz')
                     </a>
                     <b class="arrow"></b>
                 </li>
@@ -100,14 +93,14 @@
                     <b class="arrow"></b>
                 </li>
                 <li class="{!! request()->is('account/fees/head')?'active':'' !!}  hover">
-                    <a href="#">
+                    <a href="{{ route('front') }}">
                         <i class="menu-icon fa fa-caret-right"></i>
-                        @lang('New Quiz')
+                        @lang('Quiz Start')
                     </a>
                     <b class="arrow"></b>
                 </li>
                 <li class="{!! request()->is('exam')?'active':'' !!}  hover">
-                    <a href="{{route('front')}}">
+                    <a href="{{route('quiz.subject.index')}}">
                         <i class="menu-icon fa fa-caret-right"></i>
                         @lang('Create New Quiz')
                     </a>
