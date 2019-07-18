@@ -22,7 +22,7 @@
                         <div class="form-group">
                             <label><strong>Main Subject</strong></label>
                               @if($flag=='kh')
-                              <label class="responsive" style="color: red;margin-left: 28px;">{{ $longcourse_detail->faculty->faculty_kh }}</label>
+                              <label class="responsive" style="color: red;margin-left: 10px;">{{ $longcourse_detail->faculty->faculty_kh }}</label>
                               @endif
                               @if($flag=='en') 
                               <label class="responsive" style="color: red;margin-left: 28px;">{{ $longcourse_detail->faculty->faculty_en }}</label>
@@ -48,7 +48,7 @@
                           <div class="form-group">
                               <label><strong>{{ __('longcourse-detail_OveralFund') }}</strong></label>&emsp;
                                   @if($flag=='kh')
-                                  <label class="responsive" style="color: red;margin-left: 20px;">{{ $longcourse_detail->overalFundName->title_kh }}</label>
+                                  <label class="responsive" style="color: red;margin-left: 1px;">{{ $longcourse_detail->overalFundName->title_kh }}</label>
                                   @endif
                                   @if($flag=='en') 
                                   <label class="responsive" style="color: red;margin-left: 20px;">{{ $longcourse_detail->overalFundName->title_en }}</label>
@@ -58,7 +58,13 @@
                     <div class="col-md-4">
                           <div class="form-group">
                               <label><strong>Start Date</strong></label>&emsp;
-                              <label style="color: red; margin-left: 35px;">{{ $longcourse_detail->promotion_start_date }}</label>
+                              @if($flag=='kh')
+                                <label style="color: red; margin-left: 73px;">{{ $longcourse_detail->promotion_start_date }}</label>
+                              @endif
+                              @if($flag=='en')
+                                <label style="color: red; margin-left: 35px;">{{ $longcourse_detail->promotion_start_date }}</label>
+                              @endif
+
 
                           </div>
                     </div>
@@ -68,13 +74,23 @@
               <div class="col-md-4">
                     <div class="form-group">
                         <label><strong>{{ __('Studytime') }}</strong></label>&emsp;
+                        @if($flag=='kh')
+                        <label style="color: red;margin-left: 10px;">{{ $longcourse_detail->academic_year }}</label>
+                        @endif
+                        @if($flag=='en')
                         <label style="color: red;margin-left: 32px;">{{ $longcourse_detail->academic_year }}</label>
+                        @endif
                     </div>
               </div>
               <div class="col-md-4">
                     <div class="form-group">
                         <label><strong>Bath Group</strong></label>&emsp;
+                        @if($flag=='kh')
+                        <label style="color: red; margin-left: 63px;">{{ $longcourse_detail->batch_group }}</label>
+                        @endif
+                        @if($flag=='en')
                         <label style="color: red; margin-left: 28px;">{{ $longcourse_detail->batch_group }}</label>
+                        @endif
                     </div>
               </div>
             </div>
@@ -240,7 +256,8 @@
   <h5 style="color: white; font-family: Khmer OS Battambang;
   background-color: #438eb9; padding: 10px; margin-bottom: 15px;">បញ្ជីឈ្មោះសិស្សរៀនវគ្គខាងលើ</h5>
 
-  <table class="table table-bordered table-striped table-hover dataTable js-exportable">
+  <div class="table-responsive">
+  <table id="dynamic-table" class="table table-striped table-bordered table-hover">
     <thead>
       <tr>
         <th width="50px;">{{ __('shortcoure_detail_ID') }}</th>
@@ -319,6 +336,7 @@
       @endforeach       
     </tbody>
   </table>
+</div>
 </div>
 <div class="row">
   {{-- //Pagination --}}
