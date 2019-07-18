@@ -90,7 +90,7 @@
                                 <label style="color: red; margin-left: 23px;">{{ $shortcourse_detail->total_training_hour }}</labelp>
                                 @endif
                                 @if ($flag=='en')
-                                <label style="color: red; margin-left: 5px;">{{ $shortcourse_detail->total_training_hour }}</label>
+                                <label style="color: red; margin-left: 15px;">{{ $shortcourse_detail->total_training_hour }}</label>
                                 @endif
                           </div>
                     </div>
