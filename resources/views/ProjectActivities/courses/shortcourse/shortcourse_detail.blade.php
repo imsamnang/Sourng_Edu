@@ -51,7 +51,7 @@
                           <div class="form-group">
                               <label><strong>{{ __('shortcoure_Training_Hour') }}</strong></label>&emsp;
                                 @if ($flag=='kh')
-                                <label style="color: red; margin-left: 23px;">{{ $shortcourse_detail->total_training_hour }}</labelp>
+                                <label style="color: red; margin-left: 22px;">{{ $shortcourse_detail->total_training_hour }}</labelp>
                                 @endif
                                 @if ($flag=='en')
                                 <label style="color: red; margin-left: 15px;">{{ $shortcourse_detail->total_training_hour }}</label>
@@ -64,7 +64,7 @@
                     <div class="form-group">
                         <label><strong>{{ __('shortcoure_Teacher_Name') }}</strong></label>&emsp;
                              @if ($flag=='kh')
-                             <label style="color: red;margin-left: 45px;">សន សុផល</label>
+                             <label style="color: red;margin-left: 44px;">សន សុផល</label>
                              @endif
                              @if ($flag=='en')
                              <label style="color: red;margin-left: 5px;">សន សុផល</label>
