@@ -48,110 +48,109 @@
   <div class="card-body">
       
             <div class="row">
-                  <div class="col-md-6">
+                  <div class="col-md-4">
                         <div class="form-group">
                             <label><strong>{{ __('shortcoure_Course-Code') }}</strong></label>
                              @if ($flag=='kh')
-                              <label class="responsive" style="color: red;margin-left: 28px;">{{ $shortcourse_detail->faculty->faculty_kh }}</label>
+                              <label class="responsive" style="color: red;margin-left: 42px;">{{ $shortcourse_detail->faculty->faculty_kh }}</label>
                               @endif
                               @if ($flag=='en')
                               <label class="responsive" style="color: red;margin-left: 28px;">{{ $shortcourse_detail->faculty->faculty_en }}</label>
                               @endif
-                        </div>
-
+                        </div>                        
                   </div>
-
-                  <div class="col-md-6">
+                  <div class="col-md-4">
                         <div class="form-group">
                             <label><strong>{{ __('shortcoure_Course_Name') }}</strong></label>&emsp;
                                 @if ($flag=='kh')
-                                <label style="color: red;margin-left: 10px;">{{ $shortcourse_detail->course_name }}</label>
+                                <label style="color: red;margin-left: 42px;">{{ $shortcourse_detail->course_name }}</label>
                                 @endif
                                 @if ($flag=='en')
                                 <label style="color: red;margin-left: 10px;">{{ $shortcourse_detail->course_name }}</label>
                                 @endif
                         </div>
                   </div>
-
-
-                  <div class="col-md-6">
-                        <div class="form-group">
+            </div>              
+            <div class="row">
+                    <div class="col-md-4">
+                          <div class="form-group">
                               <label><strong>{{ __('shortcoure_Overal-Fund') }}</strong></label>&emsp;
-                              @if ($flag=='kh')
-                              <label class="responsive" style="color: red;margin-left: 20px;">{{ $shortcourse_detail->overalFund->title_kh }}</label>
-                              @endif
-                              @if ($flag=='en')
-                              <label class="responsive" style="color: red;margin-left: 20px;">{{ $shortcourse_detail->overalFund->title_en }}</label>
-                              @endif
-                        </div>
-                  </div>
-
-                  <div class="col-md-6">
-                        <div class="form-group">
-                              <label><strong>Training Houre</strong></label>&emsp;
-                              @if ($flag=='kh')
-                              <label style="color: red; margin-left: 5px;">{{ $shortcourse_detail->total_training_hour }}</labelp>
-                              @endif
-                              @if ($flag=='en')
-                              <label style="color: red; margin-left: 5px;">{{ $shortcourse_detail->total_training_hour }}</label>
-                              @endif
-                        </div>
-                  </div>
-
-
-                  <div class="col-md-6">
-                        <div class="form-group">
-                        <label><strong>Teacher Name</strong></label>&emsp;
-                              @if ($flag=='kh')
-                              <label style="color: red;margin-left: 5px;">សន សុផល</label>
-                              @endif
-                              @if ($flag=='en')
-                              <label style="color: red;margin-left: 5px;">សន សុផល</label>
-                              @endif
-                        </div>
-                  </div>
-
-                  <div class="col-md-6">
-                        <div class="form-group">
+                                   @if ($flag=='kh')
+                                   <label class="responsive" style="color: red;margin-left: 20px;">{{ $shortcourse_detail->overalFund->title_kh }}</label>
+                                   @endif
+                                   @if ($flag=='en')
+                                   <label class="responsive" style="color: red;margin-left: 20px;">{{ $shortcourse_detail->overalFund->title_en }}</label>
+                                   @endif
+                          </div>
+                    </div>
+                    <div class="col-md-4">
+                          <div class="form-group">
+                              <label><strong>{{ __('shortcoure_Training_Hour') }}</strong></label>&emsp;
+                                @if ($flag=='kh')
+                                <label style="color: red; margin-left: 23px;">{{ $shortcourse_detail->total_training_hour }}</labelp>
+                                @endif
+                                @if ($flag=='en')
+                                <label style="color: red; margin-left: 5px;">{{ $shortcourse_detail->total_training_hour }}</label>
+                                @endif
+                          </div>
+                    </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                    <div class="form-group">
+                        <label><strong>{{ __('shortcoure_Teacher_Name') }}</strong></label>&emsp;
+                             @if ($flag=='kh')
+                             <label style="color: red;margin-left: 45px;">សន សុផល</label>
+                             @endif
+                             @if ($flag=='en')
+                             <label style="color: red;margin-left: 5px;">សន សុផល</label>
+                             @endif
+                    </div>
+              </div>
+              <div class="col-md-4">
+                    <div class="form-group">
                         <label><strong>{{ __('shortcoure_Modality') }}</strong></label>&emsp;
                               @if ($flag=='kh')
-                              <label style="color: red; margin-left: 46px;">{{ $shortcourse_detail->modalityName->modality_kh }}</label>
+                              <label style="color: red; margin-left: 0px;">{{ $shortcourse_detail->modalityName->modality_kh }}</label>
                               @endif
                               @if ($flag=='en')
                               <label style="color: red; margin-left: 46px;">{{ $shortcourse_detail->modalityName->modality_en }}</label>
                               @endif
-                        </div>
-            </div>
-
-
-            </div>
-              
-                       
+                    </div>
+              </div>
+            </div>            
             <div class="row">
-              <div class="col-md-12">
+              <div class="col-md-4">
                     <div class="form-group">
-                        <label><strong>Training Place</strong></label>&emsp;
+                        <label><strong>{{ __('shortcoure_Training_Place') }}</strong></label>&emsp;
                               @if ($flag=='kh')
-                              <label style="color: red; margin-left: 8px;">{{ $shortcourse_detail->province->name_kh }}</label>
+                              <label style="color: red; margin-left: 60px;">{{ $shortcourse_detail->province->name_kh }}</label>
                               @endif
                               @if ($flag=='en')
                               <label style="color: red; margin-left: 8px;">{{ $shortcourse_detail->province->name_en }}</label>
                               @endif
                     </div>
               </div>
-
-              <div class="col-md-6">
+              <div class="col-md-4">
                     <div class="form-group">
                         <label><strong>{{ __('shortcoure_Start-Date') }}</strong></label>&emsp;
                         <label value="{{ date('d-m-Y',strtotime($shortcourse_detail->start_date)) }}" style="color: red; margin-left: 35px;">{{ date('d-m-Y',strtotime($shortcourse_detail->start_date)) }}</label>
                     </div>
               </div>
-              <div class="col-md-6">
-                  <div class="form-group">
+            </div>            
+            <div class="row">
+              <div class="col-md-4">
+                    <div class="form-group">
                         <label><strong>{{ __('shortcoure_EndDate') }}</strong></label>&emsp;
-                        <label value="{{ date('d-m-Y',strtotime($shortcourse_detail->end_date)) }}" style="color: red; margin-left: 38px;">{{ date('d-m-Y',strtotime($shortcourse_detail->end_date)) }}</label>
-                  </div>
-            </div>
+                        @if($flag=='kh')
+                          <label value="{{ date('d-m-Y',strtotime($shortcourse_detail->end_date)) }}" style="color: red; margin-left: 50px;">{{ date('d-m-Y',strtotime($shortcourse_detail->end_date)) }}</label>
+                        @endif
+                        @if($flag=='en')
+                          <label value="{{ date('d-m-Y',strtotime($shortcourse_detail->end_date)) }}" style="color: red; margin-left: 38px;">{{ date('d-m-Y',strtotime($shortcourse_detail->end_date)) }}</label>
+                        @endif
+                        
+                    </div>
+              </div>
             </div>
             
         
