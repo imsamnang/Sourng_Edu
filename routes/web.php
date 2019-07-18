@@ -1161,6 +1161,12 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
   // });
 
  
+// Export data to Excel
+  Route::get('/export_excel', 'ExportExcelController@index');
+  Route::get('/export_excel/excel', 'ExportExcelController@excel')->name('export_excel.excel');
+
+  Route::get('/export', 'ExportExcelController@export')->name('export');
+  Route::get('/export2', 'ExportExcelController@excel')->name('export2');
 
 
 
