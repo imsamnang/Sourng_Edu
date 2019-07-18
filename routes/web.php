@@ -1015,6 +1015,16 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
                               //==============Long Course Detail==========Ratha
       Route::get('/longcourse_detail/{id}','ProjectActivities\LongcourseController@LongCourse_detail')->name('project.longcourse_detail');
       Route::post('/longcourse_detail/store','ProjectActivities\LongcourseController@SaveLongCourse_detail')->name('longcourse_detail.savedata');
+
+      Route::delete('/longcourse-detail/delete/{id}','ProjectActivities\LongcourseController@LongCoursedetail_delete')->name('longcourse_detail.destroy');
+
+      Route::get('longCourse_detail/editFund','ProjectActivities\LongcourseController@Longe_ditFund')->name('projects.longcoursedetail.editfund');
+      Route::post('longCourse_detail/updateFund','ProjectActivities\LongcourseController@Long_updateFund')->name('projects.longcoursedetail.updatefund');
+
+
+
+
+
             Route::get('/','ProjectActivities\ProjectActivitiesController@index')->name('projects');
             Route::post('/login','ProjectActivities\ProjectActivitiesController@authenticate')->name('projects.login');
             Route::get('/staff-register','ProjectActivities\StaffActivitiesController@staffRegister')->name('staff-register');
