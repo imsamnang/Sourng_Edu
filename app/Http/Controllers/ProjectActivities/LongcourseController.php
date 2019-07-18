@@ -127,23 +127,43 @@ class LongcourseController extends Controller
    }
 
    function SaveLongCourse_detail(Request $request)
-{
+    {
 
     //code Insert more data
 
-    foreach ($request->student_name as $student_id) {
-        $Courselongstudent=new Courselongstudent();
+        foreach ($request->student_name as $student_id) {
+            $Courselongstudent=new Courselongstudent();
 
-        $Courselongstudent->course_short_id= $request->cbo_faculty;
-        $Courselongstudent->overal_fund_id= $request->cbo_overalfund;
-        $Courselongstudent->institute_id= 1;
-        $Courselongstudent->student_id= $student_id;
-        // return $Courselongstudent;
-        $Courselongstudent->save();
+            $Courselongstudent->course_short_id= $request->cbo_faculty;
+            $Courselongstudent->overal_fund_id= $request->cbo_overalfund;
+            $Courselongstudent->institute_id= 1;
+            $Courselongstudent->student_id= $student_id;
+            // return $Courselongstudent;
+            $Courselongstudent->save();
 
+        }
+
+        return redirect()->back()->with('success','Data Saved Successfully');
     }
 
-    return redirect()->back()->with('success','Data Saved Successfully');
-}
+    function ViewLongCourseDetail(Request $request, $id)
+      {   
+        $longcourse_detail =LongCourse::findOrFail($id);
+        // return $longcourse_detail;
+        $student=Student::latest()->paginate(7);
+        $overal_fund=OveralFund::all();
+        $data=[];
+
+        $faculty= Faculty::WHERE('course_type_id',2)->get();        
+        $need = DB::table('faculties')
+        ->join('course_long', 'faculties.id', '=', 'course_long.faculties_id')
+        ->select('course_long.faculties_id')
+        ->where('course_long.id',$id)
+        ->first();
+        $data['faculty_selected']=Faculty::findOrFail($need->faculties_id);
+
+        return view('ProjectActivities.courses.longcourse.viewcourse_detail', compact('longcourse_detail','faculty','overal_fund','data','student'));
+
+       }
 }
 

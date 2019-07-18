@@ -40,7 +40,7 @@
 @endpush
 @section('content')
 
-<div class="card table-bordered" style="margin-top: 15px; margin-left: 15px; margin-right: 15px; margin-bottom: 0px; padding-left: 30px; padding-right: 30px; padding-bottom: 0px; padding-top: 5px; border-color: #79b0ce;">
+<div class="card table-bordered" style="margin-top: 15px; margin-left: 15px; margin-right: 15px; margin-bottom: 0px; padding-left: 30px; padding-right: 30px; padding-bottom: 20px; padding-top: 5px; border-color: #79b0ce;">
 
   <h5 style="color: white; font-family: Khmer OS Battambang; font-size: 24px;
   background-color: #438eb9; padding: 10px;">កម្មវិធីលម្អិត S- {{ $shortcourse_detail->id }}</h5>
@@ -58,7 +58,7 @@
                               <label class="responsive" style="color: red;margin-left: 28px;">{{ $shortcourse_detail->faculty->faculty_en }}</label>
                               @endif
                         </div>
-                        
+
                   </div>
 
                   <div class="col-md-6">
@@ -154,10 +154,11 @@
             </div>
             </div>
             
-            
+        
   </div>
 
   <a class="btn btn-primary" href="{{ route('projects.shortcourse') }}"><span class="menu-icon fa  fa-backward"></span> {{$flag=='kh'?'ត្រឡប់ក្រោយ':'Back to List'}}</a>
+  </div>
 @endsection
 @push('custom-js')
 

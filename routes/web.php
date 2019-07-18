@@ -1001,7 +1001,6 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
             Route::get('/shortcourse_detail/viewenrollmentv/{id}','ProjectActivities\ShortcourseController@ShortCourse_detail')->name('projects.shortcourse_detail');
             Route::post('/shortcourse_detail/store','ProjectActivities\ShortcourseController@SaveCourse_detail')->name('shortcourse_detail.savedata');
             Route::delete('/shortcourse-detail/delete/{id}','ProjectActivities\ShortcourseController@ShortCoursedetail_delete')->name('shortcourse_detail.destroy');
-
                                       
                                               //=================View Course Detail==============Ratha
             Route::get('/shortcourse/detail/{id}','ProjectActivities\ShortCourseController@ViewCourseDetail')->name('projects.coursedetail');
@@ -1017,6 +1016,8 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
                                     //==============Long Course Detail==========Ratha
             Route::get('/longcourse_detail/{id}','ProjectActivities\LongcourseController@LongCourse_detail')->name('project.longcourse_detail');
             Route::post('/longcourse_detail/store','ProjectActivities\LongcourseController@SaveLongCourse_detail')->name('longcourse_detail.savedata');
+                                    //=================View Long Course Detail==============Ratha
+            Route::get('/longcourse/detail/{id}','ProjectActivities\LongcourseController@ViewLongCourseDetail')->name('projects.longcoursedetail');
           
 });
 

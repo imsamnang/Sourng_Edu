@@ -16,7 +16,72 @@
   background-color: #438eb9; padding: 10px; margin-bottom: 15px;">លម្អិតវគ្គវែង</h5>
   
   <div class="card-body">
-    <fieldset>
+        
+            <div class="row">
+                  <div class="col-md-4">
+                        <div class="form-group">
+                            <label><strong>Main Subject</strong></label>
+                              @if($flag=='kh')
+                              <label class="responsive" style="color: red;margin-left: 28px;">{{ $longcourse_detail->faculty->faculty_kh }}</label>
+                              @endif
+                              @if($flag=='en') 
+                              <label class="responsive" style="color: red;margin-left: 28px;">{{ $longcourse_detail->faculty->faculty_en }}</label>
+                              @endif
+                        </div>                        
+                  </div>
+                  <div class="col-md-4">
+                        <div class="form-group">
+                            <label><strong>{{ __('longcourse-detail_Program Type') }}</strong></label>&emsp;
+                                
+                                  @if($flag=='kh')
+                                  <label style="color: red;margin-left: 10px;">{{ $longcourse_detail->program_type->title_kh }}</label>
+                                  @endif
+                                  @if($flag=='en') 
+                                  <label style="color: red;margin-left: 10px;">{{ $longcourse_detail->program_type->title_en }}</label>
+                                  @endif
+                        </div>
+                  </div>
+            </div>
+
+            <div class="row">
+                    <div class="col-md-4">
+                          <div class="form-group">
+                              <label><strong>{{ __('longcourse-detail_OveralFund') }}</strong></label>&emsp;
+                                  @if($flag=='kh')
+                                  <label class="responsive" style="color: red;margin-left: 20px;">{{ $longcourse_detail->overalFundName->title_kh }}</label>
+                                  @endif
+                                  @if($flag=='en') 
+                                  <label class="responsive" style="color: red;margin-left: 20px;">{{ $longcourse_detail->overalFundName->title_en }}</label>
+                                  @endif
+                          </div>
+                    </div>
+                    <div class="col-md-4">
+                          <div class="form-group">
+                              <label><strong>Start Date</strong></label>&emsp;
+                              <label style="color: red; margin-left: 35px;">{{ $longcourse_detail->promotion_start_date }}</label>
+
+                          </div>
+                    </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                    <div class="form-group">
+                        <label><strong>{{ __('Studytime') }}</strong></label>&emsp;
+                        <label style="color: red;margin-left: 32px;">{{ $longcourse_detail->academic_year }}</label>
+                    </div>
+              </div>
+              <div class="col-md-4">
+                    <div class="form-group">
+                        <label><strong>Bath Group</strong></label>&emsp;
+                        <label style="color: red; margin-left: 28px;">{{ $longcourse_detail->batch_group }}</label>
+                    </div>
+              </div>
+            </div>
+
+
+
+{{--     <fieldset>
       <table>
         <tbody><tr>
           <td style="width: 160px;"><strong>{{ __('longcourse-detail_ProgramMainSubject') }}</strong></td>
@@ -68,7 +133,7 @@
           </td>
         </tr>
       </tbody></table>
-    </fieldset>
+    </fieldset> --}}
 
 
     {{-- Add Students --}}
