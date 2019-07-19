@@ -6,6 +6,7 @@ use Auth;
 
 use App\Role;
 use App\User;
+// use App\Cache;
 
 use Image, URL;
 use ViewHelper;
@@ -39,6 +40,10 @@ class ProjectActivitiesController extends Controller
     // protected $folder_name = 'projects';
     // protected $filter_query = [];
 
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
 
     public function index(Request $request )
     {
@@ -58,6 +63,7 @@ class ProjectActivitiesController extends Controller
           }elseif(auth()->user()->hasRole('admin-project')){
             // return "Project Dashboard";          
             return redirect()->route('admin-project');
+
           }elseif(auth()->user()->hasRole('admin')){
             // return redirect()->route('/');
             return "Project Admin"; 
@@ -142,6 +148,25 @@ class ProjectActivitiesController extends Controller
     $data['allBooks']=Book::all()->where('institute_id',Auth::user()->institute_id)->count();
     $data['book_categories']=BookCategory::all()->where('institute_id',Auth::user()->institute_id)->count();
     $data['book_masters']=BookMasters::all()->where('institute_id',Auth::user()->institute_id)->count();
+
+    // $data['TotalShortCourse']=BookMasters::all()->where('institute_id',Auth::user()->institute_id)->count();
+    $data['TotalShortCourse'] = DB::table('course_short_student')
+                  ->select(DB::raw('count(*) as ShortCourse_count,course_short_id,course_name'))  
+                  ->join('course_short','course_short.id','=','course_short_student.course_short_id')         
+                  ->groupBy('course_short_id')
+                  ->get();
+
+    $data['TotalLongCourse'] = DB::table('course_long_student')
+                  ->select(DB::raw('count(*) as LongCourse_count'))           
+                  ->groupBy('course_long_id')
+                  ->get();
+    
+     $data['users']= User::all();
+
+  
+
+// return $data['TotalShortCourse'];
+
     // return $data;
     if(Auth::check()) {
         return view('ProjectActivities.dashboard.project-dashboard',compact('data'));

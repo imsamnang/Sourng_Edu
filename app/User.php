@@ -2,11 +2,12 @@
 
 namespace App;
 
-use App\Models\Quiz\QuizResults;
 use App\Models\Roles;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Models\Quiz\QuizResults;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Notifications\Notifiable;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 
 class User extends Authenticatable
@@ -48,6 +49,11 @@ class User extends Authenticatable
     {
 
     }
+	
+	public function isOnline()
+	{
+		return Cache::has('user-is-online-' . $this->id);
+	}
 
 
 }

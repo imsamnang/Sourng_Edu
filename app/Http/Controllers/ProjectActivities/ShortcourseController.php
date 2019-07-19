@@ -238,6 +238,13 @@ class ShortcourseController extends Controller
     ->where('course_short.id',$id)
     ->first(); 
 
+   $teacher_course=DB::table('staff')                              
+                              ->join('course_short_teacher','course_short_teacher.staff_id','=','staff.id')
+                              ->join('course_short','course_short.id','=','course_short_teacher.course_short_id')
+                              ->where('course_short_id',$id)
+                              ->select('*')
+                              ->get();
+  
     $data['faculty_selected']=Faculty::findOrFail($need->course_code_id);
     $data['curriculum_End']=CurriculumEndorsement::all();
 
@@ -245,7 +252,9 @@ class ShortcourseController extends Controller
     $curriculum_End= CurriculumEndorsement::all();
     $curriculum_author=CurriculumAuthor::all();
     $modality= Modality::all();
-    return view('ProjectActivities.courses.shortcourse.course_detail', compact('shortcourse_detail','faculty','curriculum_End','curriculum_author','modality','overal_fund','data','provinces','district','comnune','student','shortcoursestudent'));
+    return view('ProjectActivities.courses.shortcourse.course_detail', compact('shortcourse_detail','faculty',
+              'curriculum_End','curriculum_author','modality','overal_fund','data',
+              'provinces','district','comnune','student','shortcoursestudent','teacher_course'));
   }
 
   public function editFund(Request $request)
