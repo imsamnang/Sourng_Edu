@@ -1,8 +1,8 @@
 @extends('ProjectActivities.layout.master')
 
-@section('css')
-
-@endsection
+@push('custom-css')
+    <!-- page specific plugin styles -->
+@endpush
 
 @section('menu-panel')
     @include('ProjectActivities.layout.menu.menu_admin')

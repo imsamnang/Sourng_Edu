@@ -1,8 +1,8 @@
 @extends('ProjectActivities.layout.master')
 
-@section('css')
+@push('custom-css')
     <!-- page specific plugin styles -->
-@endsection
+@endpush
 
 @section('menu-panel')
     @include('ProjectActivities.layout.menu.menu_admin')
@@ -81,7 +81,7 @@
   <!-- /.main-content -->
 @endsection
 
-@section('js')
+@push('custom-js')
   {{-- @include('includes.scripts.jquery_validation_scripts') --}}
   <!-- inline scripts related to this page -->
   <script type="text/javascript">
@@ -107,11 +107,6 @@
       });
     });
 
-    // $('#add-new-question').hide();
-    // $('#btn-add-new-question').on('click', function(){
-    //   $('#add-new-question').slideDown();
-    // });
-
     jQuery(document).ready(function() {
       var i=1;
       // button add more field
@@ -132,4 +127,4 @@
     });
   </script>
 
-@endsection
+@endpush

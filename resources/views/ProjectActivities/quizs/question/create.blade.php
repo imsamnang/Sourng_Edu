@@ -1,6 +1,6 @@
 @extends('Projectactivities.layout.master')
 
-@push('css')
+@push('custom-css')
   <link rel="stylesheet" href="{{asset('assets/quiz/custom.css')}}">
 @endpush
 

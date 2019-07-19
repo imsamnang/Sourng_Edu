@@ -1,9 +1,9 @@
 @extends('ProjectActivities.layout.master')
 
-@section('css')
+@push('custom-css')
     <!-- page specific plugin styles -->
 
-@endsection
+@endpush
 
 @section('menu-panel')
     @include('ProjectActivities.layout.menu.menu_admin')
@@ -26,11 +26,11 @@
 @endsection
 
 
-@section('js')
+@push('custom-js')
   {{-- @include('includes.scripts.jquery_validation_scripts') --}}
   <!-- inline scripts related to this page -->
   <script type="text/javascript">
 
   </script>
   @include('ProjectActivities.students.includes.dataTable_scripts')
-@endsection
+@endpush
