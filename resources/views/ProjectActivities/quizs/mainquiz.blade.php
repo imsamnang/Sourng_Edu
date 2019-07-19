@@ -51,7 +51,7 @@
                     </a>
                     <ul class="dropdown-menu">
                       {{-- @if ($auth->role == 'A') --}}
-                        <li><a href="{{url('/admin')}}" title="Dashboard">Dashboard</a></li>
+                        <li><a href="{{url(route('quiz.user.result'))}}" title="Dashboard">Dashboard</a></li>
                       {{-- @elseif ($auth->role == 'S') --}}
                         {{-- <li><a href="{{url('/admin/my_reports')}}" title="Dashboard">Dashboard</a></li> --}}
                       {{-- @endif --}}

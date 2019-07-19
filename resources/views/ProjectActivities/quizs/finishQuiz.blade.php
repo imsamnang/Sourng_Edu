@@ -48,7 +48,7 @@
                       {{ Auth::user()->name }} <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#" title="Dashboard">Dashboard</a></li>
+                        <li><a href="{{route('quiz.user.result')}}" title="Dashboard">Dashboard</a></li>
                       <li>
                         <a href="{{ route('logout') }}"
                         onclick="event.preventDefault();
