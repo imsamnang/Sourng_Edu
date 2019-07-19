@@ -23,6 +23,9 @@ Auth::routes();
 
 /*for Dashboard's*/
 Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
+// Route::get('/','HomeController@index');
+// Route::get('/home','HomeController@index');
+// Route::get('/',                    ['as' => 'home',                  'middleware' => ['ability:super-admin,role-index'],         'uses' => 'HomeController@index']);
 
 /* Roles Routes */
     Route::get('role',                    ['as' => 'role',                  'middleware' => ['ability:super-admin,role-index'],         'uses' => 'RoleController@index']);

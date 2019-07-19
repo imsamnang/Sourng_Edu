@@ -40,10 +40,10 @@ class ProjectActivitiesController extends Controller
     // protected $folder_name = 'projects';
     // protected $filter_query = [];
 
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     public function index(Request $request )
     {
