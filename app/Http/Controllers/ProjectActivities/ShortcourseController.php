@@ -25,6 +25,10 @@ use Illuminate\Support\Facades\DB;
 
 class ShortcourseController extends Controller
 {
+  public function __construct()
+  {
+    $this->middleware('auth');
+  }
   function getDistrictList(Request $request)
   {
     $districts = District::where("province_id",$request->province_id)
