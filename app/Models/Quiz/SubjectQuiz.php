@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class SubjectQuiz extends Model
 {
   // protected $table ='subjects_quizzes';
-	protected $fillable=[
+	protected $fillable =[
                       'title',
                       'slug',
                       'reference',
@@ -32,6 +32,10 @@ class SubjectQuiz extends Model
       return $this->belongsToMany(Question::class);
     }
 
+    public function answers(){
+      return $this->hasMany(QuizResults::class,'subject_id');
+    }
+
     public function scopehasQuestions()
     {
       if($this->questions()->get()->count()){
@@ -40,10 +44,6 @@ class SubjectQuiz extends Model
       else{
         return false;
       }
-    }
-
-    public function answers(){
-      return $this->hasMany(QuizResults::class,'subject_id');
     }
 
     public function scopeisExamined()
