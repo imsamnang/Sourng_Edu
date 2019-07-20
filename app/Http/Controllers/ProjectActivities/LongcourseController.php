@@ -37,7 +37,6 @@ class LongcourseController extends Controller
 
     }
 
-
     function ShowLongForm()
     {
         $program_type= ProgramType::all();
@@ -67,8 +66,7 @@ class LongcourseController extends Controller
     }
 
     public function edit(Request $request, $id)
-    {       
-
+    {
         $program_type= ProgramType::all();
         // $program_type= ProgramType::WHERE('id')->get();
         $overal_fund= OveralFund::all();
@@ -112,8 +110,19 @@ class LongcourseController extends Controller
   function LongCourse_detail(Request $request, $id)
   {   
     $longcourse_detail =LongCourse::findOrFail($id);
-    $longcoursestudent=Courselongstudent::WHERE('course_long_id',$longcourse_detail->id)->get();
-    // return $longcourse_detail;
+  // using query builder to jon muliple table
+    // $db=DB::table('faculties')
+    //     ->join('course_long_student','course_long_student.course_long_id','faculties.id')
+    //     ->join('course_long','faculties.id','course_long.faculties_id')
+    //     ->where('course_long.faculties_id',$longcourse_detail->id)
+    //     ->get();
+    // return $db;
+
+  // eloquent relationship join multiple table
+    $longcoursestudent=Courselongstudent::with('fuculty','Course_Long')
+                                        ->where('course_long_id',$longcourse_detail->id)
+                                        ->get();
+    // return $longcoursestudent;
     $student=Student::latest()->paginate(7);
     $overal_fund=OveralFund::all();
     $data=[];

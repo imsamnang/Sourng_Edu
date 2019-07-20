@@ -14,6 +14,9 @@
       <div class="page-content">
         <div class="row">
           <div class="new-start">
+            <center>              
+              <h3>The Result of {{$subjectName->subject->title  }} Subject</h3>
+            </center>
               <table class="table">
                 <thead>
                 <th>Quiz Title</th>
@@ -24,13 +27,13 @@
                 <th></th>
                 </thead>
                 <tbody>
-                @if($allQuestions)
-                  @foreach($allQuestions as $quiz)
+                @if($allUserAnswer)
+                  @foreach($allUserAnswer as $quiz)
                     <tr>
-                        <td>{{ $quiz->title }}</td>
-                        <td>{{ $quiz->option_id }}</td>
-                        <td>{{ $quiz->user_response }}</td>
-                        <td>{{ $quiz->per_q_mark }}</td>
+                        <td>{{ $quiz->question->title }}</td>
+                        <td>{{ $quiz->answer->option->title }}</td>
+                        <td>{{ $quiz->option->title }}</td>
+                        <td>{{ $quiz->subject->per_q_mark }}</td>
                         <td>{{ $totalQuestion }}</td>
                     </tr>
                   @endforeach

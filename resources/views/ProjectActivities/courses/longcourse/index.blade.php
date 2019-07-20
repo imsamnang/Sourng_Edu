@@ -22,16 +22,6 @@
 @endsection
 
 @push('custom-js')
-    {{-- @include('includes.scripts.jquery_validation_scripts') --}}
-
-
-    <!-- inline scripts related to this page -->
-  
-    {{-- @include('includes.scripts.inputMask_script')
-    @include('includes.scripts.delete_confirm')
-    @include('includes.scripts.bulkaction_confirm')
-    @include('includes.scripts.dataTable_scripts')
-    @include('includes.scripts.datepicker_script') --}}
-
-    @include('projectactivities.courses.longcourse.includes.dataTable_scripts')
+  @include('projectactivities.courses.longcourse.includes.dataTable_scripts')
+  @include('ProjectActivities.quizs.delete_confirm')
 @endpush

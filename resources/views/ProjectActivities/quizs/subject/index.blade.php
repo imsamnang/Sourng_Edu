@@ -74,11 +74,5 @@
 
 
 @push('custom-js')
-  {{-- @include('includes.scripts.jquery_validation_scripts') --}}
-  <!-- inline scripts related to this page -->
-  <script type="text/javascript">
-
-  </script>
-  {{-- @include('includes.dataTable_scripts') --}}
   @include('ProjectActivities.quizs.delete_confirm')
 @endpush

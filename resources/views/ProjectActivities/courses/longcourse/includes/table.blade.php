@@ -76,14 +76,19 @@
                             <i class="ace-icon fa fa-trash-o bigger-130"></i>
                         </a> --}}
                         
-                        <button type="button" class="btn btn-xs btn-danger" onclick="deletePost({{$row->id}})" style="padding-left: 5px; padding-right: 5px; padding-top: 0px; padding-bottom: 0px;"><i class="ace-icon fa fa-trash-o bigger-130"></i></button>
+{{--                         <button type="button" class="btn btn-xs btn-danger" onclick="deleteObject({{$row->id}})" style="padding-left: 5px; padding-right: 5px; padding-top: 0px; padding-bottom: 0px;"><i class="ace-icon fa fa-trash-o bigger-130"></i></button>
 
                           <form id="delete-form-{{$row->id}}" action="{{ route('delete-longcourse.destroy', $row->id) }}"
                             method="POST" style="display: none">
                             @csrf
                             @method('DELETE')
-                          </form>
-
+                          </form> --}}
+                        <form method="POST" action="{{route('delete-longcourse.destroy', $row->id)}}" accept-charset="UTF-8" style="display:inline" id="deleteObject-{{$row->id}}">
+                          {{csrf_field()}}
+                          {{method_field('DELETE')}}
+                          <a href="#" class="btn btn-primary btn-sx btn-danger btn-minier" onclick="deleteObject({{$row->id}})"><i class="ace-icon fa fa-trash-o bigger-130"></i>
+                          </a>
+                        </form>
                     </div>
                     <div class="hidden-md hidden-lg">
                       <div class="inline pos-rel">
@@ -106,17 +111,14 @@
                               </a>
                             </li>
                             <li>
-                             {{--  <a href="{{ $row->id }}" class="tooltip-error bootbox-confirm" data-rel="tooltip" title="Delete">
-                                <span class="red "><i class="ace-icon fa fa-trash-o bigger-120"></i></span>
-                              </a> --}}
-
-                              <button type="button" class="btn btn-xs btn-danger" onclick="deletePost({{$row->id}})" style="padding-left: 5px; padding-right: 5px; padding-top: 0px; padding-bottom: 0px;"><i class="ace-icon fa fa-trash-o bigger-130"></i></button>
-
-                              <form id="delete-form-{{$row->id}}" action="{{ route('delete-longcourse.destroy', $row->id) }}"
-                                method="POST" style="display: none">
-                                @csrf
-                                @method('DELETE')
-                              </form>
+                              <center>
+                                <form method="POST" action="{{route('delete-longcourse.destroy', $row->id)}}" accept-charset="UTF-8" style="display:inline" id="deleteObject-{{$row->id}}">
+                                  {{csrf_field()}}
+                                  {{method_field('DELETE')}}
+                                  <a href="#" onclick="deleteObject({{$row->id}})"><span class="red"><i class="ace-icon fa fa-trash-o bigger-120"></i></span>
+                                  </a>
+                                </form>                                
+                              </center>                           
                             </li>
                         </ul>
                       </div>
@@ -137,26 +139,3 @@
     </div>
   </div>
 </div>
-<script type="text/javascript">
-          function deletePost(id){
-            Swal.fire({
-              title: 'Are you sure?',
-              text: "You won't be able to revert this!",
-              type: 'warning',
-              showCancelButton: true,
-              confirmButtonColor: '#3085d6',
-              cancelButtonColor: '#d33',
-              confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-              if (result.value) {
-                document.getElementById('delete-form-'+id).submit();
-                Swal.fire(
-                  'Deleted!',
-                  'Your file has been deleted.',
-                  'success'
-                  )
-              }
-            })
-          }
-
-        </script>

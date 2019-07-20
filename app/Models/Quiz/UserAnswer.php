@@ -31,4 +31,9 @@ class UserAnswer extends Model
   {
     return $this->hasOne(Answer::class,'question_id','question_id');
   }
+
+  public function option()
+  {
+    return $this->belongsTo(Option::class,'user_response');
+  }
 }

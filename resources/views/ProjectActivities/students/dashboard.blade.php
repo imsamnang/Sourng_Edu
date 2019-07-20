@@ -19,7 +19,7 @@
               <div class="topic-block">
                 <div class="card blue-grey darken-1">
                   <div class="card-content white-text">
-                    <span class="card-title">{{$subject->title}} Quiz</span>
+                    <span class="card-title">{{$subject->subject->title}} Quiz</span>
                     <div class="row">
                       <div class="col-xs-7 pad-0">
                         <ul class="topic-detail">
