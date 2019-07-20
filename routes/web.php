@@ -945,6 +945,7 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
       Route::get('/project-book','ProjectActivities\BookController@index')->name('project-book');    
       Route::get('/admin-project','ProjectActivities\ProjectActivitiesController@admin_project')->name('admin-project');
       Route::get('/user-project','ProjectActivities\ProjectActivitiesController@user_project')->name('user-project');
+      Route::get('/student-project','ProjectActivities\ProjectActivitiesController@student_project')->name('student-project');
 
       Route::get('/teacher-project','ProjectActivities\ProjectActivitiesController@teacher_project')->name('teacher-project');
       Route::get('/userstudent','ProjectActivities\ProjectActivitiesController@user_student')->name('userstudent');

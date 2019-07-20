@@ -17,7 +17,7 @@
 
 @section('content')
     {{-- @include('ProjectActivities.layout.left.admin') --}}
-    @include('ProjectActivities.layout.right.student')
+    @include('ProjectActivities.layout.right.user')
 @endsection
 {{-- For Custom JS --}}
 @push('custom-js')
