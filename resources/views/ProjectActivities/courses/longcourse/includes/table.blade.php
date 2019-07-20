@@ -36,16 +36,16 @@
                   <td>{{ $i }}</td>
                   <td class="action-buttons"><a href="{{ route('projects.longcoursedetail',$row->id) }}">{{ $row->batch_group }} <span style="color:red;">({{ App\Models\Courselongstudent::where('course_long_id',$row->id)->count() }} នាក់)</span></a></td>
                   @if($flag=='kh')
-                    <td class="hidden-480"><a href="{{ $row->id }}">{{ $row->faculty->faculty_kh }} </a> </td>
+                    <td class="hidden-480"><a href="#">{{ $row->faculty->faculty_kh }} </a> </td>
                   @endif
                   @if($flag=='en')
-                    <td class="hidden-480"><a href="{{ $row->id }}">{{ $row->faculty->faculty_en }} </a> </td>
+                    <td class="hidden-480"><a href="#">{{ $row->faculty->faculty_en }} </a> </td>
                   @endif
                   @if($flag=='kh')
-                    <td class="hidden-480"><a href="{{ $row->id }}"> {{ $row->program_type->title_kh }}</a></td>
+                    <td class="hidden-480"><a href="#"> {{ $row->program_type->title_kh }}</a></td>
                   @endif
                   @if($flag=='en')
-                    <td class="hidden-480"><a href="{{ $row->id }}"> {{ $row->program_type->title_en }}</a></td>
+                    <td class="hidden-480"><a href="#"> {{ $row->program_type->title_en }}</a></td>
                   @endif
                   <td class="hidden-480 ">
                     <div class="btn-group">
