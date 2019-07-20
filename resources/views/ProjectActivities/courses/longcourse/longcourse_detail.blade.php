@@ -13,7 +13,7 @@
 <div class="card table-bordered" style="margin-top: 15px; margin-left: 15px; margin-right: 15px; padding-left: 30px; padding-right: 30px; padding-bottom: 30px; padding-top: 5px; border-color: #79b0ce;">
 
   <h5 style="color: white; font-family: Khmer OS Battambang;
-  background-color: #438eb9; padding: 10px; margin-bottom: 15px;">លម្អិតវគ្គវែង</h5>
+  background-color: #438eb9; padding: 10px; margin-bottom: 15px; font-size: 24px;">លម្អិតវគ្គវែង L- {{$longcourse_detail->id  }}</h5>
   
   <div class="card-body">        
     <div class="row">
@@ -356,7 +356,12 @@
                     </span>          
                     ( ID: <a href="#"> {{$post->stu->id}}</a> )
                   </td>
-                  <td>{{ $post->fuculty->faculty_en }}</td>
+                  @if($flag=='kh')
+                    <td>{{ $post->fuculty->faculty_kh }}</td>
+                  @endif
+                  @if($flag=='en')
+                    <td>{{ $post->fuculty->faculty_en }}</td>
+                  @endif
                   @if($flag=='kh')
                   <td class="hidden-480">{{$post->overalFund->title_kh}}</td>
                   @endif
