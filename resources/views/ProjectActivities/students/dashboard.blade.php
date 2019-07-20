@@ -1,7 +1,8 @@
 @extends('ProjectActivities.layout.master')
 
 @push('custom-css')
-    <!-- page specific plugin styles -->
+  <link href="{{ asset('css/front.css') }}" rel="stylesheet">
+  <link rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}">  
 @endpush
 
 @section('menu-panel')
@@ -12,15 +13,15 @@
   <div class="container">
     <div class="quiz-main-block">
       <div class="row">
-      {{--@if ($allQuiz)
-          @foreach ($allQuiz as $subject)
+        @if ($userQuizs)
+          @foreach ($userQuizs as $subject)
             <div class="col-md-4">
               <div class="topic-block">
                 <div class="card blue-grey darken-1">
                   <div class="card-content white-text">
                     <span class="card-title">{{$subject->title}} Quiz</span>
                     <div class="row">
-                      <div class="col-xs-6 pad-0">
+                      <div class="col-xs-7 pad-0">
                         <ul class="topic-detail">
                           <li>Per Question Mark <i class="fa fa-long-arrow-right"></i></li>
                           <li>Total Marks <i class="fa fa-long-arrow-right"></i></li>
@@ -28,20 +29,20 @@
                           <li>Total Time <i class="fa fa-long-arrow-right"></i></li>
                         </ul>
                       </div>
-                      <div class="col-xs-6">
+                      <div class="col-xs-5">
                         <ul class="topic-detail right">
-                          <li>{{$subject->per_q_mark}}</li>
+                          <li>{{$subject->subject->per_q_mark}}</li>
                           <li>
                             @php
-                              $qu_count = $subject->questions->count();
+                              $qu_count = $subject->subject->questions->count();
                             @endphp
-                            {{$subject->per_q_mark*$qu_count}}
+                            {{$subject->subject->per_q_mark*$qu_count}}
                           </li>
                           <li>
                             {{$qu_count}}
                           </li>
                           <li>
-                            {{$subject->question_duration}} seconds
+                            {{$subject->subject->question_duration}} seconds
                           </li>
                         </ul>
                       </div>
@@ -49,14 +50,14 @@
                   </div>
                   <div class="card-action">
                     <center>
-                      <a href="{{route('quiz.start.quiz',$subject->slug)}}" class="btn btn-primary btn-block" title="Start Quiz">Start Quiz</a>
+                      <a href="{{ route('quiz.single.result',$subject->subject->id) }}" class="btn btn-success btn-block" title="Start Quiz">Show Result</a>
                     </center>
                   </div>
                 </div>
               </div>
             </div>
           @endforeach
-        @endif --}}
+        @endif 
       </div>
     </div>
   </div>
