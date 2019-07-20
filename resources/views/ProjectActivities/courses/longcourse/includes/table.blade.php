@@ -34,7 +34,7 @@
                     </label>
                   </td>
                   <td>{{ $i }}</td>
-                  <td class="action-buttons"><a href="{{ route('projects.longcoursedetail',$row->id) }}">{{ $row->batch_group }} <span style="color:red;">(11 នាក់)</span></a></td>
+                  <td class="action-buttons"><a href="{{ route('projects.longcoursedetail',$row->id) }}">{{ $row->batch_group }} <span style="color:red;">({{ App\Models\Courselongstudent::where('course_long_id',$row->id)->count() }} នាក់)</span></a></td>
                   @if($flag=='kh')
                     <td class="hidden-480"><a href="{{ $row->id }}">{{ $row->faculty->faculty_kh }} </a> </td>
                   @endif
@@ -62,8 +62,8 @@
                   </td>                      
                   <td>
                     <div class="hidden-sm hidden-xs action-buttons">
-                        <a href="#">បញ្ជីឈ្មោះសិស្ស <span style="color:red;">(11 នាក់)</span></a> |
-                        <a href="#"> ធ្វើបច្ចុប្បន្នភាព</a>
+                        <a href="{{ route('project.longcourse_detail',$row->id) }}">បញ្ជីឈ្មោះសិស្ស <span style="color:red;">({{ App\Models\Courselongstudent::where('course_long_id',$row->id)->count() }} នាក់)</span></a> |
+                        
                         <a href="{{ route('project.longcourse_detail',$row->id) }}" class="btn btn-primary btn-minier btn-primary">
                             <i class="ace-icon fa fa-eye bigger-130"></i>
                         </a>
@@ -72,17 +72,6 @@
                             <i class="ace-icon fa fa-pencil bigger-130"></i>
                         </a>
 
-                       {{--  <a href="{{ $row->id }}" class="btn btn-primary btn-minier btn-danger bootbox-confirm" >
-                            <i class="ace-icon fa fa-trash-o bigger-130"></i>
-                        </a> --}}
-                        
-{{--                         <button type="button" class="btn btn-xs btn-danger" onclick="deleteObject({{$row->id}})" style="padding-left: 5px; padding-right: 5px; padding-top: 0px; padding-bottom: 0px;"><i class="ace-icon fa fa-trash-o bigger-130"></i></button>
-
-                          <form id="delete-form-{{$row->id}}" action="{{ route('delete-longcourse.destroy', $row->id) }}"
-                            method="POST" style="display: none">
-                            @csrf
-                            @method('DELETE')
-                          </form> --}}
                         <form method="POST" action="{{route('delete-longcourse.destroy', $row->id)}}" accept-charset="UTF-8" style="display:inline" id="deleteObject-{{$row->id}}">
                           {{csrf_field()}}
                           {{method_field('DELETE')}}
