@@ -35,6 +35,7 @@ class StaffController extends CollegeBaseController
 
     public function __construct()
     {
+        $this->middleware('auth');
         $this->folder_path = public_path().DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.$this->folder_name.DIRECTORY_SEPARATOR;
     }
 

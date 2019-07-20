@@ -11,7 +11,7 @@ class Commune extends Model
 		return $this->belongsTo(District::class,'district_id','id');
 	}
 
-	public function properties()
+	public function courseshort()
 	{
 		return $this->hasMany(Property::class,'id','commune_id');
 	}	

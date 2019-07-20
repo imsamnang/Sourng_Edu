@@ -42,7 +42,7 @@
     <td class="action-buttons"><a href="{{ route('projects.coursedetail',$row->id) }}">{{ $row->faculty->faculty_kh }} </a> <span style="color:red;">({{ App\Models\Courseshortstudent::where('course_short_id',$row->id)->count() }} នាក់)</span></td>
     @endif
     @if($flag=='en')
-    <td><a href="{{ route('projects.coursedetail',$row->id) }}">{{ $row->faculty->faculty_en }} </a><span style="color:red;">({{ App\Models\Courseshortstudent::where('course_short_id',$row->id)->count() }} នាក់)</span> </td>
+    <td class="action-buttons"><a href="{{ route('projects.coursedetail',$row->id) }}">{{ $row->faculty->faculty_en }} </a><span style="color:red;">({{ App\Models\Courseshortstudent::where('course_short_id',$row->id)->count() }} នាក់)</span> </td>
     @endif
     <td ><a href="#"> {{ $row->course_name }}</a></td>
     <td class="hidden-480"><a href="#"> {{ $row->total_training_hour }}</a></td>
@@ -97,7 +97,7 @@
                             </button>
                             <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
                               <li>
-                                <a href="{{ $row->id }}" class="tooltip-success" data-rel="tooltip" title="Edit">
+                                <a href="{{route('projects.shortcourse_detail',$row->id)}}" class="tooltip-success" data-rel="tooltip" title="Edit">
                                   <span class="blue">
                                     <i class="ace-icon fa fa-eye bigger-120"></i>
                                   </span>

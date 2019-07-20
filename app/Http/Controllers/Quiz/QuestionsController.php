@@ -20,13 +20,12 @@ class QuestionsController extends Controller
   public function create($quiz)
   {
     $quiz = SubjectQuiz::with('questions')->where('slug', $quiz)->get()->first();
-    return view('quizs.question.create', compact('quiz'));
+    return view('ProjectActivities.quizs.question.create', compact('quiz'));
   }
 
   public function store(Request $request, $quiz)
   {
     $quiz = SubjectQuiz::where('slug', $quiz)->get()->first();
-    // $question = Question::create($request->except('options', '_token'));
     $question = Question::create([
                 'title' => $request->title,
                 'slug' => str_slug($request->title, '-'),
@@ -44,7 +43,7 @@ class QuestionsController extends Controller
   {
     $question = Question::where('slug', $question)->get()->first();
     $quiz = SubjectQuiz::where('slug', $quiz)->get()->first();
-    return view('quizs.question.show', compact('question', 'quiz'));
+    return view('ProjectActivities.quizs.question.show', compact('question', 'quiz'));
   }
 
   public function saveAnswer(Request $request, $question)
@@ -62,7 +61,7 @@ class QuestionsController extends Controller
   public function edit($question)
   {
     $quiz = Question::with('answers')->where('slug', $question)->first();
-    return view('quizs.question.edit', compact('quiz'));
+    return view('ProjectActivities.quizs.question.edit', compact('quiz'));
   }
 
   public function update(Request $request, $id)

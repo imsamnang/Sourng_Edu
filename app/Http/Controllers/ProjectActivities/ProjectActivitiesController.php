@@ -4,19 +4,27 @@ namespace App\Http\Controllers\ProjectActivities;
 
 use Auth;
 
-use App\User;
 use App\Role;
+use App\User;
+// use App\Cache;
 
 use Image, URL;
 use ViewHelper;
+use Carbon\Carbon;
+use App\Models\Book;
+use App\Models\Staff;
 use App\Models\Student;
 use App\Models\Subject;
 use App\Models\Document;
+use App\Models\Institute;
 use App\Traits\UserScope;
 use App\Models\Addressinfo;
+use App\Models\BookMasters;
+use App\Models\BookCategory;
 use Illuminate\Http\Request;
 use App\Models\GeneralSetting;
 use App\Models\StaffDesignation;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Validator;
@@ -33,6 +41,10 @@ class ProjectActivitiesController extends Controller
     // protected $folder_name = 'projects';
     // protected $filter_query = [];
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     public function index(Request $request )
     {
@@ -52,6 +64,7 @@ class ProjectActivitiesController extends Controller
           }elseif(auth()->user()->hasRole('admin-project')){
             // return "Project Dashboard";          
             return redirect()->route('admin-project');
+
           }elseif(auth()->user()->hasRole('admin')){
             // return redirect()->route('/');
             return "Project Admin"; 
@@ -89,18 +102,55 @@ class ProjectActivitiesController extends Controller
 
   public function user_project(Request $r){
 
-        $data = [];
-        $data['generalSetting'] = GeneralSetting::findOrFail(1)->first();
-        $data['ListCourse']=Subject::all();
+    $data = [];
+    $data['generalSetting'] = GeneralSetting::findOrFail(1)->first();
 
-        $data['UserReader']=User::WHERE('email',$r->email)
-        ->ORWHERE('contact_number',$r->email)                          
-        ->first();
-        $data['userRole']=Role::WHERE('id',$data['UserReader']->role_id)->first();
+    $data['ListCourse']=Subject::all();
+    $data['UserReader']=User::WHERE('email',$r->email)
+                        ->ORWHERE('contact_number',$r->email)                          
+                        ->first();
+    $data['userRole']=Role::WHERE('id',$data['UserReader']->role_id)->first();
+    $data['YourInstitute']=Institute::WHERE('id',Auth::user()->institute_id)->first();
+    // $data['allStudents']=DB::table('students')
+    //                     ->select(DB::raw('count(*)'))           
+    //                     // ->groupBy('institute_id')
+    //                     ->where('institute_id',Auth::user()->institute_id)
+    //                     ->get();
+
+    $data['allStudents']=Student::all()->where('institute_id',Auth::user()->institute_id)->count();
+    $data['allStudentsF']=Student::all()
+                          ->where('institute_id',Auth::user()->institute_id)
+                          ->where('gender',2)
+                          ->count();
+
+    $data['allStaffs']=Staff::all()->where('institute_id',Auth::user()->institute_id)->count();
+    $data['allStaffsF']=Student::all()
+                        ->where('institute_id',Auth::user()->institute_id)
+                        ->where('gender',2)
+                        ->count();
+    $data['allBooks']=Book::all()->where('institute_id',Auth::user()->institute_id)->count();
+    $data['book_categories']=BookCategory::all()->where('institute_id',Auth::user()->institute_id)->count();
+    $data['book_masters']=BookMasters::all()->where('institute_id',Auth::user()->institute_id)->count();
+
+    // $data['TotalShortCourse']=BookMasters::all()->where('institute_id',Auth::user()->institute_id)->count();
+    $data['TotalShortCourse'] = DB::table('course_short_student')
+                  ->select(DB::raw('count(*) as ShortCourse_count,course_short_id,course_name'))  
+                  ->join('course_short','course_short.id','=','course_short_student.course_short_id')         
+                  ->groupBy('course_short_id')
+                  ->get();
+
+    $data['TotalLongCourse'] = DB::table('course_long_student')
+                  ->select(DB::raw('count(*) as LongCourse_count'))           
+                  ->groupBy('course_long_id')
+                  ->get();
+
+    $data['users']= User::all();
+
+    
   
         // return $data;
         if(Auth::check()) {
-            return view('ProjectActivities.dashboard.project-dashboard',compact('data'));
+            return view('ProjectActivities.dashboard.staff-dashboard',compact('data'));
         }else{
             return redirect()->route('projects');
         }   
@@ -110,11 +160,52 @@ class ProjectActivitiesController extends Controller
 
     $data = [];
     $data['generalSetting'] = GeneralSetting::findOrFail(1)->first();
+
     $data['ListCourse']=Subject::all();
     $data['UserReader']=User::WHERE('email',$r->email)
-    ->ORWHERE('contact_number',$r->email)                          
-    ->first();
+                        ->ORWHERE('contact_number',$r->email)                          
+                        ->first();
     $data['userRole']=Role::WHERE('id',$data['UserReader']->role_id)->first();
+    $data['YourInstitute']=Institute::WHERE('id',Auth::user()->institute_id)->first();
+    // $data['allStudents']=DB::table('students')
+    //                     ->select(DB::raw('count(*)'))           
+    //                     // ->groupBy('institute_id')
+    //                     ->where('institute_id',Auth::user()->institute_id)
+    //                     ->get();
+
+    $data['allStudents']=Student::all()->where('institute_id',Auth::user()->institute_id)->count();
+    $data['allStudentsF']=Student::all()
+                          ->where('institute_id',Auth::user()->institute_id)
+                          ->where('gender',2)
+                          ->count();
+
+    $data['allStaffs']=Staff::all()->where('institute_id',Auth::user()->institute_id)->count();
+    $data['allStaffsF']=Student::all()
+                        ->where('institute_id',Auth::user()->institute_id)
+                        ->where('gender',2)
+                        ->count();
+    $data['allBooks']=Book::all()->where('institute_id',Auth::user()->institute_id)->count();
+    $data['book_categories']=BookCategory::all()->where('institute_id',Auth::user()->institute_id)->count();
+    $data['book_masters']=BookMasters::all()->where('institute_id',Auth::user()->institute_id)->count();
+
+    // $data['TotalShortCourse']=BookMasters::all()->where('institute_id',Auth::user()->institute_id)->count();
+    $data['TotalShortCourse'] = DB::table('course_short_student')
+                  ->select(DB::raw('count(*) as ShortCourse_count,course_short_id,course_name'))  
+                  ->join('course_short','course_short.id','=','course_short_student.course_short_id')         
+                  ->groupBy('course_short_id')
+                  ->get();
+
+    $data['TotalLongCourse'] = DB::table('course_long_student')
+                  ->select(DB::raw('count(*) as LongCourse_count'))           
+                  ->groupBy('course_long_id')
+                  ->get();
+    
+     $data['users']= User::all();
+
+  
+
+// return $data['TotalShortCourse'];
+
     // return $data;
     if(Auth::check()) {
         return view('ProjectActivities.dashboard.project-dashboard',compact('data'));
@@ -126,31 +217,112 @@ class ProjectActivitiesController extends Controller
   public function teacher_project(Request $r){
     $data = [];
     $data['generalSetting'] = GeneralSetting::findOrFail(1)->first();
-    $data['ListCourse']=Subject::all();
 
+    $data['ListCourse']=Subject::all();
     $data['UserReader']=User::WHERE('email',$r->email)
-    ->ORWHERE('contact_number',$r->email)                          
-    ->first();
+                        ->ORWHERE('contact_number',$r->email)                          
+                        ->first();
     $data['userRole']=Role::WHERE('id',$data['UserReader']->role_id)->first();
+    $data['YourInstitute']=Institute::WHERE('id',Auth::user()->institute_id)->first();
+    // $data['allStudents']=DB::table('students')
+    //                     ->select(DB::raw('count(*)'))           
+    //                     // ->groupBy('institute_id')
+    //                     ->where('institute_id',Auth::user()->institute_id)
+    //                     ->get();
+
+    $data['allStudents']=Student::all()->where('institute_id',Auth::user()->institute_id)->count();
+    $data['allStudentsF']=Student::all()
+                          ->where('institute_id',Auth::user()->institute_id)
+                          ->where('gender',2)
+                          ->count();
+
+    $data['allStaffs']=Staff::all()->where('institute_id',Auth::user()->institute_id)->count();
+    $data['allStaffsF']=Student::all()
+                        ->where('institute_id',Auth::user()->institute_id)
+                        ->where('gender',2)
+                        ->count();
+    $data['allBooks']=Book::all()->where('institute_id',Auth::user()->institute_id)->count();
+    $data['book_categories']=BookCategory::all()->where('institute_id',Auth::user()->institute_id)->count();
+    $data['book_masters']=BookMasters::all()->where('institute_id',Auth::user()->institute_id)->count();
+
+    // $data['TotalShortCourse']=BookMasters::all()->where('institute_id',Auth::user()->institute_id)->count();
+    $data['TotalShortCourse'] = DB::table('course_short_student')
+                  ->select(DB::raw('count(*) as ShortCourse_count,course_short_id,course_name'))  
+                  ->join('course_short','course_short.id','=','course_short_student.course_short_id')         
+                  ->groupBy('course_short_id')
+                  ->get();
+
+    $data['TotalLongCourse'] = DB::table('course_long_student')
+                  ->select(DB::raw('count(*) as LongCourse_count'))           
+                  ->groupBy('course_long_id')
+                  ->get();
+
+    $data['users']= User::all();
+
 
     if(Auth::check()) {
-        return view('ProjectActivities.dashboard.staff-dashboard',compact('data'));
+        return view('ProjectActivities.dashboard.teacher-dashboard',compact('data'));
     }else{
         return redirect()->route('projects');
     }   
   }
 
 
-  public function user_student(Request $r){
+  public function student_project(Request $r){
     $data = [];
     $data['generalSetting'] = GeneralSetting::findOrFail(1)->first();
+    $instituteID=auth()->user()->institute_id;
+    $RoleID=auth()->user()->role_id;
+
     $data['ListCourse']=Subject::all();
+   $data['UserReader']=User::WHERE('email',$r->email)
+                        ->ORWHERE('contact_number',$r->email)                          
+                        ->first();
+    $data['userRole']=Role::WHERE('id',$RoleID)->first();
+    $data['YourInstitute']=Institute::WHERE('id',$instituteID)->first();
+    // $data['allStudents']=DB::table('students')
+    //                     ->select(DB::raw('count(*)'))           
+    //                     // ->groupBy('institute_id')
+    //                     ->where('institute_id',Auth::user()->institute_id)
+    //                     ->get();
 
-    $data['UserReader']=User::WHERE('email',$r->email)
-    ->ORWHERE('contact_number',$r->email)                          
-    ->first();
-    $data['userRole']=Role::WHERE('id',$data['UserReader']->role_id)->first();
+    $data['allStudents']=Student::all()->where('institute_id',$instituteID)->count();
+    $data['allStudentsF']=Student::all()
+                          ->where('institute_id',Auth::user()->institute_id)
+                          ->where('gender',2)
+                          ->count();
 
+    $data['allStaffs']=Staff::all()->where('institute_id',Auth::user()->institute_id)->count();
+    $data['allStaffsF']=Student::all()
+                        ->where('institute_id',Auth::user()->institute_id)
+                        ->where('gender',2)
+                        ->count();
+    $data['allBooks']=Book::all()->where('institute_id',Auth::user()->institute_id)->count();
+    $data['book_categories']=BookCategory::all()->where('institute_id',Auth::user()->institute_id)->count();
+    $data['book_masters']=BookMasters::all()->where('institute_id',Auth::user()->institute_id)->count();
+
+    // $data['TotalShortCourse']=BookMasters::all()->where('institute_id',Auth::user()->institute_id)->count();
+    $data['TotalShortCourse'] = DB::table('course_short_student')
+                  ->select(DB::raw('count(*) as ShortCourse_count,course_short_id,course_name'))  
+                  ->join('course_short','course_short.id','=','course_short_student.course_short_id')         
+                  ->groupBy('course_short_id')
+                  ->get();
+
+    $data['TotalLongCourse'] = DB::table('course_long_student')
+                  ->select(DB::raw('count(*) as LongCourse_count'))           
+                  ->groupBy('course_long_id')
+                  ->get();
+    // return $data['currentUser']=auth()->user()->institute_id;
+    $data['CurrentDate']= Carbon::today();
+    $data['users']= User::all();
+
+    // $dt     = Carbon::now();
+    // $past   = $dt->subMonth();
+    // $future = $dt->addMonth();
+
+    //  $dt->subDays(10)->diffForHumans();     // 10 days ago
+    //   $dt->diffForHumans($past);             // 1 month ago
+    //   return $dt->diffForHumans($future);           // 1 month before
 
     if(Auth::check()) {
         return view('ProjectActivities.dashboard.student-dashboard',compact('data'));

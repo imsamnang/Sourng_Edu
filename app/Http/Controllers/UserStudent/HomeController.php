@@ -29,11 +29,6 @@ use ViewHelper, URL;
 
 class HomeController extends CollegeBaseController
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     use ExaminationScope;
     protected $base_route = 'dashboard';
     protected $view_path = 'user-student';
@@ -46,52 +41,39 @@ class HomeController extends CollegeBaseController
         $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $id = auth()->user()->hook_id;
-        $data = [];
-        $data['student'] = Student::select('students.id','students.reg_no', 'students.reg_date', 'students.university_reg',
-            'students.faculty','students.semester', 'students.academic_status', 'students.first_name', 'students.middle_name',
-            'students.last_name', 'students.date_of_birth', 'students.gender', 'students.blood_group', 'students.nationality',
-            'students.mother_tongue', 'students.email', 'students.extra_info', 'students.student_image', 'students.status')
-            ->where('students.id','=',$id)
-            ->first();
-
-        if (!$data['student']){
-            request()->session()->flash($this->message_warning, "Not a Valid Student");
-            return redirect()->route($this->base_route);
-        }
-
-        /*Notice*/
-        $userRoleId = auth()->user()->roles()->first()->id;
-        $now = date('Y-m-d');
-        $data['notice_disaplay'] = Notice::select('last_updated_by', 'title', 'message',  'publish_date', 'end_date',
-            'display_group', 'status')
-            ->where('display_group','like','%'.$userRoleId.'%')
-            ->where('publish_date', '<=', $now)
-            ->where('end_date', '>=', $now)
-            ->latest()
-            ->get();
-
-        $feeMaster = FeeMaster::where('students_id',$data['student']->id)->sum('fee_amount');
-        $feeCollection = FeeCollection::where('students_id',$data['student']->id)->sum('paid_amount');
-        $dueFee = $feeMaster - $feeCollection;
-
-        /*chart*/
-        $data['feeCompare'] = new FeePayDueChart('Paid','Due');
-        $data['feeCompare']->dataset('Income', 'doughnut',[$feeCollection, $dueFee])
-            ->options(['borderColor' => '#46b8da', 'backgroundColor'=>['#46b8da','#FF6384'] ]);
-
-
-        return view(parent::loadDataToView($this->view_path.'.dashboard.index'), compact('data'));
-
+      $id = auth()->user()->hook_id;
+      $data = [];
+      $data['student'] = Student::select('students.id','students.reg_no', 'students.reg_date', 'students.university_reg',
+          'students.faculty','students.semester', 'students.academic_status', 'students.first_name', 'students.middle_name',
+          'students.last_name', 'students.date_of_birth', 'students.gender', 'students.blood_group', 'students.nationality',
+          'students.mother_tongue', 'students.email', 'students.extra_info', 'students.student_image', 'students.status')
+          ->where('students.id','=',$id)
+          ->first();
+      if (!$data['student']){
+          request()->session()->flash($this->message_warning, "Not a Valid Student");
+          return redirect()->route($this->base_route);
+      }
+      /*Notice*/
+      $userRoleId = auth()->user()->roles()->first()->id;
+      $now = date('Y-m-d');
+      $data['notice_disaplay'] = Notice::select('last_updated_by', 'title', 'message',  'publish_date', 'end_date',
+          'display_group', 'status')
+          ->where('display_group','like','%'.$userRoleId.'%')
+          ->where('publish_date', '<=', $now)
+          ->where('end_date', '>=', $now)
+          ->latest()
+          ->get();
+      $feeMaster = FeeMaster::where('students_id',$data['student']->id)->sum('fee_amount');
+      $feeCollection = FeeCollection::where('students_id',$data['student']->id)->sum('paid_amount');
+      $dueFee = $feeMaster - $feeCollection;
+      /*chart*/
+      $data['feeCompare'] = new FeePayDueChart('Paid','Due');
+      $data['feeCompare']->dataset('Income', 'doughnut',[$feeCollection, $dueFee])
+          ->options(['borderColor' => '#46b8da', 'backgroundColor'=>['#46b8da','#FF6384'] ]);
+      return view(parent::loadDataToView($this->view_path.'.dashboard.index'), compact('data'));
     }
-
 
     public function profile()
     {
@@ -257,7 +239,6 @@ class HomeController extends CollegeBaseController
         return view(parent::loadDataToView($this->view_path.'.attendance.index'), compact('data'));
     }
 
-
     public function hostel()
     {
         $this->panel = "Hostesl | Student User";
@@ -337,7 +318,6 @@ class HomeController extends CollegeBaseController
 
         return view(parent::loadDataToView($this->view_path.'.download.index'), compact('data'));
     }
-
 
     /*Exam group*/
     public function exams()
@@ -565,7 +545,6 @@ class HomeController extends CollegeBaseController
 
         return view(parent::loadDataToView($this->view_path.'.exam.grading-sheet'), compact('data'));
     }
-
 
     /*assignment group*/
     public function assignment()

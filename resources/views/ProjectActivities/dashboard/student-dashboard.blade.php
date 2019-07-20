@@ -11,14 +11,14 @@
     
 @endpush
 
-@section('left-panel')
-    @include('ProjectActivities.layout.left.admin')
+@section('menu-panel')
+    @include('projectactivities.layout.menu.menu_admin')
 @endsection
 
-@section('right-panel')
-    @include('ProjectActivities.layout.right.admin')
+@section('content')
+    {{-- @include('ProjectActivities.layout.left.admin') --}}
+    @include('ProjectActivities.layout.right.student')
 @endsection
-
 {{-- For Custom JS --}}
 @push('custom-js')
     

@@ -23,6 +23,9 @@ Auth::routes();
 
 /*for Dashboard's*/
 Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
+// Route::get('/','HomeController@index');
+// Route::get('/home','HomeController@index');
+// Route::get('/',                    ['as' => 'home',                  'middleware' => ['ability:super-admin,role-index'],         'uses' => 'HomeController@index']);
 
 /* Roles Routes */
     Route::get('role',                    ['as' => 'role',                  'middleware' => ['ability:super-admin,role-index'],         'uses' => 'RoleController@index']);
@@ -905,95 +908,75 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
       Route::post('bulk-action',       ['as' => '.bulk-action',      'middleware' => ['ability:super-admin,download-bulk-action'],          'uses' => 'DownloadController@bulkAction']);
   });
 
-
-
-// Route::prefix('studenthealth')->group(function(){
-  //   Route::get('/','StudentHealth\StudentController@index')->name('studenthealth');
-  //   Route::get('/registration','StudentHealth\StudentController@registration')->name('studenthealth.registration');
-  //   Route::post('/bulk-action','StudentHealth\StudentController@bulkAction')->name('studenthealth.bulk-action');
-  //   Route::get('/view','StudentHealth\StudentController@view')->name('studenthealth.view');
-  //   Route::get('/active','StudentHealth\StudentController@active')->name('studenthealth.active');
-  //   Route::get('/in-active','StudentHealth\StudentController@in-active')->name('studenthealth.in-active');
-  //   Route::get('/edit','StudentHealth\StudentController@edit')->name('studenthealth.edit');
-  //   Route::get('/delete','StudentHealth\StudentController@delete')->name('studenthealth.delete');
-  //   Route::get('/register','StudentHealth\StudentController@register')->name('studenthealth.register');
-  //   Route::get('/delete','StudentHealth\StudentController@delet')->name('studenthealth.delete');
-  //   Route::get('/findSemester','StudentHealth\StudentController@findSemester')->name('studenthealth.findSemester');
-  //   Route::get('/transfer','StudentHealth\StudentController@transfer')->name('studenthealth.transfer');
-  //   Route::get('/transfering','StudentHealth\StudentController@transfering')->name('studenthealth.transfering');
-  //   Route::get('/import','StudentHealth\StudentController@importStudent')->name('studenthealth.import');
-  // });
-
-/*student-register route */
-
-  // Route::get('/student-register/register','StudentRegister\StudentregisterController@register')->name('stu.register');
-  // Route::post('/student-register','StudentRegister\StudentregisterController@save')->name('stu.store');
-
-
-
 // Manage Projects
+  // get district and commune
+    Route::get('get-district-list','ProjectActivities\ShortcourseController@getDistrictList');
+    Route::get('get-commune-list','ProjectActivities\ShortcourseController@getCommuneList');
+    Route::get('get-district-list-kh','ProjectActivities\ShortcourseController@getDistrictListKh');
+    Route::get('get-commune-list-kh','ProjectActivities\ShortcourseController@getCommuneListKh');    
+
     Route::prefix('projects')->group(function(){
-    Route::get('/','ProjectActivities\ProjectActivitiesController@index')->name('projects');
-    Route::post('/login','ProjectActivities\ProjectActivitiesController@authenticate')->name('projects.login');
-    Route::get('/staff-register','ProjectActivities\StaffActivitiesController@staffRegister')->name('staff-register');
-    Route::post('/staff-register','ProjectActivities\StaffActivitiesController@staffSave')->name('staff-register.store');
-    Route::get('/read-book/login','ProjectActivities\GuestLoginController@index')->name('read-book');
-    Route::get('/add-newbook','ProjectActivities\AddnewbookController@index')->name('add-newbook');
-    Route::post('/add-newbook','ProjectActivities\AddnewbookController@savenewbook')->name('add-newbook.save');
-    Route::get('/readbook-now','ProjectActivities\ReadbookController@index')->name('readbook-now');
-    Route::get('/student-course','ProjectActivities\ProjectActivitiesController@studentCourse')->name('student-course');
-    
+      Route::get('/','ProjectActivities\ProjectActivitiesController@index')->name('projects');
+      Route::post('/login','ProjectActivities\ProjectActivitiesController@authenticate')->name('projects.login');
+      Route::get('/staff-register','ProjectActivities\StaffActivitiesController@staffRegister')->name('staff-register');
+      Route::post('/staff-register','ProjectActivities\StaffActivitiesController@staffSave')->name('staff-register.store');
+      Route::get('/read-book/login','ProjectActivities\GuestLoginController@index')->name('read-book');
+      Route::get('/add-newbook','ProjectActivities\AddnewbookController@index')->name('add-newbook');
+      Route::post('/add-newbook','ProjectActivities\AddnewbookController@savenewbook')->name('add-newbook.save');
+      Route::get('/readbook-now','ProjectActivities\ReadbookController@index')->name('readbook-now');
+      Route::get('/student-course','ProjectActivities\ProjectActivitiesController@studentCourse')->name('student-course');
+      
     // Student Project
-    Route::get('/student-list','Student\StudentController@studentList')->name('student-list');
-    Route::get('/student/registerv2','Student\StudentController@Register2');
+      Route::get('/student-list','Student\StudentController@studentList')->name('student-list');
+      Route::get('/student/registerv2','Student\StudentController@Register2');
+      Route::post('/student/SaveRegister2','Student\StudentController@SaveRegister2')->name('studentRegister2.save');
+      // Route::post('/SaveRegister2','ProjectActivities\StudentActivitiesController@store')->name('stu.pro.save');
+      Route::get('/student-register/{id}/edit','ProjectActivities\StudentActivitiesController@studentEdit');
+      Route::PUT('/student-register/{id}/Update','ProjectActivities\StudentActivitiesController@studentUpdate');  
 
-    Route::post('/student/SaveRegister2','Student\StudentController@SaveRegister2')->name('studentRegister2.save');
+    // Staff Project
+      Route::get('/staff-list','Staff\StaffController@staffList')->name('staff-list');
+      Route::get('/staff-add','Staff\StaffController@staffAdd')->name('staff-add');
+      Route::post('/staff-save','Staff\StaffController@save')->name('staff-save');
 
-    // Route::post('/SaveRegister2','ProjectActivities\StudentActivitiesController@store')->name('stu.pro.save');
-    Route::get('/student-register/{id}/edit','ProjectActivities\StudentActivitiesController@studentEdit');
-    Route::PUT('/student-register/{id}/Update','ProjectActivities\StudentActivitiesController@studentUpdate');  
+    
 
-  // Staff Project
-    Route::get('/staff-list','Staff\StaffController@staffList')->name('staff-list');
-    Route::get('/staff-add','Staff\StaffController@staffAdd')->name('staff-add');
-    Route::post('/staff-save','Staff\StaffController@save')->name('staff-save');
+    //========== Manage Dashboard =========== SENG Sourng
+      Route::get('/project-book','ProjectActivities\BookController@index')->name('project-book');    
+      Route::get('/admin-project','ProjectActivities\ProjectActivitiesController@admin_project')->name('admin-project');
+      Route::get('/user-project','ProjectActivities\ProjectActivitiesController@user_project')->name('user-project');
+      Route::get('/student-project','ProjectActivities\ProjectActivitiesController@student_project')->name('student-project');
 
-  //========= StudentTestController ==== SENG Sourng
-    // Route::get('/pretest/{student_id}/{course_id}','ProjectActivities\StudentTestController@preTest')->name('preTest');
+      Route::get('/teacher-project','ProjectActivities\ProjectActivitiesController@teacher_project')->name('teacher-project');
+      Route::get('/userstudent','ProjectActivities\ProjectActivitiesController@user_student')->name('userstudent');
 
-    //========== Manage Courses =========== SENG Sourng
-    Route::get('/project-book','ProjectActivities\BookController@index')->name('project-book');    
-    Route::get('/admin-project','ProjectActivities\ProjectActivitiesController@admin_project')->name('admin-project');
-    Route::get('/user-project','ProjectActivities\ProjectActivitiesController@user_project')->name('user-project');
+      Route::get('/shortcourse','ProjectActivities\ManageCourseController@index')->name('projects.shortcourse');
 
-    Route::get('/teacher-project','ProjectActivities\ProjectActivitiesController@teacher_project')->name('teacher-project');
-    Route::get('/userstudent','ProjectActivities\ProjectActivitiesController@user_student')->name('userstudent');
+    //==============Book================Ratha    
+      Route::get('/book-list','Library\BookController@project_books')->name('book-list');
+      Route::get('/document/add-newbook','ProjectActivities\AddnewbookController@index')->name('add-newbook');
+      Route::post('/add-newbook','ProjectActivities\AddnewbookController@savenewbook')->name('add-newbook.save');
+      Route::delete('/delete-book/{id}','ProjectActivities\AddnewbookController@deletebook')->name('delete-book.destroy');
+      Route::get('/document/edit/{id}','ProjectActivities\AddnewbookController@editbook')->name('edit-book.edit');
+      Route::put('/update-book/{id}','ProjectActivities\AddnewbookController@updatebook')->name('edit-book.update');
+      Route::get('/readbook-now','ProjectActivities\ReadbookController@index')->name('readbook-now');
 
-    Route::get('/shortcourse','ProjectActivities\ManageCourseController@index')->name('projects.shortcourse');
-
-  //==============Book================Ratha
-    Route::get('/document/add-newbook','ProjectActivities\AddnewbookController@index')->name('add-newbook');
-    Route::post('/add-newbook','ProjectActivities\AddnewbookController@savenewbook')->name('add-newbook.save');
-    Route::delete('/delete-book/{id}','ProjectActivities\AddnewbookController@deletebook')->name('delete-book.destroy');
-    Route::get('/document/edit/{id}','ProjectActivities\AddnewbookController@editbook')->name('edit-book.edit');
-    Route::put('/update-book/{id}','ProjectActivities\AddnewbookController@updatebook')->name('edit-book.update');
-    Route::get('/readbook-now','ProjectActivities\ReadbookController@index')->name('readbook-now');
-
- //=====================Short Course==============Ratha
+  //=====================Short Course==============Ratha
     Route::get('/shortcourse-list','ProjectActivities\ShortCourseController@ShortCourse')->name('projects.shortcourse');
     Route::get('/register','ProjectActivities\ShortcourseController@ShowForm')->name('shortcourse.create');
     Route::post('/store','ProjectActivities\ShortcourseController@SaveCourse')->name('shortcourse.savedata');
-    Route::get('/update-course/{id}','ProjectActivities\ShortcourseController@editshortcourse')->name('edit-shortcourse.edit');
+    Route::get('/edit-course/{id}','ProjectActivities\ShortcourseController@editshortcourse')->name('edit-shortcourse.edit');
     Route::put('/update-shortcourse/{id}','ProjectActivities\ShortcourseController@update_shortcourse')->name('update-book.update');
-
     Route::delete('/delete-shortcourse/{id}','ProjectActivities\ShortcourseController@delete_shortcourse')->name('delete-shortcourse.destroy');
-              //===============Short Course Detail============Ratha
+                //===============Short Course Detail============Ratha
     Route::get('/shortcourse_detail/viewenrollmentv/{id}','ProjectActivities\ShortcourseController@ShortCourse_detail')->name('projects.shortcourse_detail');
     Route::post('/shortcourse_detail/store','ProjectActivities\ShortcourseController@SaveCourse_detail')->name('shortcourse_detail.savedata');
-    Route::delete('/shortcourse-detail/delete/{id}','ProjectActivities\ShortcourseController@ShortCoursedetail_delete')->name('shortcourse_detail.destroy');
-
-            //=================View Course Detail==============Ratha
+    Route::delete('/shortcourse-detail/delete/{id}','ProjectActivities\ShortcourseController@ShortCoursedetail_delete')->name('shortcourse_detail.destroy');                                
+                //=================View Course Detail==============Ratha
     Route::get('/shortcourse/detail/{id}','ProjectActivities\ShortCourseController@ViewCourseDetail')->name('projects.coursedetail');
+              //=================Update Overalfund==============
+    Route::get('shortCourse_detail/editFund','ProjectActivities\ShortcourseController@editFund')->name('projects.coursedetail.editfund');
+    Route::post('shortCourse_detail/updateFund','ProjectActivities\ShortcourseController@updateFund')->name('projects.coursedetail.updatefund');
 
   //======================Long Course=============Ratha
     Route::get('/longcourse-list','ProjectActivities\LongcourseController@showLonglist')->name('projects.longcourse');
@@ -1003,72 +986,122 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
     Route::put('/update-longcourse/{id}','ProjectActivities\LongcourseController@update')->name('longcourse.update');
 
     Route::delete('/delete-longcourse/{id}','ProjectActivities\LongcourseController@delete')->name('delete-longcourse.destroy');
+                            //==============Long Course Detail==========Ratha
     Route::get('/longcourse_detail/{id}','ProjectActivities\LongcourseController@LongCourse_detail')->name('project.longcourse_detail');
-   
+    Route::post('/longcourse_detail/store','ProjectActivities\LongcourseController@SaveLongCourse_detail')->name('longcourse_detail.savedata');
+    Route::delete('/longcourse-detail/delete/{id}','ProjectActivities\LongcourseController@LongCoursedetail_delete')->name('longcourse_detail.destroy');
+                              //=================Update Overalfund==============
+    Route::get('longCourse_detail/editFund','ProjectActivities\LongcourseController@Longe_ditFund')->name('projects.longcoursedetail.editfund');
+    Route::post('longCourse_detail/updateFund','ProjectActivities\LongcourseController@Long_updateFund')->name('projects.longcoursedetail.updatefund');
+                                //=================View Long Course Detail==============Ratha
+    Route::get('/longcourse/detail/{id}','ProjectActivities\LongcourseController@ViewLongCourseDetail')->name('projects.longcoursedetail');
+
+
+    // Route::get('/','ProjectActivities\ProjectActivitiesController@index')->name('projects');
+    // Route::post('/login','ProjectActivities\ProjectActivitiesController@authenticate')->name('projects.login');
+    // Route::get('/staff-register','ProjectActivities\StaffActivitiesController@staffRegister')->name('staff-register');
+    //Route::post('/staff-register','ProjectActivities\StaffActivitiesController@staffSave')->name('staff-register.store');
+    // Route::get('/read-book/login','ProjectActivities\GuestLoginController@index')->name('read-book');
+    // Route::get('/add-newbook','ProjectActivities\AddnewbookController@index')->name('add-newbook');
+    // Route::post('/add-newbook','ProjectActivities\AddnewbookController@savenewbook')->name('add-newbook.save');
+    // Route::get('/readbook-now','ProjectActivities\ReadbookController@index')->name('readbook-now');
+    // Route::get('/student-course','ProjectActivities\ProjectActivitiesController@studentCourse')->name('student-course');
+
+  // Student Project
+    // Route::get('/student-list','Student\StudentController@studentList')->name('student-list');
+    // Route::get('/student/registerv2','Student\StudentController@Register2');
+
+    // Route::post('/student/SaveRegister2','Student\StudentController@SaveRegister2')->name('studentRegister2.save');
+    // Route::get('/student-register/{id}/edit','ProjectActivities\StudentActivitiesController@studentEdit');
+    // Route::PUT('/student-register/{id}/Update','ProjectActivities\StudentActivitiesController@studentUpdate');  
+
+  // Staff Project
+    // Route::get('/staff-list','Staff\StaffController@staffList')->name('staff-list');
+    // Route::get('/staff-add','Staff\StaffController@staffAdd')->name('staff-add');
+    // Route::post('/staff-save','Staff\StaffController@save')->name('staff-save');
+    // Route::get('/project-book','ProjectActivities\BookController@index')->name('project-book');    
+    // Route::get('/admin-project','ProjectActivities\ProjectActivitiesController@admin_project')->name('admin-project');
+    // Route::get('/user-project','ProjectActivities\ProjectActivitiesController@user_project')->name('user-project');
+    // Route::get('/teacher-project','ProjectActivities\ProjectActivitiesController@teacher_project')->name('teacher-project');
+    // Route::get('/userstudent','ProjectActivities\ProjectActivitiesController@user_student')->name('userstudent');
+    // Route::get('/shortcourse','ProjectActivities\ManageCourseController@index')->name('projects.shortcourse');
+
+  //==============Book================Ratha  
+    // Route::get('/book-list','Library\BookController@project_books')->name('book-list');
+    // Route::get('/document/add-newbook','ProjectActivities\AddnewbookController@index')->name('add-newbook');
+    // Route::post('/add-newbook','ProjectActivities\AddnewbookController@savenewbook')->name('add-newbook.save');
+    // Route::delete('/delete-book/{id}','ProjectActivities\AddnewbookController@deletebook')->name('delete-book.destroy');
+    // Route::get('/document/edit/{id}','ProjectActivities\AddnewbookController@editbook')->name('edit-book.edit');
+    // Route::put('/update-book/{id}','ProjectActivities\AddnewbookController@updatebook')->name('edit-book.update');
+    // Route::get('/readbook-now','ProjectActivities\ReadbookController@index')->name('readbook-now');
+
+//=====================Short Course==============Ratha
+    // Route::get('/shortcourse-list','ProjectActivities\ShortCourseController@ShortCourse')->name('projects.shortcourse');
+    // Route::get('/register','ProjectActivities\ShortcourseController@ShowForm')->name('shortcourse.create');
+    // Route::post('/store','ProjectActivities\ShortcourseController@SaveCourse')->name('shortcourse.savedata');
+    // Route::get('/edit-course/{id}','ProjectActivities\ShortcourseController@editshortcourse')->name('edit-shortcourse.edit');
+    // Route::put('/update-shortcourse/{id}','ProjectActivities\ShortcourseController@update_shortcourse')->name('update-book.update');
+
+    // Route::delete('/delete-shortcourse/{id}','ProjectActivities\ShortcourseController@delete_shortcourse')->name('delete-shortcourse.destroy');
+    //                           //===============Short Course Detail============Ratha
+    // Route::get('/shortcourse_detail/viewenrollmentv/{id}','ProjectActivities\ShortcourseController@ShortCourse_detail')->name('projects.shortcourse_detail');
+    // Route::post('/shortcourse_detail/store','ProjectActivities\ShortcourseController@SaveCourse_detail')->name('shortcourse_detail.savedata');
+    // Route::delete('/shortcourse-detail/delete/{id}','ProjectActivities\ShortcourseController@ShortCoursedetail_delete')->name('shortcourse_detail.destroy');                              
+    //                            //=================View Course Detail==============Ratha
+    // Route::get('/shortcourse/detail/{id}','ProjectActivities\ShortCourseController@ViewCourseDetail')->name('projects.coursedetail');
+
+  //======================Long Course=============Ratha
+    // Route::get('/longcourse-list','ProjectActivities\LongcourseController@showLonglist')->name('projects.longcourse');
+    // Route::get('/longcourse/register','ProjectActivities\LongcourseController@ShowLongForm')->name('longcourse.create');
+    // Route::post('/longcourse/register_save','ProjectActivities\LongcourseController@SaveLongCourse')->name('longcourse.savedata');
+    // Route::get('/longcourse/edit/{id}','ProjectActivities\LongcourseController@edit')->name('longcourse.edit');
+    // Route::put('/update-longcourse/{id}','ProjectActivities\LongcourseController@update')->name('longcourse.update');
+
+    // Route::delete('/delete-longcourse/{id}','ProjectActivities\LongcourseController@delete')->name('delete-longcourse.destroy');
+    //                         //==============Long Course Detail==========Ratha
+    // Route::get('/longcourse_detail/{id}','ProjectActivities\LongcourseController@LongCourse_detail')->name('project.longcourse_detail');
+    // Route::post('/longcourse_detail/store','ProjectActivities\LongcourseController@SaveLongCourse_detail')->name('longcourse_detail.savedata');
+    //                         //=================View Long Course Detail==============Ratha
+    // Route::get('/longcourse/detail/{id}','ProjectActivities\LongcourseController@ViewLongCourseDetail')->name('projects.longcoursedetail');
+  
 });
 
 //Quiz Route
+  Route::get('front','Quiz\QuizController@front')->name('front')->middleware('auth');
   // Quiz Subject
-  Route::group(['as'=>'quiz.','prefix'=>'quiz/','namespace'=>'Quiz','middleware' =>['auth']],function (){
-    Route::get('','QuizController@index')->name('subject.index');
-    Route::get('create/new','QuizController@create')->name('subject.create');
-    Route::post('quiz','QuizController@store')->name('subject.store');
-    Route::get('{quiz}/show','QuizController@show')->name('subject.show');
-    Route::delete('{quiz}/delete', 'QuizController@destroy')->name('subject.destroy');
-  });
+    Route::group(['as'=>'quiz.','prefix'=>'quiz/','namespace'=>'Quiz','middleware' =>['auth']],function (){
+      Route::get('subject','QuizController@index')->name('subject.index');
+      Route::get('subject/create','QuizController@create')->name('subject.create');
+      Route::post('subject/save','QuizController@store')->name('subject.store');
+      Route::get('subject/{quiz}/show','QuizController@show')->name('subject.show');
+      Route::delete('subject/{quiz}/delete', 'QuizController@destroy')->name('subject.destroy');
 
+      Route::get('takequiz/{quiz}', 'QuizController@takeQuiz')->name('start.quiz');
+      Route::post('nextclick', 'QuizController@nextClickStore')->name('next.quiz');
+      Route::post('finishQuiz', 'QuizController@storeQuiz')->name('finish.quiz');
+      
+      Route::get('/userResults', 'UserController@showAppearedQuiz')->name('user.result');
+      Route::get('/viewSigleResult/{quizappearid}', 'UserController@singleResult')->name('single.result');
+      Route::get('/quizLeaderboard/{quiz}', 'UserController@viewLeaderboard')->name('leaderboard');
+    });
   // Quiz Questions
-  Route::group(['as'=>'quiz.','prefix'=>'quiz/','namespace'=>'Quiz','middleware' =>['auth']],function (){
-    Route::get('{subject}/question/create','QuestionsController@create')->name('question.create');
-    Route::post('{subject}/question/store','QuestionsController@store')->name('question.store');
-    Route::get('{subject}/question/edit','QuestionsController@edit')->name('question.edit');
-    Route::get('{subject}/{question}/show','QuestionsController@show')->name('question.show');
-    Route::post('{subject}/question/update','QuestionsController@update')->name('question.update');
-    Route::get('question/{subject}/destroy','QuestionsController@destroy')->name('question.destroy');
+    Route::group(['as'=>'quiz.','prefix'=>'quiz/','namespace'=>'Quiz','middleware' =>['auth']],function (){
+      Route::get('{question}/question/create','QuestionsController@create')->name('question.create');
+      Route::post('{question}/question/store','QuestionsController@store')->name('question.store');
+      Route::get('{question}/question/edit','QuestionsController@edit')->name('question.edit');
+      Route::get('{subject}/{question}/show','QuestionsController@show')->name('question.show');
+      Route::post('{question}/question/update','QuestionsController@update')->name('question.update');
+      Route::get('question/{question}/destroy','QuestionsController@destroy')->name('question.destroy');
   // Quiz Answers
-    Route::post('answer/{subject}/save','QuestionsController@saveAnswer')->name('answer.store');    
+    Route::post('answer/{question}/save','QuestionsController@saveAnswer')->name('answer.store');    
   });
 
- // Take Quiz
-  Route::get('{quiz}/start','Quiz\QuizController@start')->name('quiz.start');
+  // Export data to Excel
+  Route::get('/export_excel', 'ExportExcelController@index');
+  Route::get('/export_excel/excel', 'ExportExcelController@excel')->name('export_excel.excel');
 
-// Submit Quiz
-  Route::post('{quiz}/submit','Quiz\QuizResultsController@store')->name('quiz.submit');
-
-// Quiz Results
-  Route::get('{quiz}/results','Quiz\QuizResultsController@index')->name('quiz.results');
-
-//Test Result
-  Route::get('test', function (){
-      $user = auth()->user();
-      return ($user->quiz_results);
-  });
-
-  
-
-// don't use 
-  // Route::prefix('quiz/')->group(function(){
-  //   Route::resource('topics', 'Quiz\TopicsController');
-  //   Route::post('topics_mass_destroy', ['uses' => 'Quiz\TopicsController@massDestroy', 'as' => 'topics.mass_destroy']);
-
-  //   Route::resource('subjects', 'Quiz\SubjectQuizController');
-  //   Route::post('subjects_mass_destroy', ['uses' => 'Quiz\SubjectQuizController@massDestroy', 'as' => 'subjects.mass_destroy']);
-
-  //   Route::get('subject/{id}','Quiz\SubjectQuizController@createQuestion')->name('subjects.createQuestion');
-  //   Route::post('subject/{id}','Quiz\SubjectQuizController@saveQuestion')->name('subjects.saveQuestion');
-
-  //   Route::resource('questions', 'Quiz\QuestionsController');
-  //   Route::post('questions_mass_destroy', ['uses' => 'Quiz\QuestionsController@massDestroy', 'as' => 'questions.mass_destroy']);
-
-  //   Route::resource('questions_options', 'Quiz\QuestionsOptionsController');
-  //   Route::post('questions_options_mass_destroy', ['uses' => 'Quiz\QuestionsOptionsController@massDestroy', 'as' => 'questions_options.mass_destroy']);
-
-  //   Route::resource('tests', 'Quiz\TestsController');
-  //   Route::resource('results', 'Quiz\ResultsController');
-  //   Route::post('results_mass_destroy', ['uses' => 'Quiz\ResultsController@massDestroy', 'as' => 'results.mass_destroy']);
-  // });
-
- 
+  Route::get('/export', 'ExportExcelController@export')->name('export');
+  Route::get('/export2', 'ExportExcelController@excel')->name('export2');
 
 
 

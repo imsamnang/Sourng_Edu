@@ -2,18 +2,23 @@
 
 namespace App\Models\Quiz;
 
-use App\Models\Quiz\Question;
+use App\Models\Quiz\Answer;
+use App\Models\Quiz\QuizResults;
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class SubjectQuiz extends Model
 {
-  protected $table ='subjects_quizzes';
-	protected $fillable=[
+  // protected $table ='subjects_quizzes';
+	protected $fillable =[
                       'title',
                       'slug',
                       'reference',
                       'max_attempts',
-                      'pass_percentage'
+                      'pass_percentage',
+                      'question_duration',
+                      'per_q_mark',
+                      // 'user_id'
                       // 'status',
                     ];
 
@@ -27,4 +32,26 @@ class SubjectQuiz extends Model
       return $this->belongsToMany(Question::class);
     }
 
+    public function answers(){
+      return $this->hasMany(QuizResults::class,'subject_id');
+    }
+
+    public function scopehasQuestions()
+    {
+      if($this->questions()->get()->count()){
+        return true;
+      }
+      else{
+        return false;
+      }
+    }
+
+    public function scopeisExamined()
+    {
+      if($this->answers()->get()->count()){
+        return false;
+      }
+      return true;
+    }
+  
 }

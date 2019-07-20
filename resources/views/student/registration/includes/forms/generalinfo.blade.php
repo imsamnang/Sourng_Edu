@@ -1,3 +1,4 @@
+
 <span class="label label-info arrowed-in arrowed-right arrowed responsive">@lang('stu_Red_mark_input_are_required')</span>
 <hr class="hr-16">
 <div class="form-group">
@@ -24,7 +25,8 @@
     @if (!isset($data['row']))
         <label class="col-sm-2 control-label">@lang('stu_Faculty')</label>
         <div class="col-sm-4">
-            {!! Form::select('faculty', $data['faculties'], null, ['class' => 'form-control', 'onChange' => 'loadSemesters(this);', "required"]) !!}
+            {!! Form::select('faculty', $data['faculties'], null, 
+            ['class' => 'form-control', 'onChange' => 'loadSemesters(this);', "required"]) !!}
             @include('includes.form_fields_validation_message', ['name' => 'faculty'])
         </div>
 
@@ -84,8 +86,24 @@
 
     {!! Form::label('gender', __('stu_Gender'), ['class' => 'col-sm-2 control-label']) !!}
     <div class="col-sm-2">
-        {!! Form::select('gender', ['' => '',__('stu_MALE') => 'MALE', __('stu_FEMALE') => 'FEMALE', 'OTHER' => 'OTHER'], null, ['class'=>'form-control border-form',"required"]); !!}
-        @include('includes.form_fields_validation_message', ['name' => 'gender'])
+        {{-- {!! Form::select('gender',
+            $data['gender']
+         ,null, ['class'=>'form-control border-form',"required"]); !!} --}}
+
+         <select name="gender" id="" class="form-control border-form" required>
+             
+                @foreach ($data['gender'] as $row)
+                    @if ($Flag=='kh')
+                    <option value="{{ $row->id}}"> {{$row->gender_kh}}</option> 
+                    @endif
+                    @if ($Flag=='en')
+                    <option value="{{ $row->id}}"> {{$row->gender_en}}</option> 
+                    @endif
+                                       
+                @endforeach
+         </select>
+       
+         @include('includes.form_fields_validation_message', ['name' => 'gender'])
     </div>
 
     {!! Form::label('blood_group', __('stu_Blood_Group'), ['class' => 'col-sm-2 control-label']) !!}

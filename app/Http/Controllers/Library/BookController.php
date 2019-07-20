@@ -24,6 +24,7 @@ class BookController extends CollegeBaseController
 
     public function __construct()
     {
+        $this->middleware('auth');
         $this->folder_path = public_path().DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.$this->folder_name.DIRECTORY_SEPARATOR;
     }
 
@@ -480,6 +481,82 @@ class BookController extends CollegeBaseController
         $request->session()->flash($this->message_success,'Books imported Successfully');
         return redirect()->route($this->base_route);
 
+    }
+
+
+    // Working On Projects
+
+    public function project_books(Request $request)
+    {
+        $data = [];
+        $data['books'] = BookMaster::select('id','code', 'title', 'image', 'categories', 'author', 'publisher', 'status')
+            ->where(function ($query) use ($request) {
+                if ($request->has('isbn_number')) {
+                    $query->where('isbn_number', 'like', '%'.$request->isbn_number.'%');
+                    $this->filter_query['isbn_number'] = $request->isbn_number;
+                }
+                if ($request->has('code')) {
+                    $query->where('code', 'like', '%'.$request->code.'%');
+                    $this->filter_query['code'] = $request->code;
+                }
+                if ($request->has('categories')) {
+                    $query->where('categories', 'like', '%'.$request->categories.'%');
+                    $this->filter_query['categories'] = $request->categories;
+                }
+                if ($request->has('title')) {
+                    $query->where('title', 'like', '%'.$request->title.'%');
+                    $this->filter_query['title'] = $request->title;
+                }
+                if ($request->has('author')) {
+                    $query->where('author', 'like', '%'.$request->author.'%');
+                    $this->filter_query['author'] = $request->author;
+                }
+                if ($request->has('language')) {
+                    $query->where('language', 'like', '%'.$request->language.'%');
+                    $this->filter_query['language'] = $request->language;
+                }
+                if ($request->has('publisher')) {
+                    $query->where('publisher', 'like', '%'.$request->publisher.'%');
+                    $this->filter_query['publisher'] = $request->publisher;
+                }
+                if ($request->has('publish_year')) {
+                    $query->where('publish_year', 'like', '%'.$request->publish_year.'%');
+                    $this->filter_query['publish_year'] = $request->publish_year;
+                }
+                if ($request->has('edition')) {
+                    $query->where('edition', 'like', '%'.$request->edition.'%');
+                    $this->filter_query['edition'] = $request->edition;
+                }
+                if ($request->has('edition_year')) {
+                    $query->where('edition_year', 'like', '%'.$request->edition_year.'%');
+                    $this->filter_query['edition_year'] = $request->edition_year;
+                }
+                if ($request->has('series')) {
+                    $query->where('series', 'like', '%'.$request->series.'%');
+                    $this->filter_query['series'] = $request->series;
+                }
+                if ($request->has('rack_location')) {
+                    $query->where('rack_location', 'like', '%'.$request->rack_location.'%');
+                    $this->filter_query['rack_location'] = $request->rack_location;
+                }
+            })
+            ->orderBy('title','asc')
+            ->get();
+        $data['categories'] = [];
+        $data['categories'][0] = 'Select Category';
+        foreach (BookCategory::select('id', 'title')->get() as $category) {
+            $data['categories'][$category->id] = $category->title;
+        }
+        $data['book_status'] = [];
+        $data['book_status'][0] = 'Select Category';
+        foreach (BookStatus::select('id', 'title')->get() as $book_status) {
+            $data['book_status'][$book_status->id] = $book_status->title;
+        }
+        $data['url'] = URL::current();
+        $data['filter_query'] = $this->filter_query;
+
+        // return $data;
+        return view('ProjectActivities.books.index', compact('data'));
     }
 
 }

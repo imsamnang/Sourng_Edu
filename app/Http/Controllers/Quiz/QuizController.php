@@ -3,36 +3,57 @@
 namespace App\Http\Controllers\Quiz;
 
 use App\Http\Controllers\Controller;
-use App\Models\GeneralSetting;
+use App\Models\Quiz\AverageScore;
 use App\Models\Quiz\Question;
 use App\Models\Quiz\QuestionQuiz;
+use App\Models\Quiz\QuizResults;
 use App\Models\Quiz\SubjectQuiz;
+use App\Models\Quiz\UserAnswer;
+use App\Models\Subject;
+use Auth;
 use Illuminate\Http\Request;
 
 class QuizController extends Controller
 {
   public function index()
   {
-    $generalSetting = GeneralSetting::findOrFail(1)->first();
-    $subjects = SubjectQuiz::all();
-    return view('quizs.subject',compact('generalSetting','subjects'));
+    // $generalSetting = GeneralSetting::findOrFail(1)->first();
+    $allQuiz = SubjectQuiz::all();
+    return view('ProjectActivities.quizs.subject.index',compact('allQuiz','coundSubQuiz'));
+  }
+
+  public function front()
+  {
+    $allQuiz= SubjectQuiz::whereNotIn('id',
+                QuizResults::where('user_id',Auth::user()->id)
+                ->pluck('subject_id'))
+                ->get();
+    $allQuizDone= SubjectQuiz::WhereIn('id',
+                QuizResults::where('user_id',Auth::user()->id)
+                ->pluck('subject_id'))
+                ->get();
+    return view('ProjectActivities.quizs.mainquiz',compact('allQuiz','allQuizDone'));
   }
 
   public function create()
   {
-    return view('quizs.subject.create');
+    $quizzes = Subject::pluck('title','title');
+    return view('ProjectActivities.quizs.subject.create',compact('quizzes'));
   }
 
   public function store(Request $request)
   {
     $ref = '#'.str_random(10);
-    $slug = str_slug($request->name,'-');
+    $slug = $this->make_slug($request->name);
     $quiz = SubjectQuiz::create([
       'title'  => $request->name,
       'slug'  => $slug,
       'reference' => $ref,
       'max_attempts'  => $request->max_attempts,
-      'pass_percentage' => $request->pass_percentage,
+      'pass_percentage' => (int)$request->pass_percentage,
+      'question_duration' => (int)$request->question_duration,
+      'per_q_mark' => 1,
+      'user_id' => Auth::user()->id,
       'status'  => $request->active
     ]);
 
@@ -42,7 +63,7 @@ class QuizController extends Controller
   public function show($quiz)
   {
     $quiz = SubjectQuiz::where('slug', $quiz)->get()->first();
-    return view('quizs.subject.show', compact('quiz'));
+    return view('ProjectActivities.quizs.subject.show', compact('quiz'));
   }
 
   public function edit($quiz)
@@ -56,7 +77,7 @@ class QuizController extends Controller
   }
 
   public function destroy($quiz)
-  {      
+  {
     $quiz = SubjectQuiz::where('id', $quiz)->first();
     $this->deleteQuestions($quiz);
     $subOps = QuestionQuiz::where('subject_quiz_id',$quiz->id)->delete();
@@ -71,7 +92,7 @@ class QuizController extends Controller
       $question->delete();
       foreach ($question->answers as $ans) {
         $ans->delete();
-      }      
+      }
       foreach ($question->options as $option) {
         $option->delete();
       }
@@ -87,7 +108,152 @@ class QuizController extends Controller
         $question = Question::with('options', 'answers')->where('id', $id->question_id)->first();
         $questions->push($question);
     }
-    return view('quizs.start', compact('quiz', 'questions'));
+    return view('ProjectActivities.quizs.start', compact('quiz', 'questions'));
+  }
+
+  public function takeQuiz($quiz)
+  {
+    $sub = SubjectQuiz::where('slug',$quiz)->first();
+    $duration = $sub->question_duration;
+    $allQuestion = $sub->questions()->paginate(1);
+    $totalQuestionCount = $sub->questions()->count();
+    // return view('quizs.appearQuiz',compact('sub','allQuestion'));
+    return view('ProjectActivities.quizs.start',compact('sub','allQuestion','duration','totalQuestionCount'));
+  }
+
+  public function nextClickStore(request $request)
+  {
+    $page = $request->input('page');
+    $question_id = $request->input('question_id');
+    $time_remaining = $request->input('queDuration');
+    $question_id = reset($question_id);
+    $quizid = $request->input('quiz-id');
+    $quizslug = $request->input('quiz-slug');
+    $userId  = Auth::user()->id;
+    $userName  = Auth::user()->name;
+    $answer = $request->input('answer');
+    if ($answer != null) {
+      $answer = reset($answer);
+    }
+    $duration = preg_split('/:/', $time_remaining);
+    $time_remaining_in_seconds = ((int)$duration[0] * 60) + ((int)$duration[1]);
+    if ($page == 1) {
+        $newQuizAppear = new QuizResults;
+        $newQuizAppear->marks_scored = 0;
+        $newQuizAppear->user_id = $userId;
+        $newQuizAppear->user_name = $userName;
+        $newQuizAppear->subject_id = $quizid;
+        $newQuizAppear->save();
+    }
+    $uniqueQuizQuery = \DB::table('quiz_results')->where('user_id', $userId)->orderBy('id','desc')->first();
+    $uniqueQuizAppearId = $uniqueQuizQuery->id;
+    $marks_scored = $uniqueQuizQuery->marks_scored;
+    $userResponse = new UserAnswer;
+    $userResponse->user_id = $userId;
+    $userResponse->userData_appear_id = $uniqueQuizAppearId;
+    $userResponse->subject_id = $quizid;
+    $userResponse->question_id = $question_id;
+    if ($answer == null) {
+        $userResponse->user_response = "Not Answered";
+    }else{
+        $userResponse->user_response = $answer;
+    }
+    $findQuestion = \DB::table('answers')->where('question_id', $question_id)->first();
+    $correctAnsDb = $findQuestion->option_id;
+    $findDuration = \DB::table('subject_quizzes')->where('id',$quizid)->first();
+    $totalTimeForQuestion = $findDuration->question_duration;
+    $time_taken = $totalTimeForQuestion - $time_remaining_in_seconds;
+    $userResponse->time_taken = $time_taken;
+    if ($correctAnsDb == $answer) {
+        $marks_scored += 1;
+        \DB::table('quiz_results')
+        ->where('id', $uniqueQuizAppearId)
+        ->update(['marks_scored' => $marks_scored]);
+        $userResponse->correct = 1;
+    }else{
+      $userResponse->correct = 0;
+    }
+    $userResponse->save();
+    $page += 1;
+    return redirect('/quiz/takequiz/'.$quizslug.'?page='.$page);
+  }
+
+  public function storeQuiz(Request $request)
+  {
+    $question_id = $request->input('question_id');
+    $time_remaining = $request->input('queDuration');
+    $question_id = reset($question_id);
+    $quizid = $request->input('quiz-id');
+    $userId  = Auth::user()->id;
+    $userName  = Auth::user()->name;
+    $answer = $request->input('answer');
+    if ($answer) {
+      $answer = reset($answer);
+    }else{
+      $answer = '';
+    }
+    $duration = preg_split('/:/', $time_remaining);
+    $time_remaining_in_seconds = ((int)$duration[0] * 60) + ((int)$duration[1]);
+    $uniqueQuizQuery = \DB::table('quiz_results')->where('user_id', $userId)->orderBy('id','desc')->first();
+    $uniqueQuizAppearId = $uniqueQuizQuery->id;
+    $marks_scored = $uniqueQuizQuery->marks_scored;
+    $userResponse = new UserAnswer;
+    $userResponse->user_id = $userId;
+    $userResponse->userData_appear_id = $uniqueQuizAppearId;
+    $userResponse->subject_id = $quizid;
+    $userResponse->question_id = $question_id;
+    if ($answer == null) {
+      $userResponse->user_response = "Not Answered";
+    }else{
+      $userResponse->user_response = $answer;
+    }
+    $findQuestion = \DB::table('answers')->where('question_id', $question_id)->first();
+    $correctAnsDb = $findQuestion->option_id;
+    $findDuration = \DB::table('subject_quizzes')->where('id',$quizid)->first();
+    $totalTimeForQuestion = $findDuration->question_duration;
+    $time_taken = $totalTimeForQuestion - $time_remaining_in_seconds;
+    $userResponse->time_taken = $time_taken;
+    if ($correctAnsDb == $answer) {
+        $marks_scored += 1;
+        \DB::table('quiz_results')
+        ->where('id', $uniqueQuizAppearId)
+        ->update(['marks_scored' => $marks_scored]);
+        $userResponse->correct = 1;
+    }else{
+        $userResponse->correct = 0;
+    }
+    $userResponse->save();
+    $marks_scored = $marks_scored;
+    /**
+     * Storing average score for particular Quiz of user
+    */
+    $avgScoreCount = \DB::table('average_scores')->where('user_id', $userId)->where('subject_id', $quizid)->count();
+    $quizAppearCount = \DB::table('quiz_results')->where('user_id', $userId)->where('subject_id', $quizid)->count();
+    $avg_marks = \DB::table('quiz_results')
+    ->where('user_id', $userId)
+    ->where('subject_id', $quizid)
+    ->avg('marks_scored');
+    $avgScore = new AverageScore;
+    if ($avgScoreCount == 0 ) {
+        $avgScore->user_id = $userId;
+        $avgScore->subject_id = $quizid;
+        $avgScore->avg_score = $avg_marks;
+        $avgScore->appear_count = $quizAppearCount;
+        $avgScore->save();
+    }else{
+        $userFindQuery = \DB::table('average_scores')->where('user_id', $userId)->where('subject_id', $quizid)->select('avgid');
+        $getAvgidObj = $userFindQuery->get('avgid');
+        foreach ($getAvgidObj as $id){
+           $avgId = $id->avgid;
+       }
+       $updateAvgScore = ['avg_Score' => $avg_marks, 'appear_count' => $quizAppearCount];
+       AverageScore::where('avgid', $avgId)->update($updateAvgScore);
+   }
+   $sub = SubjectQuiz::where('id', $quizid)->first();
+   $questionsCount = $sub->questions()->count();
+   $percentage_correct = 100 * $marks_scored / $questionsCount;
+
+   return view('ProjectActivities.quizs.finishQuiz', ['percentage_correct' => $percentage_correct, 'questionsCount' => $questionsCount, 'uniqueQuizAppearId' => $uniqueQuizAppearId,'sub'=>$sub,'marks_scored'=>$marks_scored]);
   }
 
 // public function getBeforeStartTest($id){
@@ -104,7 +270,7 @@ class QuizController extends Controller
   //   // dd($first_question_id);
   //   $last_question_id = $subject->questions()->max('id');
   //   $duration = $subject->duration;
-    
+
   //   if(session('next_question_id')){
   //     $current_question_id = session('next_question_id');
   //   }
@@ -113,7 +279,7 @@ class QuizController extends Controller
   //     session(['next_question_id'=>$current_question_id]);
   //   }
   //   // dd($current_question_id);
-  //   return view('quizs.test', compact('subject', 'questions', 'current_question_id', 'first_question_id', 'last_question_id', 'duration'));    
+  //   return view('quizs.test', compact('subject', 'questions', 'current_question_id', 'first_question_id', 'last_question_id', 'duration'));
   // }
 
   // public function getNextQuestion($id, Request $request)
@@ -153,7 +319,7 @@ class QuizController extends Controller
   //   // }
   //   $next_question_id = $subject->questions()->where('id', '>', $req->get('question_id'))->min('id');
   //   // return $next_question_id;
-  //   // return redirect()->route('before-exam',[$next_question_id]);    
+  //   // return redirect()->route('before-exam',[$next_question_id]);
   //   if ($next_question_id !=null) {
   //     return Response::json(['next_question_id' => $next_question_id,'count_questions'=>$count_questions]);
   //     // return redirect()->route('before-exam',$next_question_id);
@@ -171,6 +337,5 @@ class QuizController extends Controller
   // {
   //     //
   // }
-
 
 }

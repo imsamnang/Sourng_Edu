@@ -11,9 +11,9 @@ class Province extends Model
 		return $this->hasMany(District::class,'province_id','id');
 	}
 
-	public function properties()
+	public function courseshort()
 	{
-		return $this->hasMany(Property::class,'id','province_id');
+		return $this->hasMany(CourseShort::class,'id','province_id');
 	}
 	
 }

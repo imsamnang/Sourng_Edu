@@ -1,3 +1,4 @@
+<?php $Flag=App()->getLocale();?>
 @extends('layouts.master')
 
 @section('css')

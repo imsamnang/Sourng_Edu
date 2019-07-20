@@ -23,18 +23,15 @@ class Courseshortstudent extends Model
     	return $this->belongsTo(OveralFund::class,'overal_fund_id');
     }
 
-        public function fucultyName()
+    public function fucultyName()
     {
         return $this->belongsTo(Faculty::class,'course_short_id');
     }
 
-         public function Course_Short()
+    public function Course_Short()
     {
         return $this->belongsTo(CourseShort::class,'course_short_id');
     }
-
-
-
 
     public function stu()
     {

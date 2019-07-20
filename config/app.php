@@ -183,8 +183,8 @@ return [
 
         App\Providers\HelperServiceProvider::class,
         // RealRashid\SweetAlert\SweetAlertServiceProvider::class,
-
-
+        // Export to Excel
+        Maatwebsite\Excel\ExcelServiceProvider::class,
 
 
 
@@ -248,7 +248,8 @@ return [
 
         'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
         'Pesapal' => Knox\Pesapal\Facades\Pesapal::class,
-        
+        // Export To Excel
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
 
 
     ],

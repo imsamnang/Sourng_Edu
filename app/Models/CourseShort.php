@@ -27,10 +27,22 @@ class CourseShort extends Model
         return $this->belongsTo(Modality::class,'modality_id');
     }
 
-    public function provinceName()
+    public function province()
     {
-        return $this->belongsTo(Province::class,'province_id');
+        return $this->belongsTo(Province::class,'province_id','id');
     }
+
+    public function district()
+    {
+        return $this->belongsTo(District::class,'district_id','id');
+    }
+
+    public function commune()
+    {
+        return $this->belongsTo(Commune::class,'commune_id','id');
+    }
+    
+   
 
   }
 
