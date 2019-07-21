@@ -251,9 +251,9 @@
               {{ __('shortcoure_detail_ChangeFund') }}
             </h3>
           </center>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+{{--           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
-          </button>
+          </button> --}}
         </div>
         <div class="modal-body">
           <form method="post" action="{{route('projects.longcoursedetail.updatefund')}}" id="frm-update">

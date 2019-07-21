@@ -232,7 +232,8 @@ class ShortcourseController extends Controller
     $provinces= Province::all();
     $district= District::all();
     $comnune= Commune::all();
-    $student=Student::latest()->paginate(7);
+    // $student=Student::latest()->paginate(7);
+    $student=Student::all();
     $overal_fund=OveralFund::all();
     $data=[];
     $faculty= Faculty::WHERE('course_type_id',1)->get();        

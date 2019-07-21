@@ -123,7 +123,7 @@ class LongcourseController extends Controller
                                         ->where('course_long_id',$longcourse_detail->id)
                                         ->get();
     // return $longcoursestudent;
-    $student=Student::latest()->paginate(7);
+    $student=Student::all();
     $overal_fund=OveralFund::all();
     $data=[];
 
@@ -173,7 +173,7 @@ class LongcourseController extends Controller
         $curriculum_author=CurriculumAuthor::all();
         $longcourse_detail =LongCourse::findOrFail($id);
         // return $longcourse_detail;
-        $student=Student::latest()->paginate(7);
+        $student=Student::all();
         $overal_fund=OveralFund::all();
         $data=[];
 
