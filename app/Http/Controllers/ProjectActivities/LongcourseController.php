@@ -123,7 +123,7 @@ class LongcourseController extends Controller
                                         ->where('course_long_id',$longcourse_detail->id)
                                         ->get();
     // return $longcoursestudent;
-    $student=Student::latest()->paginate(7);
+    $student=Student::all();
     $overal_fund=OveralFund::all();
     $data=[];
 
@@ -169,9 +169,11 @@ class LongcourseController extends Controller
 
     function ViewLongCourseDetail(Request $request, $id)
       {   
+        $curriculum_End= CurriculumEndorsement::all();
+        $curriculum_author=CurriculumAuthor::all();
         $longcourse_detail =LongCourse::findOrFail($id);
         // return $longcourse_detail;
-        $student=Student::latest()->paginate(7);
+        $student=Student::all();
         $overal_fund=OveralFund::all();
         $data=[];
 
@@ -183,7 +185,7 @@ class LongcourseController extends Controller
         ->first();
         $data['faculty_selected']=Faculty::findOrFail($need->faculties_id);
 
-        return view('ProjectActivities.courses.longcourse.viewcourse_detail', compact('longcourse_detail','faculty','overal_fund','data','student'));
+        return view('ProjectActivities.courses.longcourse.viewcourse_detail', compact('longcourse_detail','faculty','overal_fund','data','student','curriculum_End','curriculum_author'));
 
        }
 

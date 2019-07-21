@@ -17,9 +17,9 @@
   
   <div class="card-body">        
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-5">
         <div class="form-group">
-          <label><strong>Main Subject</strong></label>
+          <label><strong>{{ __('longcourse-MainSubject') }}</strong></label>
             @if($flag=='kh')
               <label class="responsive" style="color: red;margin-left: 10px;">{{ $longcourse_detail->faculty->faculty_kh }}</label>
             @endif
@@ -28,7 +28,7 @@
             @endif
         </div>                        
       </div>
-      <div class="col-md-4">
+      <div class="col-md-5">
             <div class="form-group">
                 <label><strong>{{ __('longcourse-detail_Program Type') }}</strong></label>&emsp;
                     
@@ -42,22 +42,22 @@
       </div>
     </div>
     <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-5">
                   <div class="form-group">
                       <label><strong>{{ __('longcourse-detail_OveralFund') }}</strong></label>&emsp;
                           @if($flag=='kh')
-                          <label class="responsive" style="color: red;margin-left: 1px;">{{ $longcourse_detail->overalFundName->title_kh }}</label>
+                          <label class="responsive" style="color: red;margin-left: 25px;">{{ $longcourse_detail->overalFundName->title_kh }}</label>
                           @endif
                           @if($flag=='en') 
                           <label class="responsive" style="color: red;margin-left: 20px;">{{ $longcourse_detail->overalFundName->title_en }}</label>
                           @endif
                   </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-5">
                   <div class="form-group">
-                      <label><strong>Start Date</strong></label>&emsp;
+                      <label><strong>{{ __('longcourse-StartDate') }}</strong></label>&emsp;
                       @if($flag=='kh')
-                        <label style="color: red; margin-left: 73px;">{{ $longcourse_detail->promotion_start_date }}</label>
+                        <label style="color: red; margin-left: 20px;">{{ $longcourse_detail->promotion_start_date }}</label>
                       @endif
                       @if($flag=='en')
                         <label style="color: red; margin-left: 35px;">{{ $longcourse_detail->promotion_start_date }}</label>
@@ -68,7 +68,7 @@
             </div>
     </div>
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-5">
             <div class="form-group">
                 <label><strong>{{ __('Studytime') }}</strong></label>&emsp;
                 @if($flag=='kh')
@@ -79,11 +79,11 @@
                 @endif
             </div>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-5">
             <div class="form-group">
-                <label><strong>Bath Group</strong></label>&emsp;
+                <label><strong>{{ __('longcourse-Bath/Group') }}</strong></label>&emsp;
                 @if($flag=='kh')
-                <label style="color: red; margin-left: 63px;">{{ $longcourse_detail->batch_group }}</label>
+                <label style="color: red; margin-left: 30px;">{{ $longcourse_detail->batch_group }}</label>
                 @endif
                 @if($flag=='en')
                 <label style="color: red; margin-left: 28px;">{{ $longcourse_detail->batch_group }}</label>
@@ -163,162 +163,6 @@
 
   {{-- End add student --}}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{{--   <h5 style="color: white; font-family: Khmer OS Battambang;
-  background-color: #438eb9; padding: 10px; margin-bottom: 15px;">បញ្ជីឈ្មោះសិស្សរៀនវគ្គខាងលើ</h5>
-
-  <div class="table-responsive">
-  <table id="dynamic-table" class="table table-striped table-bordered table-hover">
-    <thead>
-      <tr>
-        <th width="50px;">{{ __('shortcoure_detail_ID') }}</th>
-        <th width="170px;">{{ __('shortcoure_detail_StudentName') }}</th>
-        <th width="90px;">{{ __('shortcoure_detail_Sex') }}</th>
-        <th width="150px;">{{ __('shortcoure_detail_DateOfBirth') }}</th>
-        <th width="100px;">{{ __('shortcoure_detail_OveralFund') }}</th>
-        <th width="100px;">{{ __('shortcoure_detail_Finish?') }}</th>
-        <th width="150px;">{{ __('shortcoure_detail_Currently Employment?') }}</th>
-        <th width="100px;">{{ __('shortcoure_detail_Action') }}</th>
-      </tr>
-    </thead>
-    <tbody>
-      @foreach ($student as $key=> $post)
-      <tr>
-        <td>{{$key+1}}</td>
-        <td>{{$post->first_name}}</td>
-        <td>{{ $post->gender }}</td>
-        <td>{{$post->date_of_birth}}</td>
-        <td>
-        </td>
-        <td></td>
-        <td></td>
-
-        <td>
-          <center>
-
-            <a href="#" type="button" data-toggle="modal" data-target="#exampleModal">
-              {{ __('shortcoure_detail_ChangeFund') }}
-            </a>
-            |
-            <a href="#">{{ __('shortcoure_detail_Delete') }}</a>
-            <!-- Modal Form -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="example" aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h3 class="modal-title" id="example">{{ __('shortcoure_detail_ChangeFund') }}</h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    <form method="post" action="">
-                      <select style="width: 100%" name="cbo_fund_overall">
-                        @if ($flag=='kh')
-                        <option selected disabled>សូមជ្រើសរើស </option>
-                        @else
-                        <option selected disabled>Please Choose </option>
-                        @endif
-
-                        @foreach ($overal_fund as $row){
-                        @if ($flag=='kh')
-                        <option value="{{ $row->id }}">{{ $row->title_kh}}</option>
-                        @else
-                        <option value="{{ $row->id }}">{{ $row->title_en}}</option>                                  
-                        @endif
-                        @endforeach
-                      </select>
-                    </form>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">{{ __('Close') }}</button>
-                    <button type="button" class="btn btn-primary btn-sm">{{ __('shortcoure_Save') }}</button>
-                  </div>
-                </div>
-              </div>
-            </div><!-- End Modal Form -->
-
-
-
-
-          </center>
-        </td>
-      </tr>
-      @endforeach       
-    </tbody>
-  </table>
-</div>
-</div>
-<div class="row">
-  {{-- //Pagination --}}
-{{--   <div class="col-md-12 align-left">
-    {{ $student->onEachSide(1)->links() }}
-  </div>
-</div>
-{{-- End pagination --}}
-{{-- </div>
-</div>
-</div> --}}
-
-{{-- @endsection
-@push('custom-js')
-<script src="{{ asset('assets/js/chosen.jquery.min.js') }}"></script>
-<script type="text/javascript">
-  $('#form-field-select-4').chosen();
-</script>
-
-<script type="text/javascript">
-  function deletePost(id){
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-      if (result.value) {
-        document.getElementById('delete-form-'+id).submit();
-        Swal.fire(
-          'Deleted!',
-          'Your file has been deleted.',
-          'success'
-          )
-      }
-    })
-  }
-
-</script>
-@include('projectactivities.staff.includes.dataTable_scripts') 
-@endpush --}} {{-- --}} 
-
-
-
-
-
-
-
-{{-- //========================New Table===================// --}}
 
 <?php $TF=0; ?>
        @foreach ($longcoursestudent as $key=> $post)
@@ -407,9 +251,9 @@
               {{ __('shortcoure_detail_ChangeFund') }}
             </h3>
           </center>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+{{--           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
-          </button>
+          </button> --}}
         </div>
         <div class="modal-body">
           <form method="post" action="{{route('projects.longcoursedetail.updatefund')}}" id="frm-update">
