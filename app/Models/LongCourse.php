@@ -31,5 +31,15 @@ class LongCourse extends BaseModel
       return $this->belongsTo(OveralFund::class,'overall_fund_id');
     }
 
+  public function Curri_Edorsement()
+    {
+      return $this->belongsTo(CurriculumEndorsement::class,'curriculum_endorsement_id');
+    }
+
+  public function Curri_Author()
+    {
+      return $this->belongsTo(CurriculumAuthor::class,'curriculum_author_id');
+    }
+
 
 }

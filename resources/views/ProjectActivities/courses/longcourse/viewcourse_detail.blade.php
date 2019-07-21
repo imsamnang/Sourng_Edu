@@ -37,92 +37,119 @@
 @endpush
 @section('content')
 
-<div class="card table-bordered" style="margin-top: 15px; margin-left: 15px; margin-right: 15px; padding-left: 30px; padding-right: 30px; padding-bottom: 30px; padding-top: 5px; border-color: #79b0ce;">
+<div class="container-fluid">
+            <div class="tabbable"  style="margin-top:20px;">
+                  <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
+                        {{-- <h2>Record # PS-852</h2> --}}
+                        <li class="active">
+                              <a style="font-family: 'Khmer OS Battambang'; font-size:18px; padding:10px 5px 10px 5px; " data-toggle="tab" href="#registrationinfo">កម្មវិធីលម្អិត # PS - {{ $longcourse_detail->id }}&#8203;</a>
+                        </li>
+      
+                  </ul>
+                  <div class="tab-content" >                   
+                        <div class="card-body">                        
+                              <div class="row">
+                                    <div class="col-md-5 col-sm-12 col-xs-12">
+                                          <div class="form-group">
+                                                <label><strong>{{ __('longcourse-MainSubject') }}</strong></label>
+                                                @if($flag=='kh')
+                                                <label style="color: red;margin-left: 10px;">{{ $longcourse_detail->faculty->faculty_kh }}</label>
+                                                @endif
+                                                @if($flag=='en') 
+                                                <label class="responsive" style="color: red;margin-left: 46px;">{{ $longcourse_detail->faculty->faculty_en }}</label>
+                                                @endif
+                                          </div>                        
+                                    </div>
+                                    <div class="col-md-5 col-sm-12 col-xs-12">
+                                          <div class="form-group">
+                                                <label><strong>{{ __('longcourse-detail_Program Type') }}</strong></label>&emsp;
+                                                     @if($flag=='kh')
+                                                    <label style="color: red;margin-left: 10px;">{{ $longcourse_detail->program_type->title_kh }}</label>
+                                                    @endif
+                                                    @if($flag=='en') 
+                                                    <label style="color: red;margin-left: 28px;">{{ $longcourse_detail->program_type->title_en }}</label>
+                                                    @endif
+                                          </div>
+                                    </div>
+                
+                                    <div class="col-md-5 col-sm-12 col-xs-12">
+                                                <div class="form-group">
+                                                      <label><strong>{{ __('longcourse-detail_OveralFund') }}</strong></label>&emsp;
+                                                      @if($flag=='kh')
+                                                      <label class="responsive" style="color: red;margin-left: 28px;">{{ $longcourse_detail->overalFundName->title_kh }}</label>
+                                                      @endif
+                                                      @if($flag=='en') 
+                                                      <label class="responsive" style="color: red;margin-left: 36px;">{{ $longcourse_detail->overalFundName->title_en }}</label>
+                                                      @endif
+                                                </div>
+                                    </div>
 
-  <h5 style="color: white; font-family: Khmer OS Battambang;
-  background-color: #438eb9; padding: 10px; margin-bottom: 15px;">លម្អិតវគ្គវែង</h5>
-  
-        <div class="card-body">
-              
-            <div class="row">
-                  <div class="col-md-4">
-                        <div class="form-group">
-                            <label><strong>Main Subject</strong></label>
-                              @if($flag=='kh')
-                              <label class="responsive" style="color: red;margin-left: 10px;">{{ $longcourse_detail->faculty->faculty_kh }}</label>
-                              @endif
-                              @if($flag=='en') 
-                              <label class="responsive" style="color: red;margin-left: 28px;">{{ $longcourse_detail->faculty->faculty_en }}</label>
-                              @endif
-                        </div>                        
-                  </div>
-                  <div class="col-md-4">
-                        <div class="form-group">
-                            <label><strong>{{ __('longcourse-detail_Program Type') }}</strong></label>&emsp;
-                                
-                                  @if($flag=='kh')
-                                  <label style="color: red;margin-left: 10px;">{{ $longcourse_detail->program_type->title_kh }}</label>
-                                  @endif
-                                  @if($flag=='en') 
-                                  <label style="color: red;margin-left: 10px;">{{ $longcourse_detail->program_type->title_en }}</label>
-                                  @endif
+                                    <div class="col-md-5 col-sm-12 col-xs-12">
+                                                <div class="form-group">
+                                                      <label><strong>{{ __('longcourse-CurriculumEndorsement') }}</strong></label>&emsp;
+                                                      @if($flag=='kh')
+                                                      <label class="responsive" style="color: red;margin-left: 0px;">{{ $longcourse_detail->Curri_Edorsement->title_kh }}</label>
+                                                      @endif
+                                                      @if($flag=='en') 
+                                                      <label class="responsive" style="color: red;margin-left: 0px !important;">{{ $longcourse_detail->Curri_Edorsement->title_en }}</label>
+                                                      @endif
+                                                </div>
+                                    </div>
+
+                                    <div class="col-md-5 col-sm-12 col-xs-12">
+                                                <div class="form-group">
+                                                      <label><strong>{{ __('longcourse-CurriculumAuthor') }}</strong></label>&emsp;
+                                                      @if($flag=='kh')
+                                                      <label class="responsive" style="color: red;margin-left: 0px;">{{ $longcourse_detail->Curri_Author->title_kh }}</label>
+                                                      @endif
+                                                      @if($flag=='en') 
+                                                      <label class="responsive" style="color: red">{{ $longcourse_detail->Curri_Author->title_en }}</label>
+                                                      @endif
+                                                </div>
+                                    </div>
+
+                                    <div class="col-md-5 col-sm-12 col-xs-12">
+                                                <div class="form-group">
+                                                      <label><strong>{{ __('longcourse-StartDate') }}</strong></label>&emsp;
+                                                            @if ($flag=='kh')
+                                                            <label style="color: red; margin-left: 20px;">{{ $longcourse_detail->promotion_start_date }}</label>
+                                                          @endif
+                                                          @if($flag=='en')
+                                                            <label style="color: red; margin-left: 52px;">{{ $longcourse_detail->promotion_start_date }}</label>
+                                                          @endif
+                                                </div>
+                                    </div>
+
+                                    <div class="col-md-5 col-sm-12 col-xs-12">
+                                          <div class="form-group">
+                                                <label><strong>{{ __('longcourse-StudyYear') }}</strong></label>&emsp;
+                                                @if($flag=='kh')
+                                                <label style="color: red;margin-left: 57px;">{{ $longcourse_detail->academic_year }}</label>
+                                                @endif
+                                                @if($flag=='en')
+                                                <label style="color: red;margin-left: 45px;">{{ $longcourse_detail->academic_year }}</label>
+                                                @endif
+                                          </div>
+                                    </div>
+
+                                    <div class="col-md-5 col-sm-12 col-xs-12">
+                                                <div class="form-group">
+                                                      <label><strong>{{ __('longcourse-Bath/Group') }}</strong></label>&emsp;
+                                                      @if($flag=='kh')
+                                                      <label class="responsive" style="color: red;margin-left: 30px;">{{ $longcourse_detail->batch_group }}</label>
+                                                      @endif
+                                                      @if($flag=='en') 
+                                                      <label class="responsive" style="color: red;margin-left: 44px;">{{ $longcourse_detail->batch_group }}</label>
+                                                      @endif
+                                                </div>
+                                    </div>
+
+                              </div> 
                         </div>
+                  
+                        <a class="btn btn-primary" href="{{ route('projects.longcourse') }}"><span class="menu-icon fa  fa-backward"></span> {{$flag=='kh'?'ត្រឡប់ក្រោយ':'Back to List'}}</a>
                   </div>
             </div>
-
-            <div class="row">
-                    <div class="col-md-4">
-                          <div class="form-group">
-                              <label><strong>{{ __('longcourse-detail_OveralFund') }}</strong></label>&emsp;
-                                  @if($flag=='kh')
-                                  <label class="responsive" style="color: red;margin-left: 1px;">{{ $longcourse_detail->overalFundName->title_kh }}</label>
-                                  @endif
-                                  @if($flag=='en') 
-                                  <label class="responsive" style="color: red;margin-left: 20px;">{{ $longcourse_detail->overalFundName->title_en }}</label>
-                                  @endif
-                          </div>
-                    </div>
-                    <div class="col-md-4">
-                          <div class="form-group">
-                              <label><strong>Start Date</strong></label>&emsp;
-                              @if($flag=='kh')
-                                <label style="color: red; margin-left: 73px;">{{ $longcourse_detail->promotion_start_date }}</label>
-                              @endif
-                              @if($flag=='en')
-                                <label style="color: red; margin-left: 35px;">{{ $longcourse_detail->promotion_start_date }}</label>
-                              @endif
-
-
-                          </div>
-                    </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-4">
-                    <div class="form-group">
-                        <label><strong>{{ __('Studytime') }}</strong></label>&emsp;
-                        @if($flag=='kh')
-                        <label style="color: red;margin-left: 10px;">{{ $longcourse_detail->academic_year }}</label>
-                        @endif
-                        @if($flag=='en')
-                        <label style="color: red;margin-left: 32px;">{{ $longcourse_detail->academic_year }}</label>
-                        @endif
-                    </div>
-              </div>
-              <div class="col-md-4">
-                    <div class="form-group">
-                        <label><strong>Bath Group</strong></label>&emsp;
-                        @if($flag=='kh')
-                        <label style="color: red; margin-left: 63px;">{{ $longcourse_detail->batch_group }}</label>
-                        @endif
-                        @if($flag=='en')
-                        <label style="color: red; margin-left: 28px;">{{ $longcourse_detail->batch_group }}</label>
-                        @endif
-                    </div>
-              </div>
-            </div>
-        </div>
-        <a class="btn btn-primary" href="{{ route('projects.longcourse') }}"><span class="menu-icon fa  fa-backward"></span> {{$flag=='kh'?'ត្រឡប់ក្រោយ':'Back to List'}}</a>
 </div>
 
 @endsection
