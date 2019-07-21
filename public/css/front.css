@@ -8776,6 +8776,14 @@ li#counter {
   color: #fff !important;
 }
 
+.black-text {
+  color: #000 !important;
+}
+
+.blue-text {
+  color: #0000ff !important;
+}
+
 .card .card-content .card-title {
   display: block;
   line-height: 32px;

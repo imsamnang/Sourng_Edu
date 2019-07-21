@@ -59,6 +59,15 @@
           @endforeach
         @endif 
       </div>
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="card-action">
+              <center>
+                <a href="{{ route('quiz.single.result',$subject->subject->id) }}" class="btn btn-warning btn-block" title="Show All Quiz Results">Show All Results</a>
+              </center>
+            </div>
+        </div>
+      </div>
     </div>
   </div>
 @endsection

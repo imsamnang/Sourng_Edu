@@ -45,6 +45,7 @@
         <!-- ace scripts -->
         <script src="{{ asset('assets/js/ace-elements.min.js') }}"></script>
         <script src="{{ asset('assets/js/ace.min.js') }}"></script>
+        @include('sweetalert::alert')
 
         <!-- inline scripts related to this page -->
         <script type="text/javascript">

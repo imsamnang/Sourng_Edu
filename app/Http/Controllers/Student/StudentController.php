@@ -2,41 +2,42 @@
 
 namespace App\Http\Controllers\Student;
 
-use App\User;
-use Image, URL;
-use ViewHelper;
-use App\Models\Note;
-use App\Models\Gender;
-use App\Models\Upload;
-use App\Models\Faculty;
-use App\Models\Student;
-use App\Models\Subject;
-use App\Models\Document;
-use App\Models\Semester;
-use App\Traits\UserScope;
-use App\Models\Attendance;
-use App\Models\Attendence;
-use App\Models\Addressinfo;
-use App\Models\AcademicInfo;
-use App\Models\AlertSetting;
-
-use App\Models\ParentDetail;
-use Illuminate\Http\Request;
-use App\Models\LibraryMember;
-use App\Models\StudentParent;
-use App\Models\StudentStatus;
-use App\Traits\SmsEmailScope;
-use App\Models\GuardianDetail;
-use App\Models\ResidentHistory;
-use App\Models\StudentGuardian;
-use App\Models\TransportHistory;
-use App\Models\StudentAddressinfo;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Crypt;
-use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\CollegeBaseController;
 use App\Http\Requests\Student\Registration\AddValidation;
 use App\Http\Requests\Student\Registration\EditValidation;
+use App\Models\AcademicInfo;
+use App\Models\Addressinfo;
+use App\Models\AlertSetting;
+use App\Models\Attendance;
+use App\Models\Attendence;
+use App\Models\Document;
+use App\Models\Faculty;
+use App\Models\Gender;
+use App\Models\GuardianDetail;
+use App\Models\LibraryMember;
+use App\Models\Note;
+use App\Models\ParentDetail;
+use App\Models\Province;
+use App\Models\ResidentHistory;
+use App\Models\Semester;
+use App\Models\Student;
+use App\Models\StudentAddressinfo;
+use App\Models\StudentGuardian;
+use App\Models\StudentParent;
+use App\Models\StudentStatus;
+use App\Models\Subject;
+use App\Models\TransportHistory;
+use App\Models\Upload;
+use App\Traits\SmsEmailScope;
+use App\Traits\UserScope;
+use App\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Validator;
+use Image, URL;
+use RealRashid\SweetAlert\Facades\Alert;
+use ViewHelper;
 
 class StudentController extends CollegeBaseController
 {
@@ -46,69 +47,58 @@ class StudentController extends CollegeBaseController
     protected $folder_path;
     protected $folder_name = 'studentProfile';
     protected $filter_query = [];
-
     use SmsEmailScope;
     use UserScope;
-
     public function __construct()
     {
-        $this->middleware('auth');
-        $this->folder_path = public_path().DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.$this->folder_name.DIRECTORY_SEPARATOR;
+      $this->middleware('auth');
+      $this->folder_path = public_path().DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.$this->folder_name.DIRECTORY_SEPARATOR;
     }
    
     public function index(Request $request)
     {
-        $data = [];
-        $data['student'] = Student::select('students.id', 'students.reg_no', 'students.reg_date',
-            'students.faculty', 'semester', 'students.academic_status', 'students.first_name', 'students.middle_name',
-            'students.last_name', 'ai.mobile_1', 'students.status')
-            ->where(function ($query) use ($request) {
-
-                if ($request->has('reg_no')) {
-                    $query->where('students.reg_no', 'like', '%' . $request->reg_no . '%');
-                    $this->filter_query['students.reg_no'] = $request->reg_no;
-                }
-
-                if ($request->has('reg-start-date') && $request->has('update-end-date')) {
-                    $query->whereBetween('students.reg_date', [$request->get('reg-start-date'), $request->get('update-end-date')]);
-                    $this->filter_query['reg-start-date'] = $request->get('reg-start-date');
-                    $this->filter_query['update-end-date'] = $request->get('update-end-date');
-                } elseif ($request->has('reg-start-date')) {
-                    $query->where('students.reg_date', '>=', $request->get('reg-start-date'));
-                    $this->filter_query['reg-start-date'] = $request->get('reg-start-date');
-                } elseif ($request->has('reg-end-date')) {
-                    $query->where('students.reg_date', '<=', $request->get('reg-end-date'));
-                    $this->filter_query['reg-end-date'] = $request->get('reg-end-date');
-                }
-
-                if ($request->has('faculty')) {
-                    $query->where('students.faculty', 'like', '%' . $request->faculty . '%');
-                    $this->filter_query['students.faculty'] = $request->faculty;
-                }
-
-                if ($request->has('semester')) {
-                    $query->where('students.semester', 'like', '%' . $request->semester . '%');
-                    $this->filter_query['students.semester'] = $request->semester;
-                }
-
-                if ($request->has('status')) {
-                    $query->where('students.status', $request->status == 'active' ? 1 : 0);
-                    $this->filter_query['students.status'] = $request->get('status');
-                }
-
-            })
-            ->join('parent_details as pd', 'pd.students_id', '=', 'students.id')
-            ->join('addressinfos as ai', 'ai.students_id', '=', 'students.id')
-            ->get();
-
-        $data['faculties'] = $this->activeFaculties();
-
-        $data['url'] = URL::current();
-        $data['filter_query'] = $this->filter_query;
-
-        return view(parent::loadDataToView($this->view_path.'.index'), compact('data'));
+      Alert::success('Success Title', 'Success Message');
+      $data = [];
+      $data['student'] = Student::select('students.id', 'students.reg_no', 'students.reg_date',
+          'students.faculty', 'semester', 'students.academic_status', 'students.first_name', 'students.middle_name',
+          'students.last_name', 'ai.mobile_1', 'students.status')
+          ->where(function ($query) use ($request) {
+              if ($request->has('reg_no')) {
+                  $query->where('students.reg_no', 'like', '%' . $request->reg_no . '%');
+                  $this->filter_query['students.reg_no'] = $request->reg_no;
+              }
+              if ($request->has('reg-start-date') && $request->has('update-end-date')) {
+                  $query->whereBetween('students.reg_date', [$request->get('reg-start-date'), $request->get('update-end-date')]);
+                  $this->filter_query['reg-start-date'] = $request->get('reg-start-date');
+                  $this->filter_query['update-end-date'] = $request->get('update-end-date');
+              } elseif ($request->has('reg-start-date')) {
+                  $query->where('students.reg_date', '>=', $request->get('reg-start-date'));
+                  $this->filter_query['reg-start-date'] = $request->get('reg-start-date');
+              } elseif ($request->has('reg-end-date')) {
+                  $query->where('students.reg_date', '<=', $request->get('reg-end-date'));
+                  $this->filter_query['reg-end-date'] = $request->get('reg-end-date');
+              }
+              if ($request->has('faculty')) {
+                  $query->where('students.faculty', 'like', '%' . $request->faculty . '%');
+                  $this->filter_query['students.faculty'] = $request->faculty;
+              }
+              if ($request->has('semester')) {
+                  $query->where('students.semester', 'like', '%' . $request->semester . '%');
+                  $this->filter_query['students.semester'] = $request->semester;
+              }
+              if ($request->has('status')) {
+                  $query->where('students.status', $request->status == 'active' ? 1 : 0);
+                  $this->filter_query['students.status'] = $request->get('status');
+              }
+          })
+          ->join('parent_details as pd', 'pd.students_id', '=', 'students.id')
+          ->join('addressinfos as ai', 'ai.students_id', '=', 'students.id')
+          ->get();
+      $data['faculties'] = $this->activeFaculties();
+      $data['url'] = URL::current();
+      $data['filter_query'] = $this->filter_query;
+      return view(parent::loadDataToView($this->view_path.'.index'), compact('data'));
     }
-    
 
     public function registration()
     {
@@ -339,8 +329,7 @@ class StudentController extends CollegeBaseController
 
     public function edit(Request $request, $id)
     {
-      $data = [];
-      
+      $data = [];      
       $data['row'] = Student::select('students.id','students.reg_no', 'students.reg_date', 'students.university_reg',
           'students.faculty','students.semester', 'students.academic_status', 'students.first_name', 'students.middle_name',
           'students.last_name', 'students.date_of_birth', 'students.gender', 'students.blood_group', 'students.nationality',
@@ -366,7 +355,7 @@ class StudentController extends CollegeBaseController
 
       if (!$data['row'])
           return parent::invalidRequest();
-    $data['gender']=Gender::all();
+      $data['gender']=Gender::all();
       $data['faculties'] = $this->activeFaculties();
       $semester = Semester::select('id', 'semester')->where('id','=',$data['row']->semester)->Active()->pluck('semester','id')->toArray();
       $data['semester'] = array_prepend($semester,'Select Semester',0);
@@ -384,15 +373,14 @@ class StudentController extends CollegeBaseController
       if (!$row = Student::find($id))
           return parent::invalidRequest();
       if ($request->hasFile('student_main_image')) {
-          // remove old image from folder
-          if (file_exists($this->folder_path.$row->student_image))
-              @unlink($this->folder_path.$row->student_image);
-          /*upload new student image*/
-          $student_image = $request->file('student_main_image');
-          $student_image_name = $request->reg_no.'.'.$student_image->getClientOriginalExtension();
-          $student_image->move($this->folder_path, $student_image_name);
+        // remove old image from folder
+        if (file_exists($this->folder_path.$row->student_image))
+            @unlink($this->folder_path.$row->student_image);
+        /*upload new student image*/
+        $student_image = $request->file('student_main_image');
+        $student_image_name = $request->reg_no.'.'.$student_image->getClientOriginalExtension();
+        $student_image->move($this->folder_path, $student_image_name);
       }
-
       $request->request->add(['updated_by' => auth()->user()->id]);
       $request->request->add(['student_image' => isset($student_image_name)?$student_image_name:$row->student_image]);
       $student = $row->update($request->all());
@@ -408,11 +396,9 @@ class StudentController extends CollegeBaseController
          'mobile_1'   =>  $request->mobile_1,
          'mobile_2'   =>  $request->mobile_2
      ]);
-
       /*Update Associate Parents Info with Images*/
       $parent = $row->parents()->first();
       $guardian = $row->guardian()->first();
-
       $parential_image_path = public_path().DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'parents'.DIRECTORY_SEPARATOR;
       if ($request->hasFile('father_main_image')){
           // remove old image from folder
@@ -423,31 +409,25 @@ class StudentController extends CollegeBaseController
           $father_image_name = $row->reg_no.'_father.'.$father_image->getClientOriginalExtension();
           $father_image->move($parential_image_path, $father_image_name);
       }
-
       if ($request->hasFile('mother_main_image')){
           // remove old image from folder
           if (file_exists($parential_image_path.$parent->mother_image))
               @unlink($parential_image_path.$parent->mother_image);
-
           $mother_image = $request->file('mother_main_image');
           $mother_image_name = $row->reg_no.'_mother.'.$mother_image->getClientOriginalExtension();
           $mother_image->move($parential_image_path, $mother_image_name);
       }
-
       if ($request->hasFile('guardian_main_image')){
           // remove old image from folder
           if (file_exists($parential_image_path.$guardian->guardian_image))
               @unlink($parential_image_path.$guardian->guardian_image);
-
           $guardian_image = $request->file('guardian_main_image');
           $guardian_image_name = $row->reg_no.'_guardian.'.$guardian_image->getClientOriginalExtension();
           $guardian_image->move($parential_image_path, $guardian_image_name);
       }
-
       $father_image_name = isset($father_image_name)?$father_image_name:$parent->father_image;
       $mother_image_name = isset($mother_image_name)?$mother_image_name:$parent->mother_image;
       $guardian_image_name = isset($guardian_image_name)?$guardian_image_name:$guardian->guardian_image;
-
       $row->parents()->update([
           'grandfather_first_name'    =>  $request->grandfather_first_name,
           'grandfather_middle_name'   =>  $request->grandfather_middle_name,
@@ -476,7 +456,6 @@ class StudentController extends CollegeBaseController
           'mother_email'              =>  $request->mother_email,
           'father_image'              =>  $father_image_name,
           'mother_image'              =>  $mother_image_name
-
       ]);
       //if guardian link modified or not condition
       if($request->guardian_link_id == null){
@@ -583,7 +562,6 @@ class StudentController extends CollegeBaseController
     public function bulkAction(Request $request)
     {
       if ($request->has('bulk_action') && in_array($request->get('bulk_action'), ['active', 'in-active', 'delete'])) {
-
           if ($request->has('chkIds')) {
               foreach ($request->get('chkIds') as $row_id) {
                   switch ($request->get('bulk_action')) {
@@ -601,14 +579,11 @@ class StudentController extends CollegeBaseController
                           break;
                   }
               }
-
               if ($request->get('bulk_action') == 'active' || $request->get('bulk_action') == 'in-active')
                   $request->session()->flash($this->message_success, $request->get('bulk_action'). ' Action Successfully.');
               else
                   $request->session()->flash($this->message_success, 'Deleted successfully.');
-
               return redirect()->route($this->base_route);
-
           } else {
               $request->session()->flash($this->message_warning, 'Please, Check at least one row.');
               return redirect()->route($this->base_route);
@@ -753,6 +728,7 @@ class StudentController extends CollegeBaseController
       }
       abort(501);
     }
+
     public function guardianInfo(Request $request)
     {
       $response = [];
@@ -1013,164 +989,78 @@ class StudentController extends CollegeBaseController
     }
 
     // Working with Project
-    public function studentList(Request $request){
+    public function studentList(Request $request)
+    {
       $data = [];
-       $data['student']=Student::all();
-    // return  $data['student'] = Student::select('students.id', 'students.reg_no', 'students.reg_date',
-    //       'students.faculty', 'semester', 'students.academic_status', 'students.first_name', 'students.middle_name',
-    //       'students.last_name','date_of_birth','gender', 'ai.mobile_1', 'students.status')
-    //       ->where(function ($query) use ($request) {
-
-    //           if ($request->has('reg_no')) {
-    //               $query->where('students.reg_no', 'like', '%' . $request->reg_no . '%');
-    //               $this->filter_query['students.reg_no'] = $request->reg_no;
-    //           }
-
-    //           if ($request->has('reg-start-date') && $request->has('update-end-date')) {
-    //               $query->whereBetween('students.reg_date', [$request->get('reg-start-date'), $request->get('update-end-date')]);
-    //               $this->filter_query['reg-start-date'] = $request->get('reg-start-date');
-    //               $this->filter_query['update-end-date'] = $request->get('update-end-date');
-    //           } elseif ($request->has('reg-start-date')) {
-    //               $query->where('students.reg_date', '>=', $request->get('reg-start-date'));
-    //               $this->filter_query['reg-start-date'] = $request->get('reg-start-date');
-    //           } elseif ($request->has('reg-end-date')) {
-    //               $query->where('students.reg_date', '<=', $request->get('reg-end-date'));
-    //               $this->filter_query['reg-end-date'] = $request->get('reg-end-date');
-    //           }
-
-    //           if ($request->has('faculty')) {
-    //               $query->where('students.faculty', 'like', '%' . $request->faculty . '%');
-    //               $this->filter_query['students.faculty'] = $request->faculty;
-    //           }
-
-    //           if ($request->has('semester')) {
-    //               $query->where('students.semester', 'like', '%' . $request->semester . '%');
-    //               $this->filter_query['students.semester'] = $request->semester;
-    //           }
-
-    //           if ($request->has('status')) {
-    //               $query->where('students.status', $request->status == 'active' ? 1 : 0);
-    //               $this->filter_query['students.status'] = $request->get('status');
-    //           }
-
-    //       })
-    //       ->join('parent_details as pd', 'pd.students_id', '=', 'students.id')
-    //       ->join('addressinfos as ai', 'ai.students_id', '=', 'students.id')
-    //       ->get();
-
-        $data['faculties'] = $this->activeFaculties();
-
-        // return($data);
-
-        $data['url'] = URL::current();
-        $data['filter_query'] = $this->filter_query;
-
-        // return view('projectactivities.students.index', compact('data'));
-        return view('projectactivities.students.index',compact('data')); 
-        // return view(parent::loadDataToView($this->view_path.'.index'), compact('data'));
+      $data['student']=Student::all();
+      $data['faculties'] = $this->activeFaculties();
+      $data['url'] = URL::current();
+      $data['filter_query'] = $this->filter_query;
+      return view('projectactivities.students.index',compact('data')); 
     }
-
-    // Open Second Form Register Student
+ 
+  // Open Second Form Register Student
     public function Register2()
     {
-        $data=[];
-        $data['Gender']=Gender::all();
-        // $data['subjectCourseID']=$id;
-        // $data['subjectTitle']=Subject::findOrFail($id);
-        return view('projectactivities.students.registerv2',compact('data'));
+      $data=[];
+      $provinces= Province::all();
+      $data['Gender']=Gender::all();
+      return view('projectactivities.students.registerv2',compact('data','provinces'));
     }
-
-    // Save Student Second form
-public function SaveRegister2(Request $request) 
+  // Save Student Second form
+    public function SaveRegister2(Request $request) 
     {
-
-    // return $request->all();
-    $stu_Image=new Upload();
-    $stu = new Student();
-   
-
-    // return Auth::user()->institute_id;
-    $stu->institute_id=Auth::user()->institute_id;
-    $stu->created_by=Auth::user()->id;
-
-    $stu->reg_no = $request->reg_no;
-    $stu->reg_date = $request->reg_date;
-    // $stu->created_by=1;
-    $stu->university_reg = $request->university_reg;
-    $stu->faculty=$request->faculty;
-    $stu->semester=$request->semester;
-    $stu->status=$request->status;
-    $stu->first_name=$request->first_name;
-    $stu->middle_name=$request->middle_name;
-    $stu->last_name=$request->last_name;
-    $stu->date_of_birth=$request->date_of_birth;
-    $stu->gender=$request->gender;
-    $stu->blood_group=$request->blood_group;
-    $stu->nationality=$request->nationality;
-    $stu->mother_tongue=$request->mother_tongue;
-    $stu->email=$request->email;
-    $stu->extra_info=$request->extra_info;
-
-    // $stu->student_image=$stu_Image->imageUpload('student_main_image',$stu->student_image,'images/studentProfile');
-
-    if ($request->hasFile('student_main_image')) {
+      $stu = new Student();
+      // return Auth::user()->institute_id;
+      $stu->institute_id=Auth::user()->institute_id;
+      $stu->created_by=Auth::user()->id;
+      $stu->reg_no = $request->reg_no;
+      $stu->reg_date = $request->reg_date;
+      // $stu->created_by=1;
+      $stu->university_reg = $request->university_reg;
+      $stu->faculty=$request->faculty;
+      $stu->semester=$request->semester;
+      $stu->status=$request->status;
+      $stu->first_name=$request->first_name;
+      $stu->middle_name=$request->middle_name;
+      $stu->last_name=$request->last_name;
+      $stu->date_of_birth=$request->date_of_birth;
+      $stu->gender=$request->gender;
+      $stu->blood_group=$request->blood_group;
+      $stu->nationality=$request->nationality;
+      $stu->mother_tongue=$request->mother_tongue;
+      $stu->email=$request->email;
+      $stu->extra_info=$request->extra_info;
+      if ($request->hasFile('student_main_image')) {
         $dir = 'images/studentProfile/';
         $extension = strtolower($request->file('student_main_image')->getClientOriginalExtension()); // get image extension
         $fileName = str_random() . '.' . $extension; // rename image
         $request->file('student_main_image')->move($dir, $fileName);
         $stu->student_image = $fileName;
-    }
-
-    // $stu_Image->imageUpload('student_main_image',$stu->student_image,'images/studentProfile');
-
-    // $stu->student_main_image=$request->student_main_image;
-
-    if($stu->save()){
-        
-
+      }
+      if($stu->save()){
         $addressInfos=[
             'created_by'=>1,
             'students_id'=>$stu->id,
             'created_by'=>$stu->created_by,
-            'address'=>$request->address , 
-            'state'=>$request->state,
-            'country'=>$request->country,
-            'temp_address'=>$request->temp_address,
-            'temp_state'=>$request->temp_state,
-            'temp_country'=>$request->temp_country,
+            'province_id'=>$request->cbo_province,
+            'district_id'=>$request->cbo_district,
+            'commune_id'=>$request->cbo_commune,
+            'village'=>$request->txt_village,
+            // 'address'=>$request->address , 
+            // 'state'=>$request->state,
+            // 'country'=>$request->country,
+            // 'temp_address'=>$request->temp_address,
+            // 'temp_state'=>$request->temp_state,
+            // 'temp_country'=>$request->temp_country,
             'home_phone'=>$request->home_phone,
             'mobile_1'=>$request->mobile_1, 
             'mobile_2'=>$request->mobile_2          
             ];
-
-        $StuAddress=Addressinfo::create($addressInfos);
-        // $addressInfos->save();
-    }
-
-    
-
-    
-
-
-
-
-    // Alert::success('Success Title', 'Success Message');
-        return redirect()->back();
-    // if($stu->save()){
-    //   $adinfo = new Addressinfo ();
-    //   $adinfo->created_by = 1;
-    //   $adinfo->students_id =  $stu->id;
-    //   $adinfo->home_phone =  $stu->phone;
-    //   $adinfo->mobile_1 =  $stu->mobile;
-    //   $adinfo->temp_address =  $stu->temp_address;
-    //   $adinfo->state =  $stu->state;
-    //   $adinfo->country =  $stu->country;
-    //   $adinfo->save();
-    //   Alert::success('Success Title', 'Success Message');
-    //   return redirect()->back();
-    // }
-
-
+          $StuAddress=Addressinfo::create($addressInfos);
+      }
+      // Alert::success('Success Title', 'Success Message');
+      return redirect()->back();    
     }
 
 

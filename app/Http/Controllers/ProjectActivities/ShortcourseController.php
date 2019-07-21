@@ -1,13 +1,10 @@
 <?php
 
 namespace App\Http\Controllers\ProjectActivities;
-
 use App\Http\Controllers\Controller;
 use App\Models\Commune;
-use Carbon\Carbon;
-
-// use Illuminate\Support\Carbon;
 use App\Models\CourseShort;
+use App\Models\Courseshortstudent;
 use App\Models\CurriculumAuthor;
 use App\Models\CurriculumEndorsement;
 use App\Models\District;
@@ -17,8 +14,8 @@ use App\Models\Modality;
 use App\Models\OveralFund;
 use App\Models\Province;
 use App\Models\ShortcourseTeacher;
-use App\Models\Courseshortstudent;
 use App\Models\Student;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -29,34 +26,7 @@ class ShortcourseController extends Controller
   {
     $this->middleware('auth');
   }
-  function getDistrictList(Request $request)
-  {
-    $districts = District::where("province_id",$request->province_id)
-    ->pluck("name_en","id");
-    return response()->json($districts);
-  }
-
-  function getDistrictListKh(Request $request)
-  {
-    $districts = District::where("province_id",$request->province_id)
-    ->pluck("name_kh","id");
-    return response()->json($districts);
-  }
-
-  public function getCommuneList(Request $request)
-  {
-    $communes = Commune::where("district_id",$request->district_id)
-    ->pluck("name_en","id");
-    return response()->json($communes);
-  }
-
-  public function getCommuneListKh(Request $request)
-  {
-    $communes = Commune::where("district_id",$request->district_id)
-    ->pluck("name_kh","id");
-    return response()->json($communes);
-  }
-
+  
   public function index()
   {
       $data = [];

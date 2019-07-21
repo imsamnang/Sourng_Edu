@@ -1,10 +1,7 @@
-
-
 @extends('projectactivities.layout.master')
 
 @push('css')
     <!-- page specific plugin styles -->
-
 @endpush
 
 @section('menu-panel')
@@ -17,7 +14,7 @@
       <div class="page-content">           
         @include('projectactivities.courses.longcourse.includes.table')   
       </div>
-    </div><!-- /.page-content -->
+    </div>
   </div>
 @endsection
 

@@ -38,18 +38,16 @@ class CollegeBaseController extends Controller
 
     protected function loadDataToView($view_path)
     {
-        View::composer($view_path, function ($view) {
-            $view->with('base_route', $this->base_route);
-            $view->with('view_path', $this->view_path);
-            $view->with('panel', $this->panel);
-            $view->with('generalSetting', $this->getGeneralSetting());
-            $view->with('paymentSetting', $this->getPaymentSetting());
-            $view->with('smsSetting', $this->getSmsSetting());
-            $view->with('folder_name', property_exists($this, 'folder_name')?$this->folder_name:'');
-
-        });
-
-        return $view_path;
+      View::composer($view_path, function ($view) {
+        $view->with('base_route', $this->base_route);
+        $view->with('view_path', $this->view_path);
+        $view->with('panel', $this->panel);
+        $view->with('generalSetting', $this->getGeneralSetting());
+        $view->with('paymentSetting', $this->getPaymentSetting());
+        $view->with('smsSetting', $this->getSmsSetting());
+        $view->with('folder_name', property_exists($this, 'folder_name')?$this->folder_name:'');
+      });
+      return $view_path;
     }
 
     /*check internet connection*/

@@ -187,10 +187,9 @@
         </div>
         {{-- End Row --}}
         <hr>
-        {{-- Location Training --}}
-        
-       <div class="row">
 
+        {{-- Location Training --}}        
+        <div class="row">
           <div class="col-md-4">
               <div class="form-group">
                   <h4 style="color: black; font-family: Khmer OS Battambang; background-color:white; padding: 10px;">{{ __('shortcoure_TrainingLocation_Detail') }}</h4>
@@ -201,8 +200,7 @@
               <label for="teacher_name">{{ __('shortcoure_Village') }}</label>
               <input type="text" name="txt_tr_village" class="form-control input-sm" required="" style="width: 100%">
             </div>            
-          </div>         
-
+          </div>
           <div class="col-md-4">
             <div class="form-group">
               <label for="curriculum-author">{{ __('shortcoure_Province') }}</label>
@@ -212,33 +210,26 @@
                   <option value="0">ជ្រើសខាងក្រោម៖ </option>
                 }
                 @endif
-
                 @if($flag=='en')
                 {
                   <option value="0">Please Choose</option>
                 }
-                @endif
-              
+                @endif              
                 @foreach ($provinces as $row)
-                @if($flag=='kh')
-                {
-                  <option value="{{$row->id}}">{{ $row->name_kh }}</option>
-                }
-                @endif
-
-                @if($flag=='en')
-                {
-                  <option value="{{$row->id}}">{{ $row->name_en }}</option>
-                }
-                @endif
-              
-                @endforeach
-              
+                  @if($flag=='kh')
+                  {
+                    <option value="{{$row->id}}">{{ $row->name_kh }}</option>
+                  }
+                  @endif
+                  @if($flag=='en')
+                  {
+                    <option value="{{$row->id}}">{{ $row->name_en }}</option>
+                  }
+                  @endif              
+                @endforeach              
               </select>
-            </div>
-            
-          </div>
-          
+            </div>            
+          </div>          
           <div class="col-md-4">
             <div class="form-group">
               <label for="curriculum-author">{{ __('shortcoure_District') }}</label>
@@ -273,8 +264,6 @@
               </select>
             </div>
           </div>
-
-
           {{-- Start and End date --}}
           <div class="col-md-6">
               <div class="form-group">
@@ -287,10 +276,8 @@
                 <label for="teacher_name">{{ __('shortcoure_EndDate') }}</label>
                 <input type="date" name="txt_end_date" required="" class="form-control input-sm" style="width: 100%">
               </div>
-            </div>
-
+          </div>
         </div>
-
         <div class="row">
           <div class="col-md-10"></div>
           <div class="col-md-2">
@@ -314,19 +301,13 @@
   $("#txt_training_hour").numeric({ negative: false }, function() { alert("No negative values"); this.value = ""; this.focus(); });
   $("#txt_teacher_hour_1").numeric({ negative: false }, function() { alert("No negative values"); this.value = ""; this.focus(); });
   $("#txt_teacher_hour_2").numeric({ negative: false }, function() { alert("No negative values"); this.value = ""; this.focus(); });
-
 </script> --}}
   @include('includes.scripts.inputMask_script')
   @include('includes.scripts.datepicker_script')
-  
-
-
   <script>
     $(document).ready(function(){
-
-      //positive integer only
-     
-      // distrct get data by provice change
+    //positive integer only     
+    // distrct get data by provice change
       var flag = $('#flag').val();
       $('#province').change(function(){
         var provinceID = $(this).val();
@@ -369,49 +350,46 @@
           $("#commune" ).prop( "disabled", true );
         }      
       });
-                
     // commune get data by district change    
-    $('#district').on('change',function(){
-      var districtID = $(this).val();
-      if(flag=='kh'){
-        var url = "{{url('get-commune-list-kh')}}?district_id="+districtID;
-        var appDistrict = '<option value="0" data-value="">ជ្រើសរើស ខ័ណ្ឌ/ស្រុក</option>';
-        var appCommune = '<option value="0" data-value="0">ជ្រើសរើស សង្កាត់/ឃុំ</option>';        
-      }      
-      if(flag=='en'){
-        var url = "{{url('get-commune-list')}}?district_id="+districtID;
-        var appDistrict = '<option value="0" data-value="">Select a Khan/District</option>';
-        var appCommune = '<option value="0" data-value="0">Select a Sangkat/Commune</option>';
-      }
-      if(districtID>=1){
-        $.ajax({
-         type:"GET",
-         url:url,
-         success:function(res){               
-          if(res){
-            $("#commune" ).prop( "disabled", false );
-            $("#commune").empty();
-            $("#commune").append(appCommune);
-            
-            $.each(res,function(key,value){
-              $("#commune").append('<option value="'+key+'">'+value+'</option>');
-            });
-            
-          }else{
-           $("#commune").empty();
-           $("#commune" ).prop( "disabled", true );
+      $('#district').on('change',function(){
+        var districtID = $(this).val();
+        if(flag=='kh'){
+          var url = "{{url('get-commune-list-kh')}}?district_id="+districtID;
+          var appDistrict = '<option value="0" data-value="">ជ្រើសរើស ខ័ណ្ឌ/ស្រុក</option>';
+          var appCommune = '<option value="0" data-value="0">ជ្រើសរើស សង្កាត់/ឃុំ</option>';        
+        }      
+        if(flag=='en'){
+          var url = "{{url('get-commune-list')}}?district_id="+districtID;
+          var appDistrict = '<option value="0" data-value="">Select a Khan/District</option>';
+          var appCommune = '<option value="0" data-value="0">Select a Sangkat/Commune</option>';
+        }
+        if(districtID>=1){
+          $.ajax({
+           type:"GET",
+           url:url,
+           success:function(res){               
+            if(res){
+              $("#commune" ).prop( "disabled", false );
+              $("#commune").empty();
+              $("#commune").append(appCommune);
+              
+              $.each(res,function(key,value){
+                $("#commune").append('<option value="'+key+'">'+value+'</option>');
+              });
+              
+            }else{
+             $("#commune").empty();
+             $("#commune" ).prop( "disabled", true );
+           }
          }
-       }
-     });
-      }else{
-        $("#commune").empty();
-        $("#commune").append(appCommune);
-        $("#commune" ).prop( "disabled", true );
-      }        
-    });
-  });   
-
-
+       });
+        }else{
+          $("#commune").empty();
+          $("#commune").append(appCommune);
+          $("#commune" ).prop( "disabled", true );
+        }        
+      });
+    });   
   </script>
 @endpush
 

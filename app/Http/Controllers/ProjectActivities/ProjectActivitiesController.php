@@ -116,7 +116,6 @@ class ProjectActivitiesController extends Controller
     //                     // ->groupBy('institute_id')
     //                     ->where('institute_id',Auth::user()->institute_id)
     //                     ->get();
-
     $data['allStudents']=Student::all()->where('institute_id',Auth::user()->institute_id)->count();
     $data['allStudentsF']=Student::all()
                           ->where('institute_id',Auth::user()->institute_id)
@@ -144,10 +143,7 @@ class ProjectActivitiesController extends Controller
                   ->groupBy('course_long_id')
                   ->get();
 
-    $data['users']= User::all();
-
-    
-  
+    $data['users']= User::all();  
         // return $data;
         if(Auth::check()) {
             return view('ProjectActivities.dashboard.staff-dashboard',compact('data'));
@@ -201,11 +197,7 @@ class ProjectActivitiesController extends Controller
                   ->get();
     
      $data['users']= User::all();
-
-  
-
 // return $data['TotalShortCourse'];
-
     // return $data;
     if(Auth::check()) {
         return view('ProjectActivities.dashboard.project-dashboard',compact('data'));
@@ -214,7 +206,8 @@ class ProjectActivitiesController extends Controller
     }   
   }
 
-  public function teacher_project(Request $r){
+  public function teacher_project(Request $r)
+  {
     $data = [];
     $data['generalSetting'] = GeneralSetting::findOrFail(1)->first();
 
@@ -268,7 +261,8 @@ class ProjectActivitiesController extends Controller
   }
 
 
-  public function student_project(Request $r){
+  public function student_project(Request $r)
+  {
     $data = [];
     $data['generalSetting'] = GeneralSetting::findOrFail(1)->first();
     $instituteID=auth()->user()->institute_id;
@@ -370,11 +364,9 @@ class ProjectActivitiesController extends Controller
     $data['generalSetting']=GeneralSetting::findOrFail(1)->first();
     $data['projectCourses']=Subject::where(['project_id'=>1])
                                     ->ProjectStatus()->get();
-
     // $data['projectCourses']=Document::where(['project_id'=>1])
     //                                 ->ProjectStatus()->get();
     // return $data['projectCourses'];
-
     // return $data['generalSetting']->institute;
     return view('projectactivities.reader',compact('data')); 
   }

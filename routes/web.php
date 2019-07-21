@@ -55,18 +55,15 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
       Route::get('fees',                  ['as' => '.fees',               'uses' => 'HomeController@fees']);
       Route::get('library',               ['as' => '.library',            'uses' => 'HomeController@library']);
       Route::get('attendance',            ['as' => '.attendance',         'uses' => 'HomeController@attendance']);
-
       Route::get('exams',   ['as' => '.exams', 'uses' => 'HomeController@exams']);
       Route::get('exam-schedule/{year}/{month}/{exam}/{faculty}/{semester}',         ['as' => '.exam-schedule', 'uses' => 'HomeController@examSchedule']);
       Route::get('exam-admit-card/{year}/{month}/{exam}/{faculty}/{semester}',       ['as' => '.exam-admit-card','uses' => 'HomeController@admitCard']);
       Route::get('exam-score/{year}/{month}/{exam}/{faculty}/{semester}',            ['as' => '.exam-score','uses' => 'HomeController@examScore']);
-
       Route::get('hostel',                ['as' => '.hostel',             'uses' => 'HomeController@hostel']);
       Route::get('transport',             ['as' => '.transport',          'uses' => 'HomeController@transport']);
       Route::get('subject',               ['as' => '.subject',            'uses' => 'HomeController@subject']);
       Route::get('notice',                ['as' => '.notice',             'uses' => 'HomeController@notice']);
       Route::get('download',              ['as' => '.download',             'uses' => 'HomeController@download']);
-
       Route::get('assignment',                                    ['as' => '.assignment',                          'uses' => 'HomeController@assignment']);
       Route::get('assignment/answer/{id}/add',                    ['as' => '.assignment.answer.add',               'uses' => 'HomeController@addAnswer']);
       Route::post('assignment/answer/store',                      ['as' => '.assignment.answer.store',             'uses' => 'HomeController@storeAnswer']);
@@ -910,10 +907,10 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
 
 // Manage Projects
   // get district and commune
-    Route::get('get-district-list','ProjectActivities\ShortcourseController@getDistrictList');
-    Route::get('get-commune-list','ProjectActivities\ShortcourseController@getCommuneList');
-    Route::get('get-district-list-kh','ProjectActivities\ShortcourseController@getDistrictListKh');
-    Route::get('get-commune-list-kh','ProjectActivities\ShortcourseController@getCommuneListKh');    
+    Route::get('get-district-list','ProjectActivities\ProvinceDistrictCommnueController@getDistrictList');
+    Route::get('get-commune-list','ProjectActivities\ProvinceDistrictCommnueController@getCommuneList');
+    Route::get('get-district-list-kh','ProjectActivities\ProvinceDistrictCommnueController@getDistrictListKh');
+    Route::get('get-commune-list-kh','ProjectActivities\ProvinceDistrictCommnueController@getCommuneListKh');    
 
     Route::prefix('projects')->group(function(){
       Route::get('/','ProjectActivities\ProjectActivitiesController@index')->name('projects');
@@ -944,10 +941,8 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
       Route::get('/admin-project','ProjectActivities\ProjectActivitiesController@admin_project')->name('admin-project');
       Route::get('/user-project','ProjectActivities\ProjectActivitiesController@user_project')->name('user-project');
       Route::get('/student-project','ProjectActivities\ProjectActivitiesController@student_project')->name('student-project');
-
       Route::get('/teacher-project','ProjectActivities\ProjectActivitiesController@teacher_project')->name('teacher-project');
       Route::get('/userstudent','ProjectActivities\ProjectActivitiesController@user_student')->name('userstudent');
-
       Route::get('/shortcourse','ProjectActivities\ManageCourseController@index')->name('projects.shortcourse');
 
     //==============Book================Ratha    
@@ -958,7 +953,6 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
       Route::get('/document/edit/{id}','ProjectActivities\AddnewbookController@editbook')->name('edit-book.edit');
       Route::put('/update-book/{id}','ProjectActivities\AddnewbookController@updatebook')->name('edit-book.update');
       Route::get('/readbook-now','ProjectActivities\ReadbookController@index')->name('readbook-now');
-
   //=====================Short Course==============Ratha
     Route::get('/shortcourse-list','ProjectActivities\ShortCourseController@ShortCourse')->name('projects.shortcourse');
     Route::get('/register','ProjectActivities\ShortcourseController@ShowForm')->name('shortcourse.create');
@@ -971,7 +965,7 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
     Route::post('/shortcourse_detail/store','ProjectActivities\ShortcourseController@SaveCourse_detail')->name('shortcourse_detail.savedata');
     Route::delete('/shortcourse-detail/delete/{id}','ProjectActivities\ShortcourseController@ShortCoursedetail_delete')->name('shortcourse_detail.destroy');                                
                 //=================View Course Detail==============Ratha
-    Route::get('/shortcourse/detail/{id}','ProjectActivities\ShortCourseController@ViewCourseDetail')->name('projects.coursedetail');
+    Route::get('/shortcourse/detail/{id}','ProjectActivities\ShortcourseController@ViewCourseDetail')->name('projects.coursedetail');
               //=================Update Overalfund==============
     Route::get('shortCourse_detail/editFund','ProjectActivities\ShortcourseController@editFund')->name('projects.coursedetail.editfund');
     Route::post('shortCourse_detail/updateFund','ProjectActivities\ShortcourseController@updateFund')->name('projects.coursedetail.updatefund');
