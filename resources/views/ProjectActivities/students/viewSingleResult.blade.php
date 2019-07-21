@@ -15,33 +15,52 @@
         <div class="row">
           <div class="new-start">
             <center>              
-              <h3>The Result of {{$subjectName->subject->title  }} Subject</h3>
+              <h3>The Result of {{$subjectName->subject->title }} Quizs</h3>
             </center>
-              <table class="table">
+              <table id="dynamic-table" class="table table-striped table-bordered table-hover">
                 <thead>
-                <th>Quiz Title</th>
-                <th>Correct Answer</th>
-                <th>My Answer</th>
-                <th>Mark</th>
-                <th>Total Mask</th>
-                <th></th>
+                  <th class="center" width="100px">
+                    <label class="pos-rel">
+                      <input type="checkbox" class="ace" />
+                      <span class="lbl"></span>
+                    </label>
+                  </th>                  
+                  <th>Quiz Title</th>
+                  <th>Correct Answer</th>
+                  <th>My Answer</th>
+                  <th>Mark</th>
+                  <th>Total Mask</th>
                 </thead>
                 <tbody>
-                @if($allUserAnswer)
-                  @foreach($allUserAnswer as $quiz)
-                    <tr>
+                  @if($allUserAnswer)
+                    @foreach($allUserAnswer as $quiz)
+                      <tr>
+                        <td class="center first-child">
+                          <label>
+                            <input type="checkbox" name="chkIds[]" value="{{ $quiz->id }}" class="ace" />
+                            <span class="lbl"></span>
+                          </label>
+                        </td>                        
                         <td>{{ $quiz->question->title }}</td>
                         <td>{{ $quiz->answer->option->title }}</td>
                         <td>{{ $quiz->option->title }}</td>
                         <td>{{ $quiz->subject->per_q_mark }}</td>
                         <td>{{ $totalQuestion }}</td>
+                      </tr>
+                    @endforeach
+                  @else
+                    <tr>
+                      <td colspan="3">You have no available quizzes.</td>
                     </tr>
-                  @endforeach
-                @else
+                  @endif
                   <tr>
-                    <td colspan="3">You have no available quizzes.</td>
+                    <td>Total Correct</td>
+                    <td>{{ $countTrue }}</td>
+                    <td>Total Incorrect</td>
+                    <td>{{ $countFalse }}</td>
+                    <td>Total Score = </td>
+                    <td>{{ $countTrue }}</td>
                   </tr>
-                @endif
                 </tbody>
               </table>
           </div>
@@ -54,11 +73,6 @@
 
 
 @push('custom-js')
-  {{-- @include('includes.scripts.jquery_validation_scripts') --}}
-  <!-- inline scripts related to this page -->
-  <script type="text/javascript">
-
-  </script>
-  {{-- @include('includes.dataTable_scripts') --}}
+  @include('projectactivities.quizs.dataTable_scripts')
   @include('ProjectActivities.quizs.delete_confirm')
 @endpush

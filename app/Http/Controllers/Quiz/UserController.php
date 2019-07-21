@@ -7,6 +7,7 @@ use App\Models\Quiz\QuizResults;
 use App\Models\Quiz\UserAnswer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use DB;
 
 class UserController extends Controller
 {
@@ -15,25 +16,24 @@ class UserController extends Controller
     public function showAppearedQuiz(Request $request)
     {
         $userId  = Auth::user()->id;
+        // DB::enableQueryLog();
         $userQuizs = QuizResults::with('subject','user')
                                 ->where('user_id',$userId)
-                                ->paginate($this->limit);
+                                ->paginate($this->limit);   
+        // dd(DB::getQueryLog());
         return view('ProjectActivities.students.dashboard',compact('userQuizs'));
     }
 
     public function singleResult(Request $request, $QuizResultsId)
     {
+      // DB::enableQueryLog();
       $allUserAnswer = UserAnswer::with('option','question','answer')
                                   ->where('userData_appear_id',$QuizResultsId)
                                   ->get();
-      $subjectName = UserAnswer::with('subject')->first();
-      $allQuestions = \DB::table('user_answers')
-      ->join('answers','user_answers.question_id','answers.question_id')
-      ->join('questions','questions.id', '=', 'user_answers.question_id')
-      ->join('subject_quizzes','subject_quizzes.id', '=', 'user_answers.subject_id')
-      ->join('options','answers.option_id','options.id')
-      ->where('user_answers.userData_appear_id', $QuizResultsId)
-      ->get(array('user_answers.*', 'subject_quizzes.*', 'questions.*','answers.*','options.title as answername'));
+      // dd(DB::getQueryLog());                                  
+      $subjectName = UserAnswer::with('subject')
+                                ->where('subject_id',$QuizResultsId)
+                                ->first();
       //for chart************
       $countTrue = \DB::table('user_answers')->where('userData_appear_id' , $QuizResultsId)->where('correct' , 1)->count();
       $countFalse = \DB::table('user_answers')->where('userData_appear_id' , $QuizResultsId)->where('correct' , 0)->count();
@@ -43,9 +43,7 @@ class UserController extends Controller
       // ->labels(['Correct', 'Incorrect'])
       // ->values([$countTrue,$countFalse])
       // ->dimensions(350,300)
-      // return $allQuestions;
       return view('ProjectActivities.students.viewSingleResult',compact('countTrue','countFalse','totalQuestion','allUserAnswer','subjectName'));
-       // ['question' => $allQuestions, 'chart' => $chart, 'countTrue' => $countTrue, 'totalQuestion' =>$totalQuestion]);
   }
 
   public function viewLeaderboard(Request $request, Quiz $quiz)

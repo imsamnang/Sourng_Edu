@@ -34,6 +34,6 @@ class UserAnswer extends Model
 
   public function option()
   {
-    return $this->belongsTo(Option::class,'user_response');
+    return $this->belongsTo(Option::class,'user_answer_id');
   }
 }

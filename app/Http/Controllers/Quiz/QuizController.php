@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Quiz;
 
 use App\Http\Controllers\Controller;
+use App\Models\Quiz\Answer;
 use App\Models\Quiz\AverageScore;
 use App\Models\Quiz\Question;
 use App\Models\Quiz\QuestionQuiz;
 use App\Models\Quiz\QuizResults;
 use App\Models\Quiz\SubjectQuiz;
 use App\Models\Quiz\UserAnswer;
-use App\Models\Subject;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -139,41 +139,46 @@ class QuizController extends Controller
     $time_remaining_in_seconds = ((int)$duration[0] * 60) + ((int)$duration[1]);
     if ($page == 1) {
         $newQuizAppear = new QuizResults;
-        $newQuizAppear->marks_scored = 0;
         $newQuizAppear->user_id = $userId;
-        $newQuizAppear->user_name = $userName;
         $newQuizAppear->subject_id = $quizid;
+        $newQuizAppear->user_name = $userName;
+        $newQuizAppear->marks_scored = 0;
         $newQuizAppear->save();
     }
-    $uniqueQuizQuery = \DB::table('quiz_results')->where('user_id', $userId)->orderBy('id','desc')->first();
+    // $uniqueQuizQuery = \DB::table('quiz_results')->where('user_id', $userId)->orderBy('id','desc')->first();
+    $uniqueQuizQuery = QuizResults::where('user_id',$userId)->orderBy('id','desc')->first();
     $uniqueQuizAppearId = $uniqueQuizQuery->id;
     $marks_scored = $uniqueQuizQuery->marks_scored;
-    $userResponse = new UserAnswer;
-    $userResponse->user_id = $userId;
-    $userResponse->userData_appear_id = $uniqueQuizAppearId;
-    $userResponse->subject_id = $quizid;
-    $userResponse->question_id = $question_id;
+    $user_Answer_Id = new UserAnswer;
+    $user_Answer_Id->user_id = $userId;
+    $user_Answer_Id->userData_appear_id = $uniqueQuizAppearId;
+    $user_Answer_Id->subject_id = $quizid;
+    $user_Answer_Id->question_id = $question_id;
     if ($answer == null) {
-        $userResponse->user_response = "Not Answered";
+        $user_Answer_Id->user_answer_id = "Not Answered";
     }else{
-        $userResponse->user_response = $answer;
+        $user_Answer_Id->user_answer_id = $answer;
     }
-    $findQuestion = \DB::table('answers')->where('question_id', $question_id)->first();
+    // $findQuestion = \DB::table('answers')->where('question_id', $question_id)->first();
+    $findQuestion = Answer::where('question_id',$question_id)->first();
     $correctAnsDb = $findQuestion->option_id;
-    $findDuration = \DB::table('subject_quizzes')->where('id',$quizid)->first();
+    // $findDuration = \DB::table('subject_quizzes')->where('id',$quizid)->first();
+    $findDuration = SubjectQuiz::where('id',$quizid)->first();
     $totalTimeForQuestion = $findDuration->question_duration;
     $time_taken = $totalTimeForQuestion - $time_remaining_in_seconds;
-    $userResponse->time_taken = $time_taken;
+    $user_Answer_Id->time_taken = $time_taken;
     if ($correctAnsDb == $answer) {
         $marks_scored += 1;
-        \DB::table('quiz_results')
-        ->where('id', $uniqueQuizAppearId)
-        ->update(['marks_scored' => $marks_scored]);
-        $userResponse->correct = 1;
+        QuizResults::where('id', $uniqueQuizAppearId)
+                    ->update(['marks_scored' => $marks_scored]);
+        // \DB::table('quiz_results')
+        // ->where('id', $uniqueQuizAppearId)
+        // ->update(['marks_scored' => $marks_scored]);
+        $user_Answer_Id->correct = 1;
     }else{
-      $userResponse->correct = 0;
+      $user_Answer_Id->correct = 0;
     }
-    $userResponse->save();
+    $user_Answer_Id->save();
     $page += 1;
     return redirect('/quiz/takequiz/'.$quizslug.'?page='.$page);
   }
@@ -194,54 +199,65 @@ class QuizController extends Controller
     }
     $duration = preg_split('/:/', $time_remaining);
     $time_remaining_in_seconds = ((int)$duration[0] * 60) + ((int)$duration[1]);
-    $uniqueQuizQuery = \DB::table('quiz_results')->where('user_id', $userId)->orderBy('id','desc')->first();
+    // $uniqueQuizQuery = \DB::table('quiz_results')->where('user_id', $userId)->orderBy('id','desc')->first();
+    $uniqueQuizQuery = QuizResults::where('user_id',$userId)->orderBy('id','desc')->first();
     $uniqueQuizAppearId = $uniqueQuizQuery->id;
     $marks_scored = $uniqueQuizQuery->marks_scored;
-    $userResponse = new UserAnswer;
-    $userResponse->user_id = $userId;
-    $userResponse->userData_appear_id = $uniqueQuizAppearId;
-    $userResponse->subject_id = $quizid;
-    $userResponse->question_id = $question_id;
+    $user_Answer_Id = new UserAnswer;
+    $user_Answer_Id->user_id = $userId;
+    $user_Answer_Id->userData_appear_id = $uniqueQuizAppearId;
+    $user_Answer_Id->subject_id = $quizid;
+    $user_Answer_Id->question_id = $question_id;
     if ($answer == null) {
-      $userResponse->user_response = "Not Answered";
+      $user_Answer_Id->user_answer_id = "Not Answered";
     }else{
-      $userResponse->user_response = $answer;
+      $user_Answer_Id->user_answer_id = $answer;
     }
-    $findQuestion = \DB::table('answers')->where('question_id', $question_id)->first();
+    // $findQuestion = \DB::table('answers')->where('question_id', $question_id)->first();
+    $findQuestion = Answer::where('question_id', $question_id)->first();
     $correctAnsDb = $findQuestion->option_id;
-    $findDuration = \DB::table('subject_quizzes')->where('id',$quizid)->first();
+    // $findDuration = \DB::table('subject_quizzes')->where('id',$quizid)->first();
+    $findDuration = SubjectQuiz::where('id',$quizid)->first();
     $totalTimeForQuestion = $findDuration->question_duration;
     $time_taken = $totalTimeForQuestion - $time_remaining_in_seconds;
-    $userResponse->time_taken = $time_taken;
+    $user_Answer_Id->time_taken = $time_taken;
     if ($correctAnsDb == $answer) {
         $marks_scored += 1;
-        \DB::table('quiz_results')
-        ->where('id', $uniqueQuizAppearId)
-        ->update(['marks_scored' => $marks_scored]);
-        $userResponse->correct = 1;
+        QuizResults::where('id', $uniqueQuizAppearId)
+                    ->update(['marks_scored' => $marks_scored]);        
+        // \DB::table('quiz_results')
+        // ->where('id', $uniqueQuizAppearId)
+        // ->update(['marks_scored' => $marks_scored]);
+        $user_Answer_Id->correct = 1;
     }else{
-        $userResponse->correct = 0;
+        $user_Answer_Id->correct = 0;
     }
-    $userResponse->save();
+    $user_Answer_Id->save();
     $marks_scored = $marks_scored;
     /**
      * Storing average score for particular Quiz of user
     */
-    $avgScoreCount = \DB::table('average_scores')->where('user_id', $userId)->where('subject_id', $quizid)->count();
-    $quizAppearCount = \DB::table('quiz_results')->where('user_id', $userId)->where('subject_id', $quizid)->count();
-    $avg_marks = \DB::table('quiz_results')
-    ->where('user_id', $userId)
-    ->where('subject_id', $quizid)
-    ->avg('marks_scored');
+    // $avgScoreCount = \DB::table('average_scores')->where('user_id', $userId)->where('subject_id', $quizid)->count();
+    $avgScoreCount = AverageScore::where('user_id', $userId)->where('subject_id', $quizid)->count();
+    // $quizAppearCount = \DB::table('quiz_results')->where('user_id', $userId)->where('subject_id', $quizid)->count();
+    $quizAppearCount = QuizResults::where('user_id', $userId)->where('subject_id', $quizid)->count();
+    // $avg_marks = \DB::table('quiz_results')
+    // ->where('user_id', $userId)
+    // ->where('subject_id', $quizid)
+    // ->avg('marks_scored');
+    $avg_marks = QuizResults::where('user_id', $userId)
+                            ->where('subject_id', $quizid)
+                            ->avg('marks_scored');
     $avgScore = new AverageScore;
     if ($avgScoreCount == 0 ) {
-        $avgScore->user_id = $userId;
-        $avgScore->subject_id = $quizid;
-        $avgScore->avg_score = $avg_marks;
-        $avgScore->appear_count = $quizAppearCount;
-        $avgScore->save();
+      $avgScore->user_id = $userId;
+      $avgScore->subject_id = $quizid;
+      $avgScore->avg_score = $avg_marks;
+      $avgScore->appear_count = $quizAppearCount;
+      $avgScore->save();
     }else{
-        $userFindQuery = \DB::table('average_scores')->where('user_id', $userId)->where('subject_id', $quizid)->select('avgid');
+        // $userFindQuery = \DB::table('average_scores')->where('user_id', $userId)->where('subject_id', $quizid)->select('avgid');
+      $userFindQuery = AverageScore::where('user_id', $userId)->where('subject_id', $quizid)->select('avgid');
         $getAvgidObj = $userFindQuery->get('avgid');
         foreach ($getAvgidObj as $id){
            $avgId = $id->avgid;
@@ -253,7 +269,8 @@ class QuizController extends Controller
    $questionsCount = $sub->questions()->count();
    $percentage_correct = 100 * $marks_scored / $questionsCount;
 
-   return view('ProjectActivities.quizs.finishQuiz', ['percentage_correct' => $percentage_correct, 'questionsCount' => $questionsCount, 'uniqueQuizAppearId' => $uniqueQuizAppearId,'sub'=>$sub,'marks_scored'=>$marks_scored]);
+   // return view('ProjectActivities.quizs.finishQuiz', ['percentage_correct' => $percentage_correct, 'questionsCount' => $questionsCount, 'uniqueQuizAppearId' => $uniqueQuizAppearId,'sub'=>$sub,'marks_scored'=>$marks_scored]);
+   return view('ProjectActivities.quizs.finishQuiz',compact('percentage_correct','questionsCount','uniqueQuizAppearId','sub','marks_scored'));
   }
 
 // public function getBeforeStartTest($id){
