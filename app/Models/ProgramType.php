@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\LongCourse;
+use App\Models\CourseLong;
 use Illuminate\Database\Eloquent\Model;
 
 class ProgramType extends Model
@@ -11,7 +11,7 @@ class ProgramType extends Model
 
   public function longcourse()
   {
-      return $this->hasOne(LongCourse::class,'program_type_id');
+      return $this->hasOne(CourseLong::class,'program_type_id');
       // return $this->belongsTo('App\LongCourse');
   }  
 }

@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use App\Models\CourseShort;
 use App\Models\Faculty;
-use App\Models\OveralFund;
 use App\Models\Student;
+use App\Models\CourseLong;
+use App\Models\OveralFund;
 use Illuminate\Database\Eloquent\Model;
 
 class Courselongstudent extends Model
@@ -25,7 +25,7 @@ class Courselongstudent extends Model
 
     public function Course_Long()
     {
-        return $this->belongsTo(LongCourse::class,'course_long_id');
+        return $this->belongsTo(CourseLong::class,'course_long_id');
     }
 
     public function stu()

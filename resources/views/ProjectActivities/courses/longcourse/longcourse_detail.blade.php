@@ -104,37 +104,30 @@
               <center><label>ជ្រើសរើសសិស្ស</label></center>
             </div>
           </div>
-
           <div class="col-md-6">
             <div class="form-group">
               {{-- <input type="text" name="student_name" style="width: 100%"> --}}
               <select multiple="" name="student_name[]" class="chosen-select form-control" id="form-field-select-4" data-placeholder="ជ្រើសរើសសិស្ស..." style="width: 100% !important" >
                 @foreach ($student as $stu)
-
-                <?php 
-                $gender=ucfirst($stu->gender);
-                if($gender=='MALE'){
-                  $gender='M';
-                }else {
-                  $gender='F';
-                }
-
-                ?>
-
+                  <?php 
+                    $gender=ucfirst($stu->gender);
+                    if($gender=='MALE'){
+                      $gender='M';
+                    } else {
+                      $gender='F';
+                    }
+                  ?>
                 <option value="{{ $stu->id }}">{{ $stu->first_name }} - {{ $stu->last_name }} , {{ $gender }} , {{ Carbon\Carbon::parse($stu->date_of_birth)->format('d-m-Y') }} , ID:# {{ $stu->id }}</option>
-
                 @endforeach
               </select>
             </div>
           </div>
-
           <div class="col-md-2">
             <div class="form-group">
               <button type="submit" class="btn btn-primary btn-sm" class="form-control">បន្ថែមសិស្ស</button>
             </div>
           </div>
         </div>
-
       </div>
       <div class="row">
         <div class="col-md-3">
@@ -142,14 +135,12 @@
             <input type="hidden" name="cbo_faculty" value="{{ $longcourse_detail->id  }}">
           </div>
         </div>
-
         <div class="col-md-3">
           <div class="form-group">
             
             <input type="hidden" name="cbo_overalfund" value="{{ $longcourse_detail->overalFundName->id  }}">
           </div>
         </div>
-
         <div class="col-md-3">
           <div class="form-group">
             {{-- <label for="reg_no">Institute</label> --}}
@@ -160,16 +151,13 @@
       </div>
     </form>
   </div>
-
   {{-- End add student --}}
-
-
 <?php $TF=0; ?>
-       @foreach ($longcoursestudent as $key=> $post)
-          @if (strtoupper($post->stu->gender)=='2')
-             <?php $TF=$TF+1; ?>
-          @endif
-       @endforeach
+      @foreach ($longcoursestudent as $key=> $post)
+        @if (strtoupper($post->stu->gender)=='2')
+          <?php $TF=$TF+1; ?>
+        @endif
+      @endforeach
         <h5 style="color: white; font-family: Khmer OS Battambang;
         background-color: #438eb9; padding: 10px;">ចំនួន​សិស្ស​សរុប​ក្នុង​វគ្គ {{ $longcoursestudent->count() }} នាក់ (ស្រី {{ $TF }} នាក់)</h5>
         <div class="table-responsive">
@@ -245,15 +233,12 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <center>          
+          <center>
             <h3 style="color: white; font-family: Khmer OS Battambang;
             background-color: #438eb9; padding: 10px;" class="modal-title">
               {{ __('shortcoure_detail_ChangeFund') }}
             </h3>
           </center>
-{{--           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button> --}}
         </div>
         <div class="modal-body">
           <form method="post" action="{{route('projects.longcoursedetail.updatefund')}}" id="frm-update">

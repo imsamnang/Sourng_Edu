@@ -1,5 +1,5 @@
 @extends('projectactivities.layout.master')
-<?php  $flag = app()->getLocale();?>
+<?php  $flag = app()->getlocale();?>
 @section('menu-panel')
 @include('projectactivities.layout.menu.menu_admin')
 @endsection
@@ -39,10 +39,10 @@
 
 <div class="container-fluid">
             <div class="tabbable"  style="margin-top:20px;">
-                  <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
-                        {{-- <h2>Record # PS-852</h2> --}}
+                  <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="mytab4">
+                        {{-- <h2>record # ps-852</h2> --}}
                         <li class="active">
-                              <a style="font-family: 'Khmer OS Battambang'; font-size:18px; padding:10px 5px 10px 5px; " data-toggle="tab" href="#registrationinfo">កម្មវិធីលម្អិត # PS - {{ $longcourse_detail->id }}&#8203;</a>
+                              <a style="font-family: 'khmer os battambang'; font-size:18px; padding:10px 5px 10px 5px; " data-toggle="tab" href="#registrationinfo">កម្មវិធីលម្អិត # ps - {{ $longcourse_detail->id }}&#8203;</a>
                         </li>
       
                   </ul>
@@ -51,7 +51,7 @@
                               <div class="row">
                                     <div class="col-md-5 col-sm-12 col-xs-12">
                                           <div class="form-group">
-                                                <label><strong>{{ __('longcourse-MainSubject') }}</strong></label>
+                                                <label><strong>{{ __('longcourse-mainsubject') }}</strong></label>
                                                 @if($flag=='kh')
                                                 <label style="color: red;margin-left: 10px;">{{ $longcourse_detail->faculty->faculty_kh }}</label>
                                                 @endif
@@ -62,7 +62,7 @@
                                     </div>
                                     <div class="col-md-5 col-sm-12 col-xs-12">
                                           <div class="form-group">
-                                                <label><strong>{{ __('longcourse-detail_Program Type') }}</strong></label>&emsp;
+                                                <label><strong>{{ __('longcourse-detail_program type') }}</strong></label>&emsp;
                                                      @if($flag=='kh')
                                                     <label style="color: red;margin-left: 10px;">{{ $longcourse_detail->program_type->title_kh }}</label>
                                                     @endif
@@ -74,43 +74,43 @@
                 
                                     <div class="col-md-5 col-sm-12 col-xs-12">
                                                 <div class="form-group">
-                                                      <label><strong>{{ __('longcourse-detail_OveralFund') }}</strong></label>&emsp;
+                                                      <label><strong>{{ __('longcourse-detail_overalfund') }}</strong></label>&emsp;
                                                       @if($flag=='kh')
-                                                      <label class="responsive" style="color: red;margin-left: 28px;">{{ $longcourse_detail->overalFundName->title_kh }}</label>
+                                                      <label class="responsive" style="color: red;margin-left: 28px;">{{ $longcourse_detail->overalfundname->title_kh }}</label>
                                                       @endif
                                                       @if($flag=='en') 
-                                                      <label class="responsive" style="color: red;margin-left: 36px;">{{ $longcourse_detail->overalFundName->title_en }}</label>
+                                                      <label class="responsive" style="color: red;margin-left: 36px;">{{ $longcourse_detail->overalfundname->title_en }}</label>
                                                       @endif
                                                 </div>
                                     </div>
 
                                     <div class="col-md-5 col-sm-12 col-xs-12">
                                                 <div class="form-group">
-                                                      <label><strong>{{ __('longcourse-CurriculumEndorsement') }}</strong></label>&emsp;
+                                                      <label><strong>{{ __('longcourse-curriculumendorsement') }}</strong></label>&emsp;
                                                       @if($flag=='kh')
-                                                      <label class="responsive" style="color: red;margin-left: 0px;">{{ $longcourse_detail->Curri_Edorsement->title_kh }}</label>
+                                                      <label class="responsive" style="color: red;margin-left: 0px;">{{ $longcourse_detail->curri_edorsement->title_kh }}</label>
                                                       @endif
                                                       @if($flag=='en') 
-                                                      <label class="responsive" style="color: red;margin-left: 0px !important;">{{ $longcourse_detail->Curri_Edorsement->title_en }}</label>
+                                                      <label class="responsive" style="color: red;margin-left: 0px !important;">{{ $longcourse_detail->curri_edorsement->title_en }}</label>
                                                       @endif
                                                 </div>
                                     </div>
 
                                     <div class="col-md-5 col-sm-12 col-xs-12">
                                                 <div class="form-group">
-                                                      <label><strong>{{ __('longcourse-CurriculumAuthor') }}</strong></label>&emsp;
+                                                      <label><strong>{{ __('longcourse-curriculumauthor') }}</strong></label>&emsp;
                                                       @if($flag=='kh')
-                                                      <label class="responsive" style="color: red;margin-left: 0px;">{{ $longcourse_detail->Curri_Author->title_kh }}</label>
+                                                      <label class="responsive" style="color: red;margin-left: 0px;">{{ $longcourse_detail->curri_author->title_kh }}</label>
                                                       @endif
                                                       @if($flag=='en') 
-                                                      <label class="responsive" style="color: red">{{ $longcourse_detail->Curri_Author->title_en }}</label>
+                                                      <label class="responsive" style="color: red">{{ $longcourse_detail->curri_author->title_en }}</label>
                                                       @endif
                                                 </div>
                                     </div>
 
                                     <div class="col-md-5 col-sm-12 col-xs-12">
                                                 <div class="form-group">
-                                                      <label><strong>{{ __('longcourse-StartDate') }}</strong></label>&emsp;
+                                                      <label><strong>{{ __('longcourse-startdate') }}</strong></label>&emsp;
                                                             @if ($flag=='kh')
                                                             <label style="color: red; margin-left: 20px;">{{ $longcourse_detail->promotion_start_date }}</label>
                                                           @endif
@@ -122,7 +122,7 @@
 
                                     <div class="col-md-5 col-sm-12 col-xs-12">
                                           <div class="form-group">
-                                                <label><strong>{{ __('longcourse-StudyYear') }}</strong></label>&emsp;
+                                                <label><strong>{{ __('longcourse-studyyear') }}</strong></label>&emsp;
                                                 @if($flag=='kh')
                                                 <label style="color: red;margin-left: 57px;">{{ $longcourse_detail->academic_year }}</label>
                                                 @endif
@@ -134,7 +134,7 @@
 
                                     <div class="col-md-5 col-sm-12 col-xs-12">
                                                 <div class="form-group">
-                                                      <label><strong>{{ __('longcourse-Bath/Group') }}</strong></label>&emsp;
+                                                      <label><strong>{{ __('longcourse-bath/group') }}</strong></label>&emsp;
                                                       @if($flag=='kh')
                                                       <label class="responsive" style="color: red;margin-left: 30px;">{{ $longcourse_detail->batch_group }}</label>
                                                       @endif
@@ -147,7 +147,7 @@
                               </div> 
                         </div>
                   
-                        <a class="btn btn-primary" href="{{ route('projects.longcourse') }}"><span class="menu-icon fa  fa-backward"></span> {{$flag=='kh'?'ត្រឡប់ក្រោយ':'Back to List'}}</a>
+                        <a class="btn btn-primary" href="{{ route('projects.longcourse') }}"><span class="menu-icon fa  fa-backward"></span> {{$flag=='kh'?'ត្រឡប់ក្រោយ':'back to list'}}</a>
                   </div>
             </div>
 </div>

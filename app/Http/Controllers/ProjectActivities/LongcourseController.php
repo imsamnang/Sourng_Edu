@@ -3,20 +3,20 @@
 namespace App\Http\Controllers\ProjectActivities;
 
 use App\Http\Controllers\Controller;
-use Carbon\Carbon;
 use App\Models\Commune;
+use App\Models\CourseLong;
+use App\Models\Courselongstudent;
 use App\Models\CurriculumAuthor;
 use App\Models\CurriculumEndorsement;
 use App\Models\District;
 use App\Models\Faculty;
 use App\Models\GeneralSetting;
-use App\Models\LongCourse;
-use App\Models\Courselongstudent;
 use App\Models\Modality;
 use App\Models\OveralFund;
 use App\Models\ProgramType;
 use App\Models\Province;
 use App\Models\Student;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -32,7 +32,7 @@ class LongcourseController extends Controller
     {
         $data = [];
         $generalSetting = GeneralSetting::findOrFail(1)->first();
-        $data['LongCourses']=LongCourse::all();
+      $data['LongCourses']=CourseLong::all();
         return view('ProjectActivities.courses.longcourse.index',compact('data'));
 
     }
@@ -50,7 +50,7 @@ class LongcourseController extends Controller
     function SaveLongCourse(Request $request)
     {
         // return $request->all();
-        $longcourse = new LongCourse();
+        $longcourse = new CourseLong();
         $longcourse->faculties_id= $request->cbo_subject;
         $longcourse->program_type_id= $request->cbo_type;
         $longcourse->overall_fund_id= $request->cbo_fund_overall;
@@ -74,14 +74,14 @@ class LongcourseController extends Controller
         $curriculum_author= CurriculumAuthor::all();
         $faculty= Faculty::WHERE('course_type_id',2)->get();
         // $faculty= Faculty::all();
-        $longcourse =LongCourse::findOrFail($id);
+        $longcourse =CourseLong::findOrFail($id);
         return view('ProjectActivities.courses.longcourse.edit', compact('program_type','overal_fund','curriculum_endo','curriculum_author','faculty','longcourse'));
     }
 
     public function update(Request $request, $id)
     {
         // return $request->all();
-        $longcourse =LongCourse::findOrFail($id);
+        $longcourse =CourseLong::findOrFail($id);
         $longcourse->faculties_id= $request->cbo_subject;
         $longcourse->program_type_id= $request->cbo_type;
         $longcourse->overall_fund_id= $request->cbo_fund_overall;
@@ -100,7 +100,7 @@ class LongcourseController extends Controller
 
     public function delete($id)
     {
-      $longcourse = LongCourse::find($id);
+      $longcourse = CourseLong::find($id);
       $longcourse->destroy($id);
       // return redirect()->Route('projects.shortcourse')->with('success','Deleted Successfully');
       return redirect()->back()->with('success','Data Deleted Successfully');
@@ -109,7 +109,7 @@ class LongcourseController extends Controller
   //Long Course Detail
   function LongCourse_detail(Request $request, $id)
   {   
-    $longcourse_detail =LongCourse::findOrFail($id);
+    $longcourse_detail =CourseLong::findOrFail($id);
   // using query builder to jon muliple table
     // $db=DB::table('faculties')
     //     ->join('course_long_student','course_long_student.course_long_id','faculties.id')
@@ -146,7 +146,6 @@ class LongcourseController extends Controller
 
         foreach ($request->student_name as $student_id) {
             $Courselongstudent=new Courselongstudent();
-
             $Courselongstudent->course_long_id= $request->cbo_faculty;
             $Courselongstudent->overal_fund_id= $request->cbo_overalfund;
             $Courselongstudent->institute_id= 1;
@@ -171,8 +170,7 @@ class LongcourseController extends Controller
       {   
         $curriculum_End= CurriculumEndorsement::all();
         $curriculum_author=CurriculumAuthor::all();
-        $longcourse_detail =LongCourse::findOrFail($id);
-        // return $longcourse_detail;
+        $longcourse_detail =CourseLong::findOrFail($id);
         $student=Student::all();
         $overal_fund=OveralFund::all();
         $data=[];
@@ -213,7 +211,7 @@ class LongcourseController extends Controller
     }
   }
 
-    public function find($id)
+  public function find($id)
   {
     return $courseShort = Courselongstudent::findOrFail($id);
   }

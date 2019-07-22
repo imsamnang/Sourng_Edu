@@ -24,6 +24,7 @@ class QuizController extends Controller
 
   public function front()
   {
+    
     $allQuiz= SubjectQuiz::whereNotIn('id',
                 QuizResults::where('user_id',Auth::user()->id)
                 ->pluck('subject_id'))
