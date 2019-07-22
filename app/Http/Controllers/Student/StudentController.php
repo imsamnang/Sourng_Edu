@@ -1013,6 +1013,7 @@ class StudentController extends CollegeBaseController
   // Save Student Second form
     public function SaveRegister2(Request $request) 
     {
+      // return $request->all();
       $stu = new Student();
       // return Auth::user()->institute_id;
       $stu->institute_id=Auth::user()->institute_id;
