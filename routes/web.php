@@ -966,13 +966,13 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
     Route::get('/edit-course/{id}','ProjectActivities\ShortcourseController@editshortcourse')->name('edit-shortcourse.edit');
     Route::put('/update-shortcourse/{id}','ProjectActivities\ShortcourseController@update_shortcourse')->name('update-book.update');
     Route::delete('/delete-shortcourse/{id}','ProjectActivities\ShortcourseController@delete_shortcourse')->name('delete-shortcourse.destroy');
-                //===============Short Course Detail============Ratha
+  //===============Short Course Detail============Ratha
     Route::get('/shortcourse_detail/viewenrollmentv/{id}','ProjectActivities\ShortcourseController@ShortCourse_detail')->name('projects.shortcourse_detail');
     Route::post('/shortcourse_detail/store','ProjectActivities\ShortcourseController@SaveCourse_detail')->name('shortcourse_detail.savedata');
     Route::delete('/shortcourse-detail/delete/{id}','ProjectActivities\ShortcourseController@ShortCoursedetail_delete')->name('shortcourse_detail.destroy');                                
-                //=================View Course Detail==============Ratha
+  //=================View Course Detail==============Ratha
     Route::get('/shortcourse/detail/{id}','ProjectActivities\ShortcourseController@ViewCourseDetail')->name('projects.coursedetail');
-              //=================Update Overalfund==============
+  //=================Update Overalfund==============
     Route::get('shortCourse_detail/editFund','ProjectActivities\ShortcourseController@editFund')->name('projects.coursedetail.editfund');
     Route::post('shortCourse_detail/updateFund','ProjectActivities\ShortcourseController@updateFund')->name('projects.coursedetail.updatefund');
   //======================Long Course=============Ratha

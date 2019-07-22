@@ -1,7 +1,22 @@
-@extends('layouts.master')
+{{-- @extends('layouts.master')
 
 @section('css')
     <!-- page specific plugin styles -->
+@endsection --}}
+
+<?php $Flag=App()->getLocale();?>
+@extends('projectactivities.layout.master')
+
+@push('custom-css')
+<style>
+    .hidden{
+    display: none;
+    }
+</style>   
+@endpush
+
+@section('menu-panel')
+    @include('projectactivities.layout.menu.menu_admin')
 @endsection
 
 @section('content')
