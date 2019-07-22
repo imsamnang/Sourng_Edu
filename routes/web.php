@@ -925,6 +925,12 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
       
     // Student Project
       Route::get('/student-list','Student\StudentController@studentList')->name('student-list');
+      
+      Route::get('/student/view/{id}','Student\StudentController@view2')->name('project-student-view');
+      Route::get('/student/edit/{id}','Student\StudentController@edit2')->name('project-student-edit');
+      Route::post('/student/update/{id}','Student\StudentController@update2')->name('project-student-update'); 
+      Route::match(['get', 'post'],'/student/delete/{id}','Student\StudentController@delete2')->name('project-student-delete'); 
+
       Route::get('/student/registerv2','Student\StudentController@Register2');
       Route::post('/student/SaveRegister2','Student\StudentController@SaveRegister2')->name('studentRegister2.save');
       // Route::post('/SaveRegister2','ProjectActivities\StudentActivitiesController@store')->name('stu.pro.save');

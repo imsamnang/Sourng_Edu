@@ -60,7 +60,7 @@
                             <td> {{  ViewHelper::getSemesterTitle( $student->semester ) }}</td> --}}
                             {{--<td>{{ \Carbon\Carbon::parse($student->reg_date)->format('Y-m-d')}} </td>--}}
                             <td><a href="{{ $student->id }}">{{ $student->reg_no }}</a></td>
-                            <td><a href="{{ $student->id }}"> {{ $student->first_name.' '.$student->middle_name.' '. $student->last_name }}</a></td>
+                            <td><a href="{{ $data['url_view'].$student->id }}"> {{ $student->first_name.' '.$student->middle_name.' '. $student->last_name }}</a></td>
                             <td><div>
                                 @if ($flag=='kh')
                                     {{$student->gender==1?'ប':'ស'}}
@@ -95,15 +95,15 @@
 
                             <td>
                                 <div class="hidden-sm hidden-xs action-buttons">
-                                    <a href="#" class="btn btn-primary btn-minier btn-primary">
+                                    <a href="{{ $data['url_view'].$student->id }}" class="btn btn-primary btn-minier btn-primary">
                                         <i class="ace-icon fa fa-eye bigger-130"></i>
                                     </a>
 
-                                    <a href="#" class="btn btn-primary btn-minier btn-success">
+                                    <a href="{{ $data['url_edit'].$student->id }}" class="btn btn-primary btn-minier btn-success">
                                         <i class="ace-icon fa fa-pencil bigger-130"></i>
                                     </a>
 
-                                    <a href="#" class="btn btn-primary btn-minier btn-danger bootbox-confirm" >
+                                    <a href="{{ $data['url_delete'].$student->id }}" data-toggle="alert-delete" data-id="{{ $student->id }}" class="btn btn-primary btn-minier btn-danger bootbox-confirm" >
                                         <i class="ace-icon fa fa-trash-o bigger-130"></i>
                                     </a>
                                 </div>
@@ -114,14 +114,14 @@
                                         </button>
                                         <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
                                             <li>
-                                                <a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
+                                                <a href="{{ $data['url_view'].$student->id }}" class="tooltip-success" data-rel="tooltip" title="Edit">
                                                     <span class="blue">
                                                         <i class="ace-icon fa fa-eye bigger-120"></i>
                                                     </span>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="{{ $student->id}}" class="tooltip-success" data-rel="tooltip" title="Edit">
+                                                <a href="{{ $data['url_edit'].$student->id }}" class="tooltip-success" data-rel="tooltip" title="Edit">
                                                     <span class="green">
                                                         <i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
                                                     </span>
@@ -129,7 +129,7 @@
                                             </li>
 
                                             <li>
-                                                <a href="{{ $student->id }}" class="tooltip-error bootbox-confirm" data-rel="tooltip" title="Delete">
+                                            <a href="{{ $data['url_delete'].$student->id }}" data-toggle="alert-delete" data-id="{{ $student->id }}" class="tooltip-error bootbox-confirm" data-rel="tooltip" title="Delete">
                                                             <span class="red ">
                                                                 <i class="ace-icon fa fa-trash-o bigger-120"></i>
                                                             </span>

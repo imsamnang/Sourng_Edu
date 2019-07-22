@@ -1,43 +1,43 @@
 @extends('projectactivities.layout.master')
 
 @push('custom-css')
-    <!-- page specific plugin styles -->
-
+<!-- page specific plugin styles -->
+<meta name="_token" content="{{ csrf_token() }}" />
 @endpush
 
 @section('menu-panel')
-    @include('projectactivities.layout.menu.menu_admin')
+@include('projectactivities.layout.menu.menu_admin')
 @endsection
 
 @section('content')
-    <div class="main-content">
-        <div class="main-content-inner">
-            <div class="page-content">
-                {{-- @include('layouts.includes.template_setting') --}}
-                {{-- <div class="page-header">                    
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="page-content">
+            {{-- @include('layouts.includes.template_setting') --}}
+            {{-- <div class="page-header">                    
                 </div> --}}
-                <!-- /.page-header -->
-                <div class="row">
-                    <div class="col-xs-12 ">
-                        {{-- @include($view_path.'.includes.buttons') --}}
-                        {{-- @include('includes.flash_messages') --}}
-                        <!-- PAGE CONTENT BEGINS -->
-                        {{-- @include('includes.validation_error_messages') --}}
-                        {{-- 
+            <!-- /.page-header -->
+            <div class="row">
+                <div class="col-xs-12 ">
+                    {{-- @include($view_path.'.includes.buttons') --}}
+                    {{-- @include('includes.flash_messages') --}}
+                    <!-- PAGE CONTENT BEGINS -->
+                    {{-- @include('includes.validation_error_messages') --}}
+                    {{-- 
                         <div class="form-horizontal ">
                             @include('projectactivities.students.includes.form')
                             <div class="hr hr-18 dotted hr-double"></div>
                         </div> 
                         --}}
-                    </div><!-- /.col -->
-                </div><!-- /.row -->
-                @include('projectactivities.students.includes.table')     
-            </div>
-            </div><!-- /.page-content -->
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+            @include('projectactivities.students.includes.table')
         </div>
-    </div>
-        
-    <!-- /.main-content -->
+    </div><!-- /.page-content -->
+</div>
+</div>
+
+<!-- /.main-content -->
 @endsection
 
 @push('custom-js')
@@ -138,14 +138,87 @@
 
     }
 
-
-    }
-
 </script>
 {{-- @include('includes.scripts.inputMask_script') --}}
 {{-- @include('includes.scripts.delete_confirm') --}}
 {{-- @include('includes.scripts.bulkaction_confirm') --}}
 {{-- @include('includes.scripts.datepicker_script') --}}
 @include('projectactivities.students.includes.dataTable_scripts')
+
+
+
+<script>
+    (function($){
+        var DeleteStudents = (function(){
+            var e = $('[data-toggle="alert-delete"]');
+                e.length &&
+                e.each(function() {
+                    $(this).on('click',function(e){
+                        e.preventDefault();
+                        var self    = $(this)
+                            url     = self.attr('href'),
+                            id      = self.attr('data-id'),
+                            _token  = $('meta[name="_token"]').attr('content');
+
+                            $.get(url).done(function(data){
+                                console.log(data)
+                            }).fail(function(error){                                
+                                var data = error.responseJSON;
+                                    swal.fire({
+                                        title: data.message.title,
+                                        text: data.message.text,
+                                        type: "warning",
+                                        showCancelButton: !0,
+                                        buttonsStyling: !1,
+                                        confirmButtonClass: "btn btn-danger",
+                                        confirmButtonText: data.message.button.confirm,
+                                        cancelButtonClass: "btn btn-secondary",
+                                        cancelButtonText: data.message.button.cancel,
+                                    }).then(e => {
+                                        if(e.value){
+                                            var formData = new FormData();
+                                                formData.append('id' ,id);
+                                                formData.append('_token' ,_token);
+                                            $.ajax({
+                                                url : url,
+                                                method : 'POST',
+                                                data: formData,
+                                                processData: false,
+                                                contentType: false,
+                                                success : function(data) {
+                                                    if(data.success){    
+                                                        self.parents('tr').remove();
+                                                        swal.fire({
+                                                            title: data.message.title,
+                                                            text: data.message.text,
+                                                            type: "success",
+                                                            buttonsStyling: !1,
+                                                            confirmButtonClass: "btn btn-primary",
+                                                            confirmButtonText: data.message.button.confirm,
+                                                        });                
+                                                    }
+                                                },
+                                                error :function(erorr){
+                                                    var data  = erorr.responseJSON;
+                                                    swal.fire({
+                                                        title: data.message.title,
+                                                        html:  data.errors +"<br>"+ data.message.text,
+                                                        type: "error",
+                                                        buttonsStyling: !1,
+                                                        confirmButtonClass: "btn btn-warning",
+                                                        confirmButtonText:data.message.button.confirm,
+                                                    });
+                                                }
+                                            });             
+                                        }          
+                                    });
+
+                            });     
+                                                
+                    });
+                });
+            })();                
+    })(jQuery);
+</script>
 
 @endpush

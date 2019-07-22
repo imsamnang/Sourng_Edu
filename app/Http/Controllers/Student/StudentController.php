@@ -995,6 +995,9 @@ class StudentController extends CollegeBaseController
       $data['student']=Student::all();
       $data['faculties'] = $this->activeFaculties();
       $data['url'] = URL::current();
+      $data['url_view']     = URL::to('/projects/student/view').'/';
+      $data['url_edit']     = URL::to('/projects/student/edit').'/';     
+      $data['url_delete']   = URL::to('/projects/student/delete').'/';     
       $data['filter_query'] = $this->filter_query;
       return view('projectactivities.students.index',compact('data')); 
     }
@@ -1063,5 +1066,423 @@ class StudentController extends CollegeBaseController
       return redirect()->back();    
     }
 
+
+
+
+    public function view2($id)
+    {
+      $data = [];
+      $data['student'] = Student::select('students.id','students.reg_no', 'students.reg_date', 'students.university_reg',
+          'students.faculty','students.semester', 'students.academic_status', 'students.first_name', 'students.middle_name',
+          'students.last_name', 'students.date_of_birth', 'students.gender', 'students.blood_group', 'students.nationality',
+          'students.mother_tongue', 'students.email', 'students.extra_info', 'students.status', 'pd.grandfather_first_name',
+          'pd.grandfather_middle_name', 'pd.grandfather_last_name', 'pd.father_first_name', 'pd.father_middle_name',
+          'pd.father_last_name', 'pd.father_eligibility', 'pd.father_occupation', 'pd.father_office', 'pd.father_office_number',
+          'pd.father_residence_number', 'pd.father_mobile_1', 'pd.father_mobile_2', 'pd.father_email', 'pd.mother_first_name',
+          'pd.mother_middle_name', 'pd.mother_last_name', 'pd.mother_eligibility', 'pd.mother_occupation', 'pd.mother_office',
+          'pd.mother_office_number', 'pd.mother_residence_number', 'pd.mother_mobile_1', 'pd.mother_mobile_2', 'pd.mother_email',
+          'ai.address', 'ai.state', 'ai.country', 'ai.temp_address', 'ai.temp_state', 'ai.temp_country', 'ai.home_phone',
+          'ai.mobile_1', 'ai.mobile_2', 'gd.id as guardian_id', 'gd.guardian_email','gd.guardian_first_name', 'gd.guardian_middle_name', 'gd.guardian_last_name',
+          'gd.guardian_eligibility', 'gd.guardian_occupation', 'gd.guardian_office', 'gd.guardian_office_number', 'gd.guardian_residence_number',
+          'gd.guardian_mobile_1', 'gd.guardian_mobile_2', 'gd.guardian_email', 'gd.guardian_relation', 'gd.guardian_address',
+          'students.student_image', 'pd.father_image', 'pd.mother_image', 'gd.guardian_image')
+          ->where('students.id','=',$id)
+          ->join('parent_details as pd', 'pd.students_id', '=', 'students.id')
+          ->join('addressinfos as ai', 'ai.students_id', '=', 'students.id')
+          ->join('student_guardians as sg', 'sg.students_id','=','students.id')
+          ->join('guardian_details as gd', 'gd.id', '=', 'sg.guardians_id')
+          ->first();
+
+      if (!$data['student']){
+          request()->session()->flash($this->message_warning, "Not a Valid Student");
+          return redirect()->route($this->base_route);
+      }
+
+      $data['fee_master'] = $data['student']->feeMaster()->orderBy('fee_due_date','desc')->get();
+      $data['fee_collection'] = $data['student']->feeCollect()->get();
+
+      /*total Calculation on Table Foot*/
+      $data['student']->fee_amount = $data['student']->feeMaster()->sum('fee_amount');
+      $data['student']->discount = $data['student']->feeCollect()->sum('discount');
+      $data['student']->fine = $data['student']->feeCollect()->sum('fine');
+      $data['student']->paid_amount = $data['student']->feeCollect()->sum('paid_amount');
+      $data['student']->balance =
+          ($data['student']->fee_amount - ($data['student']->paid_amount + $data['student']->discount))+ $data['student']->fine;
+
+      $data['document'] = Document::select('id', 'member_type','member_id', 'title', 'file','description', 'status')
+          ->where('member_type','=','student')
+          ->where('member_id','=',$data['student']->id)
+          ->orderBy('created_by','desc')
+          ->get();
+
+      $data['attendance'] = Attendance::select('attendances.id', 'attendances.attendees_type', 'attendances.link_id',
+          'attendances.years_id', 'attendances.months_id', 'attendances.day_1', 'attendances.day_2', 'attendances.day_3',
+          'attendances.day_4', 'attendances.day_5', 'attendances.day_6', 'attendances.day_7', 'attendances.day_8',
+          'attendances.day_9', 'attendances.day_10', 'attendances.day_11', 'attendances.day_12', 'attendances.day_13',
+          'attendances.day_14', 'attendances.day_15', 'attendances.day_16', 'attendances.day_17', 'attendances.day_18',
+          'attendances.day_19', 'attendances.day_20', 'attendances.day_21', 'attendances.day_22', 'attendances.day_23',
+          'attendances.day_24', 'attendances.day_25', 'attendances.day_26', 'attendances.day_27', 'attendances.day_28',
+          'attendances.day_29', 'attendances.day_30', 'attendances.day_31')
+          ->where('attendances.attendees_type', 1)
+          ->where('attendances.link_id',$data['student']->id)
+          ->join('students as s', 's.id', '=', 'attendances.link_id')
+          ->orderBy('attendances.years_id','asc')
+          ->orderBy('attendances.months_id','asc')
+          ->get();
+
+      $data['lib_member'] = LibraryMember::where([
+          'library_members.user_type' => 1,
+          'library_members.member_id' => $data['student']->id,
+      ])->first();
+
+      if($data['lib_member'] != null){
+          $data['books_history'] = $data['lib_member']->libBookIssue()->select('book_issues.id', 'book_issues.member_id',
+              'book_issues.book_id',  'book_issues.issued_on', 'book_issues.due_date','book_issues.return_date', 'b.book_masters_id',
+              'b.book_code', 'bm.title','bm.categories')
+              ->join('books as b','b.id','=','book_issues.book_id')
+              ->join('book_masters as bm','bm.id','=','b.book_masters_id')
+              ->orderBy('book_issues.issued_on', 'desc')
+              ->get();
+      }
+      $data['note'] = Note::select('created_at', 'id', 'member_type','member_id','subject', 'note', 'status')
+          ->where('member_type','=','student')
+          ->where('member_id','=', $data['student']->id)
+          ->orderBy('created_at','desc')
+          ->get();
+
+      $data['hostel_history'] = ResidentHistory::select('resident_histories.years_id', 'resident_histories.hostels_id',
+          'resident_histories.rooms_id', 'resident_histories.beds_id',
+          'resident_histories.history_type','resident_histories.created_at')
+          ->where([['r.user_type','=', 1],['r.member_id','=',$data['student']->id]])
+          ->join('residents as r', 'r.id', '=', 'resident_histories.residents_id')
+          ->join('beds as b', 'b.id', '=', 'resident_histories.beds_id')
+          ->orderBy('resident_histories.created_at')
+          ->get();
+      $data['academicInfos'] = $data['student']->academicInfo()->orderBy('sorting_order','asc')->get();
+     /*Exam Score*/
+        /*filter student with schedule subject markledger*/
+        $subject = $data['student']->markLedger()
+            //->select( 'exam_schedule_id',  'obtain_mark_theory', 'obtain_mark_practical','absent')
+            ->get();
+
+        //filter subject and joint mark from schedules;
+        $filteredSubject  = $subject->filter(function ($subject, $key) {
+            $joinSub = $subject->examSchedule()
+                ->first();
+
+            if($joinSub){
+                $subject->subjects_id = $joinSub->subjects_id;
+                $subject->full_mark_theory = $joinSub->full_mark_theory;
+                $subject->pass_mark_theory = $joinSub->pass_mark_theory;
+                $subject->full_mark_practical = $joinSub->full_mark_practical;
+                $subject->pass_mark_practical = $joinSub->pass_mark_practical;
+
+                /*attach exam detail*/
+                $subject->years_id = $joinSub->years_id;
+                $subject->months_id = $joinSub->months_id;
+                $subject->exams_id = $joinSub->exams_id;
+                $subject->faculty_id = $joinSub->faculty_id;
+                $subject->semesters_id = $joinSub->semesters_id;
+                return $subject;
+            }
+        });
+
+        $data['student']->markLedger->subjects = $filteredSubject;
+        $data['examScore'] = $data['student']->markLedger->subjects->groupBY('months_id');
+
+        /*Transport History*/
+        $data['transport_history'] = TransportHistory::select('transport_histories.id', 'transport_histories.years_id',
+            'transport_histories.routes_id', 'transport_histories.vehicles_id',  'transport_histories.history_type',
+            'transport_histories.created_at','tu.member_id','tu.user_type')
+            ->where([['tu.user_type','=', 1],['tu.member_id','=',$data['student']->id]])
+            ->join('transport_users as tu','tu.id','=','transport_histories.travellers_id')
+            ->orderBy('transport_histories.created_at')
+            ->get();
+
+        //login credential
+        $data['student_login'] = User::where([['role_id',6],['hook_id',$data['student']->id]])->first();
+        $data['guardian_login'] = User::where([['role_id',7],['hook_id',$data['student']->guardian_id]])->first();
+
+        $data['url'] = URL::current();             
+        $data['base_route']   = 'student';
+        $data['view_path']    = 'ProjectActivities/students';
+        $data['panel']        = '';
+        $data['folder_name']  = 'studentProfile';
+        $data['filter_query'] = [];
+
+        return view('ProjectActivities.students.detail.index', compact('data'));
+    }
+
+    public function edit2(Request $request, $id)
+    {
+      $data = [];      
+      $data['row'] = Student::select('students.id','students.reg_no', 'students.reg_date', 'students.university_reg',
+          'students.faculty','students.semester', 'students.academic_status', 'students.first_name', 'students.middle_name',
+          'students.last_name', 'students.date_of_birth', 'students.gender', 'students.blood_group', 'students.nationality',
+          'students.mother_tongue', 'students.email', 'students.extra_info','students.student_image', 'students.status',
+          'pd.grandfather_first_name',
+          'pd.grandfather_middle_name', 'pd.grandfather_last_name', 'pd.father_first_name', 'pd.father_middle_name',
+          'pd.father_last_name', 'pd.father_eligibility', 'pd.father_occupation', 'pd.father_office', 'pd.father_office_number',
+          'pd.father_residence_number', 'pd.father_mobile_1', 'pd.father_mobile_2', 'pd.father_email', 'pd.mother_first_name',
+          'pd.mother_middle_name', 'pd.mother_last_name', 'pd.mother_eligibility', 'pd.mother_occupation', 'pd.mother_office',
+          'pd.mother_office_number', 'pd.mother_residence_number', 'pd.mother_mobile_1', 'pd.mother_mobile_2', 'pd.mother_email',
+          'pd.father_image', 'pd.mother_image',
+          'ai.address', 'ai.state', 'ai.country', 'ai.temp_address', 'ai.temp_state', 'ai.temp_country', 'ai.home_phone',
+          'ai.mobile_1', 'ai.mobile_2', 'gd.id as guardians_id', 'gd.guardian_first_name', 'gd.guardian_middle_name', 'gd.guardian_last_name',
+          'gd.guardian_eligibility', 'gd.guardian_occupation', 'gd.guardian_office', 'gd.guardian_office_number',
+          'gd.guardian_residence_number', 'gd.guardian_mobile_1', 'gd.guardian_mobile_2', 'gd.guardian_email',
+          'gd.guardian_relation', 'gd.guardian_address', 'gd.guardian_image')
+          ->where('students.id','=',$id)
+          ->join('parent_details as pd', 'pd.students_id', '=', 'students.id')
+          ->join('addressinfos as ai', 'ai.students_id', '=', 'students.id')
+          ->join('student_guardians as sg', 'sg.students_id','=','students.id')
+          ->join('guardian_details as gd', 'gd.id', '=', 'sg.guardians_id')
+          ->first();
+
+      if (!$data['row'])
+          return parent::invalidRequest();
+      $data['gender']=Gender::all();
+      $data['faculties'] = $this->activeFaculties();
+      $semester = Semester::select('id', 'semester')->where('id','=',$data['row']->semester)->Active()->pluck('semester','id')->toArray();
+      $data['semester'] = array_prepend($semester,'Select Semester',0);
+      $academicStatus = StudentStatus::select('id', 'title')->Active()->pluck('title','id')->toArray();
+      $data['academic_status'] = array_prepend($academicStatus,'Select Status',0);
+      $data['academicInfo'] = $data['row']->academicInfo()->orderBy('sorting_order','asc')->get();
+      $data['academicInfo-html'] = view($this->view_path.'.registration.includes.forms.academic_tr_edit', [
+          'academicInfos' => $data['academicInfo']
+      ])->render();
+
+
+        $data['base_route']   = 'student';
+        $data['view_path']    = '/ProjectActivities/students';
+        $data['url_update']   = URL::to('/projects/student/update').'/';
+        $data['panel']        = '';
+        $data['folder_name']  = 'studentProfile';
+        $data['filter_query'] = [];
+
+        //return view('ProjectActivities.students.detail.index', compact('data'));
+      return view('ProjectActivities.students.registration.edit', compact('data'));
+    }
+
+    public function update2(EditValidation $request, $id)
+    {
+    
+      if (!$row = Student::find($id))
+          return parent::invalidRequest();
+      if ($request->hasFile('student_main_image')) {
+        // remove old image from folder
+        if (file_exists($this->folder_path.$row->student_image))
+            @unlink($this->folder_path.$row->student_image);
+        /*upload new student image*/
+        $student_image = $request->file('student_main_image');
+        $student_image_name = $request->reg_no.'.'.$student_image->getClientOriginalExtension();
+        $student_image->move($this->folder_path, $student_image_name);
+      }
+      $request->request->add(['updated_by' => auth()->user()->id]);
+      $request->request->add(['student_image' => isset($student_image_name)?$student_image_name:$row->student_image]);
+      $student = $row->update($request->all());
+      /*Update Associate Address Info*/
+      $row->address()->update([
+         'address'    =>  $request->address,
+         'state'      =>  $request->state,
+         'country'    =>  $request->country,
+         'temp_address' =>  $request->temp_address,
+         'temp_state' =>  $request->temp_state,
+         'temp_country' =>  $request->temp_country,
+         'home_phone'   =>  $request->home_phone,
+         'mobile_1'   =>  $request->mobile_1,
+         'mobile_2'   =>  $request->mobile_2
+     ]);
+      /*Update Associate Parents Info with Images*/
+      $parent = $row->parents()->first();
+      $guardian = $row->guardian()->first();
+      $parential_image_path = public_path().DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'parents'.DIRECTORY_SEPARATOR;
+      if ($request->hasFile('father_main_image')){
+          // remove old image from folder
+          if (file_exists($parential_image_path.$parent->father_image))
+              @unlink($parential_image_path.$parent->father_image);
+
+          $father_image = $request->file('father_main_image');
+          $father_image_name = $row->reg_no.'_father.'.$father_image->getClientOriginalExtension();
+          $father_image->move($parential_image_path, $father_image_name);
+      }
+      if ($request->hasFile('mother_main_image')){
+          // remove old image from folder
+          if (file_exists($parential_image_path.$parent->mother_image))
+              @unlink($parential_image_path.$parent->mother_image);
+          $mother_image = $request->file('mother_main_image');
+          $mother_image_name = $row->reg_no.'_mother.'.$mother_image->getClientOriginalExtension();
+          $mother_image->move($parential_image_path, $mother_image_name);
+      }
+      if ($request->hasFile('guardian_main_image')){
+          // remove old image from folder
+          if (file_exists($parential_image_path.$guardian->guardian_image))
+              @unlink($parential_image_path.$guardian->guardian_image);
+          $guardian_image = $request->file('guardian_main_image');
+          $guardian_image_name = $row->reg_no.'_guardian.'.$guardian_image->getClientOriginalExtension();
+          $guardian_image->move($parential_image_path, $guardian_image_name);
+      }
+      $father_image_name = isset($father_image_name)?$father_image_name:$parent->father_image;
+      $mother_image_name = isset($mother_image_name)?$mother_image_name:$parent->mother_image;
+      $guardian_image_name = isset($guardian_image_name)?$guardian_image_name:$guardian->guardian_image;
+      $row->parents()->update([
+          'grandfather_first_name'    =>  $request->grandfather_first_name,
+          'grandfather_middle_name'   =>  $request->grandfather_middle_name,
+          'grandfather_last_name'     =>  $request->grandfather_last_name,
+          'father_first_name'         =>  $request->father_first_name,
+          'father_middle_name'        =>  $request->father_middle_name,
+          'father_last_name'          =>  $request->father_last_name,
+          'father_eligibility'        =>  $request->father_eligibility,
+          'father_occupation'         =>  $request->father_occupation,
+          'father_office'             =>  $request->father_office,
+          'father_office_number'      =>  $request->father_office_number,
+          'father_residence_number'   =>  $request->father_residence_number,
+          'father_mobile_1'           =>  $request->father_mobile_1,
+          'father_mobile_2'           =>  $request->father_mobile_2,
+          'father_email'              =>  $request->father_email,
+          'mother_first_name'         =>  $request->mother_first_name,
+          'mother_middle_name'        =>  $request->mother_middle_name,
+          'mother_last_name'          =>  $request->mother_last_name,
+          'mother_eligibility'        =>  $request->mother_eligibility,
+          'mother_occupation'         =>  $request->mother_occupation,
+          'mother_office'             =>  $request->mother_office,
+          'mother_office_number'      =>  $request->mother_office_number,
+          'mother_residence_number'   =>  $request->mother_residence_number,
+          'mother_mobile_1'           =>  $request->mother_mobile_1,
+          'mother_mobile_2'           =>  $request->mother_mobile_2,
+          'mother_email'              =>  $request->mother_email,
+          'father_image'              =>  $father_image_name,
+          'mother_image'              =>  $mother_image_name
+      ]);
+      //if guardian link modified or not condition
+      if($request->guardian_link_id == null){
+          $sgd = $row->guardian()->first();
+          $guardiansInfo = [
+              'guardian_first_name'         =>  $request->guardian_first_name,
+              'guardian_middle_name'        =>  $request->guardian_middle_name,
+              'guardian_last_name'          =>  $request->guardian_last_name,
+              'guardian_eligibility'        =>  $request->guardian_eligibility,
+              'guardian_occupation'         =>  $request->guardian_occupation,
+              'guardian_office'             =>  $request->guardian_office,
+              'guardian_office_number'      =>  $request->guardian_office_number,
+              'guardian_residence_number'   =>  $request->guardian_residence_number,
+              'guardian_mobile_1'           =>  $request->guardian_mobile_1,
+              'guardian_mobile_2'           =>  $request->guardian_mobile_2,
+              'guardian_email'              =>  $request->guardian_email,
+              'guardian_relation'           =>  $request->guardian_relation,
+              'guardian_address'            =>  $request->guardian_address,
+              'guardian_image'              =>  $guardian_image_name
+          ];
+          GuardianDetail::where('id',$sgd->guardians_id)->update($guardiansInfo);
+      }else{
+        $studentGuardian = StudentGuardian::where('students_id', $row->id)->update([
+            'students_id' => $row->id,
+            'guardians_id' => $request->guardian_link_id,
+        ]);
+      }
+      /*Academic Info Start*/
+      if ($row && $request->has('institution')) {
+          foreach ($request->get('institution') as $key => $institute) {
+              $academicInfoExist = AcademicInfo::where([['students_id','=',$row->id],['institution','=',$institute]])->first();
+              if($academicInfoExist){
+                  $academicInfoUpdate = [
+                      'students_id' => $row->id,
+                      'institution' => $institute,
+                      'board' => $request->get('board')[$key],
+                      'pass_year' => $request->get('pass_year')[$key],
+                      'symbol_no' => $request->get('symbol_no')[$key],
+                      'percentage' => $request->get('percentage')[$key],
+                      'division_grade' => $request->get('division_grade')[$key],
+                      'major_subjects' => $request->get('major_subjects')[$key],
+                      'remark' => $request->get('remark')[$key],
+                      'sorting_order' => $key+1,
+                      'last_updated_by' => auth()->user()->id
+                  ];
+                  $academicInfoExist->update($academicInfoUpdate);
+              }else{
+                  AcademicInfo::create([
+                      'students_id' => $row->id,
+                      'institution' => $institute,
+                      'board' => $request->get('board')[$key],
+                      'pass_year' => $request->get('pass_year')[$key],
+                      'symbol_no' => $request->get('symbol_no')[$key],
+                      'percentage' => $request->get('percentage')[$key],
+                      'division_grade' => $request->get('division_grade')[$key],
+                      'major_subjects' => $request->get('major_subjects')[$key],
+                      'remark' => $request->get('remark')[$key],
+                      'sorting_order' => $key+1,
+                      'created_by' => auth()->user()->id,
+                  ]);
+              }
+
+          }
+      }
+      /*Academic Info End*/
+      //$request->session()->flash($this->message_success, $this->panel. ' Updated Successfully.');
+      //return redirect()->back();
+      return array(
+        'success' => true,
+        'error'   => [],
+        'message' => array(
+            'title'  => 'Success',
+            'text'   => 'Updated Successfully.',
+            'button' => array(
+                'confirm' => 'Ok',
+                'cancel'  => 'Cancel'
+            )
+        ),
+      );
+    }
+
+    public function delete2(Request $request, $id)
+    {
+        $response = array();
+
+        if ($request->method() === 'POST') {
+
+             if (!$row = Student::find($id)) return parent::invalidRequest();
+            // $row->delete();
+            // $request->session()->flash($this->message_success, $this->panel.' Deleted Successfully.');      
+            $delete = Student::where('id',$id)->update([ 
+                'status' => 0
+            ]);  
+
+            if ($delete)
+                $response = array(
+                    'success' => true,
+                    'error'   => [],
+                    'data'    => $row,
+                    'message' => array(
+                        'title'  => 'Success',
+                        'text'   => 'Updated Successfully.',
+                        'button' => array(
+                            'confirm' => 'Ok',
+                            'cancel'  => 'Cancel'
+                        )
+                    ),
+              );
+        }else{
+            $response       = array(
+                "success"   => false,
+                "errors"    => 'Can\'t access, this link not work in URL ADDRESS.',
+            );
+
+            $response = response(
+                array(
+                    "success"   => false,
+                    "message"   => array(
+                        'title' => ('are_you_sure.?'),
+                        'text'  => ('you_wont_be_able_to_revert_this.!'),
+                        'button'   => array(
+                            'confirm' => ('yes_delete_it.!'),
+                            'cancel'  => ('cancel'),
+                        ),
+                    ),
+                ),
+                403
+            );  
+        }
+        return $response;
+    }
 
 }

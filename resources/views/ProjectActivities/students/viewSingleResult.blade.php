@@ -71,6 +71,7 @@
   <!-- /.main-content -->
 @endsection
 
+
 @push('custom-js')
   @include('projectactivities.quizs.dataTable_scripts')
   @include('ProjectActivities.quizs.delete_confirm')

@@ -1,6 +1,6 @@
 <div class="clearfix hidden-print ">
     <div class="easy-link-menu align-left">
-        <a class="{!! request()->is('student')?'btn-success':'btn-primary' !!} btn-sm" href="{{ route('student') }}"><i class="fa fa-list" aria-hidden="true"></i>&nbsp;{{__('btn_Detail')}}</a>
+        <a class="{!! request()->is('student')?'btn-success':'btn-primary' !!} btn-sm" href="{{ route('student-list') }}"><i class="fa fa-list" aria-hidden="true"></i>&nbsp;{{__('btn_Detail')}}</a>
         <a class="{!! request()->is('student/registration*')?'btn-success':'btn-primary' !!} btn-sm" href="{{ route('student.registration') }}"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;{{__('btn_Registration')}}</a>
         <a class="{!! request()->is('student/import*')?'btn-success':'btn-primary' !!} btn-sm" href="{{ route('student.import') }}"><i class="fa fa-upload" aria-hidden="true"></i>&nbsp;{{__('btn_Bulk_Registration')}}</a>
         <a class="{!! request()->is('student/transfer*')?'btn-success':'btn-primary' !!} btn-sm" href="{{ route('student.transfer') }}"><i class="fa fa-exchange" aria-hidden="true"></i>&nbsp;{{__('btn_Transfer')}}</a>
