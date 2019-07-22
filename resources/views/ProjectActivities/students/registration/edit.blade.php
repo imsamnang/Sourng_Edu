@@ -55,47 +55,7 @@
     @include('includes.scripts.datepicker_script')
     {{--@include('includes.scripts.table_tr_sort')--}}
 
-    <script>
-        (function($){
-            var form = $('form#validation-form')
-                url  = form.attr('data-url');
-                form.attr('action',url)
-                    .removeAttr('data-url')
-                    .on('submit',function(e){
-                        e.preventDefault();    
-                        var formData = new FormData(e.target);
-
-                        $.ajax({
-                            url   : url,
-                            method: 'POST',
-                            data  : formData,
-                            processData: false,
-                            contentType: false,
-                            success:function(data){                                
-                                return  swal.fire({
-                                            title: data.message.title,
-                                            text: data.message.text,
-                                            type: "success",
-                                            buttonsStyling: !1,
-                                            confirmButtonClass: "btn btn-success",
-                                            confirmButtonText:data.message.button.confirm
-                                        });
-                            },
-                            error:function(error){
-                                var data  = erorr.responseJSON;
-                                return  swal.fire({
-                                            title: data.message.title,
-                                            text: data.message.text,
-                                            type: "error",
-                                            buttonsStyling: !1,
-                                            confirmButtonClass: "btn btn-warning",
-                                            confirmButtonText:data.message.button.confirm
-                                        });
-                            }
-                        });
-                    });
-        })(jQuery);
-    </script>
+<script src="{{asset('/vendor/custom-js/custom-js.js')}}"></script>
 @endsection
 
 

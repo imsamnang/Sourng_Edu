@@ -1259,17 +1259,23 @@ class StudentController extends CollegeBaseController
         $data['panel']        = '';
         $data['folder_name']  = 'studentProfile';
         $data['filter_query'] = [];
-
+        $data['Gender']=Gender::all();
+        $provinces= Province::all();
+      
         //return view('ProjectActivities.students.detail.index', compact('data'));
-      return view('ProjectActivities.students.registration.edit', compact('data'));
+      //return view('ProjectActivities.students.registration.edit', compact('data'));
+      return view('ProjectActivities.students.edit2', compact('data','provinces'));
     }
 
     public function update2(EditValidation $request, $id)
     {
+
+    
     
       if (!$row = Student::find($id))
           return parent::invalidRequest();
       if ($request->hasFile('student_main_image')) {
+       
         // remove old image from folder
         if (file_exists($this->folder_path.$row->student_image))
             @unlink($this->folder_path.$row->student_image);
@@ -1278,9 +1284,13 @@ class StudentController extends CollegeBaseController
         $student_image_name = $request->reg_no.'.'.$student_image->getClientOriginalExtension();
         $student_image->move($this->folder_path, $student_image_name);
       }
+
+   
       $request->request->add(['updated_by' => auth()->user()->id]);
       $request->request->add(['student_image' => isset($student_image_name)?$student_image_name:$row->student_image]);
       $student = $row->update($request->all());
+
+    
       /*Update Associate Address Info*/
       $row->address()->update([
          'address'    =>  $request->address,
@@ -1293,6 +1303,7 @@ class StudentController extends CollegeBaseController
          'mobile_1'   =>  $request->mobile_1,
          'mobile_2'   =>  $request->mobile_2
      ]);
+    
       /*Update Associate Parents Info with Images*/
       $parent = $row->parents()->first();
       $guardian = $row->guardian()->first();
@@ -1314,6 +1325,7 @@ class StudentController extends CollegeBaseController
           $mother_image_name = $row->reg_no.'_mother.'.$mother_image->getClientOriginalExtension();
           $mother_image->move($parential_image_path, $mother_image_name);
       }
+    
       if ($request->hasFile('guardian_main_image')){
           // remove old image from folder
           if (file_exists($parential_image_path.$guardian->guardian_image))
@@ -1325,61 +1337,68 @@ class StudentController extends CollegeBaseController
       $father_image_name = isset($father_image_name)?$father_image_name:$parent->father_image;
       $mother_image_name = isset($mother_image_name)?$mother_image_name:$parent->mother_image;
       $guardian_image_name = isset($guardian_image_name)?$guardian_image_name:$guardian->guardian_image;
-      $row->parents()->update([
-          'grandfather_first_name'    =>  $request->grandfather_first_name,
-          'grandfather_middle_name'   =>  $request->grandfather_middle_name,
-          'grandfather_last_name'     =>  $request->grandfather_last_name,
-          'father_first_name'         =>  $request->father_first_name,
-          'father_middle_name'        =>  $request->father_middle_name,
-          'father_last_name'          =>  $request->father_last_name,
-          'father_eligibility'        =>  $request->father_eligibility,
-          'father_occupation'         =>  $request->father_occupation,
-          'father_office'             =>  $request->father_office,
-          'father_office_number'      =>  $request->father_office_number,
-          'father_residence_number'   =>  $request->father_residence_number,
-          'father_mobile_1'           =>  $request->father_mobile_1,
-          'father_mobile_2'           =>  $request->father_mobile_2,
-          'father_email'              =>  $request->father_email,
-          'mother_first_name'         =>  $request->mother_first_name,
-          'mother_middle_name'        =>  $request->mother_middle_name,
-          'mother_last_name'          =>  $request->mother_last_name,
-          'mother_eligibility'        =>  $request->mother_eligibility,
-          'mother_occupation'         =>  $request->mother_occupation,
-          'mother_office'             =>  $request->mother_office,
-          'mother_office_number'      =>  $request->mother_office_number,
-          'mother_residence_number'   =>  $request->mother_residence_number,
-          'mother_mobile_1'           =>  $request->mother_mobile_1,
-          'mother_mobile_2'           =>  $request->mother_mobile_2,
-          'mother_email'              =>  $request->mother_email,
-          'father_image'              =>  $father_image_name,
-          'mother_image'              =>  $mother_image_name
-      ]);
+
+
+    //   $row->parents()->update([
+    //       'grandfather_first_name'    =>  $request->grandfather_first_name,
+    //       'grandfather_middle_name'   =>  $request->grandfather_middle_name,
+    //       'grandfather_last_name'     =>  $request->grandfather_last_name,
+    //       'father_first_name'         =>  $request->father_first_name,
+    //       'father_middle_name'        =>  $request->father_middle_name,
+    //       'father_last_name'          =>  $request->father_last_name,
+    //       'father_eligibility'        =>  $request->father_eligibility,
+    //       'father_occupation'         =>  $request->father_occupation,
+    //       'father_office'             =>  $request->father_office,
+    //       'father_office_number'      =>  $request->father_office_number,
+    //       'father_residence_number'   =>  $request->father_residence_number,
+    //       'father_mobile_1'           =>  $request->father_mobile_1,
+    //       'father_mobile_2'           =>  $request->father_mobile_2,
+    //       'father_email'              =>  $request->father_email,
+    //       'mother_first_name'         =>  $request->mother_first_name,
+    //       'mother_middle_name'        =>  $request->mother_middle_name,
+    //       'mother_last_name'          =>  $request->mother_last_name,
+    //       'mother_eligibility'        =>  $request->mother_eligibility,
+    //       'mother_occupation'         =>  $request->mother_occupation,
+    //       'mother_office'             =>  $request->mother_office,
+    //       'mother_office_number'      =>  $request->mother_office_number,
+    //       'mother_residence_number'   =>  $request->mother_residence_number,
+    //       'mother_mobile_1'           =>  $request->mother_mobile_1,
+    //       'mother_mobile_2'           =>  $request->mother_mobile_2,
+    //       'mother_email'              =>  $request->mother_email,
+    //       'father_image'              =>  $father_image_name,
+    //       'mother_image'              =>  $mother_image_name
+    //   ]);
+
+
+  
       //if guardian link modified or not condition
-      if($request->guardian_link_id == null){
-          $sgd = $row->guardian()->first();
-          $guardiansInfo = [
-              'guardian_first_name'         =>  $request->guardian_first_name,
-              'guardian_middle_name'        =>  $request->guardian_middle_name,
-              'guardian_last_name'          =>  $request->guardian_last_name,
-              'guardian_eligibility'        =>  $request->guardian_eligibility,
-              'guardian_occupation'         =>  $request->guardian_occupation,
-              'guardian_office'             =>  $request->guardian_office,
-              'guardian_office_number'      =>  $request->guardian_office_number,
-              'guardian_residence_number'   =>  $request->guardian_residence_number,
-              'guardian_mobile_1'           =>  $request->guardian_mobile_1,
-              'guardian_mobile_2'           =>  $request->guardian_mobile_2,
-              'guardian_email'              =>  $request->guardian_email,
-              'guardian_relation'           =>  $request->guardian_relation,
-              'guardian_address'            =>  $request->guardian_address,
-              'guardian_image'              =>  $guardian_image_name
-          ];
-          GuardianDetail::where('id',$sgd->guardians_id)->update($guardiansInfo);
-      }else{
-        $studentGuardian = StudentGuardian::where('students_id', $row->id)->update([
-            'students_id' => $row->id,
-            'guardians_id' => $request->guardian_link_id,
-        ]);
-      }
+    //   if($request->guardian_link_id == null){
+    //       $sgd = $row->guardian()->first();
+    //       $guardiansInfo = [
+    //           'guardian_first_name'         =>  $request->guardian_first_name,
+    //           'guardian_middle_name'        =>  $request->guardian_middle_name,
+    //           'guardian_last_name'          =>  $request->guardian_last_name,
+    //           'guardian_eligibility'        =>  $request->guardian_eligibility,
+    //           'guardian_occupation'         =>  $request->guardian_occupation,
+    //           'guardian_office'             =>  $request->guardian_office,
+    //           'guardian_office_number'      =>  $request->guardian_office_number,
+    //           'guardian_residence_number'   =>  $request->guardian_residence_number,
+    //           'guardian_mobile_1'           =>  $request->guardian_mobile_1,
+    //           'guardian_mobile_2'           =>  $request->guardian_mobile_2,
+    //           'guardian_email'              =>  $request->guardian_email,
+    //           'guardian_relation'           =>  $request->guardian_relation,
+    //           'guardian_address'            =>  $request->guardian_address,
+    //           'guardian_image'              =>  $guardian_image_name
+    //       ];
+        
+    //       GuardianDetail::where('id',$sgd->guardians_id)->update($guardiansInfo);
+    //   }else{
+    //     $studentGuardian = StudentGuardian::where('students_id', $row->id)->update([
+    //         'students_id' => $row->id,
+    //         'guardians_id' => $request->guardian_link_id,
+    //     ]);
+    //   }
+   
       /*Academic Info Start*/
       if ($row && $request->has('institution')) {
           foreach ($request->get('institution') as $key => $institute) {
@@ -1417,6 +1436,8 @@ class StudentController extends CollegeBaseController
 
           }
       }
+      
+     
       /*Academic Info End*/
       //$request->session()->flash($this->message_success, $this->panel. ' Updated Successfully.');
       //return redirect()->back();
@@ -1454,7 +1475,7 @@ class StudentController extends CollegeBaseController
                     'data'    => $row,
                     'message' => array(
                         'title'  => 'Success',
-                        'text'   => 'Updated Successfully.',
+                        'text'   => 'Delete Successfully.',
                         'button' => array(
                             'confirm' => 'Ok',
                             'cancel'  => 'Cancel'
