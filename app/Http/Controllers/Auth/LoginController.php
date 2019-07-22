@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use auth;
-use App\User;
 use App\Role;
+use App\User;
 // use Illuminate\Support\Facades\Request;
+use Carbon\Carbon;
 use App\Models\Subject;
 use Illuminate\Http\Request;
 use App\Models\GeneralSetting;
@@ -98,7 +99,13 @@ class LoginController extends Controller
 
     }
 
-
+    function authenticated(Request $request, $user)
+    {
+        $user->update([
+            'last_login_at' => Carbon::now()->toDateTimeString(),
+            'last_login_ip' => $request->getClientIp()
+        ]);
+    }
 
 
 
