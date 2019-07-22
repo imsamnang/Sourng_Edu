@@ -187,7 +187,7 @@
                 </div>
                 <div class="col-md-8">
                   <div class="form-group">
-                    <label for="teacher_name">{{ __('shortcoure_Village') }}</label>
+                    <label for="txt_village">{{ __('shortcoure_Village') }}</label>
                     <input type="text" name="txt_village" class="form-control input-sm" required="" style="width: 100%">
                   </div>            
                 </div>
