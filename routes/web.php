@@ -1035,3 +1035,10 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
 
 
 
+  // Login Logout Activities
+//   Route::group(['namespace' => 'LoginActivity\Http\Controllers', 'middleware' => ['web', 'auth']], function() {
+//     Route::get('login-activity', 'LoginActivityController@index');
+// });
+
+// Route::get('login-activity', 'LoginActivityController@index');
+
