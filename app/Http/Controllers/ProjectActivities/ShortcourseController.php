@@ -4,6 +4,7 @@ namespace App\Http\Controllers\ProjectActivities;
 use App\Http\Controllers\Controller;
 use App\Models\Commune;
 use App\Models\CourseShort;
+use App\Models\CourseShortTeacher;
 use App\Models\Courseshortstudent;
 use App\Models\CurriculumAuthor;
 use App\Models\CurriculumEndorsement;
@@ -14,6 +15,7 @@ use App\Models\Modality;
 use App\Models\OveralFund;
 use App\Models\Province;
 use App\Models\ShortcourseTeacher;
+use App\Models\Staff;
 use App\Models\Student;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -38,32 +40,34 @@ class ShortcourseController extends Controller
 
   public function ShortCourse(Request $request)
   {
-      $data = [];
-      $data['generalSetting'] = GeneralSetting::findOrFail(1)->first();
-      $data['ListCourse']=CourseShort::all();
-      $data['countStudentByCourse']=Courseshortstudent::WHERE('course_short_id',1)->count();
-      // return $data;
-      if(Auth::check()) {
-          return view('ProjectActivities.courses.shortcourse.index',compact('data'));
-      }else{
-          return redirect()->route('projects');
-      }
+    $data = [];
+    $data['generalSetting'] = GeneralSetting::findOrFail(1)->first();
+    $data['ListCourse']=CourseShort::all();
+    $data['countStudentByCourse']=Courseshortstudent::WHERE('course_short_id',1)->count();
+    // return $data;
+    if(Auth::check()) {
+        return view('ProjectActivities.courses.shortcourse.index',compact('data'));
+    }else{
+        return redirect()->route('projects');
+    }
   }
 
   function ShowForm()
-  {   $provinces= Province::all();
+  {   
+      $provinces= Province::all();
       $faculty= Faculty::WHERE('course_type_id',1)->get();
       $curriculum_End= CurriculumEndorsement::all();
       $curriculum_author=CurriculumAuthor::all();
       $modality=Modality::all();
       $overal_fund=OveralFund::all();
       $shortcourse= CourseShort::all();
-      return view('ProjectActivities.courses.shortcourse.add', compact('provinces','faculty','curriculum_End','curriculum_author','modality','overal_fund'));
+      $staffs = Staff::all();
+      return view('ProjectActivities.courses.shortcourse.add', compact('provinces','faculty','curriculum_End','curriculum_author','modality','overal_fund','staffs'));
   }
 
   function SaveCourse(Request $request)
   {
-  	$shortcourse=new CourseShort();
+    $shortcourse=new CourseShort();
     $shortcourse->course_code_id= $request->cbo_course_cod;
     $shortcourse->course_name= $request->txt_course_name;
     $shortcourse->overal_fund_id= $request->cbo_fund_overall;
@@ -79,7 +83,20 @@ class ShortcourseController extends Controller
     $shortcourse->end_date= $request->txt_end_date;
     $shortcourse->teacher_course_hour= $request->teaching_houre2;
     $shortcourse->create_date= now();
-    $shortcourse->save();
+    if($shortcourse->save()){
+      $staff_ids = $request->staff_id;
+      $teacherHours = $request->txt_teacher_hour;
+      for($count = 0; $count < count($staff_ids); $count++)
+      {
+       $data = array(
+        'course_short_id' => $shortcourse->id,
+        'staff_id' => $staff_ids[$count],
+        'total_hours'  => $teacherHours[$count]
+       );
+       $insert_data[]= $data; 
+      }
+      $cst = CourseShortTeacher::insert($insert_data);
+    }
     return redirect()->back()->with('success','Data Saved Successfully');
   }
 
@@ -130,7 +147,6 @@ class ShortcourseController extends Controller
       $shortcourse->save();
       // return redirect()->back()->with('success','Data Updated Successfully');
       return redirect()->Route('projects.shortcourse')->with('success','Updated Successfully');
-      
   }
 
   public function delete_shortcourse($id)
@@ -174,17 +190,16 @@ class ShortcourseController extends Controller
 
   function SaveCourse_detail(Request $request)
   {
-      //code Insert more data
-      foreach ($request->student_name as $student_id) {
-          $Courseshortstudent=new Courseshortstudent();
-          $Courseshortstudent->course_short_id= $request->cbo_faculty;
-          $Courseshortstudent->overal_fund_id= $request->cbo_overalfund;
-          $Courseshortstudent->institute_id= 1;
-          $Courseshortstudent->student_id= $student_id;
-          $Courseshortstudent->save();
-
-      }
-      return redirect()->back()->with('success','Data Saved Successfully');
+    //code Insert more data
+    foreach ($request->student_name as $student_id) {
+      $Courseshortstudent=new Courseshortstudent();
+      $Courseshortstudent->course_short_id= $request->cbo_faculty;
+      $Courseshortstudent->overal_fund_id= $request->cbo_overalfund;
+      $Courseshortstudent->institute_id= 1;
+      $Courseshortstudent->student_id= $student_id;
+      $Courseshortstudent->save();
+    }
+    return redirect()->back()->with('success','Data Saved Successfully');
   }
 
   public function ShortCoursedetail_delete($id)

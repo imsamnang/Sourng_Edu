@@ -1,11 +1,12 @@
 <?php  $flag = app()->getLocale();?>
-@extends('projectactivities.layout.master')
+@extends('Projectactivities.layout.master')
 
 @push('custom-css')
   <!-- page specific plugin styles -->
   <link rel="stylesheet" href="{{ asset('assets/font-awesome/4.5.0/css/font-awesome.min.css') }}" />
   <link rel="stylesheet" href="{{ asset('assets/css/jquery-ui.custom.min.css') }}" />
   <link rel="stylesheet" href="{{ asset('assets/css/bootstrap-datepicker3.min.css') }}" />
+  <link rel="stylesheet" href="{{ asset('assets/css/select2.min.css') }}" />
   <script type="text/javascript">
     function onCourseCodeChange(e) {
       var selectedText = e.options[e.selectedIndex].text;
@@ -15,17 +16,17 @@
   </script>
 @endpush
 @section('menu-panel')
-@include('projectactivities.layout.menu.menu_admin')
+@include('Projectactivities.layout.menu.menu_admin')
 @endsection
 
 @section('content')
-@if($message = Session::get('success'))
-<div class="alert alert-success">
-  <p>{{ $message }}</p>
-</div>
-@endif
+  @if($message = Session::get('success'))
+  <div class="alert alert-success">
+    <p>{{ $message }}</p>
+  </div>
+  @endif
 
-<div class="container">
+<div class="container wrapper">
   <div class="card table-bordered" style="margin-top: 25px; margin-left: 15px; margin-right: 15px; padding-left: 30px; padding-right: 30px; padding-bottom: 10px; padding-top: 5px; border-color: #79b0ce;">
     <h4 style=" margin-top: -25px; color: white; font-family: 'Khmer OS Battambang'; font-size:24px; background-color: #438eb9; padding: 10px;">{{ __('shortcoure_Register-Short-Course') }}</h4>     
     <div class="card-body">
@@ -33,10 +34,11 @@
         {{csrf_field()}}
         <input type="hidden" name="flag" value="{{ $flag }}" id="flag">
         <div class="row">
+          {{-- Course Code --}}
           <div class="col-md-6">
             <div class="form-group">
               <label for="reg_no">{{ __('shortcoure_Course-Code') }}</label>
-              <select style="width: 100%" name="cbo_course_cod" required="" onChange="onCourseCodeChange(this);">                         
+              <select style="width: 100%" name="cbo_course_cod" required="" onChange="onCourseCodeChange(this);">
                 @if ($flag=='kh')
                   <option selected disabled>សូមជ្រើសរើស </option>
                 @endif                    
@@ -53,14 +55,14 @@
               </select>
             </div>  
           </div>
-
+          {{-- Course Name --}}
           <div class="col-md-6">
               <div class="form-group">
                 <label for="course_name">{{ __('shortcoure_Course_Name') }}</label>
                 <input type="text" name="txt_course_name" id="txt_course_name" class="form-control input-sm" required="" style="width: 100%">
               </div> 
-            </div>
-
+            </div>          
+          {{-- Curriculum Author --}}
           <div class="col-md-6">
             <div class="form-group">
               <label for="curriculum-author">{{ __('shortcoure_Curriculum_Author') }}</label>
@@ -80,8 +82,8 @@
                 @endforeach
               </select>
             </div>
-          </div>         
-
+          </div>
+          {{-- Curriculum Endorsement --}}
           <div class="col-md-6">
               <div class="form-group">
                   <label for="curriculum">{{ __('shortcoure_Curriculum_Endorsement') }}</label>
@@ -122,7 +124,6 @@
                 </select>
               </div>
           </div>
-
           {{-- Modality --}}
           <div class="col-md-4">
               <div class="form-group">
@@ -132,8 +133,7 @@
                   <option selected disabled>សូមជ្រើសរើស </option>
                   @else
                   <option selected disabled>Please Choose </option>
-                  @endif
-  
+                  @endif  
                   @foreach ($modality as $row){
                   @if ($flag=='kh')
                   <option value="{{ $row->id }}">{{ $row->modality_kh}}</option>
@@ -143,8 +143,7 @@
                   @endforeach
                 </select>
               </div>
-            </div>
-
+          </div>
           {{-- Total Training Hours --}}
           <div class="col-md-2">
               <div class="form-group">
@@ -152,42 +151,32 @@
                 <input type="text" maxlength="4" name="txt_training_hour" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control input-sm" required="" style="width: 100%">
               </div>
           </div>
+          <hr>
 
-
-        {{-- Teacher 1 --}}
-        <div class="col-md-4">
-            <div class="form-group">
-              <label for="teacher_name">{{ __('shortcoure_Teacher_Name(1)') }}</label>
-              <input type="text" name="txt_teacher_record_1" required="" class="form-control input-sm" style="width: 100%">
-            </div>
-          </div>
-          <div class="col-md-2">
+         {{-- shortcourse teacher --}}
+          <div class="field_wrapper">
               <div class="form-group">
-                  <label for="teaching_houre">{{ __('shortcoure_Teaching_Houre(1)') }}</label>
-                  <input type="text" maxlength="4"  name="txt_teacher_hour_1" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required="" class="form-control input-sm" style="width: 100%">
+                <label for="teacher_name" class="col-sm-2 control-label">{{ __('Teacher Name') }}</label>
+                <div class="col-md-5">
+                  <select name="staff_id[]" id="staff_id" class="form-control select2" required="required">
+                    @foreach ($staffs as $staff)
+                      <option value="{{ $staff->id }}">{{ $staff->first_name }}</option>
+                    @endforeach
+                  </select>
                 </div>
-          </div>
-
-          {{-- Teacher 2 --}}
-          <div class="col-md-4">
-              <div class="form-group">
-                  <label for="teacher_name2">{{ __('shortcoure_Teacher_Name(2)') }}</label>
-                  <input type="text" name="txt_teacher_record_2" class="form-control input-sm" style="width: 100%">
+                <label for="teaching_houre" class="col-sm-1 control-label">{{ __('Hour') }}</label>
+                <div class="col-md-3">
+                  <input type="text" maxlength="4" name="txt_teacher_hour[]" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control col-md-10" style="width: 100%">
                 </div>
-          </div>
-
-          <div class="col-md-2">
-              <div class="form-group">
-                <label for="teaching_houre">{{ __('shortcoure_Teaching_Houre(2)') }}</label>
-                <input type="text" maxlength="4" name="txt_teacher_hour_2" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control input-sm" style="width: 100%">
+                <div class="col-md-1">
+                  <a href="javascript:void(0);" class="btn btn-success btn-xs add_button" title="Add field">Add</a>
+                </div>
               </div>
-          </div>
-          
-
+          </div> 
         </div>
         {{-- End Row --}}
-        <hr>
-
+        <div class="clearfix"></div>
+        <br>
         {{-- Location Training --}}        
         <div class="row">
           <div class="col-md-4">
@@ -289,107 +278,54 @@
     </div>
   </div> 
 </div>
-
-
-
 <div style="margin-top:20px;"></div>
 @endsection
 
 @push('custom-js')
-
 {{-- <script>
   $("#txt_training_hour").numeric({ negative: false }, function() { alert("No negative values"); this.value = ""; this.focus(); });
   $("#txt_teacher_hour_1").numeric({ negative: false }, function() { alert("No negative values"); this.value = ""; this.focus(); });
   $("#txt_teacher_hour_2").numeric({ negative: false }, function() { alert("No negative values"); this.value = ""; this.focus(); });
 </script> --}}
+  <script src="{{ asset('assets/js/select2.min.js') }}"></script>
   @include('includes.scripts.inputMask_script')
   @include('includes.scripts.datepicker_script')
-  <script>
-    $(document).ready(function(){
-    //positive integer only     
-    // distrct get data by provice change
-      var flag = $('#flag').val();
-      $('#province').change(function(){
-        var provinceID = $(this).val();
-        if(flag=='kh'){
-          var url = "{{url('get-district-list-kh')}}?province_id="+provinceID;
-          var appDistrict = '<option value="0" data-value="">ជ្រើសរើស ខ័ណ្ឌ/ស្រុក</option>';
-          var appCommune = '<option value="0" data-value="0">ជ្រើសរើស សង្កាត់/ឃុំ</option>';
-        }
-        if(flag=='en'){
-          var url = "{{url('get-district-list')}}?province_id="+provinceID;
-          var appDistrict = '<option value="0" data-value="">Select a Khan/District</option>';
-          var appCommune = '<option value="0" data-value="0">Select a Sangkat/Commune</option>';
-        }
-        if(provinceID>=1){
-          $.ajax({
-           type:"GET",
-           url:url,
-           success:function(res){               
-            if(res){
-              // $("#district").removeAttr('disabled');
-              $("#district" ).prop( "disabled", false );
-              $("#district").empty();
-              $("#district").append(appDistrict);
-              $.each(res,function(key,value){
-                $("#district").append('<option value="'+key+'">'+value+'</option>');
-              });           
-            }else{
-                 $("#district").empty();
-                 $("#district" ).prop( "disabled", true );
-                 $("#commune" ).prop( "disabled", true );
-              }
-            }
-          });
-        } else {
-          $("#district").empty();
-          $("#commune").empty();
-          $("#district").append(appDistrict);
-          $("#commune").append(appCommune);
-          $("#district" ).prop( "disabled", true );
-          $("#commune" ).prop( "disabled", true );
-        }      
-      });
-    // commune get data by district change    
-      $('#district').on('change',function(){
-        var districtID = $(this).val();
-        if(flag=='kh'){
-          var url = "{{url('get-commune-list-kh')}}?district_id="+districtID;
-          var appDistrict = '<option value="0" data-value="">ជ្រើសរើស ខ័ណ្ឌ/ស្រុក</option>';
-          var appCommune = '<option value="0" data-value="0">ជ្រើសរើស សង្កាត់/ឃុំ</option>';        
-        }      
-        if(flag=='en'){
-          var url = "{{url('get-commune-list')}}?district_id="+districtID;
-          var appDistrict = '<option value="0" data-value="">Select a Khan/District</option>';
-          var appCommune = '<option value="0" data-value="0">Select a Sangkat/Commune</option>';
-        }
-        if(districtID>=1){
-          $.ajax({
-           type:"GET",
-           url:url,
-           success:function(res){               
-            if(res){
-              $("#commune" ).prop( "disabled", false );
-              $("#commune").empty();
-              $("#commune").append(appCommune);
-              
-              $.each(res,function(key,value){
-                $("#commune").append('<option value="'+key+'">'+value+'</option>');
-              });
-              
-            }else{
-             $("#commune").empty();
-             $("#commune" ).prop( "disabled", true );
-           }
-         }
-       });
-        }else{
-          $("#commune").empty();
-          $("#commune").append(appCommune);
-          $("#commune" ).prop( "disabled", true );
-        }        
-      });
-    });   
-  </script>
-@endpush
+  @include('ProjectActivities.includes.provinces')
 
+<script type="text/javascript">
+  $('.select2').css('width','100%').select2({allowClear:true});
+  $(document).ready(function () {
+    var maxField = 3; //Input fields increment limitation
+    var addButton = $('.add_button'); //Add button selector
+    var wrapper = $('.field_wrapper'); //Input field wrapper
+    var fieldHTML =
+            '<div class="clearfix"></div>'+
+            '<div class="form-group"><label for="teacher_name" class="col-sm-2 control-label">Teacher Name</label><div class="col-md-5">'+
+            '<select name="staff_id[]" id="staff_id" class="form-control select2" required="required">'+
+            '@foreach ($staffs as $staff)'+
+                '<option value="{{ $staff->id }}">{{ $staff->first_name }}</option>'+
+            '@endforeach'+
+            '</select>'+
+            '</div><label for="teaching_houre" class="col-sm-1 control-label">Hour</label><div class="col-md-3"><input type="text" maxlength="4" name="txt_teacher_hour[]" oninput="this.value = this.value.replace(/[^0-9.]/g, "").replace(/('+ '"\."'+'.*'+')\./g, "$1");" class="form-control col-md-10" style="width: 100%"></div><div class="col-md-1"><a href="javascript:void(0);" class="btn btn-danger btn-xs remove_button" title="Add field">Del</a></div></div>';            
+    var x = 1; //Initial field counter is 1
+    //Once add button is clicked
+    $(addButton).click(function () {
+      //Check maximum number of input fields
+      if (x < maxField) {
+        x++; //Increment field counter
+        $(wrapper).append(fieldHTML); //Add field html
+        $('.select2').css('width','100%').select2({allowClear:true});
+      } else {
+        alert("Maximium is 3 rows");
+      }
+    });
+    //Once remove button is clicked
+    $(wrapper).on('click', '.remove_button', function (e) {
+      e.preventDefault();
+      $(this).parent('div').remove(); //Remove field html
+      x--; //Decrement field counter
+    });
+  });
+</script>
+
+@endpush
