@@ -332,7 +332,7 @@
           <input type="text" maxlength="4" name="txt_teacher_hour[]" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control col-md-10" style="width: 100%">
         </div>
         <div class="col-md-1">
-          <a href="javascript:void(0);" class="btn btn-danger btn-xs Delbutton" title="Add field">Add</a>
+          <a href="javascript:void(0);" class="btn btn-danger btn-xs Delbutton" title="Add field">Del</a>
         </div>
       </div>
   </div>      
