@@ -155,16 +155,34 @@
 
          {{-- shortcourse teacher --}}
           <div class="field_wrapper">
-              <div class="form-group">
-                <label for="teacher_name" class="col-sm-2 control-label">{{ __('Teacher Name') }}</label>
+              <div class="form-group control-group after-add-more">
+                <label for="teacher_name" class="col-sm-2 control-label">{{__('shortcoure_Teacher_Name') }}</label>
                 <div class="col-md-5">
                   <select name="staff_id[]" id="staff_id" class="form-control select2" required="required">
+                    @if($flag=='kh')
+                    {
+                      <option value="0">ជ្រើសខាងក្រោម៖ </option>
+                    }
+                    @endif
+                    @if($flag=='en')
+                    {
+                      <option value="0">Please Choose</option>
+                    }
+                    @endif                    
                     @foreach ($staffs as $staff)
-                      <option value="{{ $staff->id }}">{{ $staff->first_name }}</option>
+                      <?php
+                        $gender=$staff->gender;//ucfirst($stu->gender);
+                        if($flag=='kh'){
+                          $gender=$gender=='1'?'ប':'ស';
+                        }else {
+                          $gender=$gender=='1'?'M':'F';
+                        }                            
+                      ?>                     
+                      <option value="{{ $staff->id }}">{{ $staff->first_name }} - {{ $staff->last_name }} , {{ $gender }} , {{ Carbon\Carbon::parse($staff->date_of_birth)->format('Y-m-d') }} , ID:# {{ $staff->id }}</option>
                     @endforeach
                   </select>
                 </div>
-                <label for="teaching_houre" class="col-sm-1 control-label">{{ __('Hour') }}</label>
+                <label for="teaching_houre" class="col-sm-1 control-label">{{__('shortcoure_teacher_hours') }}</label>
                 <div class="col-md-3">
                   <input type="text" maxlength="4" name="txt_teacher_hour[]" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control col-md-10" style="width: 100%">
                 </div>
@@ -172,7 +190,8 @@
                   <a href="javascript:void(0);" class="btn btn-success btn-xs add_button" title="Add field">Add</a>
                 </div>
               </div>
-          </div> 
+          </div>
+     
         </div>
         {{-- End Row --}}
         <div class="clearfix"></div>
@@ -279,6 +298,44 @@
   </div> 
 </div>
 <div style="margin-top:20px;"></div>
+  <div class="field_wrapper_copy hide">
+      <div class="clearfix"></div>
+      <div class="form-group control-group">
+        <label for="teacher_name" class="col-sm-2 control-label">{{__('shortcoure_Teacher_Name') }}</label>
+        <div class="col-md-5">
+          <select name="staff_id[]" id="staff_id" class="form-control select2copy" required="required">
+            @if($flag=='kh')
+            {
+              <option value="0">ជ្រើសខាងក្រោម៖ </option>
+            }
+            @endif
+            @if($flag=='en')
+            {
+              <option value="0">Please Choose</option>
+            }
+            @endif                    
+            @foreach ($staffs as $staff)
+              <?php
+                $gender=$staff->gender;//ucfirst($stu->gender);
+                if($flag=='kh'){
+                  $gender=$gender=='1'?'ប':'ស';
+                }else {
+                  $gender=$gender=='1'?'M':'F';
+                }                            
+              ?>                     
+              <option value="{{ $staff->id }}">{{ $staff->first_name }} - {{ $staff->last_name }} , {{ $gender }} , {{ Carbon\Carbon::parse($staff->date_of_birth)->format('Y-m-d') }} , ID:# {{ $staff->id }}</option>
+            @endforeach
+          </select>
+        </div>
+        <label for="teaching_houre" class="col-sm-1 control-label">{{__('shortcoure_teacher_hours') }}</label>
+        <div class="col-md-3">
+          <input type="text" maxlength="4" name="txt_teacher_hour[]" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control col-md-10" style="width: 100%">
+        </div>
+        <div class="col-md-1">
+          <a href="javascript:void(0);" class="btn btn-danger btn-xs Delbutton" title="Add field">Add</a>
+        </div>
+      </div>
+  </div>      
 @endsection
 
 @push('custom-js')
@@ -294,35 +351,21 @@
 
 <script type="text/javascript">
   $('.select2').css('width','100%').select2({allowClear:true});
-  $(document).ready(function () {
-    var maxField = 3; //Input fields increment limitation
-    var addButton = $('.add_button'); //Add button selector
-    var wrapper = $('.field_wrapper'); //Input field wrapper
-    var fieldHTML =
-            '<div class="clearfix"></div>'+
-            '<div class="form-group"><label for="teacher_name" class="col-sm-2 control-label">Teacher Name</label><div class="col-md-5">'+
-            '<select name="staff_id[]" id="staff_id" class="form-control select2" required="required">'+
-            '@foreach ($staffs as $staff)'+
-                '<option value="{{ $staff->id }}">{{ $staff->first_name }}</option>'+
-            '@endforeach'+
-            '</select>'+
-            '</div><label for="teaching_houre" class="col-sm-1 control-label">Hour</label><div class="col-md-3"><input type="text" maxlength="4" name="txt_teacher_hour[]" oninput="this.value = this.value.replace(/[^0-9.]/g, "").replace(/('+ '"\."'+'.*'+')\./g, "$1");" class="form-control col-md-10" style="width: 100%"></div><div class="col-md-1"><a href="javascript:void(0);" class="btn btn-danger btn-xs remove_button" title="Add field">Del</a></div></div>';            
-    var x = 1; //Initial field counter is 1
-    //Once add button is clicked
-    $(addButton).click(function () {
-      //Check maximum number of input fields
+  $(document).ready(function() {
+      var maxField = 3; //Input fields increment limitation
+      var x = 1; //Initial field counter is 1
+    $(".add_button").click(function(){
       if (x < maxField) {
-        x++; //Increment field counter
-        $(wrapper).append(fieldHTML); //Add field html
-        $('.select2').css('width','100%').select2({allowClear:true});
+          x++; //Increment field counter
+          var html = $(".field_wrapper_copy").html();
+          $(".after-add-more").after(html);
+          $('.select2copy').removeClass('select2copy').addClass('select2copy2');
       } else {
         alert("Maximium is 3 rows");
       }
     });
-    //Once remove button is clicked
-    $(wrapper).on('click', '.remove_button', function (e) {
-      e.preventDefault();
-      $(this).parent('div').remove(); //Remove field html
+    $("body").on("click",".Delbutton",function(){
+      $(this).parents(".control-group").remove();
       x--; //Decrement field counter
     });
   });
