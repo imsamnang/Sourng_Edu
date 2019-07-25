@@ -12,7 +12,7 @@
 @endpush
 
 @section('menu-panel')
-    @include('projectactivities.layout.menu.menu_admin')
+    @include('projectactivities.layout.menu.menu_student')
 @endsection
 
 @section('content')
