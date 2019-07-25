@@ -67,8 +67,9 @@ class ShortcourseController extends Controller
 
   function SaveCourse(Request $request)
   {
+    return $request->all();
     $shortcourse=new CourseShort();
-    $shortcourse->course_code_id= $request->cbo_course_cod;
+    $shortcourse->course_code_id= $request->cbo_course_code;
     $shortcourse->course_name= $request->txt_course_name;
     $shortcourse->overal_fund_id= $request->cbo_fund_overall;
     $shortcourse->total_training_hour= $request->txt_training_hour;
