@@ -1034,6 +1034,14 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
 
 
 
+    // For Image 
+    Route::get('image','ZimageController@index');
+    Route::post('image/upload','ZimageController@store');
+    Route::post('image/rotate/{id}','ZimageController@rotate');
+    Route::post('image/delete/{id}','ZimageController@delete');
+    Route::post('image/save','ZimageController@save');
+
+
 
   // Login Logout Activities
 //   Route::group(['namespace' => 'LoginActivity\Http\Controllers', 'middleware' => ['web', 'auth']], function() {
