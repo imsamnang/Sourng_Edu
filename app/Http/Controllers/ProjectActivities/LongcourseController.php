@@ -33,7 +33,15 @@ class LongcourseController extends Controller
         $data = [];
         $generalSetting = GeneralSetting::findOrFail(1)->first();
       $data['LongCourses']=CourseLong::all();
+
+      if(auth()->user()->hasRole('admin-project')){
+        // return view('ProjectActivities.courses.shortcourse.index',compact('data'));
         return view('ProjectActivities.courses.longcourse.index',compact('data'));
+      }else{
+          return redirect()->route('home');
+      }
+
+        // return view('ProjectActivities.courses.longcourse.index',compact('data'));
 
     }
 

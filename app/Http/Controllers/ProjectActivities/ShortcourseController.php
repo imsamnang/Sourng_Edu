@@ -45,11 +45,19 @@ class ShortcourseController extends Controller
     $data['ListCourse']=CourseShort::all();
     $data['countStudentByCourse']=Courseshortstudent::WHERE('course_short_id',1)->count();
     // return $data;
-    if(Auth::check()) {
-        return view('ProjectActivities.courses.shortcourse.index',compact('data'));
+    // if(Auth::check()) {
+    //     return view('ProjectActivities.courses.shortcourse.index',compact('data'));
+    // }else{
+    //     return redirect()->route('projects');
+    // }
+
+    if(auth()->user()->hasRole('admin-project')){
+      return view('ProjectActivities.courses.shortcourse.index',compact('data'));
     }else{
-        return redirect()->route('projects');
+        return redirect()->route('home');
     }
+
+    
   }
 
   function ShowForm()

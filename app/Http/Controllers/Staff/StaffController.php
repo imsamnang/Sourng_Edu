@@ -452,7 +452,14 @@ class StaffController extends CollegeBaseController
 
         // return $data;
 
-        return view('projectactivities.staff.index', compact('data'));
+        if(auth()->user()->hasRole('admin-project')){
+            return view('projectactivities.staff.index', compact('data'));
+        }else{
+            return redirect()->route('home');
+        }
+
+
+        
     }
 
     public function staffAdd()
