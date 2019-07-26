@@ -16,41 +16,17 @@
             $('#dynamic-table')
             //.wrap("<div class='dataTables_borderWrap' />")   //if you are applying horizontal scrolling (sScrollX)
                 .DataTable( {
-                    bAutoWidth: false,
-                    "lengthMenu": [ [50, 100, 200, 300, 400, 500, -1], [50, 100, 200, 300, 400, 500, 'All'] ],
-                    /*"aoColumns": [
-                     { "bSortable": false },
-                     null, null,null, null, null,
-                     { "bSortable": false }
-                     ],*/
+                    bAutoWidth: false,				
+                    "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
                     "aaSorting": [],
-
-
-                    //"bProcessing": true,
-                    //"bServerSide": true,
-                    //"sAjaxSource": "http://127.0.0.1/table.php"	,
-
-                    //,
-                    //"sScrollY": "200px",
-                    //"bPaginate": false,
-
                    "sScrollX": "100%",
                    "sScrollXInner": "100%",
                     "bScrollCollapse": true,
-                    //Note: if you are applying horizontal scrolling (sScrollX) on a ".table-bordered"
-                    //you may want to wrap the table inside a "div.dataTables_borderWrap" element
-
-                    //"iDisplayLength": 50
-
-
-
                     select: {
                         style: 'multi'
                     }
                 } );
-
         $.fn.dataTable.Buttons.defaults.dom.container.className = 'dt-buttons btn-overlap btn-group btn-overlap';
-
         new $.fn.dataTable.Buttons( myTable, {
             buttons: [
                 {
@@ -91,22 +67,16 @@
             ]
         } );
         myTable.buttons().container().appendTo( $('.tableTools-container') );
-
-
         //style the message box
         var defaultCopyAction = myTable.button(1).action();
         myTable.button(1).action(function (e, dt, button, config) {
             defaultCopyAction(e, dt, button, config);
             $('.dt-button-info').addClass('gritter-item-wrapper gritter-info gritter-center white');
         });
-
-
         var defaultColvisAction = myTable.button(0).action();
         myTable.button(0).action(function (e, dt, button, config) {
 
             defaultColvisAction(e, dt, button, config);
-
-
             if($('.dt-button-collection > .dropdown-menu').length == 0) {
                 $('.dt-button-collection')
                     .wrapInner('<ul class="dropdown-menu dropdown-light dropdown-caret dropdown-caret" />')
@@ -114,9 +84,7 @@
             }
             $('.dt-button-collection').appendTo('.tableTools-container .dt-buttons')
         });
-
         ////
-
         setTimeout(function() {
             $($('.tableTools-container')).find('a.dt-button').each(function() {
                 var div = $(this).find(' > div').first();
@@ -124,7 +92,6 @@
                 else $(this).tooltip({container: 'body', title: $(this).text()});
             });
         }, 500);
-
         myTable.on( 'select', function ( e, dt, type, index ) {
             if ( type === 'row' ) {
                 $( myTable.row( index ).node() ).find('input:checkbox').prop('checked', true);

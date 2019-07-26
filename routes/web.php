@@ -1040,8 +1040,7 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
 	  Route::get('/export2', 'ExportExcelController@excel')->name('export2');
 
 
-
-    // For Image 
+  // For Image 
     Route::get('image','ZimageController@index');
     Route::post('image/upload','ZimageController@store');
     Route::post('image/rotate/{id}','ZimageController@rotate');

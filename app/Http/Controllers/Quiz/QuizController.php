@@ -29,9 +29,9 @@ class QuizController extends Controller
   public function front()
   {
     // DB::enableQueryLog();
-    $csStudent = Courseshortstudent::where('student_id',14)->get();
+    // $csStudent = Courseshortstudent::where('student_id',14)->get();
     // dd(DB::getQueryLog($csStudent));
-    return $csStudent;
+    // return $csStudent;
     $allQuiz= SubjectQuiz::whereNotIn('id',
                 QuizResults::where('user_id',Auth::user()->id)
                 ->pluck('subject_id'))

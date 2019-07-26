@@ -29,6 +29,5 @@
     @include('includes.scripts.bulkaction_confirm')
     @include('includes.scripts.dataTable_scripts')
     @include('includes.scripts.datepicker_script') --}}
-    {{-- @include('projectactivities.courses.shortcourse.includes.dataTable_scripts') --}}
-    @include('projectactivities.staff.includes.dataTable_scripts') 
+    @include('projectactivities.courses.shortcourse.includes.dataTable_scripts') 
 @endpush
