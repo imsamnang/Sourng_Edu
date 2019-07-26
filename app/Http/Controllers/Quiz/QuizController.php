@@ -2,16 +2,20 @@
 
 namespace App\Http\Controllers\Quiz;
 
-use App\Http\Controllers\Controller;
+use DB;
+use Auth;
+use App\Models\CourseShort;
 use App\Models\Quiz\Answer;
-use App\Models\Quiz\AverageScore;
+use Illuminate\Http\Request;
 use App\Models\Quiz\Question;
-use App\Models\Quiz\QuestionQuiz;
+use App\Models\Quiz\UserAnswer;
 use App\Models\Quiz\QuizResults;
 use App\Models\Quiz\SubjectQuiz;
-use App\Models\Quiz\UserAnswer;
-use Auth;
-use Illuminate\Http\Request;
+use App\Models\Quiz\AverageScore;
+use App\Models\Quiz\QuestionQuiz;
+
+use App\Models\Courseshortstudent;
+use App\Http\Controllers\Controller;
 
 class QuizController extends Controller
 {
@@ -24,7 +28,10 @@ class QuizController extends Controller
 
   public function front()
   {
-    
+    // DB::enableQueryLog();
+    $csStudent = Courseshortstudent::where('student_id',14)->get();
+    // dd(DB::getQueryLog($csStudent));
+    return $csStudent;
     $allQuiz= SubjectQuiz::whereNotIn('id',
                 QuizResults::where('user_id',Auth::user()->id)
                 ->pluck('subject_id'))
