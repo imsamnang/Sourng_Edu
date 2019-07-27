@@ -38,6 +38,7 @@ use Illuminate\Support\Facades\Validator;
 use Image, URL;
 use RealRashid\SweetAlert\Facades\Alert;
 use ViewHelper;
+use QrCode;
 
 class StudentController extends CollegeBaseController
 {
@@ -1218,8 +1219,22 @@ class StudentController extends CollegeBaseController
         $data['folder_name']  = 'studentProfile';
         $data['filter_query'] = [];
 
+        $QRCODE = array(
+            'id' => $data['student']->id,
+            'name' => $data['student']->first_name,
+            'postion'=> 'student'
+
+        );
+        $serialize  = serialize($QRCODE);
+        $encrypt    = base64_encode($serialize);       
+        $data['QRCODE'] = base64_encode(QrCode::format('png')
+            ->color(38, 38, 38, 0.85)
+            ->backgroundColor(255, 255, 255, 0.82)
+            ->size(200)
+            ->generate($encrypt));
         return view('ProjectActivities.students.detail.index', compact('data'));
     }
+    
 
     public function edit2(Request $request, $id)
     {

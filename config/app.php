@@ -185,6 +185,8 @@ return [
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
         // Export to Excel
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        //QRCode
+        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
 
 
 
@@ -250,6 +252,8 @@ return [
         'Pesapal' => Knox\Pesapal\Facades\Pesapal::class,
         // Export To Excel
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        
+        'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
 
 
     ],

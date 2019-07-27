@@ -924,10 +924,9 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
       Route::get('/student-course','ProjectActivities\ProjectActivitiesController@studentCourse')->name('student-course');
       
     // Student Project
-      Route::get('/student-list','Student\StudentController@studentList')->name('student-list');
-
-      
+      Route::get('/student-list','Student\StudentController@studentList')->name('student-list');      
       Route::get('/student/view/{id}','Student\StudentController@view2')->name('project-student-view');
+
       Route::get('/student/edit/{id}','Student\StudentController@edit2')->name('project-student-edit');
       Route::post('/student/update/{id}','Student\StudentController@update2')->name('project-student-update'); 
       Route::match(['get', 'post'],'/student/delete/{id}','Student\StudentController@delete2')->name('project-student-delete'); 
@@ -1040,12 +1039,18 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
 	  Route::get('/export2', 'ExportExcelController@excel')->name('export2');
 
 
-  // For Image 
-    Route::get('image','ZimageController@index');
-    Route::post('image/upload','ZimageController@store');
-    Route::post('image/rotate/{id}','ZimageController@rotate');
-    Route::post('image/delete/{id}','ZimageController@delete');
-    Route::post('image/save','ZimageController@save');
+
+    // For Image 
+    Route::get('/image','ZimageController@index');
+    Route::post('/image/upload','ZimageController@store');
+    Route::post('/image/rotate/{id}','ZimageController@rotate');
+    Route::post('/image/delete/{id}','ZimageController@delete');
+    Route::post('/image/save','ZimageController@save');
+
+    //For QR 
+    Route::get('/qr','ZqrController@index');
+    Route::get('/qr/code/{code}','ZqrController@code');
+    Route::post('/qr/code','ZqrController@code');
 
 
 

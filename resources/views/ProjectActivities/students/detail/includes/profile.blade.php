@@ -1,3 +1,4 @@
+
 <?php $flag=App()->getLocale();  ?>
 <div class="row">
     <div class="col-sm-12 align-right hidden-print">
@@ -14,7 +15,12 @@
                 @else
                     <img id="avatar" class="editable img-responsive" alt="{{ $data['student']->title }}" src="{{ asset('assets/images/avatars/profile-pic.jpg') }}" />
                 @endif
+                <div class="col-xs-8">
+                    <img src="data:image/png;base64,{{$data['QRCODE']}}">
+                    <span>Download this QR code.</span>
+                </div>
             </span>
+           
 
             <div class="space-4"></div>
             {{--<div class="width-80 label label-info label-xlg arrowed-in arrowed-in-right">
@@ -178,7 +184,7 @@
 
     </div>
 </div><!-- /.row -->
-<div class="row">
+<div class="row" hidden>
     <div class="space-6"></div>
     <div class="label label-info label-xlg arrowed-in arrowed-right arrowed">Permanent Address</div>
     <div class="space-6"></div>
@@ -380,8 +386,10 @@
         </div>
     </div>
 </div>
-
-<div class="row hidden-print">
+<div class="col-xs-12">
+    <span>See more at <a href="{{url('/qr')}}">QR Code Reader.</a></span>
+</div>
+<div class="row hidden-print" hidden>
     <div class="space-8"></div>
     <div class="col-xs-12 col-sm-3 center">
         <div>
