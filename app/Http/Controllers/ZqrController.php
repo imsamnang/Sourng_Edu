@@ -26,9 +26,16 @@ class ZqrController extends Controller
     }
 
     public function code(Request $request, $code = false){  
+  
         $response   = array();
         $qr         =  $code ? $code : $request->code;
-        $data       = base64_decode( $qr );
+        $check_qr   = explode('/',$qr);
+        $qr_type    = (count($check_qr) > 1) ? 'link' : 'code'; 
+        if($qr_type == 'link'){
+            $qr = end($check_qr);           
+        };
+
+        $data       = base64_decode( $qr );       
         $decrypt    = unserialize($data);                
         if(is_array($decrypt)){
             if(isset($decrypt['id'])){

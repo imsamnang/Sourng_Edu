@@ -1227,11 +1227,13 @@ class StudentController extends CollegeBaseController
         );
         $serialize  = serialize($QRCODE);
         $encrypt    = base64_encode($serialize);       
+        $QRCODE_N_URL = url('/qr/code').'/'.$encrypt;
+      
         $data['QRCODE'] = base64_encode(QrCode::format('png')
             ->color(38, 38, 38, 0.85)
             ->backgroundColor(255, 255, 255, 0.82)
             ->size(200)
-            ->generate($encrypt));
+            ->generate($QRCODE_N_URL));
         return view('ProjectActivities.students.detail.index', compact('data'));
     }
     
