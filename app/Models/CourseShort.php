@@ -4,22 +4,23 @@ namespace App\Models;
 
 use App\Models\Faculty;
 use App\Models\Modality;
-use App\Models\OveralFund;
 use App\Models\Province;
+use App\Models\OveralFund;
+use App\Models\CourseShortTeacher;
 use Illuminate\Database\Eloquent\Model;
 
 class CourseShort extends Model
 {
     protected $table = 'course_short';
 
-    public function faculty()
+    public function faculty()   
     {
-    	return $this->belongsTo(Faculty::class,'course_code_id');
+        return $this->belongsTo(Faculty::class, 'faculty_id','id');
     }
 
     public function overalFund()
     {
-    	return $this->belongsTo(OveralFund::class,'overal_fund_id');
+        return $this->belongsTo(OveralFund::class,'overal_fund_id');
     }
 
     public function modalityName()
@@ -41,7 +42,12 @@ class CourseShort extends Model
     {
         return $this->belongsTo(Commune::class,'commune_id','id');
     }
-    
+
+    public function courseShortTeacher()
+    {
+      return $this->hasMany(CourseShortTeacher::class, 'course_short_id');
+    } 
+
    
 
   }

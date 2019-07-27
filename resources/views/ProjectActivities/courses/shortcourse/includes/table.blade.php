@@ -67,12 +67,12 @@
                         <a href="{{ route('edit-shortcourse.edit',$row->id) }}" class="btn btn-primary btn-minier btn-success">
                           <i class="ace-icon fa fa-pencil bigger-130"></i>
                         </a>
-                          <button type="button" class="btn btn-xs btn-danger" onclick="deletePost({{$row->id}})" style="padding-left: 5px; padding-right: 5px; padding-top: 0px; padding-bottom: 0px;"><i class="ace-icon fa fa-trash-o bigger-130"></i></button>
-                          <form id="delete-form-{{$row->id}}" action="{{ route('delete-shortcourse.destroy', $row->id) }}"
-                            method="POST" style="display: none">
-                            @csrf
-                            @method('DELETE')
-                          </form>
+                        <form method="POST" action="{{ route('delete-shortcourse.destroy', $row->id) }}" accept-charset="UTF-8" style="display:inline" id="deleteObject-{{$row->id}}">
+                          {{csrf_field()}}
+                          {{method_field('DELETE')}}
+                          <a href="#" class="btn btn-xs btn-danger btn-minier" onclick="deleteObject({{$row->id}})"><i class="ace-icon fa fa-trash-o bigger-130"></i>
+                          </a>
+                        </form>  
                       </div>
                       <div class="hidden-md hidden-lg">
                         <div class="inline pos-rel">
@@ -93,17 +93,18 @@
                                   <i class="ace-icon fa fa-pencil bigger-120"></i>
                                 </span>
                               </a>
-                              {{-- <a href="{{ route('edit-shortcourse.edit',$row->id) }}" class="btn btn-primary btn-minier btn-success">
-                                <i class="ace-icon fa fa-pencil bigger-130"></i>
-                              </a> --}}
                             </li>
                             <li>
-                              <button type="button" class="btn btn-xs btn-danger" onclick="deletePost({{$row->id}})" style="padding-left: 5px; padding-right: 5px; padding-top: 0px; padding-bottom: 0px;"><i class="ace-icon fa fa-trash-o bigger-130"></i></button>
-
-                              <form id="delete-form-{{$row->id}}" action="{{ route('delete-shortcourse.destroy', $row->id) }}"
-                                method="POST" style="display: none">
-                                @csrf
-                                @method('DELETE')
+                              <form method="POST" action="{{ route('delete-shortcourse.destroy', $row->id) }}" accept-charset="UTF-8" style="display:inline" id="deleteObject-{{$row->id}}">
+                                {{csrf_field()}}
+                                {{method_field('DELETE')}}
+                                <a href="#" class="tooltip-error bootbox-confirm" onclick="deleteObject({{$row->id}})">
+                                  <center>                                    
+                                    <span class="red">
+                                      <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                                    </span>                               
+                                  </center>
+                                </a>
                               </form>
                             </li>
                           </ul>

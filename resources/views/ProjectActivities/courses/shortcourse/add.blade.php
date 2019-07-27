@@ -147,7 +147,7 @@
               <div class="form-group">
                 <label class="control-label col-xs-12 col-sm-3 no-padding-right">{{ __('shortcoure_Modality') }}</label>
                 <div class="col-xs-12 col-sm-9">
-                  <select style="width: 100%" name="cbo_fund_overall">
+                  <select style="width: 100%" name="cbo_modality">
                     @if ($flag=='kh')
                       <option selected disabled>សូមជ្រើសរើស </option>
                     @else
@@ -427,4 +427,3 @@
 
 
 @endpush
-

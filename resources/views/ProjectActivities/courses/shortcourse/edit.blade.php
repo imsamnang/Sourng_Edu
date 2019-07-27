@@ -1,263 +1,489 @@
 <?php  $flag = app()->getLocale();?>
-      
 @extends('projectactivities.layout.master')
 
-  @push('custom-css')
+@push('custom-css')
+<!-- page specific plugin styles -->
+<link rel="stylesheet" href="{{ asset('assets/font-awesome/4.5.0/css/font-awesome.min.css') }}" />
+<link rel="stylesheet" href="{{ asset('assets/css/jquery-ui.custom.min.css') }}" />
+<link rel="stylesheet" href="{{ asset('assets/css/bootstrap-datepicker3.min.css') }}" />
+{{-- <link rel="stylesheet" href="{{ asset('assets/css/chosen.min.css') }}" /> --}}
+<link rel="stylesheet" href="{{ asset('assets/css/select2.min.css') }}" />
+<style>
+  /* .col-md-12,.col-md-9,.col-md-8,.col-md-7,.col-md-6,.col-md-5,.col-md-4,.col-md-3.col-md-2,.newstyle {
+    position: relative;
+    min-height: 1px;
+    padding-left: 6px;
+    padding-right: 0px;
+  } */
+  a.btn.btn-success.btn-xs.add_button {
+    margin-left: -25px;      
+  }
+  a.btn.btn-danger.btn-xs.remove_button {
+    margin-left: -25px;
+  }    
+</style>
+@endpush
 
-  @endpush
+@section('menu-panel')
+@include('projectactivities.layout.menu.menu_admin')
+@endsection
 
-  @section('menu-panel')
-      @include('projectactivities.layout.menu.menu_admin')
-  @endsection
-
-  @section('content')
+@section('content')
   @if($message = Session::get('success'))
-    <div class="alert alert-success">
-      <p>{{ $message }}</p>
-    </div>
-    @endif
-  <div class="card table-bordered" style="margin-top: 15px; margin-left: 15px; margin-right: 15px; padding-left: 30px; padding-right: 30px; padding-bottom: 30px; padding-top: 5px; border-color: #79b0ce;">
-    <b><hr></b>
-    <h4 style="color: white; font-family: Arial; background-color: #438eb9; padding: 10px;">{{ __('shortcoure_EditShortCourse') }}</h4>
-    <b><hr></b>
-    <div class="card-body">
-      <form  action="{{ route('update-book.update',$shortcourse->id) }}" method="post" enctype="multipart/form-data">
-        {{csrf_field()}}
-        {{method_field('PUT')}}
-        <input type="hidden" name="flag" value="{{ $flag }}" id="flag">
-        <div class="row">
-          <div class="col-md-3">
-            <div class="form-group">
-              <label for="reg_no">{{ __('shortcoure_Course-Code') }}</label>                
-              <select style="width: 100%" name="cbo_course_cod" required="">                         
-                <option value="0">សូមជ្រើសរើស </option>
-                @foreach ($faculty as $faculty){
-                  @if ($flag=='kh')
-                  <option value="{{ $faculty->id }}"
-                    {{ $faculty->id==$data['faculty_selected']->id ?'selected':''}}
-                    >( {{ $faculty->id}} ) {{ $faculty->faculty_kh}}
-                  </option>
-                  @else
-                  <option value="{{ $faculty->id }}"
-                    {{ $faculty->id==$data['faculty_selected']->id ?'selected':''}}
-                    >( {{ $faculty->id}} ) {{ $faculty->faculty}}
-                  </option>                                  
-                  @endif                      
-                @endforeach
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="curriculum">{{ __('shortcoure_Curriculum_Endorsement') }}</label>
-              <select style="width: 100%" name="cbo_curr_endorsement" required="">                    
-                @foreach ($curriculum_End as $rows)
-                  @if ($flag=='kh')
-                  <option value="{{ $rows->id }}"
-                    {{ $rows->id==$shortcourse->curriculum_endorsement_id ?'selected':''}}
-                    >( {{ $rows->id}} ) {{ $rows->title_kh}}
-                  </option>
-                  @else
-                  <option value="{{ $rows->id }}"
-                    {{ $rows->id==$shortcourse->curriculum_endorsement_id ?'selected':''}}
-                    >( {{ $rows->id}} ) {{ $rows->title_en}}
-                  </option>
-                  @endif
-                @endforeach
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="teacher_name2">{{ __('shortcoure_Teacher_Name(2)') }}</label>
-              <input type="text" name="txt_teacher_record_2" class="form-control input-sm" style="width: 100%">
-            </div>
-          </div>
-
-          <div class="col-md-3">
-            <div class="form-group">
-              <label for="course_name">{{ __('shortcoure_Course_Name') }}</label>
-              <input type="text" name="txt_course_name" id="txt_course_name" value="{{ $shortcourse->course_name }}" class="form-control input-sm" required="" style="width: 100%">
-            </div>
-            <div class="form-group">
-              <label for="curriculum-author">{{ __('shortcoure_Curriculum_Author') }}</label>
-              <select style="width: 100%" name="cbo_curr_author" required="">
-                @foreach ($curriculum_author as $rows)
-                  @if ($flag=='kh')
-                  <option value="{{ $rows->id }}"
-                    {{ $rows->id==$shortcourse->curriculum_author_id ?'selected':''}}
-                    >( {{ $rows->id}} ) {{ $rows->title_kh}}
-                  </option>
-                  @else
-                  <option value="{{ $rows->id }}"
-                    {{ $rows->id==$shortcourse->curriculum_author_id ?'selected':''}}
-                    >( {{ $rows->id}} ) {{ $rows->title_en}}
-                  </option>
-                  @endif
-                @endforeach
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="teaching_houre">{{ __('shortcoure_Teaching_Houre(2)') }}</label>
-              <input type="text" name="txt_teacher_hour_2" class="form-control input-sm" value="{{ $shortcourse->teacher_course_hour }}" style="width: 100%">
-            </div>
-          </div>
-
-          <div class="col-md-3">
-            <div class="form-group">
-              <label for="overal_fund">{{ __('shortcoure_Overal-Fund') }}</label>
-              <select style="width: 100%" name="cbo_fund_overall">                         
-                @foreach ($overal_fund as $rows)
-                 @if ($flag=='kh')
-                  <option value="{{ $rows->id }}"
-                    {{ $rows->id==$shortcourse->overal_fund_id ?'selected':''}}
-                    >( {{ $rows->id}} ) {{ $rows->title_kh}}
-                  </option>
-                  @else
-                  <option value="{{ $rows->id }}"
-                    {{ $rows->id==$shortcourse->overal_fund_id ?'selected':''}}
-                    >( {{ $rows->id}} ) {{ $rows->title_en}}
-                  </option>
-                  @endif
-                @endforeach
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="teacher_name">{{ __('shortcoure_Teacher_Name(1)') }}</label>
-              <input type="text" name="txt_teacher_record_1" class="form-control input-sm" style="width: 100%">
-            </div>
-            <div class="form-group">
-              <label for="curriculum-author">{{ __('shortcoure_Modality') }}</label>
-              <select style="width: 100%" required="" name="cbo_modality">
-                @foreach ($modality as $rows)
-                  {{-- <option value="{{ $rows->id }}">{{ $rows->modality_en }} </option> --}}
-                  @if ($flag=='kh')
-                  <option value="{{ $rows->id }}"
-                    {{ $rows->id==$shortcourse->modality ?'selected':''}}
-                    >( {{ $rows->id}} ) {{ $rows->modality_kh}}
-                  </option>
-                  @else
-                  <option value="{{ $rows->id }}"
-                    {{ $rows->id==$shortcourse->overal_fund ?'selected':''}}
-                    >( {{ $rows->id}} ) {{ $rows->modality_en}}
-                  </option>
-                  @endif
-                @endforeach
-              </select>
-            </div>
-          </div>
-
-          <div class="col-md-3">
-            <div class="form-group">
-              <label for="houre">{{ __('shortcoure_Total_Training_Houre') }}</label>
-              <input type="text" name="txt_training_hour" class="form-control input-sm" value="{{ $shortcourse->total_training_hour }}" required="" style="width: 100%">
-            </div>
-            <div class="form-group">
-              <label for="teaching_houre">{{ __('shortcoure_Teaching_Houre(1)') }}</label>
-              <input type="text" name="txt_teacher_hour_1" class="form-control input-sm" style="width: 100%">
-            </div>
-          </div>
-        </div>
-        <b><hr></b>
-        <h4 style="color: white; font-family: Arial; background-color: #438eb9; padding: 10px;">{{ __('shortcoure_TrainingLocationDetail') }}</h4>
-        <b><hr></b>
-        <div class="row">
-          <div class="col-md-3">
-            <div class="form-group">
-              <label for="teacher_name">{{ __('shortcoure_Village') }}</label>
-              <input type="text" name="txt_tr_village" class="form-control input-sm" value="{{ $shortcourse->village }}" required="" style="width: 100%">
-            </div>
-            <div class="form-group">
-              <label for="teacher_name">{{ __('shortcoure_Start-Date') }}</label>
-              <input type="date" name="txt_start_date" class="form-control input-sm" value="{{ $shortcourse->start_date }}" required="" style="width: 100%">
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="form-group">
-              <label for="curriculum-author">{{ __('shortcoure_Province') }}</label>
-              <select style="width: 100%" name="cbo_province" id="province">
-                @foreach ($provinces as $key => $province)
-                  @if ($flag=='kh')
-                    @if ($province->id==$shortcourse->_province_id)
-                      <option value="{{$province->id}}" selected>{{$province->name_kh}}</option>
-                    @else
-                      <option value="{{$province->id}}">{{$province->name_kh}}</option>
+  <div class="alert alert-success">
+    <p>{{ $message }}</p>
+  </div>
+  @endif
+  <div class="container-fluid wrapper" style="margin-right: 20px; margin-left: 20px;">
+    <div class="tabbable"  style="margin-top:20px;">
+      <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4" style="background-color:;">
+        <li class="active">
+          <a style="font-family: 'Khmer OS Battambang'; font-size:18px; padding:10px 5px 10px 5px; " data-toggle="tab" href="#registrationinfo">{{ __('shortcoure_Register-Short-Course') }}</a>
+        </li>
+      </ul>
+      <div class="tab-content">
+        <form  action="{{ route('update.shortcourse',$shortcourse->id ) }}" method="post" enctype="multipart/form-data">
+          {{csrf_field()}}
+          {{method_field('PUT')}}
+          <input type="hidden" name="flag" value="{{ $flag }}" id="flag">
+          <div class="row">
+            {{-- Course Code & Course Name --}}
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-3 no-padding-right">{{ __('shortcoure_Course-Code') }}</label>
+                <div class="col-xs-12 col-sm-9">
+                  <select style="width: 100%" name="cbo_course_code" required="" onChange="onCourseCodeChange(this);">
+                    @if ($flag=='kh')
+                      <option selected disabled>សូមជ្រើសរើស </option>
                     @endif
-                  @else
-                    @if ($province->id==$shortcourse->id)
-                      <option value="{{$province->id}}" selected>{{$province->name_en}}</option>
-                    @else
-                      <option value="{{$province->id}}">{{$province->name_en}}</option>
+                    @if ($flag=='en')
+                      <option selected disabled>Please Choose </option>
                     @endif
-                  @endif
-                @endforeach
-              </select>
+                    @foreach ($faculty as $row){
+                      @if ($flag=='kh')
+                        <option value="{{ $row->id }}"
+                          {{$shortcourse->faculty_id== $row->id?'selected':''}}
+                          >{{ $row->faculty_kh}}</option>
+                          }
+                      @else
+                        <option value="{{ $row->id }}"
+                          {{$shortcourse->faculty_id== $row->id?'selected':''}}
+                          >{{ $row->faculty_en}}</option>
+                      @endif
+                    @endforeach
+                  </select>
+                </div>
+              </div>
             </div>
-            <div class="form-group">
-              <label for="teacher_name">{{ __('shortcoure_EndDate') }}</label>
-              <input type="date" name="txt_end_date" class="form-control input-sm" value="{{ $shortcourse->end_date }}" style="width: 100%">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-3 no-padding-right"> {{ __('shortcoure_Course_Name') }}</label>
+                <div class="col-xs-12 col-sm-9">
+                  <input type="text" name="txt_course_name" id="txt_course_name" class="form-control input-sm" required="" style="width: 100%" value="{{$shortcourse->course_name}}">
+                </div>
+              </div>
             </div>
-          </div>
-              <div class="col-md-3">
-                <div class="form-group">
-                  <label for="curriculum-author">{{ __('shortcoure_District') }}</label>
-                  <select style="width: 100%" name="district" required="" id="district">
+            {{-- Curriculum Author & Curriculum Endorsement --}}          
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-3 no-padding-right">{{ __('shortcoure_Curriculum_Author') }}</label>
+                <div class="col-xs-12 col-sm-9">
+                  <select style="width: 100%" name="cbo_curr_author" required="">
+                    @if ($flag=='kh')
+                      <option selected disabled>សូមជ្រើសរើស </option>
+                    @else
+                      <option selected disabled>Please Choose </option>
+                    @endif
+                    @foreach ($curriculum_author as $row){
+                      @if ($flag=='kh')
+                        <option value="{{ $row->id }}"
+                          {{$shortcourse->curriculum_author_id== $row->id?'selected':''}}
+                          >{{ $row->title_kh}}</option>
+                      @else
+                        <option value="{{ $row->id }}"
+                          {{$shortcourse->curriculum_author_id== $row->id?'selected':''}}
+                          >{{ $row->title_en}}</option>
+                      @endif
+                    @endforeach
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-3 no-padding-right">{{ __('shortcoure_Curriculum_Endorsement') }}</label>
+                <div class="col-xs-12 col-sm-9">
+                  <select style="width: 100%" name="cbo_curr_endorsement" required="">
+                    @if ($flag=='kh')
+                      <option selected disabled>សូមជ្រើសរើស </option>
+                    @else
+                      <option selected disabled>Please Choose </option>
+                    @endif
+                    @foreach ($curriculum_End as $row){
+                      @if ($flag=='kh')
+                        <option value="{{ $row->id }}"
+                          {{$shortcourse->curriculum_endorsement_id== $row->id?'selected':''}}
+                          >{{ $row->title_kh}}</option>
+                      @else
+                        <option value="{{ $row->id }}"
+                          {{$shortcourse->curriculum_endorsement_id== $row->id?'selected':''}}
+                          >{{ $row->title_en}}</option>
+                      @endif
+                    @endforeach
+                  </select>
+                </div>
+              </div>
+            </div>
+            {{-- Overal Fund --}}
+            <div class="col-md-5">
+              <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-3 no-padding-right">{{ __('shortcoure_Overal-Fund') }}</label>
+                <div class="col-xs-12 col-sm-9 ">
+                  <select style="width: 100%" name="cbo_fund_overall">
+                    @if ($flag=='kh')
+                    <option selected disabled>សូមជ្រើសរើស </option>
+                    @else
+                    <option selected disabled>Please Choose </option>
+                    @endif
+                    @foreach ($overal_fund as $row){
+                    @if ($flag=='kh')
+                    <option value="{{ $row->id }}"
+                      {{$shortcourse->overal_fund_id== $row->id?'selected':''}}
+                      >{{ $row->title_kh}}</option>
+                    @else
+                    <option value="{{ $row->id }}"
+                      {{$shortcourse->overal_fund_id== $row->id?'selected':''}}
+                      >{{ $row->title_en}}</option>
+                    @endif
+                    @endforeach
+                  </select>
+                </div>
+              </div>
+            </div>
+            {{-- Modality --}}
+            <div class="col-md-4 no-padding-right">
+              <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-3 no-padding-right">{{ __('shortcoure_Modality') }}</label>
+                <div class="col-xs-12 col-sm-9">
+                  <select style="width: 100%" name="cbo_modality">
+                    @if ($flag=='kh')
+                      <option selected disabled>សូមជ្រើសរើស </option>
+                    @else
+                      <option selected disabled>Please Choose </option>
+                    @endif
+                    @foreach ($modality as $row){
+                      @if ($flag=='kh')
+                        <option value="{{ $row->id }}"
+                          {{$shortcourse->modality_id== $row->id?'selected':''}}
+                          >{{ $row->modality_kh}}</option>
+                      @else
+                        <option value="{{ $row->id }}"
+                          {{$shortcourse->modality_id== $row->id?'selected':''}}
+                          >{{ $row->modality_en}}</option>                                  
+                      @endif
+                    @endforeach
+                  </select>
+                </div>
+              </div>
+            </div>            
+            {{-- training hours --}}
+            <div class="col-md-3 ">
+              <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-4 no-padding-right">{{ __('shortcoure_Total_Training_Hour') }}</label>
+                <div class="col-xs-12 col-sm-8">
+                <input type="text" value="{{$shortcourse->total_training_hour}}" maxlength="4" name="total_training_hour" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control input-sm" required="" style="width: 100%">
+                </div>
+              </div>
+            </div>
+            {{-- shortcourse teacher --}}
+            @foreach ($shortcourse->courseShortTeacher as $teacher)
+              <div class="field_wrapper" id="control-group">
+                <div class="col-md-6" >    
+                  <div class="form-group">
+                    <label class="control-label col-xs-12 col-sm-3 no-padding-right">{{__('shortcoure_Teacher_Name') }}</label>
+                    <div class="col-xs-12 col-sm-9">
+                      <select name="staff_id[]" id="staff_id" class="form-control select2" required="required">
+                        @if($flag=='kh')
+                        {
+                          <option value="0">ជ្រើសខាងក្រោម៖ </option>
+                        }
+                        @endif
+                        @if($flag=='en')
+                        {
+                          <option value="0">Please Choose</option>
+                        }
+                        @endif                    
+                        @foreach ($staffs as $staff)
+                          <?php
+                            $gender=$staff->gender;//ucfirst($stu->gender);
+                            if($flag=='kh'){
+                              $gender=$gender=='1'?'ប':'ស';
+                            }else {
+                              $gender=$gender=='1'?'M':'F';
+                            }                            
+                          ?>                     
+                          <option value="{{ $staff->id }}"
+                            {{$teacher->staff_id==$staff->id?'selected':''}}
+                            >{{ $staff->first_name }} - {{ $staff->last_name }} , {{ $gender }} , {{ Carbon\Carbon::parse($staff->date_of_birth)->format('Y-m-d') }} , ID:# {{ $staff->id }}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-5">    
+                      <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-3 no-padding-right">{{__('shortcoure_teacher_hours') }}</label>
+                        <div class="col-xs-12 col-sm-9">
+                        <input type="text" value="{{$teacher->total_hours}}" maxlength="4" name="txt_teacher_hour[]" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control input-sm" required="" style="width: 100%">
+                        </div>
+                      </div>
+                </div>
+                <div class="col-md-1">
+                  <a href="javascript:void(0);" class="btn btn-success btn-xs add_button" title="Add field">Add</a>
+                  <a href="javascript:void(0);" class="btn btn-danger btn-xs DelButton" title="Delete field">Del</a>
+                </div>
+              </div>
+            @endforeach
+            {{-- Tranining Location --}}
+            <div class="col-md-12" style="margin-bottom: 20px; margin-top: 20px">
+              <div class="form-group">
+                <b><label class="control-label col-xs-12 col-sm-3 no-padding-right" style="font-family: Khmer OS Battambang; font-size: 19px; color: orange;">{{ __('shortcoure_TrainingLocation_Detail') }}</label></b>
+              </div>
+            </div>
+            {{-- province district commune --}}
+            <div class="col-md-6 " style="margin-bottom: 10px;">
+              <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-3 no-padding-right">{{ __('shortcoure_Province') }}</label>
+                <div class="col-xs-12 col-sm-9">
+                  <select style="width: 100%" name="cbo_province" id="province">
+                    @if($flag=='kh')
+                    {
+                    <option value="0">ជ្រើសខាងក្រោម៖ </option>
+                    }
+                    @endif
+                    @if($flag=='en')
+                    {
+                    <option value="0">Please Choose</option>
+                    }
+                    @endif
+                    @foreach ($provinces as $row)
+                    @if($flag=='kh')
+                    {
+                    <option value="{{$row->id}}"
+                      {{$shortcourse->province_id==$row->id?'selected':''}}
+                      >{{ $row->name_kh }}</option>
+                    }
+                    @endif
+                    @if($flag=='en')
+                    {
+                    <option value="{{$row->id}}"
+                      {{$shortcourse->province_id==$row->id?'selected':''}}
+                      >{{ $row->name_en }}</option>
+                    }
+                    @endif
+                    @endforeach
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 " style="margin-bottom: 10px;">
+              <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-3 no-padding-right">{{ __('shortcoure_District') }}</label>
+                <div class="col-xs-12 col-sm-9">
+                  <select style="width: 100%" name="district" id="district" required="" >
+                    @if($flag=='kh')
+                    {
+                    <option value="0">ជ្រើសខាងក្រោម៖ </option>
+                    }
+                    @endif
+                    @if($flag=='en')
+                    {
+                    <option value="0">Please Choose</option>
+                    }
+                    @endif
                     @foreach ($districts as $district)
-                      @if ($flag=='kh')
-                        @if ($district->id==$shortcourse->district_id)
-                          <option value="{{$district->id}}" selected>{{$district->name_kh}}</option>
-                        @else
-                          <option value="{{$district->id}}">{{$district->name_kh}}</option>
-                        @endif
-                      @else
-                        @if ($rows->id==$shortcourse->district_id)
-                          <option value="{{$district->id}}" selected>{{$district->name_en}}</option>
-                        @else
-                          <option value="{{$district->id}}">{{$district->name_en}}</option>
-                        @endif
+                      @if ($flag=='kh')                          
+                        <option value="{{$district->id}}"
+                          {{$shortcourse->district_id==$district->id?'selected':''}}
+                          >{{$district->name_kh}}</option>
                       @endif
+                      @if ($flag=='en')                          
+                        <option value="{{$district->id}}"
+                          {{$shortcourse->district_id==$district->id?'selected':''}}
+                          >{{$district->name_en}}</option>
+                      @endif                      
                     @endforeach
                   </select>
                 </div>
               </div>
-              <div class="col-md-3">
-                <div class="form-group">
-                  <label for="curriculum-author">{{ __('shortcoure_Commune') }}</label>
-                  <select style="width: 100%" name="cbo_commune" required="" id="commune">
-                    @foreach ($communes as $commune) 
-                      @if ($flag=='kh')
-                        @if ($commune->id==$shortcourse->commune_id)
-                          <option value="{{$commune->id}}" selected>{{$commune->name_kh}}</option>
-                        @else
-                          <option value="{{$commune->id}}">{{$commune->name_kh}}</option>
-                        @endif
-                      @else
-                        @if ($commune->id==$shortcourse->commune_id)
-                          <option value="{{$commune->id}}" selected>{{$commune->name_en}}</option>
-                        @else
-                          <option value="{{$commune->id}}">{{$commune->name_en}}</option>
-                        @endif                      
+            </div>
+            <div class="col-md-6 " style="margin-bottom: 10px;">
+              <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-3 no-padding-right">{{ __('shortcoure_Commune') }}</label>
+                <div class="col-xs-12 col-sm-9">
+                  <select style="width: 100%" name="cbo_commune" id="commune" required="" >
+                    @if($flag=='kh')
+                    {
+                    <option value="0">ជ្រើសខាងក្រោម៖ </option>
+                    }
+                    @endif
+                    @if($flag=='en')
+                    {
+                    <option value="0">Please Choose</option>
+                    }
+                    @endif
+                    @foreach ($communes as $commune)
+                      @if ($flag=='kh')                          
+                        <option value="{{$commune->id}}"
+                          {{$shortcourse->commune_id==$commune->id?'selected':''}}
+                          >{{$commune->name_kh}}</option>
                       @endif
-                    @endforeach
+                      @if ($flag=='en')                          
+                        <option value="{{$commune->id}}"
+                          {{$shortcourse->commune_id==$commune->id?'selected':''}}
+                          >{{$commune->name_en}}</option>
+                      @endif                      
+                    @endforeach                    
                   </select>
                 </div>
               </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-10"></div>
-          <div class="col-md-2">
-            <a href="{{ route('projects.shortcourse') }}" class="btn btn-info btn-sm" style="float: right; margin-left: 5px;">{{ __('shortcoure_Back') }}</a>
-            <button type="submit" class="btn btn-primary btn-sm" style="float: right;">{{ __('shortcoure_Update') }}</button>
+            </div>
+            {{-- village row --}}
+            <div class="col-md-6 " style="margin-bottom: 10px;">
+              <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-3 no-padding-right">{{ __('shortcoure_Village') }}</label>
+                <div class="col-xs-12 col-sm-9">
+                <input type="text" value="{{$shortcourse->village}}" name="txt_tr_village" class="form-control input-sm" required="" style="width: 100%">
+                </div>
+              </div>
+            </div>
+            {{-- Start Date --}}
+            <div class="col-md-6 " style="margin-bottom: 10px;">
+              <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-3 no-padding-right">{{ __('shortcoure_Start-Date') }}</label>
+                <div class="col-xs-12 col-sm-9">
+                  <input type="date" value="{{$shortcourse->start_date}}" name="txt_start_date" class="form-control input-sm" required="" style="width: 100%">
+                </div>
+              </div>
+            </div>
+            {{-- End Date --}}
+            <div class="col-md-6 " style="margin-bottom: 10px;">
+              <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-3 no-padding-right">{{ __('shortcoure_EndDate') }}</label>
+                <div class="col-xs-12 col-sm-9">
+                  <input type="date" value="{{$shortcourse->end_date}}" name="txt_end_date" required="" class="form-control input-sm" style="width: 100%">
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-
-      </form>
+          {{-- submit button --}}
+          <div class="row">
+            <div class="col-md-10"></div>
+            <div class="col-md-2">
+              <a href="{{ route('projects.shortcourse') }}" class="btn btn-warning btn-sm" style="float: right; margin-left: 5px;">{{ __('shortcoure_Back') }}</a>
+              <button type="submit" class="btn btn-success btn-sm" style="float: right;">{{ __('shortcoure_Update') }}</button>
+            </div>
+          </div>
+        </form>           
+      </div>
     </div>
-  </div> 
-
-  @endsection
-
+  </div>
+@endsection
 @push('custom-js')
+{{-- <script>
+  $("#txt_training_hour").numeric({ negative: false }, function() { alert("No negative values"); this.value = ""; this.focus(); });
+  $("#txt_teacher_hour_1").numeric({ negative: false }, function() { alert("No negative values"); this.value = ""; this.focus(); });
+  $("#txt_teacher_hour_2").numeric({ negative: false }, function() { alert("No negative values"); this.value = ""; this.focus(); });
+</script> --}}
+@include('includes.scripts.inputMask_script')
+@include('includes.scripts.datepicker_script')
+@include('ProjectActivities.includes.provinces')
+{{-- <script src="{{ asset('assets/js/chosen.jquery.min.js') }}"></script> --}}
+<script src="{{ asset('assets/js/select2.min.js') }}"></script>
+{{-- <script src="{{ asset ('assets/js/jquery-typeahead.js') }}"></script> --}}
+<script type="text/javascript">
+  function onCourseCodeChange(e) {
+    var selectedText = e.options[e.selectedIndex].text;
+    selectedText=selectedText.replace(/\(\s+[0-9]+\s+\)/g, "");
+    document.getElementById("txt_course_name").value = selectedText;    
+  }
+</script>
+<script type="text/javascript">
+  $('.select2').css('width','100%').select2({allowClear:true});
+  $(document).ready(function () {
+      var maxField = 3; //Input fields increment limitation
+      var addButton = $('.add_button'); //Add button selector
+      var wrapper = $('.field_wrapper'); //Input field wrapper
+      var fieldHTML =
+        '<div class="clearfix"></div>'+
+        '<div class="field_wrapper control-group">'+
+          '<div class="col-md-6">'+
+            '<div class="form-group">'+
+              '<label class="control-label col-xs-12 col-sm-3 no-padding-right">{{__('shortcoure_Teacher_Name') }}</label>'+
+              '<div class="col-xs-12 col-sm-9">'+
+                '<select name="staff_id[]" id="staff_id" class="form-control select2" required="required">'+
+                  '@if($flag=="kh"){'+
+                    '<option value="0">ជ្រើសខាងក្រោម៖ </option>'+
+                  '}'+
+                  '@endif'+
+                  '@if($flag=="en"){'+
+                    '<option value="0">Please Choose</option>'+
+                  '}'+
+                  '@endif'+
+                  '@foreach ($staffs as $staff)'+
+                    '@if ($flag=="kh")'+
+                      '{{$genter = $staff->gender==1?"ប":"ស"}}'+
+                    '@endif'+
+                    '@if ($flag=="en")'+
+                      '{{$gender = $staff->gender==1?"M":"F"}}'+
+                    '@endif'+
+                      '{{ $bod = Carbon\Carbon::parse($staff->date_of_birth)->format('Y-m-d') }}'+
+                      '<option value="{{ $staff->id }}">{{ $staff->first_name }} - {{ $staff->last_name }} , {{$gender}} , {{$bod}}, ID:# {{ $staff->id }}</option>'+
+                  '@endforeach'+
+                '</select>'+
+              '</div>'+
+            '</div>'+
+          '</div>'+  
+          '<div class="col-md-5">'+
+            '<div class="form-group">'+
+              '<label class="control-label col-xs-12 col-sm-3 no-padding-right">{{__('shortcoure_teacher_hours') }}</label>'+
+              '<div class="col-xs-12 col-sm-9">'+
+                '<input type="text" maxlength="4" name="txt_teacher_hour[]" oninput="this.value = this.value.replace(/[^0-9.]/g, "").replace(/('+ '"\."'+'.*'+')\./g, "$1");" class="form-control col-md-10" required style="width: 100%">'+
+              '</div>'+
+            '</div>'+
+          '</div>'+
+          '<div class="col-md-1">'+
+            '<a href="javascript:void(0);" class="btn btn-danger btn-xs remove_button" title="Delete field">Del</a>'+
+          '</div>'+
+        '</div>';
+      var x = 1; //Initial field counter is 1
+      //Once add button is clicked
+      $(addButton).click(function () {
+        //Check maximum number of input fields
+        if (x < maxField) {
+          x++; //Increment field counter
+          $(wrapper).append(fieldHTML); //Add field html
+          $('.select2').css('width','100%').select2({allowClear:true});
+        } else {
+          alert("Maximium is 3 rows");
+        }
+      });
+      //Once remove button is clicked
+      // $(wrapper).on('click', '.remove_button', function (e) {
+      $("body").on("click",".remove_button",function(e){
+        e.preventDefault();
+        $(this).parents('.control-group').remove(); //Remove field html
+        x--; //Decrement field counter
+      });
 
-  @include('includes.scripts.inputMask_script')
-  @include('includes.scripts.datepicker_script')
-  @include('ProjectActivities.includes.provinces')
+      $("body").on("click",".DelButton",function(e){
+        e.preventDefault();
+        $(this).parents('#control-group').remove(); //Remove field html
+        x--; //Decrement field counter
+      });
+  });
+</script>
+
+
 @endpush
 
