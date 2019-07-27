@@ -1052,7 +1052,7 @@ class StudentController extends CollegeBaseController
       }
       if($stu->save()){
         $addressInfos=[
-            'created_by'=>1,
+            // 'created_by'=>1,
             'students_id'=>$stu->id,
             'created_by'=>$stu->created_by,
             'province_id'=>$request->cbo_province,
@@ -1069,7 +1069,39 @@ class StudentController extends CollegeBaseController
             'mobile_1'=>$request->mobile_1, 
             'mobile_2'=>$request->mobile_2          
             ];
+            // $new_password= bcrypt($request->get('password'));
+            $new_password=bcrypt(substr ($request->home_phone, -4));
+            // $new_password=substr ($request->home_phone, -4);
+
+        
+        // if ($request->hasFile('student_main_image')) {
+        //     $dir = 'images/user/';
+        //     $extension = strtolower($request->file('student_main_image')->getClientOriginalExtension()); // get image extension
+        //     $fileName = str_random() . '.' . $extension; // rename image
+        //     $request->file('student_main_image')->move($dir, $fileName);
+        //     $stu->student_image = $fileName;
+        // }
+
+        $StuAccessLogin=[
+            'name'=>$stu->first_name.' '.$stu->middle_name.' '.$stu->last_name,
+            'email'=>$stu->email,
+            'password'=>$new_password,
+            'address'=>$request->cbo_province,
+            'profile_image'=>$stu->student_image,
+            'role_id'=>6,
+            'hook_id'=>$stu->id,
+            'institute_id'=>Auth::user()->institute_id,
+            'created_at'=>$request->reg_date,
+            'contact_number'=>$request->home_phone,
+            'status'=>1
+
+            // $stu->created_by=Auth::user()->id
+
+        ];
+
           $StuAddress=Addressinfo::create($addressInfos);
+          $StuAccessLogin=User::create($StuAccessLogin);
+
       }
       // Alert::success('Success Title', 'Success Message');
       return redirect()->back();    

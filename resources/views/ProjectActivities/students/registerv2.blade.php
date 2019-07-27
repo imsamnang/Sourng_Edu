@@ -165,7 +165,7 @@
               <div class="form-group">
                 <label for="home_phone" class="col-sm-1 control-label">{{ __('st-register.Phone') }}</label>
                 <div class="col-sm-3">
-                  <input class="form-control border-form input-mask-phone" name="home_phone" type="text" id="home_phone">
+                  <input class="form-control border-form input-mask-phone" name="home_phone" type="text" id="home_phone" required>
                 </div>
                 <label for="mobile_1" class="col-sm-1 control-label">{{ __('st-register.Mobile1') }}</label>
                 <div class="col-sm-3">
