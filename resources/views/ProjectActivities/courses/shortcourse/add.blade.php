@@ -47,7 +47,7 @@
           <input type="hidden" name="flag" value="{{ $flag }}" id="flag">
           <div class="row">
             {{-- Course Code & Course Name --}}
-            <div class="col-md-6">
+            <div class="col-md-6" style="margin-bottom: 15px;">
               <div class="form-group">
                 <label class="control-label col-xs-12 col-sm-3 no-padding-right">{{ __('shortcoure_Course-Code') }}</label>
                 <div class="col-xs-12 col-sm-9">
@@ -69,7 +69,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6" style="margin-bottom: 15px;">
               <div class="form-group">
                 <label class="control-label col-xs-12 col-sm-3 no-padding-right"> {{ __('shortcoure_Course_Name') }}</label>
                 <div class="col-xs-12 col-sm-9">
@@ -78,7 +78,7 @@
               </div>
             </div>
             {{-- Curriculum Author & Curriculum Endorsement --}}          
-            <div class="col-md-6">
+            <div class="col-md-6" style="margin-bottom: 15px;">
               <div class="form-group">
                 <label class="control-label col-xs-12 col-sm-3 no-padding-right">{{ __('shortcoure_Curriculum_Author') }}</label>
                 <div class="col-xs-12 col-sm-9">
@@ -99,9 +99,9 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6" style="margin-bottom: 15px;">
               <div class="form-group">
-                <label class="control-label col-xs-12 col-sm-3 no-padding-right">{{ __('shortcoure_Curriculum_Endorsement') }}</label>
+                <label class="control-label col-xs-12 col-sm-3 no-padding-right">Curri Endorsement</label>
                 <div class="col-xs-12 col-sm-9">
                   <select style="width: 100%" name="cbo_curr_endorsement" required="">
                     @if ($flag=='kh')
@@ -121,7 +121,7 @@
               </div>
             </div>
             {{-- Overal Fund --}}
-            <div class="col-md-5">
+            <div class="col-md-5" style="margin-bottom: 15px;">
               <div class="form-group">
                 <label class="control-label col-xs-12 col-sm-3 no-padding-right">{{ __('shortcoure_Overal-Fund') }}</label>
                 <div class="col-xs-12 col-sm-9 ">
@@ -143,7 +143,7 @@
               </div>
             </div>
             {{-- Modality --}}
-            <div class="col-md-4 no-padding-right">
+            <div class="col-md-4" style="margin-bottom: 15px;">
               <div class="form-group">
                 <label class="control-label col-xs-12 col-sm-3 no-padding-right">{{ __('shortcoure_Modality') }}</label>
                 <div class="col-xs-12 col-sm-9">
@@ -165,7 +165,7 @@
               </div>
             </div>            
             {{-- training hours --}}
-            <div class="col-md-3 ">
+            <div class="col-md-3" style="margin-bottom: 15px;">
               <div class="form-group">
                 <label class="control-label col-xs-12 col-sm-4 no-padding-right">{{ __('shortcoure_Total_Training_Hour') }}</label>
                 <div class="col-xs-12 col-sm-8">
@@ -176,7 +176,7 @@
 
             {{-- shortcourse teacher --}}
             <div class="field_wrapper">
-              <div class="col-md-6" >    
+              <div class="col-md-6" style="margin-bottom: 15px;">    
                 <div class="form-group">
                   <label class="control-label col-xs-12 col-sm-3 no-padding-right">{{__('shortcoure_Teacher_Name') }}</label>
                   <div class="col-xs-12 col-sm-9">
@@ -206,7 +206,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-5">    
+              <div class="col-md-5" style="margin-bottom: 15px;">    
                     <div class="form-group">
                       <label class="control-label col-xs-12 col-sm-3 no-padding-right">{{__('shortcoure_teacher_hours') }}</label>
                       <div class="col-xs-12 col-sm-9">
@@ -226,7 +226,7 @@
               </div>
             </div>
             {{-- province district commune --}}
-            <div class="col-md-6 " style="margin-bottom: 10px;">
+            <div class="col-md-6 " style="margin-bottom: 15px;">
               <div class="form-group">
                 <label class="control-label col-xs-12 col-sm-3 no-padding-right">{{ __('shortcoure_Province') }}</label>
                 <div class="col-xs-12 col-sm-9">
@@ -257,7 +257,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-6 " style="margin-bottom: 10px;">
+            <div class="col-md-6 " style="margin-bottom: 15px;">
               <div class="form-group">
                 <label class="control-label col-xs-12 col-sm-3 no-padding-right">{{ __('shortcoure_District') }}</label>
                 <div class="col-xs-12 col-sm-9">
@@ -276,7 +276,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-6 " style="margin-bottom: 10px;">
+            <div class="col-md-6 " style="margin-bottom: 15px;">
               <div class="form-group">
                 <label class="control-label col-xs-12 col-sm-3 no-padding-right">{{ __('shortcoure_Commune') }}</label>
                 <div class="col-xs-12 col-sm-9">
@@ -296,7 +296,7 @@
               </div>
             </div>
             {{-- village row --}}
-            <div class="col-md-6 " style="margin-bottom: 10px;">
+            <div class="col-md-6 " style="margin-bottom: 15px;">
               <div class="form-group">
                 <label class="control-label col-xs-12 col-sm-3 no-padding-right">{{ __('shortcoure_Village') }}</label>
                 <div class="col-xs-12 col-sm-9">
@@ -305,7 +305,7 @@
               </div>
             </div>
             {{-- Start Date --}}
-            <div class="col-md-6 " style="margin-bottom: 10px;">
+            <div class="col-md-6 " style="margin-bottom: 15px;">
               <div class="form-group">
                 <label class="control-label col-xs-12 col-sm-3 no-padding-right">{{ __('shortcoure_Start-Date') }}</label>
                 <div class="col-xs-12 col-sm-9">
@@ -314,7 +314,7 @@
               </div>
             </div>
             {{-- End Date --}}
-            <div class="col-md-6 " style="margin-bottom: 10px;">
+            <div class="col-md-6 " style="margin-bottom: 15px;">
               <div class="form-group">
                 <label class="control-label col-xs-12 col-sm-3 no-padding-right">{{ __('shortcoure_EndDate') }}</label>
                 <div class="col-xs-12 col-sm-9">
