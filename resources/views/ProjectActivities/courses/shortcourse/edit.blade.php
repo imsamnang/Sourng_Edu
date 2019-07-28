@@ -38,7 +38,7 @@
     <div class="tabbable"  style="margin-top:20px;">
       <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4" style="background-color:;">
         <li class="active">
-          <a style="font-family: 'Khmer OS Battambang'; font-size:18px; padding:10px 5px 10px 5px; " data-toggle="tab" href="#registrationinfo">{{ __('shortcoure_Register-Short-Course') }}</a>
+          <a style="font-family: 'Khmer OS Battambang'; font-size:18px; padding:10px 5px 10px 5px; " data-toggle="tab" href="#registrationinfo">Edit Short Course</a>
         </li>
       </ul>
       <div class="tab-content">
@@ -111,7 +111,7 @@
             </div>
             <div class="col-md-6" style="margin-bottom: 15px;">
               <div class="form-group">
-                <label class="control-label col-xs-12 col-sm-3 no-padding-right">{{ __('shortcoure_Curriculum_Endorsement') }}</label>
+                <label class="control-label col-xs-12 col-sm-3 no-padding-right">Curri Endorsement</label>
                 <div class="col-xs-12 col-sm-9">
                   <select style="width: 100%" name="cbo_curr_endorsement" required="">
                     @if ($flag=='kh')
@@ -245,7 +245,7 @@
               </div>
             @endforeach
             {{-- Tranining Location --}}
-            <div class="col-md-12" style="margin-bottom: 20px; margin-top: 20px">
+            <div class="col-md-12" style="margin-bottom: 20px; margin-top: 0px">
               <div class="form-group">
                 <b><label class="control-label col-xs-12 col-sm-3 no-padding-right" style="font-family: Khmer OS Battambang; font-size: 19px; color: orange;">{{ __('shortcoure_TrainingLocation_Detail') }}</label></b>
               </div>
