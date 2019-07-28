@@ -33,7 +33,8 @@ class AddValidation extends FormRequest
             'gender'                => 'required',
             'email'                 => 'required | unique:staff,email',
             'qualification'         => 'required',
-            'mobile_1'              => 'required',
+            'institute_id'          => 'required',
+            // 'mobile_1'              => 'required',
             'main_image'           => 'mimes:jpeg,bmp,png',
         ];
 

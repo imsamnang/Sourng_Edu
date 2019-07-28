@@ -685,10 +685,260 @@ public function run()
 				// \DB::table('communes')->insert(['name_en' => 'Toul Pich','name_kh' => 'ទួលពេជ្រ','district_id'=>61]);
 
 
+//Kampong Thom
+			//Baray
+				\DB::table('communes')->insert(['name_en' => 'Bak Sna','name_kh' => 'បាក់ស្នា','district_id'=>88]);
+				\DB::table('communes')->insert(['name_en' => 'Ballangk','name_kh' => 'បល្ល័ង្ក','district_id'=>88]);
+				\DB::table('communes')->insert(['name_en' => 'Baray','name_kh' => 'បារាយណ៍','district_id'=>88]);
+				\DB::table('communes')->insert(['name_en' => 'Boeng','name_kh' => 'បឹង','district_id'=>88]);
+				\DB::table('communes')->insert(['name_en' => 'Chaeung Daeung','name_kh' => 'ចើងដើង','district_id'=>88]);
+				\DB::table('communes')->insert(['name_en' => 'Chraneang','name_kh' => 'ច្រនាង','district_id'=>88]);
+				\DB::table('communes')->insert(['name_en' => 'Chhuk Khsach','name_kh' => 'ឈូកខ្សាច់','district_id'=>88]);
+				\DB::table('communes')->insert(['name_en' => 'Chong Doung','name_kh' => 'ចុងដូង','district_id'=>88]);
+				\DB::table('communes')->insert(['name_en' => 'Chrolong','name_kh' => 'ជ្រលង','district_id'=>88]);
+				\DB::table('communes')->insert(['name_en' => 'Kokir Thum ','name_kh' => 'គគីធំ','district_id'=>88]);
+				\DB::table('communes')->insert(['name_en' => 'Krava','name_kh' => 'ក្រវ៉ា','district_id'=>88]);
+				\DB::table('communes')->insert(['name_en' => 'Andoung Pou','name_kh' => 'អណ្ដូងពោធិ៍','district_id'=>88]);
+				\DB::table('communes')->insert(['name_en' => 'Pongro','name_kh' => 'ពង្រ','district_id'=>88]);
+				\DB::table('communes')->insert(['name_en' => 'Sou Young','name_kh' => 'សូយោង','district_id'=>88]);
+				\DB::table('communes')->insert(['name_en' => 'Sralau','name_kh' => 'ស្រឡៅ','district_id'=>88]);
+				\DB::table('communes')->insert(['name_en' => 'Svay Phleung','name_kh' => 'ស្វាយភ្លើង','district_id'=>88]);
+				\DB::table('communes')->insert(['name_en' => 'Tnaot Chum','name_kh' => 'ត្នោតជុំ','district_id'=>88]);
+				\DB::table('communes')->insert(['name_en' => 'Triel','name_kh' => 'ទ្រៀល','district_id'=>88]);
+			//Stueng Saen
+				\DB::table('communes')->insert(['name_en' => 'Damrei Choan Khla','name_kh' => 'ដំរីជាន់ខ្លា','district_id'=>89]);
+				\DB::table('communes')->insert(['name_en' => 'Kampong Thum','name_kh' => 'កំពង់ធំ','district_id'=>89]);
+				\DB::table('communes')->insert(['name_en' => 'Kampong Roteh','name_kh' => 'កំពង់រទេះ','district_id'=>89]);
+				\DB::table('communes')->insert(['name_en' => 'Ou Kanthor','name_kh' => 'អូរកន្ធរ','district_id'=>89]);
+				\DB::table('communes')->insert(['name_en' => 'Kampong','name_kh' => 'កំពង់ក្របៅ','district_id'=>89]);
+				\DB::table('communes')->insert(['name_en' => 'Prey Ta Hu','name_kh' => 'ព្រៃតាហ៊ូ','district_id'=>89]);
+				\DB::table('communes')->insert(['name_en' => 'Achar Leak','name_kh' => 'អាចារ្យលាក់','district_id'=>89]);
+				\DB::table('communes')->insert(['name_en' => 'Srayov','name_kh' => 'ស្រយ៉ូវ','district_id'=>89]);
+			//Sandaan
+				\DB::table('communes')->insert(['name_en' => 'Chheu Teal ','name_kh' => 'ឈើទាល','district_id'=>90]);
+				\DB::table('communes')->insert(['name_en' => 'Dang Kambet','name_kh' => 'ដងកាំបិត','district_id'=>90]);
+				\DB::table('communes')->insert(['name_en' => 'Klaeng ','name_kh' => 'ក្លែង','district_id'=>90]);
+				\DB::table('communes')->insert(['name_en' => 'Mean Rith','name_kh' => 'មានរិទ្ធ','district_id'=>90]);
+				\DB::table('communes')->insert(['name_en' => 'Mean Chey','name_kh' => 'មានជ័យ','district_id'=>90]);
+				\DB::table('communes')->insert(['name_en' => 'Ngan ','name_kh' => 'ងន','district_id'=>90]);
+				\DB::table('communes')->insert(['name_en' => 'Sandan','name_kh' => 'សណ្ដាន់','district_id'=>90]);
+				\DB::table('communes')->insert(['name_en' => 'Sochet','name_kh' => 'សុចិត្រ','district_id'=>90]);
+				\DB::table('communes')->insert(['name_en' => 'Tum Ring','name_kh' => 'ទំរីង','district_id'=>90]);
+			//Stoung
+				\DB::table('communes')->insert(['name_en' => 'Banteay Stoung','name_kh' => 'បន្ទាយស្ទោង','district_id'=>91]);
+				\DB::table('communes')->insert(['name_en' => 'Chamna Kraom','name_kh' => 'ចំណាក្រោម','district_id'=>91]);
+				\DB::table('communes')->insert(['name_en' => 'Chamna Leu','name_kh' => 'ចំណាលើ','district_id'=>91]);
+				\DB::table('communes')->insert(['name_en' => 'Kampong Chen Cheung','name_kh' => 'កំពង់ចិនជើង','district_id'=>91]);
+				\DB::table('communes')->insert(['name_en' => 'Msa Krang','name_kh' => 'ម្សាក្រង','district_id'=>91]);
+				\DB::table('communes')->insert(['name_en' => 'Peam Bang','name_kh' => 'ពាមបាង','district_id'=>91]);
+				\DB::table('communes')->insert(['name_en' => 'Pralay','name_kh' => 'ប្រឡាយ','district_id'=>91]);
+				\DB::table('communes')->insert(['name_en' => 'Preah Damrei','name_kh' => 'ព្រះដំរី','district_id'=>91]);
+				\DB::table('communes')->insert(['name_en' => 'Rung Roeang','name_kh' => 'រុងរឿង','district_id'=>91]);
+				\DB::table('communes')->insert(['name_en' => 'Samprouch','name_kh' => 'សំព្រោជ','district_id'=>91]);
+				\DB::table('communes')->insert(['name_en' => 'Trea','name_kh' => 'ទ្រា','district_id'=>91]);
+			//Prasat Balangk
+				\DB::table('communes')->insert(['name_en' => 'Doung ','name_kh' => 'ដូង','district_id'=>92]);
+				\DB::table('communes')->insert(['name_en' => 'Kraya ','name_kh' => 'ក្រយា','district_id'=>92]);
+				\DB::table('communes')->insert(['name_en' => 'Phan Nheum','name_kh' => 'ផាន់ញើម','district_id'=>92]);
+				\DB::table('communes')->insert(['name_en' => 'Sakream ','name_kh' => 'សាគ្រាម','district_id'=>92]);
+				\DB::table('communes')->insert(['name_en' => 'Sala Visai','name_kh' => 'សាលាវិស័យ','district_id'=>92]);
+				\DB::table('communes')->insert(['name_en' => 'Sameakki','name_kh' => 'សាមគ្គី','district_id'=>92]);
+				\DB::table('communes')->insert(['name_en' => 'Tuol Kreul','name_kh' => 'ទួលគ្រើល','district_id'=>92]);
+			//Santuk
+				\DB::table('communes')->insert(['name_en' => 'Boeng Lvea','name_kh' => 'បឹងល្វា','district_id'=>93]);
+				\DB::table('communes')->insert(['name_en' => 'Chroab ','name_kh' => 'ជ្រាប់','district_id'=>93]);
+				\DB::table('communes')->insert(['name_en' => 'Kampong Thma ','name_kh' => 'កំពង់ថ្ម','district_id'=>93]);
+				\DB::table('communes')->insert(['name_en' => '	Kakaoh ','name_kh' => 'កកោះ','district_id'=>93]);
+				\DB::table('communes')->insert(['name_en' => 'Kraya ','name_kh' => 'ក្រយា','district_id'=>93]);
+				\DB::table('communes')->insert(['name_en' => 'Pnov ','name_kh' => 'ព្នៅ','district_id'=>93]);
+				\DB::table('communes')->insert(['name_en' => 'Prasat ','name_kh' => 'ប្រាសាទ','district_id'=>93]);
+				\DB::table('communes')->insert(['name_en' => 'Tang Krasang','name_kh' => 'តាំងក្រសាំង','district_id'=>93]);
+				\DB::table('communes')->insert(['name_en' => 'Ti Pou','name_kh' => 'ទីពោ','district_id'=>93]);
+				\DB::table('communes')->insert(['name_en' => 'Tboung Krapeu','name_kh' => 'ត្បូងក្រពើ','district_id'=>93]);
+			
+			//Prasat Sambour
+				\DB::table('communes')->insert(['name_en' => 'Chhuk','name_kh' => 'ឈូក','district_id'=>94]);
+				\DB::table('communes')->insert(['name_en' => 'Koul','name_kh' => 'គោល','district_id'=>94]);
+				\DB::table('communes')->insert(['name_en' => 'Sambour','name_kh' => 'សំបូរណ៍','district_id'=>94]);
+				\DB::table('communes')->insert(['name_en' => 'Sraeung','name_kh' => 'ស្រើង','district_id'=>94]);
+				\DB::table('communes')->insert(['name_en' => 'Tang Krasau','name_kh' => 'តាំងក្រសៅ','district_id'=>94]);
 
+			//Kampong Svay
+				\DB::table('communes')->insert(['name_en' => 'Chey','name_kh' => 'ជ័យ','district_id'=>95]);
+				\DB::table('communes')->insert(['name_en' => 'Damrei Slab','name_kh' => 'ដំរីស្លាប់','district_id'=>95]);
+				\DB::table('communes')->insert(['name_en' => 'Kampong Kou','name_kh' => 'កំពង់គោ','district_id'=>95]);
+				\DB::table('communes')->insert(['name_en' => 'Kampong Svay','name_kh' => 'កំពង់ស្វាយ','district_id'=>95]);
+				\DB::table('communes')->insert(['name_en' => 'Nipech','name_kh' => 'នីពេជ','district_id'=>95]);
+				\DB::table('communes')->insert(['name_en' => 'Phat Sanday','name_kh' => 'ផាត់សណ្ដាយ','district_id'=>95]);
+				\DB::table('communes')->insert(['name_en' => 'San Kor','name_kh' => 'សាន់គ','district_id'=>95]);
+				\DB::table('communes')->insert(['name_en' => 'Tbaeng','name_kh' => 'ត្បែង','district_id'=>95]);
+				\DB::table('communes')->insert(['name_en' => 'Trapeang','name_kh' => 'ត្រពាំងឫស្សី','district_id'=>95]);
+				\DB::table('communes')->insert(['name_en' => 'Kdei Doung','name_kh' => 'ក្ដីដូង','district_id'=>95]);
+				\DB::table('communes')->insert(['name_en' => 'Prey Kuy','name_kh' => 'ព្រៃគុយ','district_id'=>95]);
+				
+		//Kratie (ក្រចេះ)
 
-	
-
+			//Chhlong
+				\DB::table('communes')->insert(['name_en' => 'Chhlong','name_kh' => 'ឆ្លូង','district_id'=>114]);
+				\DB::table('communes')->insert(['name_en' => 'Domrei Phong','name_kh' => 'ដំរីផុង','district_id'=>114]);
+				\DB::table('communes')->insert(['name_en' => 'Han Chey','name_kh' => 'ហាន់ជ័យ','district_id'=>114]);
+				\DB::table('communes')->insert(['name_en' => 'Kampong Domrei','name_kh' => 'កំពង់ដំរី','district_id'=>114]);
+				\DB::table('communes')->insert(['name_en' => 'Kanhchor','name_kh' => 'កញ្ជរ','district_id'=>114]);
+				\DB::table('communes')->insert(['name_en' => 'Ksach Andaet','name_kh' => 'ខ្សាច់អណ្ដែត','district_id'=>114]);
+				\DB::table('communes')->insert(['name_en' => 'Pongro','name_kh' => 'ពង្រ','district_id'=>114]);
+				\DB::table('communes')->insert(['name_en' => 'Praek Samann','name_kh' => 'ព្រែកសាម៉ាន់','district_id'=>114]);
+				
+			//Chitr Borei
+				\DB::table('communes')->insert(['name_en' => 'Kantout','name_kh' => 'កន្ទួត','district_id'=>115]);
+				\DB::table('communes')->insert(['name_en' => 'Thma Andeuk','name_kh' => 'ថ្មអណ្តើក','district_id'=>115]);
+				\DB::table('communes')->insert(['name_en' => 'Koh Chraeng','name_kh' => 'កោះច្រែង','district_id'=>115]);
+				\DB::table('communes')->insert(['name_en' => 'Sambok','name_kh' => 'សំបុក','district_id'=>115]);
+				\DB::table('communes')->insert(['name_en' => 'Kou Lorb','name_kh' => 'គោលាប់','district_id'=>115]);
+				\DB::table('communes')->insert(['name_en' => 'Thmei','name_kh' => 'ថ្មី','district_id'=>115]);
+				\DB::table('communes')->insert(['name_en' => 'Dar','name_kh' => 'ដា','district_id'=>115]);
+				\DB::table('communes')->insert(['name_en' => 'Bos Leav','name_kh' => 'បុសលាវ','district_id'=>115]);
+				\DB::table('communes')->insert(['name_en' => 'Changkrorng','name_kh' => 'ចង្ក្រង់','district_id'=>115]);
+				\DB::table('communes')->insert(['name_en' => 'Thma Krae','name_kh' => 'ថ្មគ្រែ','district_id'=>115]);
+				
+			//Krong Kratie
+				\DB::table('communes')->insert(['name_en' => 'Koh Trorng','name_kh' => 'កោះត្រង់','district_id'=>116]);
+				\DB::table('communes')->insert(['name_en' => 'Krokor','name_kh' => 'ក្រកូរ','district_id'=>116]);
+				\DB::table('communes')->insert(['name_en' => 'Kratie','name_kh' => 'ក្រចេះ','district_id'=>116]);
+				\DB::table('communes')->insert(['name_en' => 'Ou Russei','name_kh' => 'អូរឬស្សី','district_id'=>116]);
+				\DB::table('communes')->insert(['name_en' => 'Roka Kandal','name_kh' => 'រកាកណ្តាល','district_id'=>116]);
+				
+			//Sombo
+				\DB::table('communes')->insert(['name_en' => 'Kbal Domrei','name_kh' => 'ក្បាលដំរី','district_id'=>117]);
+				\DB::table('communes')->insert(['name_en' => 'Koh Knhae','name_kh' => 'កោះខ្ញែរ','district_id'=>117]);
+				\DB::table('communes')->insert(['name_en' => 'Ou Kreang','name_kh' => 'អូរគ្រៀង','district_id'=>117]);
+				\DB::table('communes')->insert(['name_en' => 'Rolous Meanchey','name_kh' => 'រលួសមានជ័យ','district_id'=>117]);
+				\DB::table('communes')->insert(['name_en' => 'Kampong Cham','name_kh' => 'កំពង់ចាម','district_id'=>117]);
+				\DB::table('communes')->insert(['name_en' => 'Beung Char','name_kh' => 'បឹងចារ','district_id'=>117]);
+				\DB::table('communes')->insert(['name_en' => 'Sombo','name_kh' => 'សំបូរ','district_id'=>117]);
+				\DB::table('communes')->insert(['name_en' => 'Sandann','name_kh' => 'សណ្តាន់','district_id'=>117]);
+				\DB::table('communes')->insert(['name_en' => 'Srae Chis','name_kh' => 'ស្រែជិះ','district_id'=>117]);
+				\DB::table('communes')->insert(['name_en' => 'Vadhnak','name_kh' => 'វឌ្ឍនៈ','district_id'=>117]);
+			
+			//Preaek Prasob
+				\DB::table('communes')->insert(['name_en' => 'Chambok','name_kh' => 'ចំបក់','district_id'=>118]);
+				\DB::table('communes')->insert(['name_en' => 'Chroy Banteay','name_kh' => 'ជ្រោយបន្ទាយ','district_id'=>118]);
+				\DB::table('communes')->insert(['name_en' => 'Kampong Kor','name_kh' => 'កំពង់គរ','district_id'=>118]);
+				\DB::table('communes')->insert(['name_en' => 'Praek Brosop','name_kh' => 'ព្រែកប្រសព្','district_id'=>118]);
+				\DB::table('communes')->insert(['name_en' => 'Russei Keo','name_kh' => 'ឫស្សីកែវ','district_id'=>118]);
+				\DB::table('communes')->insert(['name_en' => 'Soab','name_kh' => 'សោប','district_id'=>118]);
+				\DB::table('communes')->insert(['name_en' => 'Tamao','name_kh' => 'តាម៉ៅ','district_id'=>118]);
+				
+			//Snoul
+				\DB::table('communes')->insert(['name_en' => 'Khseum','name_kh' => 'ឃ្សឹម','district_id'=>119]);
+				\DB::table('communes')->insert(['name_en' => 'Pir Thnou','name_kh' => 'ពីរធ្នូ','district_id'=>119]);
+				\DB::table('communes')->insert(['name_en' => 'Snoul','name_kh' => 'ស្នួល','district_id'=>119]);
+				\DB::table('communes')->insert(['name_en' => 'Srae Char','name_kh' => 'ស្រែចារ','district_id'=>119]);
+				\DB::table('communes')->insert(['name_en' => 'Svay Chreas','name_kh' => 'ស្វាយជ្រះ','district_id'=>119]);
+		//Preah Vihear
+			//Chey Saen
+				\DB::table('communes')->insert(['name_en' => 'Sa ang','name_kh' => 'ស្អាង','district_id'=>133]);
+				\DB::table('communes')->insert(['name_en' => 'Tor Sou','name_kh' => 'តស៊ូ','district_id'=>133]);
+				\DB::table('communes')->insert(['name_en' => 'Kchorng','name_kh' => 'ខ្យង','district_id'=>133]);
+				\DB::table('communes')->insert(['name_en' => 'Chrach','name_kh' => 'ច្រាច់','district_id'=>133]);
+				\DB::table('communes')->insert(['name_en' => 'Thmea','name_kh' => 'ធ្មា','district_id'=>133]);
+				\DB::table('communes')->insert(['name_en' => 'Putrea','name_kh' => 'ពុទ្រា','district_id'=>133]);
+			//Choam Khsant
+				\DB::table('communes')->insert(['name_en' => 'ស្រអែម','name_kh' => 'ជាំក្សាន្ត','district_id'=>134]);
+				\DB::table('communes')->insert(['name_en' => 'Teuk Krahorm','name_kh' => 'ទឹកក្រហម','district_id'=>134]);
+				\DB::table('communes')->insert(['name_en' => 'Pring Thom','name_kh' => 'ព្រីងធំ','district_id'=>134]);
+				\DB::table('communes')->insert(['name_en' => 'Romdoh Srae','name_kh' => 'រំដោះស្រែ','district_id'=>134]);
+				\DB::table('communes')->insert(['name_en' => 'Yeang','name_kh' => 'យាង','district_id'=>134]);
+				\DB::table('communes')->insert(['name_en' => 'Kantout','name_kh' => 'កន្ទួត','district_id'=>134]);
+				\DB::table('communes')->insert(['name_en' => 'Sraem','name_kh' => 'ស្រអែម','district_id'=>134]);
+				\DB::table('communes')->insert(['name_en' => 'Morodok','name_kh' => 'មរតក','district_id'=>134]);
+				
+			//Rovieng
+				\DB::table('communes')->insert(['name_en' => 'Robeab','name_kh' => 'របៀប','district_id'=>135]);
+				\DB::table('communes')->insert(['name_en' => 'Reaksmey','name_kh' => 'រស្មី','district_id'=>135]);
+				\DB::table('communes')->insert(['name_en' => 'Rohas','name_kh' => 'រហ័ស','district_id'=>135]);
+				\DB::table('communes')->insert(['name_en' => 'Rong Reung','name_kh' => 'រុងរឿង','district_id'=>135]);
+				\DB::table('communes')->insert(['name_en' => 'Rik Reay','name_kh' => 'រីករាយ','district_id'=>135]);
+				\DB::table('communes')->insert(['name_en' => 'Rous Roan','name_kh' => 'រួសរាន់','district_id'=>135]);
+				\DB::table('communes')->insert(['name_en' => 'Ratanak','name_kh' => 'រតនៈ','district_id'=>135]);
+				\DB::table('communes')->insert(['name_en' => 'Reab Roay','name_kh' => 'រៀបរយ','district_id'=>135]);
+				\DB::table('communes')->insert(['name_en' => 'Reaksa','name_kh' => 'រក្សា','district_id'=>135]);
+				\DB::table('communes')->insert(['name_en' => 'Romdors','name_kh' => 'រំដោះ','district_id'=>135]);
+				\DB::table('communes')->insert(['name_en' => 'Rumtum','name_kh' => 'រមទម','district_id'=>135]);
+				\DB::table('communes')->insert(['name_en' => 'Romniy','name_kh' => 'រម្មណីយ','district_id'=>135]);
+				
+			//Sangkom Thmei
+				\DB::table('communes')->insert(['name_en' => 'Ro ang','name_kh' => 'រអាង','district_id'=>136]);
+				\DB::table('communes')->insert(['name_en' => 'Phnom Tbeng Mouy','name_kh' => 'ភ្នំត្បែងមួយ','district_id'=>136]);
+				\DB::table('communes')->insert(['name_en' => 'Sdao','name_kh' => 'ស្តៅ','district_id'=>136]);
+				\DB::table('communes')->insert(['name_en' => 'Ranakseh','name_kh' => 'រណសិរ្ស','district_id'=>136]);
+				\DB::table('communes')->insert(['name_en' => 'Chomreun','name_kh' => 'ចំរើន','district_id'=>136]);
+			
+			//Chhaeb
+				\DB::table('communes')->insert(['name_en' => 'Chhaeb Mouy','name_kh' => 'ឆែបមួយ','district_id'=>137]);
+				\DB::table('communes')->insert(['name_en' => 'Chhaeb Pir','name_kh' => 'ឆែបពីរ','district_id'=>137]);
+				\DB::table('communes')->insert(['name_en' => 'Sangke Mouy','name_kh' => 'សង្កែមួយ','district_id'=>137]);
+				\DB::table('communes')->insert(['name_en' => 'Sangke Pir','name_kh' => 'សង្កែពីរ','district_id'=>137]);
+				\DB::table('communes')->insert(['name_en' => 'Mlouprey Mouy','name_kh' => 'ម្លូព្រៃមួយ','district_id'=>137]);
+				\DB::table('communes')->insert(['name_en' => 'Mlouprey Pir','name_kh' => 'ម្លូព្រៃពីរ','district_id'=>137]);
+				\DB::table('communes')->insert(['name_en' => 'Kampong Sralao Mouy','name_kh' => 'កំពង់ស្រឡៅមួយ','district_id'=>137]);
+				\DB::table('communes')->insert(['name_en' => 'Kampong Sralao Pir','name_kh' => 'កំពង់ស្រឡៅពីរ','district_id'=>137]);
+				
+			//Kulen
+				\DB::table('communes')->insert(['name_en' => 'Kulen Tbong','name_kh' => 'គូលែនត្បូង','district_id'=>138]);
+				\DB::table('communes')->insert(['name_en' => 'Kulen Cheung','name_kh' => 'គូលែនជើង','district_id'=>138]);
+				\DB::table('communes')->insert(['name_en' => 'Thmei','name_kh' => 'ថ្មី','district_id'=>138]);
+				\DB::table('communes')->insert(['name_en' => 'Phnom Penh','name_kh' => 'ភ្នំពេញ','district_id'=>138]);
+				\DB::table('communes')->insert(['name_en' => 'Phnom Tbeng Pir','name_kh' => 'ភ្នំត្បែងពីរ','district_id'=>138]);
+				\DB::table('communes')->insert(['name_en' => 'Sroyong','name_kh' => 'ស្រយង់','district_id'=>138]);
+				
+			//Tbaeng Mean Chey
+				\DB::table('communes')->insert(['name_en' => 'Kompong bronouk','name_kh' => 'កំពង់ប្រណោក','district_id'=>139]);
+				\DB::table('communes')->insert(['name_en' => 'Bal Hal','name_kh' => 'ប៉ាលហាល','district_id'=>139]);
+				\DB::table('communes')->insert(['name_en' => 'Chhean Mukh','name_kh' => 'ឈានមុខ','district_id'=>139]);
+				\DB::table('communes')->insert(['name_en' => 'Pou','name_kh' => 'ពោធិ៍','district_id'=>139]);
+				\DB::table('communes')->insert(['name_en' => 'Bromeru','name_kh' => 'ប្រមេរុ','district_id'=>139]);
+				\DB::table('communes')->insert(['name_en' => 'Preah Khleang','name_kh' => 'ព្រះឃ្លាំង','district_id'=>139]);
+		//Stung Treng
+			//Sesan
+				\DB::table('communes')->insert(['name_en' => 'Komphun','name_kh' => 'កំភុន','district_id'=>177]);
+				\DB::table('communes')->insert(['name_en' => 'Kbal Romeas','name_kh' => 'ក្បាលរមាស','district_id'=>177]);
+				\DB::table('communes')->insert(['name_en' => 'Phluk','name_kh' => 'ភ្លុក','district_id'=>177]);
+				\DB::table('communes')->insert(['name_en' => 'Sam Khouy','name_kh' => 'សាមឃួយ','district_id'=>177]);
+				\DB::table('communes')->insert(['name_en' => 'Sdau','name_kh' => 'ស្ដៅ','district_id'=>177]);
+				\DB::table('communes')->insert(['name_en' => 'Srae Kor','name_kh' => 'ស្រែគរ','district_id'=>177]);
+				\DB::table('communes')->insert(['name_en' => 'Ta Lat','name_kh' => 'តាឡាត','district_id'=>177]);
+			//Siem Bouk
+				\DB::table('communes')->insert(['name_en' => 'Koh Preah','name_kh' => 'កោះព្រះ','district_id'=>178]);
+				\DB::table('communes')->insert(['name_en' => 'Koh Sompeay','name_kh' => 'កោះសំពាយ','district_id'=>178]);
+				\DB::table('communes')->insert(['name_en' => 'Koh Srolay','name_kh' => 'កោះស្រឡាយ','district_id'=>178]);
+				\DB::table('communes')->insert(['name_en' => 'Ou Mreah','name_kh' => 'អូរម្រះ','district_id'=>178]);
+				\DB::table('communes')->insert(['name_en' => 'Ou Russei Kandal','name_kh' => 'អូរឫស្សីកណ្តាល','district_id'=>178]);
+				\DB::table('communes')->insert(['name_en' => 'Siem Bouk','name_kh' => 'សៀមបូក','district_id'=>178]);
+				\DB::table('communes')->insert(['name_en' => 'Srae Krasang','name_kh' => 'ស្រែក្រសាំង','district_id'=>178]);
+			//Siem Pang
+				\DB::table('communes')->insert(['name_en' => 'Praek Meas','name_kh' => 'ព្រែកមាស','district_id'=>178]);
+				\DB::table('communes')->insert(['name_en' => 'Sekong','name_kh' => 'សេកុង','district_id'=>178]);
+				\DB::table('communes')->insert(['name_en' => 'Santipheap','name_kh' => 'សន្តិភាព','district_id'=>178]);
+				\DB::table('communes')->insert(['name_en' => 'Srae Sombo','name_kh' => 'ស្រែសំបូរ','district_id'=>178]);
+				\DB::table('communes')->insert(['name_en' => 'Thma Keo','name_kh' => 'ថ្មកែវ','district_id'=>178]);
+			//Thala Barivat
+				\DB::table('communes')->insert(['name_en' => 'Anlong Phe','name_kh' => 'អន្លង់ភេ','district_id'=>179]);
+				\DB::table('communes')->insert(['name_en' => 'Chomkar Leu','name_kh' => 'ចំការលើ','district_id'=>179]);
+				\DB::table('communes')->insert(['name_en' => 'Kang Cham','name_kh' => 'កាំងចាម','district_id'=>179]);
+				\DB::table('communes')->insert(['name_en' => 'Koh Snaeng','name_kh' => 'កោះស្នែង','district_id'=>179]);
+				\DB::table('communes')->insert(['name_en' => 'Ou Rai','name_kh' => 'អូររៃ','district_id'=>179]);
+				\DB::table('communes')->insert(['name_en' => 'Ou Svay','name_kh' => 'អូរស្វាយ','district_id'=>179]);
+				\DB::table('communes')->insert(['name_en' => 'Preah Romkel','name_kh' => 'ព្រះរំកិល','district_id'=>179]);
+				\DB::table('communes')->insert(['name_en' => 'Som Ang','name_kh' => 'សំអាង','district_id'=>179]);
+				\DB::table('communes')->insert(['name_en' => 'Srae Russei','name_kh' => 'ស្រែឫស្សី','district_id'=>179]);
+				\DB::table('communes')->insert(['name_en' => 'Thala Borivat','name_kh' => 'ថាឡាបរិវ៉ាត់','district_id'=>179]);
+				\DB::table('communes')->insert(['name_en' => 'Anlong Chrey','name_kh' => 'អន្លង់ជ្រៃ','district_id'=>179]);
+			//Krong Stung Treng
+				\DB::table('communes')->insert(['name_en' => 'Stung Trang','name_kh' => 'ស្ទឹងត្រែង','district_id'=>180]);
+				\DB::table('communes')->insert(['name_en' => 'Srah Russei','name_kh' => 'ស្រះឫស្សី','district_id'=>180]);
+				\DB::table('communes')->insert(['name_en' => 'Preah Bat','name_kh' => 'ព្រះបាទ','district_id'=>180]);
+				\DB::table('communes')->insert(['name_en' => 'Sammaki','name_kh' => 'សាមគ្គី','district_id'=>180]);
+				
 
 	}	
 }

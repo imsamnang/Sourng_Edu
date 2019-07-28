@@ -1070,7 +1070,7 @@ class StudentController extends CollegeBaseController
             'mobile_2'=>$request->mobile_2          
             ];
             // $new_password= bcrypt($request->get('password'));
-            $new_password=bcrypt(substr ($request->home_phone, -4));
+           
             // $new_password=substr ($request->home_phone, -4);
 
         
@@ -1081,6 +1081,11 @@ class StudentController extends CollegeBaseController
         //     $request->file('student_main_image')->move($dir, $fileName);
         //     $stu->student_image = $fileName;
         // }
+
+        \File::copy(base_path('public/images/studentProfile/' . $fileName), base_path('public/images/user/' . $fileName));
+
+
+    $new_password = bcrypt(substr($request->home_phone, -4));
 
         $StuAccessLogin=[
             'name'=>$stu->first_name.' '.$stu->middle_name.' '.$stu->last_name,

@@ -2,24 +2,27 @@
 
 namespace App\Http\Controllers\Staff;
 
+use App\User;
+use Image, URL;
+use ViewHelper;
+use App\Models\Note;
+use App\Models\Staff;
+use App\Models\Gender;
+use App\Models\Document;
+use App\Models\Institute;
+use App\Traits\UserScope;
+use App\Models\Attendance;
+use App\Models\Attendence;
+use Illuminate\Http\Request;
+use App\Models\LibraryMember;
+use App\Models\ResidentHistory;
+use App\Models\StaffDesignation;
+use App\Models\TransportHistory;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\CollegeBaseController;
 use App\Http\Requests\Staff\Registration\AddValidation;
 use App\Http\Requests\Staff\Registration\EditValidation;
-use App\Models\Attendance;
-use App\Models\Attendence;
-use App\Models\Document;
-use App\Models\LibraryMember;
-use App\Models\Note;
-use App\Models\ResidentHistory;
-use App\Models\Staff;
-use App\Models\StaffDesignation;
-use App\Models\TransportHistory;
-use App\Traits\UserScope;
-use App\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Image, URL;
-use ViewHelper;
 
 class StaffController extends CollegeBaseController
 {
@@ -76,7 +79,9 @@ class StaffController extends CollegeBaseController
     {
         $data = [];
 
-        $data['designations'] = $this->staffDesignationList();
+        $data['designations'] = StaffDesignation::select('id', 'title','title_kh')->orderBy('title')->get(); //$this->staffDesignationList();
+        $data['institute'] = Institute::select('id','name_kh','name_en')->orderBy('name_kh')->get(); //$this->getInstitutes();
+        $data['gender']=Gender::all();
 
         return view(parent::loadDataToView($this->view_path.'.add'), compact('data'));
     }
@@ -86,14 +91,52 @@ class StaffController extends CollegeBaseController
 
         if ($request->hasFile('main_image')){
             $image_name = parent::uploadImages($request, 'main_image');
+            // Copy Image to folder user
+             \File::copy(base_path('public/images/staff/' . $image_name), base_path('public/images/user/' . $image_name));
+
         }else{
-            $image_name = "";
+            $image_name = "default.png";
         }
+           
 
         $request->request->add(['created_by' => auth()->user()->id]);
+        $request->request->add(['institute_id'=>$request->institute_id]);
         $request->request->add(['staff_image' => $image_name]);
 
-        Staff::create($request->all());
+        $staffSaved=Staff::create($request->all());
+        if($staffSaved){
+            // $userSaff=User::create([
+            //     'name'=>$staffSaved->first_name,                
+            //     'email'=> $staffSaved->email,
+            //     'password'=> bcr,
+            //     'address'=> ,
+            //     'profile_image'
+            //     'role_id'=>8,
+            //     'hook_id'=>$staffSaved->id,
+            //     'institute_id'=>$staffSaved->institute_id
+            // ]);
+             $new_password = bcrypt(substr($request->home_phone, -4));
+            $StaffAccessLogin=[
+                'name'=>$staffSaved->first_name.' '.$staffSaved->middle_name.' '.$staffSaved->last_name,
+                'email'=>$staffSaved->email,
+                'password'=>$new_password,
+                'address'=>$request->address,
+                'profile_image'=>$staffSaved->staff_image,
+                'role_id'=>8,
+                'hook_id'=>$staffSaved->id,
+                'institute_id'=>$staffSaved->institute_id,
+                'created_at'=>$request->join_date,
+                'contact_number'=>$request->home_phone
+               
+
+                // $staffSaved->created_by=Auth::user()->id
+
+            ];
+
+            $StaffAccessLogin = User::create($StaffAccessLogin);
+
+
+        }
         $request->session()->flash($this->message_success, $this->panel. ' Created Successfully.');
         return redirect()->route($this->base_route);
     }
@@ -314,6 +357,18 @@ class StaffController extends CollegeBaseController
         /*designation represent as list*/
         return $designation;
     }
+
+    public function getInstitutes()
+    {
+        /*get designation*/
+        $Institute = Institute::select('id','name_kh','name_en')->orderBy('name_kh')->get();
+        $Institute = array_pluck($Institute,'name_kh','id');
+        //$designation = array_prepend($designation,'Select Designation...','0');
+
+        /*designation represent as list*/
+        return $Institute;
+    }
+
 
     /*bulk import*/
     public function importStaff()

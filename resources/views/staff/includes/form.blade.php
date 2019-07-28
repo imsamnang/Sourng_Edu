@@ -1,3 +1,4 @@
+<?php $flag=App()->getLocale(); ?>
 <div class="tabbable">
     <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
         <li class="active">
@@ -13,8 +14,8 @@
             <span class="label label-info arrowed-in arrowed-right arrowed responsive">Red mark input are required </span>
             <hr class="hr-16">
             <div class="form-group">
-                {!! Form::label('reg_no', __('staff_frm_reg_Reg_No'), ['class' => 'col-sm-1 control-label']) !!}
-                <div class="col-sm-2">
+                {!! Form::label('reg_no', __('staff_frm_reg_Reg_No'), ['class' => 'col-sm-2 control-label']) !!}
+                <div class="col-sm-1">
                     {!! Form::text('reg_no', null, ["placeholder" => "", "class" => "form-control border-form input-mask-registration", "required"]) !!}
                     @include('includes.form_fields_validation_message', ['name' => 'reg_no'])
                 </div>
@@ -27,26 +28,53 @@
 
                 {!! Form::label('designation', __('staff_frm_reg_Designation'), ['class' => 'col-sm-2 control-label']) !!}
                 <div class="col-sm-3">
-                    {!! Form::select('designation', $data['designations'], null, ['class' => 'form-control', "required"]) !!}
+                    {{-- {!! Form::select('designation', $data['designations'], null, ['class' => 'form-control', "required"]) !!} --}}
+                    
+                    <select name="designation" id="designation" class="form-control border-form" required>
+                        @foreach ( $data['designations'] as $item)
+                            @if ($flag=='kh')
+                                <option value="{{ $item->id }}">{{ $item->title_kh }}</option>
+                            @else
+                                 <option value="{{ $item->id }}">{{ $item->title }}</option>
+                            @endif
+                        @endforeach
+                    </select>
+                    
                     @include('includes.form_fields_validation_message', ['name' => 'designation'])
                 </div>
             </div>
 
             <div class="form-group">
-                {!! Form::label('first_name', __('staff_frm_reg_NAME_OF_STAFF'), ['class' => 'col-sm-3 control-label',]) !!}
+                {!! Form::label('first_name', __('staff_frm_reg_NAME_OF_STAFF'), ['class' => 'col-sm-2 control-label',]) !!}
                 <div class="col-sm-3">
                     {!! Form::text('first_name', null, ["placeholder" => "FIRST NAME", "class" => "form-control border-form upper","required"]) !!}
                     @include('includes.form_fields_validation_message', ['name' => 'first_name'])
                 </div>
-                <div class="col-sm-3">
-                    {!! Form::text('middle_name', null, ["placeholder" => "MIDDLE NAME", "class" => "form-control border-form upper"]) !!}
-                    @include('includes.form_fields_validation_message', ['name' => 'middle_name'])
-                </div>
-                <div class="col-sm-3">
+                 <div class="col-sm-3">
                     {!! Form::text('last_name', null, ["placeholder" => "LAST NAME", "class" => "form-control border-form upper","required"]) !!}
                     @include('includes.form_fields_validation_message', ['name' => 'last_name'])
                 </div>
+
+                 {!! Form::label('institute_id', 'Institute', ['class' => 'col-sm-1 control-label',]) !!}       
+                <div class="col-sm-3">
+                    <select name="institute_id" id="institute_id" class="form-control" required>
+                        @foreach ($data['institute'] as $row)
+                            @if ($flag=='kh')
+                                <option value="{{ $row->id }}">{{ $row->name_kh }}</option>  
+                            @endif
+                            @if ($flag=='en')
+                                <option value="{{ $row->id }}">{{ $row->name_en }}</option>  
+                            @endif
+                        @endforeach
+                    </select>
+                    {{-- {!! Form::select('institute_id', $data['institute']->name_kh, null, ['class' => 'form-control', "required"]) !!} --}}
+                   
+                    @include('includes.form_fields_validation_message', ['name' => 'institute_id'])
+                </div>
             </div>
+            {{-- <div class="form-group">      
+                
+            </div>  --}}
 
             <div class="form-group">
                 {!! Form::label('father_name', __('staff_frm_reg_Father_Name'), ['class' => 'col-sm-2 control-label',]) !!}
@@ -69,8 +97,18 @@
                 </div>
 
                 {!! Form::label('gender', __('staff_frm_reg_Gender'), ['class' => 'col-sm-2 control-label']) !!}
-                <div class="col-sm-2">
-                    {!! Form::select('gender', ['' => '','MALE' => 'MALE', 'FEMALE' => 'FEMALE', 'OTHER' => 'OTHER'], null, ['class'=>'form-control border-form',"required"]); !!}
+                <div class="col-sm-2">                   
+                    <select name="gender" id="gender" class="form-control border-form" required>
+                        @foreach ($data['gender'] as $item)
+                            @if ($flag=='kh')
+                                <option value="{{ $item->id }}">{{ $item->gender_kh }}</option>
+                            @else
+                                 <option value="{{ $item->id }}">{{ $item->gender_en }}</option>
+                            @endif
+                        @endforeach
+                    </select>
+
+
                     @include('includes.form_fields_validation_message', ['name' => 'gender'])
                 </div>
 
@@ -107,13 +145,13 @@
             <div class="form-group">
                 {!! Form::label('home_phone', __('staff_frm_reg_Mobile_No'), ['class' => 'col-sm-2 control-label']) !!}
                 <div class="col-sm-2">
-                    {!! Form::text('home_phone', null, ["class" => "form-control border-form input-mask-phone"]) !!}
+                    {!! Form::text('home_phone', null, ["class" => "form-control border-form input-mask-phone", "required"]) !!}
                     @include('includes.form_fields_validation_message', ['name' => 'home_phone'])
                 </div>
 
                 {!! Form::label('mobile_1', __('staff_frm_reg_Mobile_1'), ['class' => 'col-sm-2 control-label']) !!}
                 <div class="col-sm-2">
-                    {!! Form::text('mobile_1', null, ["class" => "form-control border-form input-mask-mobile","required"]) !!}
+                    {!! Form::text('mobile_1', null, ["class" => "form-control border-form input-mask-mobile"]) !!}
                     @include('includes.form_fields_validation_message', ['name' => 'mobile_1'])
                 </div>
 
