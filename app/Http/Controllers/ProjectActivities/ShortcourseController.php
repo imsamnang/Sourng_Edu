@@ -243,8 +243,8 @@ class ShortcourseController extends Controller
     $data = [];
     $faculty = Faculty::WHERE('course_type_id', 1)->get();
     $need = DB::table('faculties')
-      ->join('course_short', 'faculties.id', '=', 'course_short.course_code_id')
-      ->select('course_short.course_code_id')
+      ->join('course_short', 'faculties.id', '=', 'course_short.faculty_id')
+      ->select('course_short.faculty_id')
       ->where('course_short.id', $id)
       ->first();
 
@@ -255,7 +255,7 @@ class ShortcourseController extends Controller
       ->select('*')
       ->get();
 
-    $data['faculty_selected'] = Faculty::findOrFail($need->course_code_id);
+    $data['faculty_selected'] = Faculty::findOrFail($need->faculty_id);
     $data['curriculum_End'] = CurriculumEndorsement::all();
 
     // return $data;

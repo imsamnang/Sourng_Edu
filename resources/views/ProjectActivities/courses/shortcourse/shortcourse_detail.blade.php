@@ -233,17 +233,17 @@
                   <td class="hidden-480" id="havework"></td>
                   <td>
                     <center>
-                      <a href="#" type="button" data-id="{{$post->id}}" id="editFund">
-                        {{ __('shortcoure_detail_ChangeFund') }}
-                      </a>               
-                      <a href="#" onclick="deletePost({{$post->id}})" style="padding-left: 5px; padding-right: 5px; padding-top: 0px; padding-bottom: 0px;">
-                        {{ __('shortcoure_detail_Delete') }}    
-                      </a>    
-                      <form id="delete-form-{{$post->id}}" action="{{ route('shortcourse_detail.destroy', $post->id) }}"
-                        method="POST" style="display: none">
-                        @csrf
-                        @method('DELETE')
-                      </form>
+                          <a href="#" type="button" data-id="{{$post->id}}" id="editFund">
+                            {{ __('shortcoure_detail_ChangeFund') }}
+                          </a>
+                          |               
+                          <form method="POST" action="{{ route('shortcourse_detail.destroy', $post->id) }}" accept-charset="UTF-8" style="display:inline" id="deleteObject-{{$post->id}}">
+                                    {{csrf_field()}}
+                                    {{method_field('DELETE')}}
+                                    <a href="#" class="tooltip-error bootbox-confirm" onclick="deleteObject({{$post->id}})">
+                                      {{ __('shortcoure_detail_Delete') }}
+                                    </a>
+                          </form>
                     </center>               
                   </td>
                 </tr>       
@@ -352,5 +352,6 @@
 
     $('#form-field-select-4').chosen();
   </script>
+  @include('projectactivities.includes.delete_confirm')
   @include('projectactivities.staff.includes.dataTable_scripts') 
 @endpush
