@@ -101,7 +101,7 @@
             </div>
             <div class="col-md-6" style="margin-bottom: 15px;">
               <div class="form-group">
-                <label class="control-label col-xs-12 col-sm-3 no-padding-right">Curri Endorsement</label>
+                <label class="control-label col-xs-12 col-sm-3 no-padding-right">{{ __('longcourse-detail_CurriculumEndorsement') }}</label>
                 <div class="col-xs-12 col-sm-9">
                   <select style="width: 100%" name="cbo_curr_endorsement" required="">
                     @if ($flag=='kh')
@@ -215,7 +215,7 @@
                     </div>
               </div>
               <div class="col-md-1">
-                <a href="javascript:void(0);" class="btn btn-success btn-xs add_button" title="Add field">Add</a>
+                <a href="javascript:void(0);" class="btn btn-success btn-xs add_button" title="Add field">{{ __('shortcoure_Add') }}</a>
               </div>
             </div>
             {{-- Tranining Location --}}
