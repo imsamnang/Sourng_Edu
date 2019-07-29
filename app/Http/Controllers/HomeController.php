@@ -31,30 +31,16 @@ use ViewHelper;
 
 class HomeController extends CollegeBaseController
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-
     use StudentScopes;
 
     protected $base_route = 'home';
     protected $view_path = 'dashboard';
     protected $panel = 'Dashboard';
 
-
-
     public function __construct()
     {
         $this->middleware('auth');
     }
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()    {
 
     /*check user role & provide dash*/
@@ -86,7 +72,6 @@ class HomeController extends CollegeBaseController
             $activeYear = '0000';
             request()->session()->flash($this->message_success, 'Please, Create Year and Active');
         }
-
         $userRoleId = auth()->user()->roles()->first()->id;
         /*Notice*/
         $now = date('Y-m-d');
@@ -242,7 +227,6 @@ class HomeController extends CollegeBaseController
         $data['transactionChart']->dataset('Expenses', 'line',$crTransaction)
             ->options(['borderColor' => '#FF6384', 'backgroundColor'=>'transparent' ]);
         return view(parent::loadDataToView($this->view_path.'.index'), compact('data'));
-
     }
 
 }

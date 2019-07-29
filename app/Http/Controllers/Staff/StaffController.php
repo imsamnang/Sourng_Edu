@@ -38,8 +38,8 @@ class StaffController extends CollegeBaseController
 
     public function __construct()
     {
-        $this->middleware('auth');
-        $this->folder_path = public_path().DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.$this->folder_name.DIRECTORY_SEPARATOR;
+      $this->middleware('auth');
+      $this->folder_path = public_path().DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.$this->folder_name.DIRECTORY_SEPARATOR;
     }
 
     public function index(Request $request)
@@ -88,7 +88,7 @@ class StaffController extends CollegeBaseController
 
     public function store(AddValidation $request)
     {
-
+        return $request->all();
         if ($request->hasFile('main_image')){
             $image_name = parent::uploadImages($request, 'main_image');
             // Copy Image to folder user
@@ -96,8 +96,7 @@ class StaffController extends CollegeBaseController
 
         }else{
             $image_name = "default.png";
-        }
-           
+        }          
 
         $request->request->add(['created_by' => auth()->user()->id]);
         $request->request->add(['institute_id'=>$request->institute_id]);
@@ -105,37 +104,21 @@ class StaffController extends CollegeBaseController
 
         $staffSaved=Staff::create($request->all());
         if($staffSaved){
-            // $userSaff=User::create([
-            //     'name'=>$staffSaved->first_name,                
-            //     'email'=> $staffSaved->email,
-            //     'password'=> bcr,
-            //     'address'=> ,
-            //     'profile_image'
-            //     'role_id'=>8,
-            //     'hook_id'=>$staffSaved->id,
-            //     'institute_id'=>$staffSaved->institute_id
-            // ]);
-             $new_password = bcrypt(substr($request->home_phone, -4));
+            $new_password = bcrypt(substr($request->home_phone, -4));
             $StaffAccessLogin=[
                 'name'=>$staffSaved->first_name.' '.$staffSaved->middle_name.' '.$staffSaved->last_name,
                 'email'=>$staffSaved->email,
                 'password'=>$new_password,
                 'address'=>$request->address,
                 'profile_image'=>$staffSaved->staff_image,
-                'role_id'=>5,
+                'role_id'=>10,
                 'hook_id'=>$staffSaved->id,
                 'institute_id'=>$staffSaved->institute_id,
                 'created_at'=>$request->join_date,
                 'contact_number'=>$request->home_phone
-               
-
                 // $staffSaved->created_by=Auth::user()->id
-
             ];
-
             $StaffAccessLogin = User::create($StaffAccessLogin);
-
-
         }
         $request->session()->flash($this->message_success, $this->panel. ' Created Successfully.');
         return redirect()->route($this->base_route);
@@ -150,15 +133,12 @@ class StaffController extends CollegeBaseController
             'experience', 'experience_info', 'other_info','staff_image', 'status')
             ->where('id','=',$id)
             ->first();
-
         if (!$data['staff']){
             request()->session()->flash($this->message_warning, "Not a Valid Staff");
             return redirect()->route($this->base_route);
         }
-
         $data['payroll_master'] = $data['staff']->payrollMaster()->orderBy('due_date','desc')->get();
         $data['pay_salary'] = $data['staff']->paySalary()->get();
-
         /*total Calculation on Table Foot*/
         $data['staff']->amount = $data['staff']->payrollMaster()->sum('amount');
         $data['staff']->allowance = $data['staff']->paySalary()->sum('allowance');
@@ -166,12 +146,8 @@ class StaffController extends CollegeBaseController
         $data['staff']->paid_amount = $data['staff']->paySalary()->sum('paid_amount');
         $data['staff']->balance =
             ($data['staff']->amount + $data['staff']->allowance) - ($data['staff']->paid_amount + $data['staff']->fine) ;
-
-
-
         $data['lib_member'] = LibraryMember::where(['library_members.user_type' => 2, 'library_members.member_id' => $data['staff']->id])
             ->first();
-
         if($data['lib_member'] != null){
             $data['books_history'] = $data['lib_member']->libBookIssue()->select('book_issues.id', 'book_issues.member_id',
                 'book_issues.book_id',  'book_issues.issued_on', 'book_issues.due_date','book_issues.return_date', 'b.book_masters_id',
@@ -196,19 +172,16 @@ class StaffController extends CollegeBaseController
             ->orderBy('attendances.years_id','asc')
             ->orderBy('attendances.months_id','asc')
             ->get();
-
         $data['note'] = Note::select('created_at', 'id', 'member_type','member_id','subject', 'note', 'status')
             ->where('member_type','=','staff')
             ->where('member_id','=', $data['staff']->id)
             ->orderBy('created_at','desc')
             ->get();
-
         $data['document'] = Document::select('id', 'member_type','member_id', 'title', 'file','description', 'status')
             ->where('member_type','=','staff')
             ->where('member_id','=',$data['staff']->id)
             ->orderBy('created_by','desc')
             ->get();
-
         $data['history'] = ResidentHistory::select('resident_histories.years_id', 'resident_histories.hostels_id',
             'resident_histories.rooms_id', 'resident_histories.beds_id',
             'resident_histories.history_type','resident_histories.created_at')
@@ -217,7 +190,6 @@ class StaffController extends CollegeBaseController
             ->join('beds as b', 'b.id', '=', 'resident_histories.beds_id')
             ->orderBy('resident_histories.created_at')
             ->get();
-
 
         /*Transport History*/
         $data['transport_history'] = TransportHistory::select('transport_histories.id', 'transport_histories.years_id',
@@ -369,7 +341,6 @@ class StaffController extends CollegeBaseController
         return $Institute;
     }
 
-
     /*bulk import*/
     public function importStaff()
     {
@@ -472,8 +443,6 @@ class StaffController extends CollegeBaseController
 
     }
 
-
-
 // working with Project
     public function staffList(Request $request)
     {
@@ -496,25 +465,17 @@ class StaffController extends CollegeBaseController
                     $query->where('status', $request->status == 'active'?1:0);
                     $this->filter_query['status'] = $request->get('status');
                 }
-
             })
             ->get();
-
         $data['designations'] = $this->staffDesignationList();
-
         $data['url'] = URL::current();
         $data['filter_query'] = $this->filter_query;
-
         // return $data;
-
         if(auth()->user()->hasRole('admin-project')){
             return view('projectactivities.staff.index', compact('data'));
         }else{
             return redirect()->route('home');
-        }
-
-
-        
+        }      
     }
 
     public function staffAdd()

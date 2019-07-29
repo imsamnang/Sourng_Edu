@@ -31,26 +31,21 @@ trait UserScope{
         }
     }
 
-
     public function createUser(AddValidation $request)
     {
+        // return $request->all();
         if($request->password != $request->confirmPassword){
             $request->session()->flash($this->message_warning, 'Password & Confirm Password Not Match.');
             return redirect()->back();
         }
-
         $request->request->add(['password' => bcrypt($request->get('password'))]);
-
         $user = User::create($request->all());
-
         $roles = [];
         $roles[] = [
             'user_id' => $user->id,
             'role_id' => $request->role_id
         ];
-
         $user->userRole()->sync($roles);
-
         $request->session()->flash($this->message_success, 'Create Login Detail Successfully.');
         return redirect()->back();
     }

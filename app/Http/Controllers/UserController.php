@@ -101,18 +101,14 @@ class UserController extends CollegeBaseController
             $request->session()->flash($this->message_warning, 'Password & Confirm Password Not Match.');
             return redirect()->back();
         }
-
         if ($request->hasFile('main_image')){
             $image_name = parent::uploadImages($request, 'main_image');
         }else{
             $image_name = "";
         }
-
         $request->request->add(['password' => bcrypt($request->get('password'))]);
         $request->request->add(['profile_image' => $image_name]);
-
         $user = User::create($request->all());
-
         $roles = [];
         if($request->get('role')){
             foreach ($request->get('role') as $role){
@@ -122,9 +118,7 @@ class UserController extends CollegeBaseController
                 ];
             }
         }
-
         $user->userRole()->sync($roles);
-
         $request->session()->flash($this->message_success, $this->panel. ' successfully added.');
         return redirect()->route($this->base_route);
     }
@@ -162,61 +156,48 @@ class UserController extends CollegeBaseController
                 return parent::invalidRequest();
             }
         }
-
         $data['roles'] = Role::all();
         $data['active_roles'] = $data['row']->userRole()->pluck('roles.name', 'roles.id')->toArray();
-
         $data['base_route'] = $this->base_route;
         return view(parent::loadDataToView($this->view_path.'.edit'), compact('data'));
     }
 
     public function update(EditValidation $request, $id)
     {
-        if (!$row = User::find($id)) return parent::invalidRequest();
-
-        if($request->password != $request->confirmPassword){
-            $request->session()->flash($this->message_warning, 'Password & Confirm Password Not Match.');
-            return redirect()->back();
-        }
-
-        if ($request->hasFile('main_image')) {
-
-            $image_name = parent::uploadImages($request, 'main_image');
-
-            // remove old image from folder
-            if (file_exists($this->folder_path.$row->profile_image))
-                @unlink($this->folder_path.$row->profile_image);
-        }
-
-        if ($request->get('password')){
-            $new_password= bcrypt($request->get('password'));
-        }
-
-        $request->request->add(['password' => isset($new_password)?$new_password:$row->password]);
-        $request->request->add(['profile_image' => isset($image_name)?$image_name:$row->profile_image]);
-
-        $row->update($request->all());
-
-        $roles = [];
-        if($request->get('role')){
-            foreach ($request->get('role') as $role){
-                $roles[$role] = [
-                    'user_id' => $row->id,
-                    'role_id' => $role
-                ];
-            }
-
-            $row->userRole()->sync($roles);
-        }
-
-        $request->session()->flash($this->message_success, $this->panel.' successfully updated.');
-        return redirect()->route($this->base_route);
+      if (!$row = User::find($id)) return parent::invalidRequest();
+      if($request->password != $request->confirmPassword){
+          $request->session()->flash($this->message_warning, 'Password & Confirm Password Not Match.');
+          return redirect()->back();
+      }
+      if ($request->hasFile('main_image')) {
+          $image_name = parent::uploadImages($request, 'main_image');
+          // remove old image from folder
+          if (file_exists($this->folder_path.$row->profile_image))
+              @unlink($this->folder_path.$row->profile_image);
+      }
+      if ($request->get('password')){
+          $new_password= bcrypt($request->get('password'));
+      }
+      $request->request->add(['password' => isset($new_password)?$new_password:$row->password]);
+      $request->request->add(['profile_image' => isset($image_name)?$image_name:$row->profile_image]);
+      $row->update($request->all());
+      $roles = [];
+      if($request->get('role')){
+          foreach ($request->get('role') as $role){
+              $roles[$role] = [
+                  'user_id' => $row->id,
+                  'role_id' => $role
+              ];
+          }
+        $row->userRole()->sync($roles);
+      }
+      $request->session()->flash($this->message_success, $this->panel.' successfully updated.');
+      return redirect()->route($this->base_route);
     }
 
     public function delete(Request $request, $id)
     {
         if (!$row = User::find($id)) return parent::invalidRequest();
-
         // remove old image from folder
         if ($row->profile_image && file_exists($this->folder_path.$row->profile_image)) {
             @unlink($this->folder_path.$row->profile_image);
@@ -225,9 +206,7 @@ class UserController extends CollegeBaseController
                     @unlink($this->folder_path.$dimension['width'].'_'.$dimension['height'].'_'.$row->profile_image);
             }
         }
-
         $row->delete();
-
         $roles = [];
         if($request->get('role')){
             foreach ($request->get('role') as $key => $role){
@@ -237,23 +216,17 @@ class UserController extends CollegeBaseController
                 ];
             }
         }
-
         $row->userRole()->sync($roles);
-
         $request->session()->flash($this->message_success, $this->panel.' successfully deleted.');
         return redirect()->route($this->base_route);
-
     }
 
     public function active(request $request, $id)
     {
         $id = Crypt::decryptString($id);
         if (!$row = User::find($id)) return parent::invalidRequest();
-
         $request->request->add(['status' => 'active']);
-
         $row->update($request->all());
-
         $request->session()->flash($this->message_success, $row->reg_no.' '.$this->panel.' Active Successfully.');
         return redirect()->route($this->base_route);
     }
@@ -262,11 +235,8 @@ class UserController extends CollegeBaseController
     {
         $id = Crypt::decryptString($id);
         if (!$row = User::find($id)) return parent::invalidRequest();
-
         $request->request->add(['status' => 'in-active']);
-
         $row->update($request->all());
-
         $request->session()->flash($this->message_success, $row->reg_no.' '.$this->panel.' In-Active Successfully.');
         return redirect()->route($this->base_route);
     }
@@ -274,25 +244,18 @@ class UserController extends CollegeBaseController
     public function bulkAction(Request $request)
     {
         if ($request->has('bulk_action') && in_array($request->get('bulk_action'), ['active', 'in-active', 'delete'])) {
-
             if ($request->has('chkIds')) {
-
                 foreach ($request->get('chkIds') as $row_id) {
-
                     switch ($request->get('bulk_action')) {
                         case 'active':
                         case 'in-active':
-
                             $row = User::find($row_id);
                             if ($row) {
                                 $row->status = $request->get('bulk_action') == 'active'?'active':'in-active';
                                 $row->save();
                             }
-
                             break;
                         case 'delete':
-
-
                             $row = User::find($row_id);
                             // remove old image from folder
                             if ($row->profile_image && file_exists($this->folder_path.$row->profile_image)) {
@@ -302,9 +265,7 @@ class UserController extends CollegeBaseController
                                         unlink($this->folder_path.$dimension['width'].'_'.$dimension['height'].'_'.$row->profile_image);
                                 }
                             }
-
                             $row->delete();
-
                             $roles = [];
                             if($request->get('role')){
                                 foreach ($request->get('role') as $key => $role){
@@ -314,26 +275,19 @@ class UserController extends CollegeBaseController
                                     ];
                                 }
                             }
-
                             $row->userRole()->sync($roles);
-
                             break;
                     }
-
                 }
-
                 if ($request->get('bulk_action') == 'active' || $request->get('bulk_action') == 'in-active')
                     $request->session()->flash($this->message_success, 'Action successful.');
                 else
                     $request->session()->flash($this->message_success, 'Deleted successfully.');
-
                 return redirect()->route($this->base_route);
-
             } else {
                 $request->session()->flash($this->message_warning, 'Please, check at least one row.');
                 return redirect()->route($this->base_route);
             }
-
         } else return parent::invalidRequest();
 
     }

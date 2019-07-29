@@ -100,14 +100,13 @@ class ProjectActivitiesController extends Controller
       }
     }
 
-  public function user_project(Request $r){
-
+  public function user_project(Request $r)
+  {
     $data = [];
     $data['generalSetting'] = GeneralSetting::findOrFail(1)->first();
-
     $data['ListCourse']=Subject::all();
-    $data['UserReader']=User::WHERE('email',$r->email)
-                        ->ORWHERE('contact_number',$r->email)                          
+    $data['UserReader']=User::WHERE('email',auth()->user()->email)
+                        ->ORWHERE('contact_number',auth()->user()->email)                          
                         ->first();
     $data['userRole']=Role::WHERE('id',$data['UserReader']->role_id)->first();
     $data['YourInstitute']=Institute::WHERE('id',Auth::user()->institute_id)->first();
@@ -152,14 +151,13 @@ class ProjectActivitiesController extends Controller
         }   
   }
 
-  public function admin_project(Request $r){
-
+  public function admin_project(Request $r)
+  {
     $data = [];
     $data['generalSetting'] = GeneralSetting::findOrFail(1)->first();
-
     $data['ListCourse']=Subject::all();
-    $data['UserReader']=User::WHERE('email',$r->email)
-                        ->ORWHERE('contact_number',$r->email)                          
+    $data['UserReader']=User::WHERE('email',auth()->user()->email)
+                        ->ORWHERE('contact_number',auth()->user()->email)                          
                         ->first();
     $data['userRole']=Role::WHERE('id',$data['UserReader']->role_id)->first();
     $data['YourInstitute']=Institute::WHERE('id',Auth::user()->institute_id)->first();
@@ -174,7 +172,6 @@ class ProjectActivitiesController extends Controller
                           ->where('institute_id',Auth::user()->institute_id)
                           ->where('gender',2)
                           ->count();
-
     $data['allStaffs']=Staff::all()->where('institute_id',Auth::user()->institute_id)->count();
     $data['allStaffsF']=Student::all()
                         ->where('institute_id',Auth::user()->institute_id)
@@ -194,10 +191,9 @@ class ProjectActivitiesController extends Controller
     $data['TotalLongCourse'] = DB::table('course_long_student')
                   ->select(DB::raw('count(*) as LongCourse_count'))           
                   ->groupBy('course_long_id')
-                  ->get();
-    
+                  ->get();    
      $data['users']= User::all();
-// return $data['TotalShortCourse'];
+    // return $data['TotalShortCourse'];
     // return $data;
     if(Auth::check()) {
         return view('ProjectActivities.dashboard.project-dashboard',compact('data'));
@@ -210,10 +206,9 @@ class ProjectActivitiesController extends Controller
   {
     $data = [];
     $data['generalSetting'] = GeneralSetting::findOrFail(1)->first();
-
     $data['ListCourse']=Subject::all();
-    $data['UserReader']=User::WHERE('email',$r->email)
-                        ->ORWHERE('contact_number',$r->email)                          
+    $data['UserReader']=User::WHERE('email',auth()->user()->email)
+                        ->ORWHERE('contact_number',auth()->user()->email)                          
                         ->first();
     $data['userRole']=Role::WHERE('id',$data['UserReader']->role_id)->first();
     $data['YourInstitute']=Institute::WHERE('id',Auth::user()->institute_id)->first();
@@ -222,7 +217,6 @@ class ProjectActivitiesController extends Controller
     //                     // ->groupBy('institute_id')
     //                     ->where('institute_id',Auth::user()->institute_id)
     //                     ->get();
-
     $data['allStudents']=Student::all()->where('institute_id',Auth::user()->institute_id)->count();
     $data['allStudentsF']=Student::all()
                           ->where('institute_id',Auth::user()->institute_id)
@@ -269,8 +263,8 @@ class ProjectActivitiesController extends Controller
     $RoleID=auth()->user()->role_id;
 
     $data['ListCourse']=Subject::all();
-   $data['UserReader']=User::WHERE('email',$r->email)
-                        ->ORWHERE('contact_number',$r->email)                          
+    $data['UserReader']=User::WHERE('email',auth()->user()->email)
+                        ->ORWHERE('contact_number',auth()->user()->email)                          
                         ->first();
     $data['userRole']=Role::WHERE('id',$RoleID)->first();
     $data['YourInstitute']=Institute::WHERE('id',$instituteID)->first();

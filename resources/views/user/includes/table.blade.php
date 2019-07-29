@@ -68,7 +68,6 @@
                                             {{ $row->status == 'active'?"Active":"In Active" }}
                                             <span class="ace-icon fa fa-caret-down icon-on-right"></span>
                                         </button>
-
                                         <ul class="dropdown-menu">
                                             <li>
                                                 <a href="{{ route($base_route.'.active', ['id' => Crypt::encryptString($row->id)]) }}" title="Active"><i class="fa fa-check" aria-hidden="true"></i></a>
@@ -79,48 +78,45 @@
                                             </li>
                                         </ul>
                                     </div>
-
                                 </td>
                                 <td>
-                                    <div class="hidden-sm hidden-xs action-buttons">
-                                        <a class="green" href="{{ route($base_route.'.edit', ['id' => Crypt::encryptString($row->id)]) }}">
-                                            <i class="ace-icon fa fa-pencil bigger-130"></i>
-                                        </a>
+                                  <div class="hidden-sm hidden-xs action-buttons">
+                                      <a class="green" href="{{ route($base_route.'.edit', ['id' => Crypt::encryptString($row->id)]) }}">
+                                          <i class="ace-icon fa fa-pencil bigger-130"></i>
+                                      </a>
+                                      <a href="{{ route($base_route.'.delete', ['id' => $row->id]) }}" class="red bootbox-confirm">
+                                          <i class="ace-icon fa fa-trash-o bigger-130"></i>
+                                      </a>
+                                  </div>
+                                  <div class="hidden-md hidden-lg">
+                                      <div class="inline pos-rel">
+                                          <button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto">
+                                              <i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
+                                          </button>
+                                          <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
+                                              <li>
+                                                  <a href="{{ route($base_route.'.edit', ['id' => Crypt::encryptString($row->id)]) }}" class="tooltip-success" data-rel="tooltip" title="Edit">
+                                                  <span class="green">
+                                                      <i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+                                                  </span>
+                                                  </a>
+                                              </li>
 
-                                        <a href="{{ route($base_route.'.delete', ['id' => $row->id]) }}" class="red bootbox-confirm">
-                                            <i class="ace-icon fa fa-trash-o bigger-130"></i>
-                                        </a>
-                                    </div>
-                                    <div class="hidden-md hidden-lg">
-                                        <div class="inline pos-rel">
-                                            <button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto">
-                                                <i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
-                                            </button>
-                                            <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
-                                                <li>
-                                                    <a href="{{ route($base_route.'.edit', ['id' => Crypt::encryptString($row->id)]) }}" class="tooltip-success" data-rel="tooltip" title="Edit">
-                                                    <span class="green">
-                                                        <i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
-                                                    </span>
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="{{ route($base_route.'.delete', ['id' => $row->id]) }}" class="tooltip-error bootbox-confirm" data-rel="tooltip" title="Delete">
-                                                    <span class="red ">
-                                                        <i class="ace-icon fa fa-trash-o bigger-120"></i>
-                                                    </span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                                              <li>
+                                                  <a href="{{ route($base_route.'.delete', ['id' => $row->id]) }}" class="tooltip-error bootbox-confirm" data-rel="tooltip" title="Delete">
+                                                  <span class="red ">
+                                                      <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                                                  </span>
+                                                  </a>
+                                              </li>
+                                          </ul>
+                                      </div>
+                                  </div>
                                 </td>
                             </tr>
                             @php($i++)
                         @endforeach
                         {!! Form::close() !!}
-
                     @else
                         <tr><td colspan="7">No data found.</td></tr>
                     @endif

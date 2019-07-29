@@ -9,9 +9,8 @@
 
         {!! Form::open(['route' => 'staff.user.create', 'method' => 'POST', 'class' => 'form-horizontal',
                        'id' => 'validation-form', "enctype" => "multipart/form-data"]) !!}
-            {!! Form::hidden('role_id', 5) !!}
+            {!! Form::hidden('role_id', 10) !!}
             {!! Form::hidden('hook_id', $data['staff']->id) !!}
-
             <div class="form-group">
                 {!! Form::label('name', 'Name', ['class' => 'col-sm-2 control-label']) !!}
                 <div class="col-sm-4">
@@ -19,21 +18,18 @@
                         $data['staff']->middle_name.' '.$data['staff']->last_name, ["placeholder" => "", "class" => "form-control border-form", "required"]) !!}
                     @include('includes.form_fields_validation_message', ['name' => 'name'])
                 </div>
-
                 {!! Form::label('email', 'Email', ['class' => 'col-sm-2 control-label']) !!}
                 <div class="col-sm-4">
                     {!! Form::email('email', $data['staff']->email, ["placeholder" => "", "class" => "form-control border-form", "required"]) !!}
                     @include('includes.form_fields_validation_message', ['name' => 'email'])
                 </div>
             </div>
-
             <div class="form-group">
                 {!! Form::label('password', 'Password', ['class' => 'col-sm-2 control-label']) !!}
                 <div class="col-sm-4">
                     {!! Form::password('password',  ["placeholder" => "", "class" => "form-control border-form", "id"=>"pass", "required"]) !!}
                     @include('includes.form_fields_validation_message', ['name' => 'password'])
                 </div>
-
                 {!! Form::label('confirmPassword', 'Confirm Password', ['class' => 'col-sm-2 control-label']) !!}
                 <div class="col-sm-4">
                     {!! Form::password('confirmPassword',  ["placeholder" => "", "class" => "form-control border-form"/*,"onkeyup"=>"passCheck()"*/,"id"=>"repatpass", "required"]) !!}
@@ -41,14 +37,12 @@
                 </div>
             </div>
             <div class="space-4"></div>
-
             <div class="clearfix form-actions">
                 <div class="col-md-12 align-right">
                     <button class="btn" type="reset">
                         <i class="icon-undo bigger-110"></i>
                         Reset
                     </button>
-
                     <button class="btn btn-info" type="submit">
                         <i class="icon-ok bigger-110"></i>
                         Create Login Access
@@ -107,22 +101,18 @@
             </label>
         </div>
        <div class="clearfix hr-8"></div>
-
         <div class="clearfix form-actions">
             <div class="col-md-12 align-right">
                 <button class="btn" type="reset">
                     <i class="icon-undo bigger-110"></i>
                     Reset
                 </button>
-
                 <button class="btn btn-info" type="submit">
                     <i class="icon-ok bigger-110"></i>
                     Update Detail
                 </button>
             </div>
         </div>
-
-
         <div class="hr hr-24"></div>
         {!! Form::close() !!}
     </div>

@@ -130,7 +130,7 @@
 
                         <div class="col-md-6" style="margin-bottom: 15px;">
                           <div class="form-group">
-                            <label class="control-label col-xs-12 col-sm-3 no-padding-right">{{ __('longcourse-detail_CurriculumEndorsement') }}</label>
+                            <label class="control-label col-xs-12 col-sm-3 no-padding-right">Curri Endorsement</label>
                             <div class="col-xs-12 col-sm-9">
                                     <select style="width: 100%" name="cbo_curriculum" required="">
                                      @if ($flag=='kh')
@@ -192,7 +192,7 @@
 
                         <div class="col-md-6" style="margin-bottom: 15px;">
                           <div class="form-group">
-                            <label class="control-label col-xs-12 col-sm-3 no-padding-right">{{ __('longcourse-detail_PromotionStartDate') }}</label>
+                            <label class="control-label col-xs-12 col-sm-3 no-padding-right">Promotion Date</label>
                             <div class="col-xs-12 col-sm-9">
                                 <input type="date" name="txt_start_date" value="{{ $longcourse->promotion_start_date }}" class="form-control input-sm" required="" style="width: 100%">
                             </div>

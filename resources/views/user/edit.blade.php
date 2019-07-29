@@ -29,7 +29,6 @@
                     'id' => 'validation-form', "enctype" => "multipart/form-data"]) !!}
 
                     {!! Form::hidden('id', $data['row']->id) !!}
-
                     @include($view_path.'.includes.form')
 
                     <div class="clearfix form-actions">

@@ -21,7 +21,7 @@
   <div class="tabbable"  style="margin-top:20px;">
             <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4" style="background-color:;">
               <li class="active">
-                <a style="font-family: 'Khmer OS Battambang'; font-size:18px; padding:10px 5px 10px 5px; " data-toggle="tab" href="#registrationinfo">{{ __('longcourse_RegisterLongCourse') }}</a>
+                <a style="font-family: 'Khmer OS Battambang'; font-size:18px; padding:10px 5px 10px 5px; " data-toggle="tab" href="#registrationinfo">Register Long Course</a>
               </li>
             </ul>
         <div class="tab-content">
@@ -31,7 +31,7 @@
                   <div class="row">
                         <div class="col-md-6" style="margin-bottom: 15px;">
                           <div class="form-group">
-                            <label class="control-label col-xs-12 col-sm-3 no-padding-right">{{ __('longcourse-detail_Program Type') }}</label>
+                            <label class="control-label col-xs-12 col-sm-3 no-padding-right">Main Subject</label>
                             <div class="col-xs-12 col-sm-9">
                                     <select style="width: 100%" name="cbo_subject" required="">
                                          @if ($flag=='kh')
@@ -116,7 +116,7 @@
 
                         <div class="col-md-6" style="margin-bottom: 15px;">
                           <div class="form-group">
-                            <label class="control-label col-xs-12 col-sm-3 no-padding-right">{{ __('longcourse-detail_CurriculumEndorsement') }}</label>
+                            <label class="control-label col-xs-12 col-sm-3 no-padding-right">Curri Endorsement</label>
                             <div class="col-xs-12 col-sm-9">
                                     <select style="width: 100%" name="cbo_curriculum" required="">
                                      @if ($flag=='kh')
@@ -171,7 +171,7 @@
 
                         <div class="col-md-6" style="margin-bottom: 15px;">
                           <div class="form-group">
-                            <label class="control-label col-xs-12 col-sm-3 no-padding-right">{{ __('longcourse-detail_PromotionStartDate') }}</label>
+                            <label class="control-label col-xs-12 col-sm-3 no-padding-right">Promotion Date</label>
                             <div class="col-xs-12 col-sm-9">
                                 <input type="date" name="txt_start_date" class="form-control input-sm" required="" style="width: 100%">
                             </div>

@@ -1,8 +1,6 @@
 <div class="row">
     <div class="col-xs-12">
-        <h4 class="header large lighter blue" style="font-family: 'Khmer OS Battambang';">
-            <i class="fa fa-list" aria-hidden="true"></i>&nbsp;@lang('stu_frm_fee_Fees_List')
-        </h4>
+        <h4 class="header large lighter blue"><i class="fa fa-list" aria-hidden="true"></i>&nbsp;@{{__('stu_frm_fee_Fees_List')}}</h4>
         <div class="clearfix">
             <a class="label label-primary label-lg white" href="{{ route('print-out.fees.student-ledger', ['id' => $data['student']->id]) }}" target="_blank">
                 @lang('stu_frm_fee_Ledger')

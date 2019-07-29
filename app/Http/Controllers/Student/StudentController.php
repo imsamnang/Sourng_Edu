@@ -1097,8 +1097,8 @@ class StudentController extends CollegeBaseController
             'hook_id'=>$stu->id,
             'institute_id'=>Auth::user()->institute_id,
             'created_at'=>$request->reg_date,
-            'contact_number'=>$request->home_phone
-            // 'status'=>1
+            'contact_number'=>$request->home_phone,
+            'status'=>1
 
             // $stu->created_by=Auth::user()->id
 
@@ -1257,9 +1257,9 @@ class StudentController extends CollegeBaseController
         $data['filter_query'] = [];
 
         $QRCODE = array(
-            'id' => $data['student']->id
-            // 'name' => $data['student']->first_name,
-            // 'postion'=> 'student'
+            'id' => $data['student']->id,
+            'name' => $data['student']->first_name,
+            'postion'=> 'student'
 
         );
         $serialize  = serialize($QRCODE);
@@ -1269,7 +1269,7 @@ class StudentController extends CollegeBaseController
         $data['QRCODE'] = base64_encode(QrCode::format('png')
             ->color(38, 38, 38, 0.85)
             ->backgroundColor(255, 255, 255, 0.82)
-            ->size(94)
+            ->size(200)
             ->generate($QRCODE_N_URL));
         return view('ProjectActivities.students.detail.index', compact('data'));
     }
