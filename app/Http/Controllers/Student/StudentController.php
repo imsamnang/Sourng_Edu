@@ -1097,8 +1097,8 @@ class StudentController extends CollegeBaseController
             'hook_id'=>$stu->id,
             'institute_id'=>Auth::user()->institute_id,
             'created_at'=>$request->reg_date,
-            'contact_number'=>$request->home_phone,
-            'status'=>1
+            'contact_number'=>$request->home_phone
+            // 'status'=>1
 
             // $stu->created_by=Auth::user()->id
 

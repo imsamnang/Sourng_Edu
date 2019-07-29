@@ -122,7 +122,7 @@ class StaffController extends CollegeBaseController
                 'password'=>$new_password,
                 'address'=>$request->address,
                 'profile_image'=>$staffSaved->staff_image,
-                'role_id'=>8,
+                'role_id'=>5,
                 'hook_id'=>$staffSaved->id,
                 'institute_id'=>$staffSaved->institute_id,
                 'created_at'=>$request->join_date,
