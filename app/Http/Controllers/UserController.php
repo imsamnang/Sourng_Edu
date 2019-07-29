@@ -176,9 +176,16 @@ class UserController extends CollegeBaseController
               @unlink($this->folder_path.$row->profile_image);
       }
       if ($request->get('password')){
-          $new_password= bcrypt($request->get('password'));
+        $new_password= bcrypt($request->get('password'));
+      }
+      $new_role_ids=[];
+      if($request->get('role')){
+        foreach ($request->get('role') as $role) {
+          $new_role_ids = $role;
+        }
       }
       $request->request->add(['password' => isset($new_password)?$new_password:$row->password]);
+      $request->request->add(['role_id' => isset($new_role_ids)?$new_role_ids:$row->role_id]);
       $request->request->add(['profile_image' => isset($image_name)?$image_name:$row->profile_image]);
       $row->update($request->all());
       $roles = [];

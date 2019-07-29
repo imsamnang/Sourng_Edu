@@ -88,20 +88,17 @@ class StaffController extends CollegeBaseController
 
     public function store(AddValidation $request)
     {
-        return $request->all();
+        // return $request->all();
         if ($request->hasFile('main_image')){
             $image_name = parent::uploadImages($request, 'main_image');
             // Copy Image to folder user
              \File::copy(base_path('public/images/staff/' . $image_name), base_path('public/images/user/' . $image_name));
-
         }else{
             $image_name = "default.png";
-        }          
-
+        }
         $request->request->add(['created_by' => auth()->user()->id]);
         $request->request->add(['institute_id'=>$request->institute_id]);
         $request->request->add(['staff_image' => $image_name]);
-
         $staffSaved=Staff::create($request->all());
         if($staffSaved){
             $new_password = bcrypt(substr($request->home_phone, -4));

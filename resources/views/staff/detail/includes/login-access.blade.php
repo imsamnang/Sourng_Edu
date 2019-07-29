@@ -6,7 +6,6 @@
     {{--create--}}
     <div class="col-xs-12">
         <h4 class="header large lighter blue"><i class="fa fa-key" aria-hidden="true"></i>&nbsp;Create Staff Login Access</h4>
-
         {!! Form::open(['route' => 'staff.user.create', 'method' => 'POST', 'class' => 'form-horizontal',
                        'id' => 'validation-form', "enctype" => "multipart/form-data"]) !!}
             {!! Form::hidden('role_id', 10) !!}

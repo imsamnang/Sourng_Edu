@@ -24,13 +24,11 @@
                     @include($view_path.'.includes.buttons')
                     @include('includes.flash_messages')
                     <!-- PAGE CONTENT BEGINS -->
-                        @include('includes.validation_error_messages')
+                    @include('includes.validation_error_messages')
                     {!! Form::model($data['row'], ['route' => [$base_route.'.update', $data['row']->id], 'method' => 'POST', 'class' => 'form-horizontal',
                     'id' => 'validation-form', "enctype" => "multipart/form-data"]) !!}
-
                     {!! Form::hidden('id', $data['row']->id) !!}
                     @include($view_path.'.includes.form')
-
                     <div class="clearfix form-actions">
                         <div class="align-right">
                             <button class="btn btn-info" type="submit">
@@ -39,11 +37,8 @@
                             </button>
                         </div>
                     </div>
-
                     <div class="hr hr-24"></div>
-
                     {!! Form::close() !!}
-
                     <div class="hr hr-18 dotted hr-double"></div>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -53,13 +48,9 @@
 
 
 @section('js')
-
     @include('includes.scripts.jquery_validation_scripts')
-
     <script>
-
         $(document).ready(function () {
-
            jqueryValidation(
                 {
                     "name": {
@@ -95,6 +86,4 @@
 
         });
     </script>
-
-
 @endsection

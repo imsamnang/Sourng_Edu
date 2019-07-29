@@ -3,11 +3,8 @@
 namespace App\Http\Controllers\ProjectActivities;
 
 use Auth;
-
 use App\Role;
 use App\User;
-// use App\Cache;
-
 use Image, URL;
 use ViewHelper;
 use Carbon\Carbon;
@@ -161,12 +158,6 @@ class ProjectActivitiesController extends Controller
                         ->first();
     $data['userRole']=Role::WHERE('id',$data['UserReader']->role_id)->first();
     $data['YourInstitute']=Institute::WHERE('id',Auth::user()->institute_id)->first();
-    // $data['allStudents']=DB::table('students')
-    //                     ->select(DB::raw('count(*)'))           
-    //                     // ->groupBy('institute_id')
-    //                     ->where('institute_id',Auth::user()->institute_id)
-    //                     ->get();
-
     $data['allStudents']=Student::all()->where('institute_id',Auth::user()->institute_id)->count();
     $data['allStudentsF']=Student::all()
                           ->where('institute_id',Auth::user()->institute_id)
@@ -184,14 +175,14 @@ class ProjectActivitiesController extends Controller
     // $data['TotalShortCourse']=BookMasters::all()->where('institute_id',Auth::user()->institute_id)->count();
     $data['TotalShortCourse'] = DB::table('course_short_student')
                   ->select(DB::raw('count(*) as ShortCourse_count,course_short_id,course_name'))  
-                  ->join('course_short','course_short.id','=','course_short_student.course_short_id')         
+                  ->join('course_short','course_short.id','=','course_short_student.course_short_id')
                   ->groupBy('course_short_id')
                   ->get();
-
     $data['TotalLongCourse'] = DB::table('course_long_student')
                   ->select(DB::raw('count(*) as LongCourse_count'))           
                   ->groupBy('course_long_id')
                   ->get();    
+    return $data['TotalLongCourse'];
      $data['users']= User::all();
     // return $data['TotalShortCourse'];
     // return $data;
