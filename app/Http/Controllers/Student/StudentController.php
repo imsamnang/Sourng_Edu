@@ -58,7 +58,6 @@ class StudentController extends CollegeBaseController
    
     public function index(Request $request)
     {
-    //   Alert::success('Success Title', 'Success Message');
       $data = [];
       $data['student'] = Student::select('students.id', 'students.reg_no', 'students.reg_date',
           'students.faculty', 'semester', 'students.academic_status', 'students.first_name', 'students.middle_name',
@@ -989,7 +988,7 @@ class StudentController extends CollegeBaseController
       }
     }
 
-    // Working with Project
+  // Working with Project
     public function studentList(Request $request)
     {
       $data = [];
@@ -1000,14 +999,11 @@ class StudentController extends CollegeBaseController
       $data['url_edit']     = URL::to('/projects/student/edit').'/';     
       $data['url_delete']   = URL::to('/projects/student/delete').'/';     
       $data['filter_query'] = $this->filter_query;
-
       if(auth()->user()->hasRole('admin-project')){
-        return view('projectactivities.students.index',compact('data')); 
+        return view('ProjectActivities.students.index',compact('data')); 
       }else{
         return redirect()->route('home');
       }
-      
-
     }
  
   // Open Second Form Register Student
@@ -1016,7 +1012,7 @@ class StudentController extends CollegeBaseController
       $data=[];
       $provinces= Province::all();
       $data['Gender']=Gender::all();
-      return view('projectactivities.students.registerv2',compact('data','provinces'));
+      return view('ProjectActivities.students.registerv2',compact('data','provinces'));
     }
   // Save Student Second form
     public function SaveRegister2(Request $request) 
@@ -1067,26 +1063,10 @@ class StudentController extends CollegeBaseController
             // 'temp_country'=>$request->temp_country,
             'home_phone'=>$request->home_phone,
             'mobile_1'=>$request->mobile_1, 
-            'mobile_2'=>$request->mobile_2          
+            'mobile_2'=>$request->mobile_2
             ];
-            // $new_password= bcrypt($request->get('password'));
-           
-            // $new_password=substr ($request->home_phone, -4);
-
-        
-        // if ($request->hasFile('student_main_image')) {
-        //     $dir = 'images/user/';
-        //     $extension = strtolower($request->file('student_main_image')->getClientOriginalExtension()); // get image extension
-        //     $fileName = str_random() . '.' . $extension; // rename image
-        //     $request->file('student_main_image')->move($dir, $fileName);
-        //     $stu->student_image = $fileName;
-        // }
-
         \File::copy(base_path('public/images/studentProfile/' . $fileName), base_path('public/images/user/' . $fileName));
-
-
-    $new_password = bcrypt(substr($request->home_phone, -4));
-
+        $new_password = bcrypt(substr($request->home_phone, -4));
         $StuAccessLogin=[
             'name'=>$stu->first_name.' '.$stu->middle_name.' '.$stu->last_name,
             'email'=>$stu->email,
@@ -1099,21 +1079,13 @@ class StudentController extends CollegeBaseController
             'created_at'=>$request->reg_date,
             'contact_number'=>$request->home_phone,
             'status'=>1
-
-            // $stu->created_by=Auth::user()->id
-
         ];
-
           $StuAddress=Addressinfo::create($addressInfos);
           $StuAccessLogin=User::create($StuAccessLogin);
-
       }
       // Alert::success('Success Title', 'Success Message');
       return redirect()->back();    
     }
-
-
-
 
     public function view2($id)
     {
@@ -1272,8 +1244,7 @@ class StudentController extends CollegeBaseController
             ->size(200)
             ->generate($QRCODE_N_URL));
         return view('ProjectActivities.students.detail.index', compact('data'));
-    }
-    
+    }    
 
     public function edit2(Request $request, $id)
     {
@@ -1313,8 +1284,6 @@ class StudentController extends CollegeBaseController
       $data['academicInfo-html'] = view($this->view_path.'.registration.includes.forms.academic_tr_edit', [
           'academicInfos' => $data['academicInfo']
       ])->render();
-
-
         $data['base_route']   = 'student';
         $data['view_path']    = '/ProjectActivities/students';
         $data['url_update']   = URL::to('/projects/student/update').'/';
@@ -1322,18 +1291,14 @@ class StudentController extends CollegeBaseController
         $data['folder_name']  = 'studentProfile';
         $data['filter_query'] = [];
         $data['Gender']=Gender::all();
-        $provinces= Province::all();
-      
+        $provinces= Province::all();      
         //return view('ProjectActivities.students.detail.index', compact('data'));
       //return view('ProjectActivities.students.registration.edit', compact('data'));
       return view('ProjectActivities.students.edit2', compact('data','provinces'));
     }
 
     public function update2(EditValidation $request, $id)
-    {
-
-    
-    
+    {    
       if (!$row = Student::find($id))
           return parent::invalidRequest();
       if ($request->hasFile('student_main_image')) {

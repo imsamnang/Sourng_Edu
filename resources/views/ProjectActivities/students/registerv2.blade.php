@@ -335,7 +335,7 @@
                 <div class="col-sm-6">
                   <input class="form-control border-form" name="student_main_image" type="file" id="student_main_image">
                 </div>
-                <img id="" class="img-responsive" alt="Avatar" src="http://eduims.sourngedu.com/assets/images/avatars/profile-pic.jpg" width="100px">
+                <img id="student_image_preview" class="img-responsive" alt="Avatar" src="http://eduims.sourngedu.com/assets/images/avatars/profile-pic.jpg" width="100px">
               </div>
             </div>
           </div>
@@ -358,6 +358,21 @@
   @include('includes.scripts.jquery_validation_scripts')
   <!-- inline scripts related to this page -->
   @include('includes.scripts.inputMask_script')
-  @include('includes.scripts.datepicker_script')  
+  @include('includes.scripts.datepicker_script')
+  <script type="text/Javascript">
+    function readURL(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();        
+        reader.onload = function(e) {
+          $('#student_image_preview').attr('src', e.target.result);
+        }        
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    $("#student_main_image").change(function() {
+      readURL(this);
+    });    
+  </script>
 @endpush
 

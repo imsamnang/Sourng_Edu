@@ -1,7 +1,7 @@
 @extends('ProjectActivities.layout.master')
 
 @push('custom-css')
-  <link href="{{ asset('css/front.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/quiz_result.css') }}" rel="stylesheet">
   <link rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}">  
 @endpush
 
@@ -13,7 +13,7 @@
   <div class="container">
     <div class="quiz-main-block">
       <div class="row">
-        @if ($userQuizs)
+        @if ($userQuizs->count()>0)
           @foreach ($userQuizs as $subject)
             <div class="col-md-4">
               <div class="topic-block">
@@ -57,17 +57,30 @@
               </div>
             </div>
           @endforeach
+        @else
+          <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="card-action">
+                  <center>
+                    <h2>No, Result Found.</h2>
+                    <a href="{{ route('front') }}" class="btn btn-warning btn-block" title="Show All Quiz Results">Go to Main Quiz</a>
+                  </center>
+                </div>
+            </div>
+          </div>
         @endif 
       </div>
-      <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <div class="card-action">
-              <center>
-                <a href="{{ route('quiz.single.result',$subject->subject->id) }}" class="btn btn-warning btn-block" title="Show All Quiz Results">Show All Results</a>
-              </center>
-            </div>
+      @if ($userQuizs->count()>0)      
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3">
+              <div class="card-action">
+                <center>
+                  <a href="{{ route('quiz.single.result',$subject->subject->id) }}" class="btn btn-warning btn-block" title="Show All Quiz Results">Show All Results</a>
+                </center>
+              </div>
+          </div>
         </div>
-      </div>
+      @endif
     </div>
   </div>
 @endsection

@@ -38,11 +38,6 @@ class UserController extends Controller
       $countTrue = \DB::table('user_answers')->where('userData_appear_id' , $QuizResultsId)->where('correct' , 1)->count();
       $countFalse = \DB::table('user_answers')->where('userData_appear_id' , $QuizResultsId)->where('correct' , 0)->count();
       $totalQuestion = $countTrue + $countFalse;
-      // $chart = Charts::create('pie', 'highcharts')
-      // ->title('Result Analysis')
-      // ->labels(['Correct', 'Incorrect'])
-      // ->values([$countTrue,$countFalse])
-      // ->dimensions(350,300)
       return view('ProjectActivities.students.viewSingleResult',compact('countTrue','countFalse','totalQuestion','allUserAnswer','subjectName'));
   }
 

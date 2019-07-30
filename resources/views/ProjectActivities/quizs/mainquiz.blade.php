@@ -80,7 +80,7 @@
   <div class="container">
     <div class="quiz-main-block">
       <div class="row">
-        @if ($allQuiz)
+        @if ($allQuiz->count()>0)
           @foreach ($allQuiz as $subject)
             <div class="col-md-4">
               <div class="topic-block">
@@ -124,10 +124,10 @@
               </div>
             </div>
           @endforeach
+        @else
+          <h2 class="lablel label-info">No Result Fount</h2>
         @endif
-      </div>
-      <div class="row">
-        @if ($allQuizDone)
+        @if ($allQuizDone->count()>0)
           @foreach ($allQuizDone as $subject)
             <div class="col-md-4">
               <div class="topic-block">
@@ -164,14 +164,14 @@
                   </div>
                   <div class="card-action">
                     <center>
-                      <a href="{{route('quiz.start.quiz',$subject->slug)}}" class="btn btn-warning btn-block" title="Start Quiz">Quiz Done</a>
+                      <a href="{{route('quiz.single.result',$subject->id)}}" class="btn btn-success btn-block" title="Check Result">Quiz Done</a>
                     </center>
                   </div>
                 </div>
               </div>
             </div>
           @endforeach
-        @endif
+        @endif        
       </div>
     </div>
   </div>
