@@ -5,8 +5,11 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/custom/upload.css') }}" />
     <script src="{{ asset('js/custom/konva.min.js')}}"></script>    
     <script src="{{ asset('assets/js/jquery-2.1.4.min.js') }}"></script>
+    <script src="{{asset('assets/sweetalert2/sweetalert2.min.js')}}"></script>
+    <link rel="stylesheet" href="{{asset('assets/sweetalert2/sweetalert2.min.css')}}" id="theme-styles">
     <meta charset="utf-8" />
     <title>Card</title>
     <style>
@@ -354,6 +357,10 @@
           data:formData,
           processData : false,
           contentType:false,
+          beforeSend:function(){
+                 $('.row').append('<div class="proccessing"><div class="image"></div>');
+                 $('.row').find('[type="submit"]').attr('disabled','disabled');                 
+          },
           success :function(response){
             if(response.success){
               $('.row').css('width', '1210px').html('');   
@@ -398,6 +405,13 @@
                 $('canvas').css({
                   border:'1px solid rgb(0,0,0,0.1)',
                 })
+            }else{
+               return Swal.fire({
+                            type: 'warning',
+                            title: 'Oop!',
+                            html: response.message,
+                            showConfirmButton: true,
+                  });
             }
             
           }
