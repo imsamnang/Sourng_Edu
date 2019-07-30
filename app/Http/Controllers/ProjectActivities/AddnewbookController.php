@@ -69,7 +69,7 @@ class AddnewbookController extends Controller
         $AddNewbook= new Document;
         // $AddNewbook= Document::paginate(4)->search($s);
         $AddNewbook= Document::latest()->search($s)->paginate($this->limit);
-        return view('projectactivities.addnewbook', compact('AddNewbook','s'));
+        return view('ProjectActivities.addnewbook', compact('AddNewbook','s'));
 
 
     }
@@ -98,7 +98,7 @@ class AddnewbookController extends Controller
         $AddNewbook= Document::latest()->search($s)->paginate(4);
         $editbook =Document::findOrFail($id);
        // return $editbook;
-        return view('projectactivities.editbook', compact('editbook','AddNewbook','s'));
+        return view('ProjectActivities.editbook', compact('editbook','AddNewbook','s'));
 
     }
 
