@@ -92,7 +92,7 @@
                 input_qrCode.on('input',function(e){
                     var files = !!this.files ? this.files : [];
                         if (!files.length || !window.FileReader) return; 
-                        if (/^image/.test( files[0].type)){ // only video file
+                        if (/^image/.test( files[0].type)){
                             readerContainer.QRcode_input(this,function(qrcodeSuccess){
                                 page.QRCODE_SUCCESS(qrcodeSuccess);
                             });

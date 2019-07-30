@@ -1052,6 +1052,9 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
     Route::get('/qr/code/{code}','ZqrController@code');
     Route::post('/qr/code','ZqrController@code');
 
+    // For Card
+    Route::get('/card','ZcardController@index');
+    Route::post('/card/result','ZcardController@result');
 
 
   // Login Logout Activities
