@@ -47,7 +47,6 @@ class StudentTestController extends Controller
     public function preTest($student_id,$course_id){
         return $student_id ." and Course: ". $course_id;
     }
-
     
     /*
         ចុះឈ្មោះសិស្ស ដោយ​ជ្រើសរើស​មុខវិជ្ជា ឬវគ្គសិក្សា​ថ្មី​ដែលទើបចាប់ផ្តើម​

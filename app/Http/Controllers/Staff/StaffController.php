@@ -469,7 +469,7 @@ class StaffController extends CollegeBaseController
         $data['filter_query'] = $this->filter_query;
         // return $data;
         if(auth()->user()->hasRole('admin-project')){
-            return view('projectactivities.staff.index', compact('data'));
+            return view('ProjectActivities.staff.index', compact('data'));
         }else{
             return redirect()->route('home');
         }      
@@ -481,7 +481,7 @@ class StaffController extends CollegeBaseController
 
         $data['designations'] = $this->staffDesignationList();
 
-        return view('projectactivities.staff.add', compact('data'));
+        return view('ProjectActivities.staff.add', compact('data'));
     }
 
     public function save(AddValidation $request)
