@@ -29,7 +29,7 @@ class StaffActivitiesController extends Controller
 
      
     // protected $base_route = 'projects';
-    // protected $view_path = 'projectactivities';
+    // protected $view_path = 'ProjectActivities';
     // protected $panel = '';
     // protected $folder_path;
     // protected $folder_name = 'projects';
@@ -41,7 +41,7 @@ class StaffActivitiesController extends Controller
         $data = [];
 
         $generalSetting = GeneralSetting::findOrFail(1)->first();
-        return view('projectactivities.index',compact('generalSetting'));
+        return view('ProjectActivities.index',compact('generalSetting'));
 
 
     }
@@ -51,10 +51,10 @@ class StaffActivitiesController extends Controller
     */
     public function staffRegister()
     {
-        // return view('projectactivities.staff-add');
+        // return view('ProjectActivities.staff-add');
         $StaffDesignation= new StaffDesignation;
         $StaffDesignation= StaffDesignation::all();
-        return view('projectactivities.staff-add', compact('StaffDesignation'));
+        return view('ProjectActivities.staff-add', compact('StaffDesignation'));
 
     }
 

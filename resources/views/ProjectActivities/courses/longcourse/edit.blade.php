@@ -1,5 +1,5 @@
        <?php  $flag = app()->getLocale();?>
-       @extends('projectactivities.layout.master')
+       @extends('ProjectActivities.layout.master')
 
        @section('css')
        <!-- page specific plugin styles -->
@@ -8,7 +8,7 @@
        <link rel="stylesheet" href="{{ asset('assets/css/bootstrap-datepicker3.min.css') }}" />
        @endsection
        @section('menu-panel')
-       @include('projectactivities.layout.menu.menu_admin')
+       @include('ProjectActivities.layout.menu.menu_admin')
        @endsection
 
        @section('content')

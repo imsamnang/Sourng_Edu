@@ -1,6 +1,6 @@
 
 
-@extends('projectactivities.layout.master')
+@extends('ProjectActivities.layout.master')
 
 @section('css')
     <!-- page specific plugin styles -->
@@ -8,14 +8,14 @@
 @endsection
 
 @section('menu-panel')
-    @include('projectactivities.layout.menu.menu_admin')
+    @include('ProjectActivities.layout.menu.menu_admin')
 @endsection
 
 @section('content')
   <div class="main-content">
     <div class="main-content-inner">
       <div class="page-content">           
-        @include('projectactivities.reports.includes.table')   
+        @include('ProjectActivities.reports.includes.table')   
       </div>
     </div><!-- /.page-content -->
   </div>
@@ -33,5 +33,5 @@
     @include('includes.scripts.dataTable_scripts')
     @include('includes.scripts.datepicker_script') --}}
 
-    @include('projectactivities.courses.longcourse.includes.dataTable_scripts')
+    @include('ProjectActivities.courses.longcourse.includes.dataTable_scripts')
 @endsection

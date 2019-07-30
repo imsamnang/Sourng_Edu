@@ -1,4 +1,4 @@
-@extends('projectactivities.layout.master')
+@extends('ProjectActivities.layout.master')
 
 @section('css')
     <!-- page specific plugin styles -->
@@ -8,7 +8,7 @@
 
     @section('menu-panel')
 
-    @include('projectactivities.layout.menu.menu_admin')
+    @include('ProjectActivities.layout.menu.menu_admin')
 
     @endsection
 
@@ -46,7 +46,7 @@
 
                 {{-- <div class="page-header">
                     <h1>
-                        @include('projectactivities.staff.includes.breadcrumb-primary')
+                        @include('ProjectActivities.staff.includes.breadcrumb-primary')
                         <small>
                             <i class="ace-icon fa fa-angle-double-right"></i>
                             @lang('staff_frm_reg_Registration')
@@ -58,14 +58,14 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
-                        {{-- @include('projectactivities.staff.includes.buttons') --}}
+                        {{-- @include('ProjectActivities.staff.includes.buttons') --}}
 
                         @include('includes.validation_error_messages')
                        
                         {!! Form::open(['route'=>'staff-save','method' => 'POST', 'class' => 'form-horizontal',
                         'id' => 'validation-form', "enctype" => "multipart/form-data"]) !!}
 
-                        @include('projectactivities.staff.includes.form')
+                        @include('ProjectActivities.staff.includes.form')
 
                         <div class="clearfix form-actions">
                             <div class="col-md-12 align-right">

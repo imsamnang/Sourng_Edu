@@ -1,6 +1,6 @@
-@include('projectactivities.includes.header')
+@include('ProjectActivities.includes.header')
     <body class="no-skin">
-        @include('projectactivities.layout.nav')
+        @include('ProjectActivities.layout.nav')
         <div class="main-container ace-save-state" id="main-container">
             <script type="text/javascript">
                 try{ace.settings.loadState('main-container')}catch(e){}
@@ -8,7 +8,7 @@
             @yield('menu-panel')
             @yield('content')
             
-            @include('projectactivities.includes.footer')
+            @include('ProjectActivities.includes.footer')
             <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
                 <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
             </a>
@@ -73,7 +73,7 @@
             });
         </script>
 
-    {{-- @include('projectactivities.students.includes.dataTable_scripts')         --}}
+    {{-- @include('ProjectActivities.students.includes.dataTable_scripts')         --}}
         @stack('custom-js')
 
     </body>

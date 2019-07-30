@@ -1,4 +1,4 @@
-@extends('Projectactivities.layout.master')
+@extends('ProjectActivities.layout.master')
 @section('page-title')
   @if(isset($generalSetting->institute))
     IMS | {{$generalSetting->institute}}

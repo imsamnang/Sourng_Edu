@@ -1,7 +1,7 @@
-@extends('projectactivities.layout.master')
+@extends('ProjectActivities.layout.master')
 <?php  $flag = app()->getlocale();?>
 @section('menu-panel')
-@include('projectactivities.layout.menu.menu_admin')
+@include('ProjectActivities.layout.menu.menu_admin')
 @endsection
 
 @push('custom-css')

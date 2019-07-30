@@ -1,4 +1,4 @@
-@extends('projectactivities.layout.master')
+@extends('ProjectActivities.layout.master')
 
 @push('custom-css')
 <!-- page specific plugin styles -->
@@ -6,7 +6,7 @@
 @endpush
 
 @section('menu-panel')
-@include('projectactivities.layout.menu.menu_admin')
+@include('ProjectActivities.layout.menu.menu_admin')
 @endsection
 
 @section('content')
@@ -25,13 +25,13 @@
                     {{-- @include('includes.validation_error_messages') --}}
                     {{-- 
                         <div class="form-horizontal ">
-                            @include('projectactivities.students.includes.form')
+                            @include('ProjectActivities.students.includes.form')
                             <div class="hr hr-18 dotted hr-double"></div>
                         </div> 
                         --}}
                 </div><!-- /.col -->
             </div><!-- /.row -->
-            @include('projectactivities.students.includes.table')
+            @include('ProjectActivities.students.includes.table')
         </div>
     </div><!-- /.page-content -->
 </div>
@@ -143,7 +143,7 @@
 {{-- @include('includes.scripts.delete_confirm') --}}
 {{-- @include('includes.scripts.bulkaction_confirm') --}}
 {{-- @include('includes.scripts.datepicker_script') --}}
-@include('projectactivities.students.includes.dataTable_scripts')
+@include('ProjectActivities.students.includes.dataTable_scripts')
 
 <script src="{{asset('/vendor/custom-js/custom-js.js')}}"></script>
 

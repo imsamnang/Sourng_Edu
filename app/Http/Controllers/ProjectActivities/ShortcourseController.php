@@ -123,7 +123,7 @@ class ShortcourseController extends Controller
     $provinces = Province::all();
     $districts = District::where('province_id', $shortcourse->province_id)->get();
     $communes = Commune::where('district_id', $shortcourse->commune->district_id)->get();
-    return view('projectactivities.courses.shortcourse.edit', compact('shortcourse', 'faculty', 'curriculum_End', 'curriculum_author', 'modality', 'overal_fund', 'data', 'provinces', 'districts', 'communes','staffs'));
+    return view('ProjectActivities.courses.shortcourse.edit', compact('shortcourse', 'faculty', 'curriculum_End', 'curriculum_author', 'modality', 'overal_fund', 'data', 'provinces', 'districts', 'communes','staffs'));
   }
 
   public function update_shortcourse(Request $request, $id)

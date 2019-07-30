@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-xs-12">
-    @include('projectactivities.courses.longcourse.includes.data_table_header')
+    @include('ProjectActivities.courses.longcourse.includes.data_table_header')
     <!-- div.table-responsive -->
     <div class="table-responsive">
       {!! Form::open() !!}

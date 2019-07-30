@@ -1,4 +1,4 @@
-@extends('Projectactivities.layout.master')
+@extends('ProjectActivities.layout.master')
 @section('page-title')
     @if(isset($data['generalSetting']->institute))
         IMS | {{$data['generalSetting']->institute}}
@@ -12,7 +12,7 @@
 @endpush
 
 @section('menu-panel')
-    @include('projectactivities.layout.menu.menu_admin')
+    @include('ProjectActivities.layout.menu.menu_admin')
 @endsection
 
 @section('content')

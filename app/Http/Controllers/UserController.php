@@ -6,7 +6,6 @@ use App\Http\Requests\User\AddValidation;
 use App\Http\Requests\User\EditValidation;
 use App\Role;
 use App\User;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use View, AppHelper, Image, URL;

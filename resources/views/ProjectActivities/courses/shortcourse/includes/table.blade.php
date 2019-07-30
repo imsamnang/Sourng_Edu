@@ -1,7 +1,7 @@
 <?php  $flag = app()->getLocale();?>
   <div class="row">
     <div class="col-xs-12">
-      @include('projectactivities.courses.shortcourse.includes.data_table_header')
+      @include('ProjectActivities.courses.shortcourse.includes.data_table_header')
       <!-- div.table-responsive -->
       <div class="table-responsive">
         {!! Form::open() !!}

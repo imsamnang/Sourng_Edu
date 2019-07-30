@@ -1,7 +1,7 @@
 <?php  $flag = App()->getLocale();?>
-@extends('projectactivities.layout.master')
+@extends('ProjectActivities.layout.master')
 @section('menu-panel')
-  @include('projectactivities.layout.menu.menu_admin')
+  @include('ProjectActivities.layout.menu.menu_admin')
 @endsection
 @push('custom-css')
   <link rel="stylesheet" href="{{ asset('assets/css/chosen.min.css') }}" />
@@ -352,6 +352,6 @@
 
     $('#form-field-select-4').chosen();
   </script>
-  @include('projectactivities.includes.delete_confirm')
-  @include('projectactivities.staff.includes.dataTable_scripts') 
+  @include('ProjectActivities.includes.delete_confirm')
+  @include('ProjectActivities.staff.includes.dataTable_scripts') 
 @endpush

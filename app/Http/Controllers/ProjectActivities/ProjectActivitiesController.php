@@ -32,7 +32,7 @@ use App\Http\Requests\Staff\Registration\AddValidation;
 class ProjectActivitiesController extends Controller
 {
     // protected $base_route = 'projects';
-    // protected $view_path = 'projectactivities';
+    // protected $view_path = 'ProjectActivities';
     // protected $panel = '';
     // protected $folder_path;
     // protected $folder_name = 'projects';
@@ -67,10 +67,10 @@ class ProjectActivitiesController extends Controller
             return "Project Admin"; 
           }            
           else{
-            return view('projectactivities.login.login',compact('generalSetting'));
+            return view('ProjectActivities.login.login',compact('generalSetting'));
           } 
       }else{
-        return view('projectactivities.login.login',compact('generalSetting'));
+        return view('ProjectActivities.login.login',compact('generalSetting'));
       }
     }
 
@@ -107,11 +107,6 @@ class ProjectActivitiesController extends Controller
                         ->first();
     $data['userRole']=Role::WHERE('id',$data['UserReader']->role_id)->first();
     $data['YourInstitute']=Institute::WHERE('id',Auth::user()->institute_id)->first();
-    // $data['allStudents']=DB::table('students')
-    //                     ->select(DB::raw('count(*)'))           
-    //                     // ->groupBy('institute_id')
-    //                     ->where('institute_id',Auth::user()->institute_id)
-    //                     ->get();
     $data['allStudents']=Student::all()->where('institute_id',Auth::user()->institute_id)->count();
     $data['allStudentsF']=Student::all()
                           ->where('institute_id',Auth::user()->institute_id)
@@ -182,7 +177,6 @@ class ProjectActivitiesController extends Controller
                   ->select(DB::raw('count(*) as LongCourse_count'))           
                   ->groupBy('course_long_id')
                   ->get();    
-    return $data['TotalLongCourse'];
      $data['users']= User::all();
     // return $data['TotalShortCourse'];
     // return $data;
@@ -314,10 +308,10 @@ class ProjectActivitiesController extends Controller
   */
   public function staffRegister()
   {
-      // return view('projectactivities.staff-add');
+      // return view('ProjectActivities.staff-add');
       $StaffDesignation= new StaffDesignation;
       $StaffDesignation= StaffDesignation::all();
-      return view('projectactivities.staff-add', compact('StaffDesignation'));
+      return view('ProjectActivities.staff-add', compact('StaffDesignation'));
 
   }
 
@@ -335,7 +329,7 @@ class ProjectActivitiesController extends Controller
   //   // return $data['projectCourses'];
 
   //   // return $data['generalSetting']->institute;
-  //   return view('projectactivities.students.index',compact('data')); 
+  //   return view('ProjectActivities.students.index',compact('data')); 
   // }
 
   /*
@@ -353,7 +347,7 @@ class ProjectActivitiesController extends Controller
     //                                 ->ProjectStatus()->get();
     // return $data['projectCourses'];
     // return $data['generalSetting']->institute;
-    return view('projectactivities.reader',compact('data')); 
+    return view('ProjectActivities.reader',compact('data')); 
   }
 
   public function studentRegister($id)
@@ -361,7 +355,7 @@ class ProjectActivitiesController extends Controller
       $data=[];
       $data['subjectCourseID']=$id;
       $data['subjectTitle']=Subject::findOrFail($id);
-      return view('projectactivities.student-register',compact('data'));
+      return view('ProjectActivities.student-register',compact('data'));
   }
 
   public function store(Request $request)

@@ -27,7 +27,7 @@ class StudentTestController extends Controller
 
      
     // protected $base_route = 'projects';
-    // protected $view_path = 'projectactivities';
+    // protected $view_path = 'ProjectActivities';
     // protected $panel = '';
     // protected $folder_path;
     // protected $folder_name = 'projects';
@@ -39,7 +39,7 @@ class StudentTestController extends Controller
         $data = [];
 
         $generalSetting = GeneralSetting::findOrFail(1)->first();
-        return view('projectactivities.index',compact('generalSetting'));
+        return view('ProjectActivities.index',compact('generalSetting'));
 
 
     }
@@ -62,7 +62,7 @@ class StudentTestController extends Controller
         // return $data['projectCourses'];
 
         // return $data['generalSetting']->institute;
-        return view('projectactivities.student-course',compact('data')); 
+        return view('ProjectActivities.student-course',compact('data')); 
 
     }
 
@@ -71,7 +71,7 @@ class StudentTestController extends Controller
         $data=[];
         $data['subjectCourseID']=$id;
         $data['subjectTitle']=Subject::findOrFail($id);
-        return view('projectactivities.student-register',compact('data'));
+        return view('ProjectActivities.student-register',compact('data'));
     }
 
     public function store(Request $request)

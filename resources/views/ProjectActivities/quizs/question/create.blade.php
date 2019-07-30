@@ -1,11 +1,11 @@
-@extends('Projectactivities.layout.master')
+@extends('ProjectActivities.layout.master')
 
 @push('custom-css')
   <link rel="stylesheet" href="{{asset('assets/quiz/custom.css')}}">
 @endpush
 
 @section('menu-panel')
-    @include('Projectactivities.layout.menu.menu_admin')
+    @include('ProjectActivities.layout.menu.menu_admin')
 @endsection
 
 @section('content')

@@ -22,7 +22,7 @@ class ReadbookController extends Controller
 
      
     // protected $base_route = 'projects';
-    // protected $view_path = 'projectactivities';
+    // protected $view_path = 'ProjectActivities';
     // protected $panel = '';
     // protected $folder_path;
     // protected $folder_name = 'projects';

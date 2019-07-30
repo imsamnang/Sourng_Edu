@@ -1,7 +1,7 @@
-@extends('projectactivities.layout.master')
+@extends('ProjectActivities.layout.master')
 <?php  $flag = app()->getLocale();?>
 @section('menu-panel')
-@include('projectactivities.layout.menu.menu_admin')
+@include('ProjectActivities.layout.menu.menu_admin')
 @endsection
 
 @push('custom-css')
@@ -344,5 +344,5 @@
     }
    </script>
 
-        @include('projectactivities.staff.includes.dataTable_scripts') 
+        @include('ProjectActivities.staff.includes.dataTable_scripts') 
 @endpush
