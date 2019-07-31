@@ -228,7 +228,12 @@
                     ( ID: <a href="#"> {{$post->stu->id}}</a> )
                   </td>
                   <td>{{ $post->Course_Short->course_name }}</td>
+                  @if($flag=='kh')
                   <td class="hidden-480">{{$post->overalFund->title_kh}}</td>
+                  @endif
+                  @if($flag=='en')
+                  <td class="hidden-480">{{$post->overalFund->title_en}}</td>
+                  @endif
                   <td class="hidden-480" id="finish"></td>
                   <td class="hidden-480" id="havework"></td>
                   <td>
