@@ -1,3 +1,4 @@
+<?php $flag=App()->getLocale(); ?>
 @extends('layouts.master')
 @section('css')
     <!-- page specific plugin styles -->
@@ -26,10 +27,11 @@
                         {!! Form::model($data['row'], ['route' => [$base_route.'.update', $data['row']->id], 'method' => 'POST', 'class' => 'form-horizontal',
                    'id' => 'validation-form', "enctype" => "multipart/form-data"]) !!}
                         {!! Form::hidden('id', $data['row']->id) !!}
+                        <input type="hidden" name="flag" value="{{ $flag }}" id="flag">
                        {{-- {!! Form::text('address_id', $data['row']->address_id) !!}
                         {!! Form::text('parents_id', $data['row']->parents_id) !!}
                         {!! Form::text('guardian_id', $data['row']->guardian_id) !!}--}}
-                        @include($view_path.'.includes.form')
+                        @include($view_path.'.includes.formedit')
                         <div class="clearfix form-actions">
                             <div class="col-md-12 align-right">
                                 <button class="btn btn-info" type="submit">
@@ -50,6 +52,7 @@
 @endsection
 
 @section('js')
+    @include('ProjectActivities.includes.provinces')
     @include('includes.scripts.jquery_validation_scripts')
     <!-- inline scripts related to this page -->
     <script type="text/javascript">
