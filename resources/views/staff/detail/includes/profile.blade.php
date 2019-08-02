@@ -1,3 +1,4 @@
+<?php $flag=App()->getLocale();  ?>
 <div class="row">
     <div class="col-sm-12 align-right hidden-print">
         <a href="#" class="" onclick="window.print();">
@@ -18,17 +19,36 @@
 
             <div class="space-4"></div>
 
-        </div>
+        </div>       
+            
+       
     </div>
     <div class="col-xs-12 col-sm-9">
-        <div class="label label-info label-xlg arrowed-in arrowed-right arrowed">{{ $data['staff']->first_name.' '.
-                    $data['staff']->middle_name.' '.$data['staff']->last_name }}</div>
+        <?php            
+            $designation = DB::select('select * from staff_designations where id='.$data['staff']->designation);
+        ?>        
+
+        <div class="label label-info label-xlg arrowed-in arrowed-right arrowed">
+            {{ $data['staff']->first_name.' '.
+                    $data['staff']->middle_name.' '.$data['staff']->last_name  }}  
+        </div>
+        <span>
+            @if ($flag=='kh')
+                {{$designation[0]->title_kh}}                          
+            @else
+                {{$designation[0]->title}}
+            @endif
+        </span>
+       
         <div class="space-6"></div>
         <div class="profile-user-info profile-user-info-striped">
             <div class="profile-info-row">
                 <div class="profile-info-name"> @lang('staff_frm_reg_Reg_No') </div>
                 <div class="profile-info-value">
-                    <span class="editable" id="reg_no">{{ $data['staff']->reg_no }}</span>
+                    <span class="editable" id="reg_no">{{ $data['staff']->reg_no }} | 
+                        
+
+                    </span>
                 </div>
                 <div class="profile-info-name"> @lang('staff_frm_reg_Join_Date') </div>
                 <div class="profile-info-value">
@@ -50,7 +70,15 @@
             <div class="profile-info-row">
                 <div class="profile-info-name"> @lang('staff_frm_reg_Gender') </div>
                 <div class="profile-info-value">
-                    <span class="editable" id="student_name">{{ $data['staff']->gender }}</span>
+                    <span class="editable" id="student_name">
+                        {{-- {{ $data['staff']->gender }} --}}
+                        @if ($flag=='kh')
+                            {{$data['staff']->gender==1?'ប្រុស':'ស្រី'}}                            
+                        @else
+                        {{$data['staff']->gender==1?'Male':'Female'}}
+                        @endif
+                    
+                    </span>
                 </div>
                 <div class="profile-info-name"> @lang('staff_frm_reg_Blood_Group') </div>
                 <div class="profile-info-value">

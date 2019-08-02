@@ -424,40 +424,44 @@
                       processData: false,
                       contentType: false,
                       beforeSend: function () {
-                        $('.result').css({
+                        $('body').css({
                           overflow:'hidden',
                           width : '100%',
                           height : '100%'
-                        }).append('<div class="proccessing"><div class="image"></div>');
-                        $('.result').find('[type="submit"]').attr('disabled', 'disabled');
+                        })                       
+                        .append('<div class="proccessing"><div class="image"></div>');
+                        $('body').find('[type="submit"]').attr('disabled', 'disabled');
                       },
                       success: function (response) {
+                       
+
                         if (response.success) {
+                          return location.assign($(self).attr('data-url-result'));
                          // $('.result').css('width', card.SETTINGS.transform == 'horizontal'? 1210 : 1410).html('');
-                          $('.result').removeAttr('style').html('');
+                          $('body').addClass(response.card.transform == 'horizontal' ? 'landscape': 'vertical').removeAttr('style').html('');
                           var all_cards = response.data;
-                          var j = 0;
+                          var j = 1;
                           for (var i in all_cards) {
   
-                            var container = $("<div></div>");
-                         
-                            var stageContainer = $("<div></div>");
-                            var containerSpace = $("<div></div>").css('margin', 100).addClass('col-md-12');
-                                container.attr({
-                                  class: card.SETTINGS.transform == 'horizontal'? 'col-md-5' : 'col-md-8 offset-md-2'
+                            var container = $("<div></div>");                         
+                            var sheet = $("<section></section>");
+                                sheet.attr({
+                                  id : all_cards[i].id,
+                                  class : 'sheet padding-10mm'
                                 });
-                                stageContainer.attr({
+
+                            var container = $("<div></div>");
+                                container.attr({
                                   id: "stage-" + all_cards[i].id,
-                                });                             
-                                stageContainer.appendTo(container);
-                                
+                                });                                
   
                                 
-                            if (j == (card.SETTINGS.transform == 'horizontal'? 10 : 8)) {
-                              j = 0;
-                              $(".result").append(containerSpace);
-                            }
-                            $(".result").append(container);
+                                if(j == 1){
+                                  $("body").append(sheet);        
+                                }else if(j == 4){
+                                    j = 0;                       
+                                }
+                                $("body").find('section:last').append(container);  
   
                             all_cards[i] = Konva.Node.create(all_cards[i], "stage-" + all_cards[i].id);
                             all_cards[i].find("Image").forEach(imageNode => {
@@ -471,19 +475,28 @@
                             });
                             j++;
                           }
-                          $('[id^="stage"]').css({
-                            //padding: '1px 1px 1px 1px',
-                            border: '1px solid rgb(0,0,0,0.1)',
+                          $('[id^="stage"]').css({                            
+                            margin: response.card.transform == 'horizontal' ? 'auto 1px' : 'auto 2mm',
                             width: card.SETTINGS.container_width,
-                            margin: '1px'
-                          });
-                          $('.container').css({
-                            marginTop: 30,
-                            marginBottom: 10,
-                          });
-                          $('canvas').css({
-                            //border: '1px solid rgb(0,0,0,0.1)',
-                          })
+                            display:  response.card.transform == 'horizontal' ? 'inline-block' : 'block',                       
+                            height: response.card.transform == 'horizontal' ? (card.SETTINGS.container_height - 4 ): card.SETTINGS.container_height -1 
+                          });     
+                          
+                          var print = $('<button></button>');
+                                  print.attr({
+                                      class : 'btn-print btn btn-primary',
+                                  }).css({
+                                    position : 'absolute',
+                                    top : '5mm',
+                                    right : '10mm',
+                                  }).html(
+                                    '<i class="fas fa-sm fa-print"></i>'
+                                  ).on('click',()=>{
+                                    window.print();
+                                  })
+
+                          $('body').append(print);
+
                         } else {
                           return Swal.fire({
                             type: 'warning',

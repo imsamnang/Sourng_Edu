@@ -32,19 +32,31 @@ class ZcardController extends Controller
         $data['card_back_250x350'] = asset('images/card/card250x350-02.jpg');
         $data['card_front_350x250'] = asset('images/card/card350x250-01.jpg');
         $data['card_back_350x250'] = asset('images/card/card350x250-02.jpg');
+        //Set Session 
+        if($request->all()){
+            \Session::put('settingCard',json_decode($request->card));
+            \Session::put('settingProfile',json_decode($request->profile));
+            \Session::put('settingName_KM',json_decode($request->name_km));
+            \Session::put('settingName_EN',json_decode($request->name_en));
+            \Session::put('settingGender',json_decode($request->gender));
+            \Session::put('settingCourse',json_decode($request->course));
+            \Session::put('settingId',json_decode($request->id));
+            \Session::put('settingQr',json_decode($request->qr));   
 
-        $settingCard    = json_decode($request->card);
-        $settingProfile = json_decode($request->profile);
-        $settingName_KM = json_decode($request->name_km);
-        $settingName_EN = json_decode($request->name_en);
+            return array('success' => true);
+        }       
+        // Get Session
+        $settingCard    = \Session::get('settingCard');
+        $settingProfile = \Session::get('settingProfile');
+        $settingName_KM = \Session::get('settingName_KM');
+        $settingName_EN = \Session::get('settingName_EN');
       
-        $settingGender  = json_decode($request->gender);
-        $settingCourse  = json_decode($request->course);
-        $settingId      = json_decode($request->id);
-        $settingQr      = json_decode($request->qr);
-        
-       
-  
+        $settingGender  = \Session::get('settingGender');
+        $settingCourse  = \Session::get('settingCourse');
+        $settingId      = \Session::get('settingId');
+        $settingQr      = \Session::get('settingQr');
+ 
+
         $file_tmp_front_card = false;
         if($request->hasFile('front_card')){
             $file = $request->front_card;           
@@ -320,7 +332,8 @@ class ZcardController extends Controller
            
             $response = array(
                 'success'   => true,
-                'data'      => $Allcards
+                'data'      => $Allcards,
+                'card'      => $settingCard
             );
             //$data['all_cards'] = $Allcards;
             //return view('z-card-result', $data);
@@ -331,7 +344,9 @@ class ZcardController extends Controller
                 'message'   => 'No Record.'
             );
         }
-              
-        return $response;
+       
+        return view('z-card-result', $response);
+
+        
     }
 }

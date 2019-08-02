@@ -2,24 +2,26 @@
 
 namespace App\Http\Controllers\Assignment;
 
+use URL;
+use auth;
+use ViewHelper;
+use App\Models\Book;
+use App\Models\Year;
+use App\Models\Faculty;
+use App\Models\Student;
+use App\Models\Subject;
+use App\Models\HomeWork;
+use App\Models\Semester;
+use App\Models\Assignment;
+use App\Models\BookStatus;
+use App\Models\BookCategory;
+use Illuminate\Http\Request;
+use App\Models\AssignmentAnswer;
+use Illuminate\Support\Facades\Crypt;
 use App\Http\Controllers\CollegeBaseController;
 use App\Http\Requests\Assignment\AddValidation;
 use App\Http\Requests\Assignment\EditValidation;
-use App\Models\Assignment;
-use App\Models\AssignmentAnswer;
-use App\Models\Book;
-use App\Models\BookCategory;
-use App\Models\BookStatus;
-use App\Models\Faculty;
-use App\Models\HomeWork;
-use App\Models\Semester;
-use App\Models\Student;
-use App\Models\Subject;
-use App\Models\Year;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Crypt;
-use URL;
-use ViewHelper;
+
 class AssignmentController extends CollegeBaseController
 {
     protected $base_route = 'assignment';
@@ -154,7 +156,11 @@ class AssignmentController extends CollegeBaseController
 
     public function store(AddValidation $request)
     {
+        
         $year = Year::where('active_status',1)->first()->id;
+
+        // return $request;
+
         if ($request->hasFile('attach_file')){
             $name = str_slug($request->get('title'));
             $file = $request->file('attach_file');
@@ -165,8 +171,14 @@ class AssignmentController extends CollegeBaseController
         }
 
         $request->request->add(['created_by' => auth()->user()->id]);
+
+        // $request->request->add(['created_by' => 1]);
+
         $request->request->add(['years_id' => $year]);
         $request->request->add(['file' => $file_name]);
+
+
+
 
         Assignment::create($request->all());
 

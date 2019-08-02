@@ -2,30 +2,31 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Http\Controllers\CollegeBaseController;
-use App\Http\Requests\Staff\Registration\AddValidation;
-use App\Http\Requests\Staff\Registration\EditValidation;
-use App\Models\Attendance;
-use App\Models\Attendence;
+use App\User;
+use Image, URL;
+use ViewHelper;
+use App\Models\Note;
+use App\Models\Staff;
+use App\Models\Gender;
 use App\Models\Commune;
 use App\Models\District;
 use App\Models\Document;
-use App\Models\Gender;
-use App\Models\Institute;
-use App\Models\LibraryMember;
-use App\Models\Note;
 use App\Models\Province;
+use App\Models\Institute;
+use App\Traits\UserScope;
+use App\Models\Attendance;
+use App\Models\Attendence;
+use App\Models\Designations;
+use Illuminate\Http\Request;
+use App\Models\LibraryMember;
 use App\Models\ResidentHistory;
-use App\Models\Staff;
 use App\Models\StaffDesignation;
 use App\Models\TransportHistory;
-use App\Traits\UserScope;
-use App\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use Image, URL;
-use ViewHelper;
+use App\Http\Controllers\CollegeBaseController;
+use App\Http\Requests\Staff\Registration\AddValidation;
+use App\Http\Requests\Staff\Registration\EditValidation;
 
 class StaffController extends CollegeBaseController
 {
@@ -122,7 +123,7 @@ class StaffController extends CollegeBaseController
         $data['staff'] = Staff::select('id','reg_no', 'join_date', 'first_name',  'middle_name', 'last_name',
             'father_name', 'mother_name', 'date_of_birth', 'gender', 'blood_group', 'nationality','mother_tongue', 'address', 'state', 'country',
             'temp_address', 'temp_state', 'temp_country', 'home_phone', 'mobile_1', 'mobile_2', 'email', 'qualification',
-            'experience', 'experience_info', 'other_info','staff_image', 'status')
+            'experience', 'experience_info', 'other_info','staff_image', 'status','designation')
             ->where('id','=',$id)
             ->first();
         if (!$data['staff']){
@@ -194,6 +195,8 @@ class StaffController extends CollegeBaseController
 
         //login credential
         $data['staff_login'] = User::where([['role_id',5],['hook_id',$data['staff']->id]])->first();
+
+        $data['gender']=Gender::all();
 
         $data['url'] = URL::current();
         return view(parent::loadDataToView($this->view_path.'.detail.index'), compact('data'));

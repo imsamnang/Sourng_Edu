@@ -1,7 +1,9 @@
+<?php $flag=App()->getLocale();  ?>
+
 <div class="form-group">
     {!! Form::label('reg_no', __('staff_frm_doc_Reg_No'), ['class' => 'col-sm-4 control-label']) !!}
     <div class="col-sm-8">
-        {!! Form::text('reg_no', null, ["placeholder" => "", "class" => "form-control border-form input-mask-registration","required"]) !!}
+        {!! Form::text('reg_no', null, ["placeholder" => "Staff Reg.No", "class" => "form-control border-form input-mask-registration","required"]) !!}
         @include('includes.form_fields_validation_message', ['name' => 'reg_no'])
     </div>
 </div>
@@ -9,7 +11,7 @@
 <div class="form-group">
     {!! Form::label('title', __('staff_frm_doc_Title'), ['class' => 'col-sm-4 control-label']) !!}
     <div class="col-sm-8">
-        {!! Form::text('title', null, ["placeholder" => "", "class" => "form-control border-form","required"]) !!}
+        {!! Form::text('title', null, ["placeholder" => "Document Title", "class" => "form-control border-form","required"]) !!}
         @include('includes.form_fields_validation_message', ['name' => 'title'])
     </div>
 </div>

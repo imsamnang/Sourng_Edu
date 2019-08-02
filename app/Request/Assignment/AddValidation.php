@@ -28,7 +28,7 @@ class AddValidation extends FormRequest
             'semesters_id'          => 'required',
             'subjects_id'           => 'required',
             'publish_date'          => 'required',
-            'title'                 => 'required | max:100 | unique:assignments,title',
+            'title'                 => 'required | max:200 | unique:assignments,title',
             'description'           => 'required',
             'attach_file'         => 'max:10000|mimes:pdf,doc,docx,ppt,xls,xlsx,jpeg,bmp,png',
         ];

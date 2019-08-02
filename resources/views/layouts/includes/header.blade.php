@@ -7,7 +7,7 @@
         @if(isset($generalSetting->institute))
             {{ $panel }} | {{$generalSetting->institute}}
         @else
-            {{ isset($panel)?$panel:'' }} | UNLIMITED Edu Firm
+            {{ isset($panel)?$panel:'' }} | Sourng Edu
         @endif
     </title>
     <meta name="description" content="top menu &amp; navigation" />

@@ -10,7 +10,7 @@
             <div class="page-content">
                 @include('layouts.includes.template_setting')
                 <div class="page-header">
-                    <h1>
+                    <h1 style="font-family: 'Khmer OS Battambang';">
                         @include($view_path.'.includes.breadcrumb-primary')
                         <small>
                             <i class="ace-icon fa fa-angle-double-right"></i>

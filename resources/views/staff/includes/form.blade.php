@@ -184,7 +184,7 @@
 
             {{-- Address Province district commune --}}
 
-            <div class="col-md-4">
+            <div class="col-md-6">
               <div class="form-group">
                 <label class="control-label col-xs-12 col-sm-3 control-label">{{ __('shortcoure_Province') }}</label>
                 <div class="col-xs-12 col-sm-9">
@@ -218,7 +218,7 @@
               </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-6">
               <div class="form-group">
                 <label class="control-label col-xs-12 col-sm-3 control-label">{{ __('shortcoure_District') }}</label>
                 <div class="col-xs-12 col-sm-9">
@@ -238,7 +238,7 @@
               </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-6">
               <div class="form-group">
                 <label class="control-label col-xs-12 col-sm-3 control-label">{{ __('shortcoure_Commune') }}</label>
                 <div class="col-xs-12 col-sm-9">
@@ -254,6 +254,15 @@
                     }
                     @endif
                   </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-3 control-label">{{ __('shortcoure_Village') }}</label>
+                <div class="col-xs-12 col-sm-9">
+                  <input type="text" name="address" style="width: 100%">
                 </div>
               </div>
             </div>
@@ -274,7 +283,7 @@
             <hr>
             <hr class="hr-8">
 
-            <div class="form-group">
+{{--             <div class="form-group">
                 {!! Form::label('temp_address', __('shortcoure_Province'), ['class' => 'col-sm-1 control-label']) !!}
                 <div class="col-sm-3">
                     {!! Form::text('temp_address', null, ["class" => "form-control border-form upper"]) !!}
@@ -292,84 +301,46 @@
                     {!! Form::text('temp_country', null, ["class" => "form-control border-form upper"]) !!}
                     @include('includes.form_fields_validation_message', ['name' => 'temp_country'])
                 </div>
-            </div>
-
-
-            {{--Temporaray_Address Province district commune --}}
-
-            {{-- <div class="col-md-4">
-              <div class="form-group">
-                <label class="control-label col-xs-12 col-sm-3 control-label">{{ __('shortcoure_Province') }}</label>
-                <div class="col-xs-12 col-sm-9">
-                  <select style="width: 100%" name="temp_address" id="province">
-                    @if($flag=='kh')
-                    {
-                    <option value="0">ជ្រើសខាងក្រោម៖ </option>
-                    }
-                    @endif
-                    @if($flag=='en')
-                    {
-                    <option value="0">Please Choose</option>
-                    }
-                    @endif
-                    @foreach ($provinces as $row)
-                    @if($flag=='kh')
-                    {
-                    <option value="{{$row->id}}">{{ $row->name_kh }}</option>
-                    }
-                    @endif
-                    @if($flag=='en')
-                    {
-                    <option value="{{$row->id}}">{{ $row->name_en }}</option>
-                    }
-                    @endif
-                    @endforeach
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-4">
-              <div class="form-group">
-                <label class="control-label col-xs-12 col-sm-3 control-label">{{ __('shortcoure_District') }}</label>
-                <div class="col-xs-12 col-sm-9">
-                  <select style="width: 100%" name="temp_state" id="district" required="" disabled>
-                    @if($flag=='kh')
-                    {
-                    <option value="0">ជ្រើសខាងក្រោម៖ </option>
-                    }
-                    @endif
-                    @if($flag=='en')
-                    {
-                    <option value="0">Please Choose</option>
-                    }
-                    @endif
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-4">
-              <div class="form-group">
-                <label class="control-label col-xs-12 col-sm-3 control-label">{{ __('shortcoure_Commune') }}</label>
-                <div class="col-xs-12 col-sm-9">
-                  <select style="width: 100%" name="temp_country" id="commune" required="" disabled>
-                    @if($flag=='kh')
-                    {
-                    <option value="0">ជ្រើសខាងក្រោម៖ </option>
-                    }
-                    @endif
-                    @if($flag=='en')
-                    {
-                    <option value="0">Please Choose</option>
-                    }
-                    @endif
-                  </select>
-                </div>
-              </div>
             </div> --}}
 
+            {{--Temporaray_Address Province district commune --}}
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="control-label col-xs-12 col-sm-2 control-label">{{ __('shortcoure_Province') }}</label>
+                    <div class="col-xs-12 col-sm-9">
+                      <input type="text" name="temp_address" style="width: 100%">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="control-label col-xs-12 col-sm-2 control-label">{{ __('shortcoure_District') }}</label>
+                    <div class="col-xs-12 col-sm-9">
+                      <input type="text" name="temp_state"  style="width: 100%">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="control-label col-xs-12 col-sm-2 control-label">{{ __('shortcoure_Commune') }}</label>
+                    <div class="col-xs-12 col-sm-9">
+                      <input type="text" name="temp_country" style="width: 100%">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="control-label col-xs-12 col-sm-2 control-label">{{ __('shortcoure_Village') }}</label>
+                    <div class="col-xs-12 col-sm-9">
+                      <input type="text" name="temp_village" style="width: 100%">
+                    </div>
+                  </div>
+                </div>
             {{-- End Temporaray_Address Province district commune --}}
+
 
             <div class="label label-warning arrowed-in arrowed-right arrowed">@lang('staff_frm_reg_Qualification_Detail')</div>
             <hr class="hr-8">

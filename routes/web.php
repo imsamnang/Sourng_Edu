@@ -1018,7 +1018,7 @@ Auth::routes();
     // For Card
     Route::get('/card','ZcardController@index');
     Route::post('/card/result','ZcardController@result');
-
+    Route::get('/card/result','ZcardController@result');
 
   // Login Logout Activities
 //   Route::group(['namespace' => 'LoginActivity\Http\Controllers', 'middleware' => ['web', 'auth']], function() {
