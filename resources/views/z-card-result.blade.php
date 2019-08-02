@@ -1,61 +1,68 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <!-- USE DEVELOPMENT VERSION -->
-    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}" />
-    <script src="{{ asset('js/custom/konva.min.js')}}"></script>    
-    <script src="{{ asset('assets/js/jquery-2.1.4.min.js') }}"></script>
-    <meta charset="utf-8" />
-    <title>Card</title>
-    <style>
-      @font-face {
-        font-family: KhmerOSMoul;
-        src: url("{{asset('fonts/KhmerOSMoul.ttf') }}");
-      }
-      @font-face {
-        font-family: NiDAKhmerEmpire;
-        src: url("{{asset('fonts/NiDAKhmerEmpire.ttf') }}");
-      }
-      body {
-        margin: 0;
-        padding: 0;
-        overflow: scroll;
-        background-color: #f0f0f0;
-      }
-      .row{
-        width: 1210px;
-      }
-      [id^="stage"] {       
-        padding: 1px 1px 1px 1px;
-        border:1px solid rgb(0,0,0,0.1);
-        width: 503px;
-      }
-    </style>
 
-  </head>
-  <body>
-    <div class="container-fluid">
-        <div class="row">           
-        </div>
-    </div>
-  
-    <script>    
-      var all_cards = @php echo json_encode($all_cards) @endphp;
-      var j = 0;
+<head>
+  <!-- USE DEVELOPMENT VERSION -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+    integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}" />
+  <link rel="stylesheet" href="{{ asset('css/custom/card.css') }}" />
+  <script src="{{ asset('js/custom/konva.min.js')}}"></script>
+  <script src="{{ asset('assets/js/jquery-2.1.4.min.js') }}"></script>
+  <meta charset="utf-8" />
+  <title>Card</title>
+  <style>
+    [id^="stage"] {
+      margin: auto 2mm;
+      @if ($card && $card->transform=='horizontal') display: inline-block;
+      margin: auto 1px;
+      height: 346px;
+      width: 501px;
+      @endif
+    }
+  </style>
+
+
+</head>
+
+<body class="A4 {{($card && $card->transform == 'horizontal') ? 'landscape': ''}}"></body>
+
+
+<script>
+  var all_cards = @php echo json_encode($data) @endphp;
+  var Bprint = $('<button></button>');
+      Bprint.attr({
+        class : 'btn-print btn btn-primary',
+        }).css({
+        position : 'absolute',
+        top : '5mm',
+        right : '10mm',
+        }).html(
+        '<i class="fas fa-sm fa-print"></i>'
+        ).on('click',()=>{
+        window.print();
+      })
+        
+        $('body').append(Bprint);
+      var j = 1;
       for(var i in all_cards){ 
-      
-        var container = $("<div></div>");
-        var containerSpace = $("<div></div>").css('margin',20).addClass('col-md-12');
-          container.attr({
-            id: "stage-" + all_cards[i].id,
-            class : 'col-md-5'
-          });
-          if(j == 4){
-            j = 0;
-            $(".row").append(containerSpace);
-          }
-          $(".row").append(container);
+        var sheet = $("<section></section>");
+            sheet.attr({
+              id : all_cards[i].id,
+              class : 'sheet padding-10mm'
+            });
 
+        var container = $("<div></div>");
+            container.attr({
+              id: "stage-" + all_cards[i].id,
+            });
+
+        if(j == 1){
+          $("body").append(sheet);        
+        }else if(j == 4){
+            j = 0;                       
+        }
+        $("body").find('section:last').append(container);  
         all_cards[i] = Konva.Node.create(all_cards[i], "stage-"+all_cards[i].id);
         all_cards[i].find("Image").forEach(imageNode => {
         
@@ -68,6 +75,7 @@
         });
         j++;
       }      
-    </script>
-  </body>
+</script>
+</body>
+
 </html>
