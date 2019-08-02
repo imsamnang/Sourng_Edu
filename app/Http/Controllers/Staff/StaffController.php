@@ -47,47 +47,38 @@ class StaffController extends CollegeBaseController
 
     public function index(Request $request)
     {
-        $data = [];
-        $data['staff'] = Staff::select('id','reg_no', 'first_name',  'middle_name', 'last_name',
-             'mobile_1','designation', 'qualification', 'status')
-            ->where(function ($query) use ($request) {
-
-                if ($request->has('reg_no')) {
-                    $query->where('reg_no', 'like', '%'.$request->reg_no.'%');
-                    $this->filter_query['reg_no'] = $request->reg_no;
-                }
-
-                if ($request->has('designation')) {
-                    $query->where('designation', 'like', '%'.$request->designation.'%');
-                    $this->filter_query['designation'] = $request->designation;
-                }
-
-                if ($request->has('status')) {
-                    $query->where('status', $request->status == 'active'?1:0);
-                    $this->filter_query['status'] = $request->get('status');
-                }
-
-            })
-            ->get();
-
-        $data['designations'] = $this->staffDesignationList();
-
-        $data['url'] = URL::current();
-        $data['filter_query'] = $this->filter_query;
-
-        return view(parent::loadDataToView($this->view_path.'.index'), compact('data'));
+      $data = [];
+      $data['staff'] = Staff::select('id','reg_no', 'first_name',  'middle_name', 'last_name',
+           'mobile_1','designation', 'qualification', 'status')
+          ->where(function ($query) use ($request) {
+              if ($request->has('reg_no')) {
+                $query->where('reg_no', 'like', '%'.$request->reg_no.'%');
+                $this->filter_query['reg_no'] = $request->reg_no;
+              }
+              if ($request->has('designation')) {
+                $query->where('designation', 'like', '%'.$request->designation.'%');
+                $this->filter_query['designation'] = $request->designation;
+              }
+              if ($request->has('status')) {
+                $query->where('status', $request->status == 'active'?1:0);
+                $this->filter_query['status'] = $request->get('status');
+              }
+          })
+          ->get();
+      $data['designations'] = $this->staffDesignationList();
+      $data['url'] = URL::current();
+      $data['filter_query'] = $this->filter_query;
+      return view(parent::loadDataToView($this->view_path.'.index'), compact('data'));
     }
 
     public function add()
     {
-        $provinces = Province::all();
-        $data = [];
-
-        $data['designations'] = StaffDesignation::select('id', 'title','title_kh')->orderBy('title')->get(); //$this->staffDesignationList();
-        $data['institute'] = Institute::select('id','name_kh','name_en')->orderBy('name_kh')->get(); //$this->getInstitutes();
-        $data['gender']=Gender::all();
-
-        return view(parent::loadDataToView($this->view_path.'.add'), compact('data','provinces'));
+      $provinces = Province::all();
+      $data = [];
+      $data['designations'] = StaffDesignation::select('id', 'title','title_kh')->orderBy('title')->get(); //$this->staffDesignationList();
+      $data['institute'] = Institute::select('id','name_kh','name_en')->orderBy('name_kh')->get(); //$this->getInstitutes();
+      $data['gender']=Gender::all();
+      return view(parent::loadDataToView($this->view_path.'.add'), compact('data','provinces'));
     }
 
     public function store(AddValidation $request)
@@ -330,7 +321,6 @@ class StaffController extends CollegeBaseController
         $designation = StaffDesignation::select('id','title')->orderBy('title')->get();
         $designation = array_pluck($designation,'title','id');
         //$designation = array_prepend($designation,'Select Designation...','0');
-
         /*designation represent as list*/
         return $designation;
     }
@@ -341,7 +331,6 @@ class StaffController extends CollegeBaseController
         $Institute = Institute::select('id','name_kh','name_en')->orderBy('name_kh')->get();
         $Institute = array_pluck($Institute,'name_kh','id');
         //$designation = array_prepend($designation,'Select Designation...','0');
-
         /*designation represent as list*/
         return $Institute;
     }
@@ -451,61 +440,56 @@ class StaffController extends CollegeBaseController
 // working with Project
     public function staffList(Request $request)
     {
-        $data = [];
-        $data['staff'] = Staff::select('id','reg_no', 'first_name',  'middle_name', 'last_name',
-            'mobile_1','designation', 'qualification', 'status')
-            ->where(function ($query) use ($request) {
-
-                if ($request->has('reg_no')) {
-                    $query->where('reg_no', 'like', '%'.$request->reg_no.'%');
-                    $this->filter_query['reg_no'] = $request->reg_no;
-                }
-
-                if ($request->has('designation')) {
-                    $query->where('designation', 'like', '%'.$request->designation.'%');
-                    $this->filter_query['designation'] = $request->designation;
-                }
-
-                if ($request->has('status')) {
-                    $query->where('status', $request->status == 'active'?1:0);
-                    $this->filter_query['status'] = $request->get('status');
-                }
-            })
-            ->get();
-        $data['designations'] = $this->staffDesignationList();
-        $data['url'] = URL::current();
-        $data['filter_query'] = $this->filter_query;
-        // return $data;
-        if(auth()->user()->hasRole('admin-project')){
-            return view('projectactivities.staff.index', compact('data'));
-        }else{
-            return redirect()->route('home');
-        }      
+      $data = [];
+      $data['staff'] = Staff::select('id','reg_no', 'first_name',  'middle_name', 'last_name',
+          'mobile_1','designation', 'qualification', 'status')
+          ->where(function ($query) use ($request) {
+            if ($request->has('reg_no')) {
+              $query->where('reg_no', 'like', '%'.$request->reg_no.'%');
+              $this->filter_query['reg_no'] = $request->reg_no;
+            }
+            if ($request->has('designation')) {
+              $query->where('designation', 'like', '%'.$request->designation.'%');
+              $this->filter_query['designation'] = $request->designation;
+            }
+            if ($request->has('status')) {
+              $query->where('status', $request->status == 'active'?1:0);
+              $this->filter_query['status'] = $request->get('status');
+            }
+          })
+          ->get();
+      $data['designations'] = $this->staffDesignationList();
+      $data['url'] = URL::current();
+      $data['filter_query'] = $this->filter_query;
+      // return $data;
+      if(auth()->user()->hasRole('admin-project')){
+        return view('ProjectActivities.staff.index', compact('data'));
+      }else{
+        return redirect()->route('home');
+      }      
     }
 
     public function staffAdd()
     {
-        $data = [];
-
-        $data['designations'] = $this->staffDesignationList();
-
-        return view('projectactivities.staff.add', compact('data'));
+      $data = [];
+      $provinces = Province::all();
+      $data['designations'] = StaffDesignation::select('id', 'title','title_kh')->orderBy('title')->get(); //$this->staffDesignationList();
+      $data['institute'] = Institute::select('id','name_kh','name_en')->orderBy('name_kh')->get(); //$this->getInstitutes();
+      $data['gender']=Gender::all();
+        return view('ProjectActivities.staff.add', compact('data','provinces'));
     }
 
     public function save(AddValidation $request)
     {
-
-        if ($request->hasFile('main_image')){
-            $image_name = parent::uploadImages($request, 'main_image');
-        }else{
-            $image_name = "";
-        }
-
-        $request->request->add(['created_by' => auth()->user()->id]);
-        $request->request->add(['staff_image' => $image_name]);
-
-        Staff::create($request->all());
-        $request->session()->flash($this->message_success, $this->panel. ' Created Successfully.');
-        return redirect()->route('staff-list');
+      if ($request->hasFile('main_image')){
+          $image_name = parent::uploadImages($request, 'main_image');
+      }else{
+          $image_name = "";
+      }
+      $request->request->add(['created_by' => auth()->user()->id]);
+      $request->request->add(['staff_image' => $image_name]);
+      Staff::create($request->all());
+      $request->session()->flash($this->message_success, $this->panel. ' Created Successfully.');
+      return redirect()->route('staff-list');
     }
 }

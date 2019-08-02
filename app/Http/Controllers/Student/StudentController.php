@@ -996,8 +996,8 @@ class StudentController extends CollegeBaseController
       $data['faculties'] = $this->activeFaculties();
       $data['url'] = URL::current();
       $data['url_view']     = URL::to('/projects/student/view').'/';
-      $data['url_edit']     = URL::to('/projects/student/edit').'/';     
-      $data['url_delete']   = URL::to('/projects/student/delete').'/';     
+      $data['url_edit']     = URL::to('/projects/student/edit').'/';
+      $data['url_delete']   = URL::to('/projects/student/delete').'/';
       $data['filter_query'] = $this->filter_query;
       if(auth()->user()->hasRole('admin-project')){
         return view('ProjectActivities.students.index',compact('data')); 
@@ -1014,17 +1014,16 @@ class StudentController extends CollegeBaseController
       $data['Gender']=Gender::all();
       return view('ProjectActivities.students.registerv2',compact('data','provinces'));
     }
+
   // Save Student Second form
     public function SaveRegister2(Request $request) 
     {
       // return $request->all();
       $stu = new Student();
-      // return Auth::user()->institute_id;
       $stu->institute_id=Auth::user()->institute_id;
       $stu->created_by=Auth::user()->id;
       $stu->reg_no = $request->reg_no;
       $stu->reg_date = $request->reg_date;
-      // $stu->created_by=1;
       $stu->university_reg = $request->university_reg;
       $stu->faculty=$request->faculty;
       $stu->semester=$request->semester;
@@ -1073,7 +1072,7 @@ class StudentController extends CollegeBaseController
             'password'=>$new_password,
             'address'=>$request->cbo_province,
             'profile_image'=>$stu->student_image,
-            'role_id'=>6,
+            'role_id'=>11,
             'hook_id'=>$stu->id,
             'institute_id'=>Auth::user()->institute_id,
             'created_at'=>$request->reg_date,

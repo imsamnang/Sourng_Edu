@@ -22,10 +22,7 @@ Route::get('/locale/{locale}',function($locale){
 Auth::routes();
 
 /*for Dashboard's*/
-Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
-// Route::get('/','HomeController@index');
-// Route::get('/home','HomeController@index');
-// Route::get('/',                    ['as' => 'home',                  'middleware' => ['ability:super-admin,role-index'],         'uses' => 'HomeController@index']);
+  Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
 
 /* Roles Routes */
     Route::get('role',                    ['as' => 'role',                  'middleware' => ['ability:super-admin,role-index'],         'uses' => 'RoleController@index']);
@@ -35,6 +32,9 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
     Route::post('role/{id}/update',       ['as' => 'role.update',           'middleware' => ['ability:super-admin,role-edit'],          'uses' => 'RoleController@update']);
     Route::get('role/{id}/view',          ['as' => 'role.view',             'middleware' => ['ability:super-admin,role-view'],          'uses' => 'RoleController@show']);
     Route::get('role/{id}/delete',        ['as' => 'role.delete',           'middleware' => ['ability:super-admin,role-delete'],        'uses' => 'RoleController@destroy']);
+// Permission Routes
+    Route::get('permission/add',['as' => 'permission.add',              'middleware' => ['ability:super-admin,role-add'],'uses' => 'PermissionController@create']);
+    Route::post('permission/store',['as' => 'permission.store',              'middleware' => ['ability:super-admin,role-add'],'uses' => 'PermissionController@store']);
 
 /* User Routes */
     Route::get('user',                    ['as' => 'user',                  'middleware' => ['ability:super-admin,user-index'],             'uses' => 'UserController@index']);
@@ -46,7 +46,6 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
     Route::get('user/{id}/active',        ['as' => 'user.active',           'middleware' => ['ability:super-admin,user-active'],            'uses' => 'UserController@Active']);
     Route::get('user/{id}/in-active',     ['as' => 'user.in-active',        'middleware' => ['ability:super-admin,user-in-active'],         'uses' => 'UserController@inActive']);
     Route::post('user/bulk-action',       ['as' => 'user.bulk-action',      'middleware' => ['ability:super-admin,user-bulk-action'],       'uses' => 'UserController@bulkAction']);
-
 /*user-student route group*/
   Route::group(['prefix' => 'user-student/', 'as' => 'user-student',       'namespace' => 'UserStudent\\'], function () {
       Route::get('',                      ['as' => '',                    'uses' => 'HomeController@index']);
@@ -71,7 +70,6 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
       Route::post('assignment/answer/{id}/update',                ['as' => '.assignment.answer.update',            'uses' => 'HomeController@updateAnswer']);
       Route::get('assignment/answer/{id}/{answer}/view',         ['as' => '.assignment.answer.view',              'uses' => 'HomeController@viewAssignmentAnswer']);
   });
-
 /*Guardian User Route group*/
   Route::group(['prefix' => 'user-guardian/',          'as' => 'user-guardian',       'namespace' => 'UserGuardian\\'], function () {
       /*user-student route group*/
@@ -79,7 +77,6 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
       Route::get('profile',                       ['as' => '.profile',            'uses' => 'HomeController@profile']);
       Route::post('{id}/password',                ['as' => '.password',           'uses' => 'HomeController@password']);
       Route::get('notice',                        ['as' => '.notice',             'uses' => 'HomeController@notice']);
-
 //guardian's student wise summary routes
       Route::get('students',                      ['as' => '.students',               'uses' => 'HomeController@students']);
       Route::get('students/{id}/profile',         ['as' => '.students.profile',       'uses' => 'HomeController@studentProfile']);
@@ -99,7 +96,6 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
       Route::get('students/{id}assignment/',                                                 ['as' => '.students.assignment',                          'uses' => 'HomeController@assignment']);
       Route::get('students/{id}/assignment/answer/{assignment}/{answer}/view',               ['as' => '.students.assignment.answer.view',              'uses' => 'HomeController@viewAssignmentAnswer']);
   });
-
 /*user-Staff route group*/
   Route::group(['prefix' => 'user-staff/',          'as' => 'user-staff',       'namespace' => 'UserStaff\\'], function () {
       Route::get('',                      ['as' => '',                    'uses' => 'HomeController@index']);
@@ -121,7 +117,6 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
       /*Assignment*/
       Route::get('assignment',                           ['as' => '.assignment',                   'middleware' => ['ability:super-admin,assignment-index'],               'uses' => 'HomeController@assignment']);
   });
-
 /*Students Grouping*/
   Route::group(['prefix' => 'student/','as' => 'student','namespace' => 'Student\\'], function () {
 
@@ -182,7 +177,6 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
       Route::get('note/{id}/in-active',           ['as' => '.note.in-active',      'middleware' => ['ability:super-admin,student-note-in-active'],      'uses' => 'NoteController@inActive']);
       Route::post('note/bulk-action',             ['as' => '.note.bulk-action',    'middleware' => ['ability:super-admin,student-note-bulk-action'],      'uses' => 'NoteController@bulkAction']);
   });
-
 /*Staff Grouping*/
   Route::group(['prefix' => 'staff/',                                     'as' => 'staff',                                       'namespace' => 'Staff\\'], function () {
       /*Staff Routes*/
@@ -238,8 +232,7 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
       Route::get('designation/{id}/in-active',    ['as' => '.designation.in-active',      'middleware' => ['ability:super-admin,staff-designation-in-active'],    'uses' => 'DesignationController@inActive']);
       Route::post('designation/bulk-action',      ['as' => '.designation.bulk-action',    'middleware' => ['ability:super-admin,staff-designation-bulk-action'],  'uses' => 'DesignationController@bulkAction']);
   });
-  
-/*Accounting Grouping*/
+  /*Accounting Grouping*/
   Route::group(['prefix' => 'account/',                                   'as' => 'account.',                                    'namespace' => 'Account\\'], function () {
    /*Fees Group*/
       /*Balance Fees*/
@@ -343,7 +336,6 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
       Route::get('transaction/{id}/in-active',     ['as' => 'transaction.in-active',        'middleware' => ['ability:super-admin,transaction-in-active'],            'uses' => 'Transaction\TransactionController@inActive']);
       Route::post('transaction/tr-html',           ['as' => 'transaction.tr-html',                                                                                    'uses' => 'Transaction\TransactionController@trHtmlRow']);
   });
-
 /*Library Grouping*/
   Route::group(['prefix' => 'library/',                                   'as' => 'library.',                                    'namespace' => 'Library\\'], function () {
       Route::get('',                          ['as' => '',                        'middleware' => ['ability:super-admin,library-index'],           'uses' => 'LibraryBaseController@index']);
@@ -415,7 +407,6 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
       Route::get('student',                   ['as' => 'student',                 'middleware' => ['ability:super-admin,library-member-student'],      'uses' => 'StudentMemberController@student']);
       Route::get('student/{id}/view',         ['as' => 'student.view',            'middleware' => ['ability:super-admin,library-member-student-view'],      'uses' => 'StudentMemberController@studentView']);
   });
-
 /*Attendance Grouping*/
   Route::group(['prefix' => 'attendance/',                                'as' => 'attendance',                                  'namespace' => 'Attendance\\'], function () {
    /*Attendance */
@@ -447,7 +438,6 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
       Route::post('staff/bulk-action',            ['as' => '.staff.bulk-action',      'middleware' => ['ability:super-admin,staff-attendance-bulk-action'],       'uses' => 'StaffAttendanceController@bulkAction']);
       Route::post('staff-html',                   ['as' => '.staff-html',                                                                                         'uses' => 'StaffAttendanceController@staffHtmlRow']);
   });
-
 /*Exam group */
   Route::group(['prefix' => 'exam/','as' => 'exam', 'namespace' => 'Examination\\'], function () {
       /*Exam Types Routes*/
@@ -494,7 +484,6 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
       Route::post('mark-ledger/find-subject',                                        ['as' => '.mark-ledger.find-subject',                                                                                        'uses' => 'ExamMarkLedgerController@findSubject']);
       Route::post('mark-ledger/student-html',                                        ['as' => '.mark-ledger.student-html',                                                                                        'uses' => 'ExamMarkLedgerController@studentHtmlRow']);
   });
-
 /*Hostel Grouping */
   Route::group(['prefix' => 'hostel/', 'as' => 'hostel', 'namespace' => 'Hostel\\'], function () {
     /*Hostel Routes*/
@@ -596,10 +585,8 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
     Route::get('food/eating-time/{id}/in-active',     ['as' => '.food.eating-time.in-active',        'middleware' => ['ability:super-admin,eating-time-in-acctive'],        'uses' => 'EatingTimeController@inActive']);
     Route::post('food/eating-time/bulk-action',       ['as' => '.food.eating-time.bulk-action',      'middleware' => ['ability:super-admin,eating-time-bulk-action'],       'uses' => 'EatingTimeController@bulkAction']);
   });
-
 /*Transport Grouping */
   Route::group(['prefix' => 'transport/',                                 'as' => 'transport',                                    'namespace' => 'Transport\\'], function () {
-
       /*Room Types Routes*/
       Route::get('route',                         ['as' => '.route',                      'middleware' => ['ability:super-admin,transport-route-index'],              'uses' => 'RouteController@index']);
       Route::post('route/store',                  ['as' => '.route.store',                'middleware' => ['ability:super-admin,transport-route-add'],                'uses' => 'RouteController@store']);
@@ -638,14 +625,11 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
       Route::get('user/history',            ['as' => '.user.history',             'middleware' => ['ability:super-admin,transport-user-history'],               'uses' => 'TransportUserController@history']);
       Route::post('find-vehicles',            ['as' => '.find-vehicles',                                                                            'uses' => 'TransportUserController@findVehicles']);
   });
-
 /*Report Grouping*/
   Route::group(['prefix' => 'report/',                                    'as' => 'report',                                       'namespace' => 'Report\\'], function () {
-
       Route::get('student',           ['as' => '.student',            'middleware' => ['ability:super-admin,student-report'],      'uses' => 'StudentReportController@index']);
       Route::get('staff',             ['as' => '.staff',              'middleware' => ['ability:super-admin,staff-report'],        'uses' => 'StaffReportController@index']);
   });
-
 /*Info Center Grouping*/
   Route::group(['prefix' => 'info/','as' => 'info.','namespace' => 'Info\\'], function () {
       /*Notice Board Routes*/
@@ -682,7 +666,6 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
       Route::post('smsemail/dueReminder',             ['as' => 'smsemail.dueReminder',                    'middleware' => ['ability:super-admin,sms-email-due-reminder'],              'uses' => 'SmsEmailController@dueReminder']);
       Route::post('smsemail/bookReturnReminder',      ['as' => 'smsemail.bookReturnReminder',             'middleware' => ['ability:super-admin,sms-email-book-return-reminder'],      'uses' => 'SmsEmailController@bookReturnReminder']);
   });
-
 /*Print Grouping*/
   Route::group(['prefix' => 'print-out/','as' => 'print-out.','namespace' => 'PrintOut\\'], function () {
       /*Print Fees*/
@@ -704,7 +687,6 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
       Route::post('exam/mark-sheet/',                     ['as' => 'exam.mark-sheet',                         'middleware' => ['ability:super-admin,exam-print-mark-sheet'],                    'uses' => 'ExamPrintController@examMarkSheet']);
       Route::post('exam/grade-sheet/',                     ['as' => 'exam.grade-sheet',                         'middleware' => ['ability:super-admin,exam-print-mark-sheet'],                    'uses' => 'ExamPrintController@examGradeSheet']);
   });
-
 /*Academic Grouping */
   Route::group(['prefix' => '/','as' => '','namespace' => 'Academic\\'], function () {
 /*faculty Routes*/
@@ -716,7 +698,6 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
       Route::get('faculty/{id}/active',        ['as' => 'faculty.active',           'middleware' => ['ability:super-admin,faculty-active'],           'uses' => 'FacultyController@Active']);
       Route::get('faculty/{id}/in-active',     ['as' => 'faculty.in-active',        'middleware' => ['ability:super-admin,faculty-in-active'],        'uses' => 'FacultyController@inActive']);
       Route::post('faculty/bulk-action',       ['as' => 'faculty.bulk-action',      'middleware' => ['ability:super-admin,faculty-bulk-action'],      'uses' => 'FacultyController@bulkAction']);
-
 /*semester Routes*/
       Route::get('semester',                    ['as' => 'semester',                  'middleware' => ['ability:super-admin,semester-index'],             'uses' => 'SemesterController@index']);
       Route::post('semester/store',             ['as' => 'semester.store',            'middleware' => ['ability:super-admin,semester-add'],               'uses' => 'SemesterController@store']);
@@ -727,7 +708,6 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
       Route::get('semester/{id}/in-active',     ['as' => 'semester.in-active',        'middleware' => ['ability:super-admin,semester-in-active'],         'uses' => 'SemesterController@inActive']);
       Route::post('semester/bulk-action',       ['as' => 'semester.bulk-action',      'middleware' => ['ability:super-admin,semester-bulk-action'],       'uses' => 'SemesterController@bulkAction']);
       Route::post('semester/subject-html',        ['as' => 'semester.subject-html',                                                                       'uses' => 'SemesterController@subjectHtmlRow']);
-
 /*Grading Type & Scale*/
       Route::get('grading',                    ['as' => 'grading',                  'middleware' => ['ability:super-admin,grading-index'],                'uses' => 'GradingController@index']);
       Route::post('grading/store',             ['as' => 'grading.store',            'middleware' => ['ability:super-admin,grading-add'],                  'uses' => 'GradingController@store']);
@@ -738,7 +718,6 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
       Route::get('grading/{id}/in-active',     ['as' => 'grading.in-active',        'middleware' => ['ability:super-admin,grading-in-active'],            'uses' => 'GradingController@inActive']);
       Route::post('grading/bulk-action',       ['as' => 'grading.bulk-action',      'middleware' => ['ability:super-admin,grading-bulk-action'],          'uses' => 'GradingController@bulkAction']);
       Route::post('grading/grade-html',        ['as' => 'grading.grade-html',                                                                                 'uses' => 'GradingController@gradeHtmlRow']);
-
 /*Subject*/
       Route::get('subject',                    ['as' => 'subject',                  'middleware' => ['ability:super-admin,subject-index'],                'uses' => 'SubjectController@index']);
       Route::post('subject/store',             ['as' => 'subject.store',            'middleware' => ['ability:super-admin,subject-add'],                  'uses' => 'SubjectController@store']);
@@ -749,7 +728,6 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
       Route::get('subject/{id}/in-active',     ['as' => 'subject.in-active',        'middleware' => ['ability:super-admin,subject-in-active'],            'uses' => 'SubjectController@inActive']);
       Route::post('subject/bulk-action',       ['as' => 'subject.bulk-action',      'middleware' => ['ability:super-admin,subject-bulk-action'],          'uses' => 'SubjectController@bulkAction']);
       Route::get('subject-name-autocomplete',  ['as' => 'subject-name-autocomplete',                                                                      'uses' => 'SubjectController@subjectNameAutocomplete']);
-
 /*Student Status Routes*/
       Route::get('student-status',                    ['as' => 'student-status',                  'middleware' => ['ability:super-admin,student-status-index'],               'uses' => 'StudentStatusController@index']);
       Route::post('student-status/store',             ['as' => 'student-status.store',            'middleware' => ['ability:super-admin,student-status-add'],                 'uses' => 'StudentStatusController@store']);
@@ -759,7 +737,6 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
       Route::get('student-status/{id}/active',        ['as' => 'student-status.active',           'middleware' => ['ability:super-admin,student-status-active'],              'uses' => 'StudentStatusController@Active']);
       Route::get('student-status/{id}/in-active',     ['as' => 'student-status.in-active',        'middleware' => ['ability:super-admin,student-status-in-active'],           'uses' => 'StudentStatusController@inActive']);
       Route::post('student-status/bulk-action',       ['as' => 'student-status.bulk-action',      'middleware' => ['ability:super-admin,student-status-bulk-action'],         'uses' => 'StudentStatusController@bulkAction']);
-
 /*Book Status Routes*/
       Route::get('attendance-status',                    ['as' => 'attendance-status',                  'middleware' => ['ability:super-admin,attendance-status-index'],            'uses' => 'AttendanceStatusController@index']);
       Route::post('attendance-status/store',             ['as' => 'attendance-status.store',            'middleware' => ['ability:super-admin,attendance-status-add'],              'uses' => 'AttendanceStatusController@store']);
@@ -769,7 +746,6 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
       Route::get('attendance-status/{id}/active',        ['as' => 'attendance-status.active',           'middleware' => ['ability:super-admin,attendance-status-active'],           'uses' => 'AttendanceStatusController@Active']);
       Route::get('attendance-status/{id}/in-active',     ['as' => 'attendance-status.in-active',        'middleware' => ['ability:super-admin,attendance-status-in-active'],        'uses' => 'AttendanceStatusController@inActive']);
       Route::post('attendance-status/bulk-action',       ['as' => 'attendance-status.bulk-action',      'middleware' => ['ability:super-admin,attendance-status-bulk-action'],      'uses' => 'AttendanceStatusController@bulkAction']);
-
 /*Book Status Routes*/
       Route::get('book-status',                    ['as' => 'book-status',                  'middleware' => ['ability:super-admin,book-status-index'],            'uses' => 'BookStatusController@index']);
       Route::post('book-status/store',             ['as' => 'book-status.store',            'middleware' => ['ability:super-admin,book-status-add'],              'uses' => 'BookStatusController@store']);
@@ -779,7 +755,6 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
       Route::get('book-status/{id}/active',        ['as' => 'book-status.active',           'middleware' => ['ability:super-admin,book-status-active'],           'uses' => 'BookStatusController@Active']);
       Route::get('book-status/{id}/in-active',     ['as' => 'book-status.in-active',        'middleware' => ['ability:super-admin,book-status-in-active'],        'uses' => 'BookStatusController@inActive']);
       Route::post('book-status/bulk-action',       ['as' => 'book-status.bulk-action',      'middleware' => ['ability:super-admin,book-status-bulk-action'],      'uses' => 'BookStatusController@bulkAction']);
-
 /*Hostel Room Beds Status Routes*/
       Route::get('bed-status',                    ['as' => 'bed-status',                  'middleware' => ['ability:super-admin,bed-status-index'],               'uses' => 'BedStatusController@index']);
       Route::post('bed-status/store',             ['as' => 'bed-status.store',            'middleware' => ['ability:super-admin,bed-status-add'],                 'uses' => 'BedStatusController@store']);
@@ -789,7 +764,6 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
       Route::get('bed-status/{id}/active',        ['as' => 'bed-status.active',           'middleware' => ['ability:super-admin,bed-status-active'],              'uses' => 'BedStatusController@Active']);
       Route::get('bed-status/{id}/in-active',     ['as' => 'bed-status.in-active',        'middleware' => ['ability:super-admin,bed-status-in-active'],           'uses' => 'BedStatusController@inActive']);
       Route::post('bed-status/bulk-action',       ['as' => 'bed-status.bulk-action',      'middleware' => ['ability:super-admin,bed-status-bulk-action'],          'uses' => 'BedStatusController@bulkAction']);
-
 /*Year Routes*/
       Route::get('year',                    ['as' => 'year',                  'middleware' => ['ability:super-admin,year-index'],            'uses' => 'YearsController@index']);
       Route::post('year/store',             ['as' => 'year.store',            'middleware' => ['ability:super-admin,year-add'],              'uses' => 'YearsController@store']);
@@ -800,7 +774,6 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
       Route::get('year/{id}/in-active',     ['as' => 'year.in-active',        'middleware' => ['ability:super-admin,year-in-active'],        'uses' => 'YearsController@inActive']);
       Route::post('year/bulk-action',       ['as' => 'year.bulk-action',      'middleware' => ['ability:super-admin,year-bulk-action'],      'uses' => 'YearsController@bulkAction']);
       Route::get('year/{id}/active-status', ['as' => 'year.active-status',    'middleware' => ['ability:super-admin,year-active-status'],    'uses' => 'YearsController@activeStatus']);
-
 /*Months Routes*/
       Route::get('month',                    ['as' => 'month',                  'middleware' => ['ability:super-admin,month-index'],          'uses' => 'MonthsController@index']);
       Route::post('month/store',             ['as' => 'month.store',            'middleware' => ['ability:super-admin,month-add'],            'uses' => 'MonthsController@store']);
@@ -810,7 +783,6 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
       Route::get('month/{id}/active',        ['as' => 'month.active',           'middleware' => ['ability:super-admin,month-active'],         'uses' => 'MonthsController@Active']);
       Route::get('month/{id}/in-active',     ['as' => 'month.in-active',        'middleware' => ['ability:super-admin,month-in-active'],      'uses' => 'MonthsController@inActive']);
       Route::post('month/bulk-action',       ['as' => 'month.bulk-action',      'middleware' => ['ability:super-admin,month-bulk-action'],    'uses' => 'MonthsController@bulkAction']);
-
 /*Day Routes*/
       Route::get('day',                    ['as' => 'day',                  'middleware' => ['ability:super-admin,day-index'],            'uses' => 'DayController@index']);
       Route::post('day/store',             ['as' => 'day.store',            'middleware' => ['ability:super-admin,day-add'],              'uses' => 'DayController@store']);
@@ -821,7 +793,6 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
       Route::get('day/{id}/in-active',     ['as' => 'day.in-active',        'middleware' => ['ability:super-admin,day-in-active'],        'uses' => 'DayController@inActive']);
       Route::post('day/bulk-action',       ['as' => 'day.bulk-action',      'middleware' => ['ability:super-admin,day-bulk-action'],      'uses' => 'DayController@bulkAction']);
   });
-
 /*Setting Grouping */
   Route::group(['prefix' => 'setting/','as' => 'setting','namespace' => 'Setting\\'], function () {
   /* General Setting Routes */
@@ -830,14 +801,12 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
       Route::post('general/store',             ['as' => '.general.store',            'middleware' => ['ability:super-admin,general-setting-add'],             'uses' => 'GeneralSettingController@store']);
       Route::get('general/{id}/edit',          ['as' => '.general.edit',             'middleware' => ['ability:super-admin,general-setting-edit'],            'uses' => 'GeneralSettingController@edit']);
       Route::post('general/{id}/update',       ['as' => '.general.update',           'middleware' => ['ability:super-admin,general-setting-edit'],            'uses' => 'GeneralSettingController@update']);
-
 /* Alert Setting Routes */
       Route::get('alert',                    ['as' => '.alert',                   'middleware' => ['ability:super-admin,alert-setting-index'],        'uses' => 'AlertSettingController@index']);
       Route::get('alert/add',                ['as' => '.alert.add',               'middleware' => ['ability:super-admin,alert-setting-add'],          'uses' => 'AlertSettingController@add']);
       Route::post('alert/store',             ['as' => '.alert.store',             'middleware' => ['ability:super-admin,alert-setting-add'],          'uses' => 'AlertSettingController@store']);
       Route::get('alert/{id}/edit',          ['as' => '.alert.edit',              'middleware' => ['ability:super-admin,alert-setting-edit'],         'uses' => 'AlertSettingController@edit']);
       Route::post('alert/{id}/update',       ['as' => '.alert.update',            'middleware' => ['ability:super-admin,alert-setting-edit'],         'uses' => 'AlertSettingController@update']);
-
 /* SMS Setting Routes */
       Route::get('sms',                    ['as' => '.sms',                           'middleware' => ['ability:super-admin,sms-setting-index'],              'uses' => 'SmsSettingController@index']);
       Route::get('sms/add',                ['as' => '.sms.add',                       'middleware' => ['ability:super-admin,sms-setting-add'],                'uses' => 'SmsSettingController@add']);
@@ -846,7 +815,6 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
       Route::post('sms/{id}/update',       ['as' => '.sms.update',                    'middleware' => ['ability:super-admin,sms-setting-edit'],               'uses' => 'SmsSettingController@update']);
       Route::get('sms/{id}/active',        ['as' => '.sms.active',                    'middleware' => ['ability:super-admin,sms-active'],                      'uses' => 'SmsSettingController@Active']);
       Route::get('sms/{id}/in-active',     ['as' => '.sms.in-active',                 'middleware' => ['ability:super-admin,sms-in-active'],                  'uses' => 'SmsSettingController@inActive']);
-
 /* Email Setting Routes */
       Route::get('email',                    ['as' => '.email',                       'middleware' => ['ability:super-admin,email-setting-index'],                'uses' => 'EmailSettingController@index']);
       Route::get('email/add',                ['as' => '.email.add',                   'middleware' => ['ability:super-admin,email-setting-add'],                  'uses' => 'EmailSettingController@add']);
@@ -854,7 +822,6 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
       Route::get('email/{id}/edit',          ['as' => '.email.edit',                  'middleware' => ['ability:super-admin,email-setting-edit'],                 'uses' => 'EmailSettingController@edit']);
       Route::post('email/{id}/update',       ['as' => '.email.update',                'middleware' => ['ability:super-admin,email-setting-edit'],                 'uses' => 'EmailSettingController@update']);
       Route::post('email/change-status',     ['as' => '.email.change-status',         'middleware' => ['ability:super-admin,email-setting-status-change'],        'uses' => 'EmailSettingController@statusChange']);
-
 /* Email Setting Routes */
       Route::get('payment-gateway',                    ['as' => '.payment-gateway',                       'middleware' => ['ability:super-admin,payment-gateway-setting-index'],                'uses' => 'PaymentSettingController@index']);
       Route::get('payment-gateway/add',                ['as' => '.payment-gateway.add',                   'middleware' => ['ability:super-admin,payment-gateway-setting-add'],                  'uses' => 'PaymentSettingController@add']);
@@ -864,7 +831,6 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
       Route::get('payment-gateway/{id}/active',        ['as' => '.payment-gateway.active',                 'middleware' => ['ability:super-admin,payment-gateway-active'],                       'uses' => 'PaymentSettingController@Active']);
       Route::get('payment-gateway/{id}/in-active',     ['as' => '.payment-gateway.in-active',              'middleware' => ['ability:super-admin,payment-gateway-in-active'],                     'uses' => 'PaymentSettingController@inActive']);
   });
-
 /*Extra Features Grouping */
 /*Assignment Grouping */
   Route::group(['prefix' => 'assignment/','as' => 'assignment','namespace' => 'Assignment\\'], function () {
@@ -882,7 +848,6 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
 
       Route::post('find-semester',                    ['as' => '.find-semester',                                                              'uses' => 'AssignmentController@findSemester']);
       Route::post('mark-ledger/find-subject',         ['as' => '.find-subject',                                                               'uses' => 'AssignmentController@findSubject']);
-
 /*Answer Routes*/
       Route::get('answer/{id}/{answer}/view',     ['as' => '.answer.view',                'middleware' => ['ability:super-admin,assignment-answer-view'],                 'uses' => 'AssignmentController@viewAnswer']);
       Route::get('answer/{id}/approve',           ['as' => '.answer.approve',             'middleware' => ['ability:super-admin,assignment-answer-approve'],              'uses' => 'AssignmentController@approveAnswer']);
@@ -891,7 +856,6 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
 
       Route::post('answer/bulk-action',           ['as' => '.answer.bulk-action',      'middleware' => ['ability:super-admin,assignment-answer-bulk-action'],             'uses' => 'AssignmentController@bulkActionAnswer']);
   });
-
 /*Download Grouping */
   Route::group(['prefix' => 'download/',                                    'as' => 'download',                                       'namespace' => 'Download\\'], function () {
       /*Download Routes*/
@@ -926,11 +890,9 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
     // Student Project
       Route::get('/student-list','Student\StudentController@studentList')->name('student-list');      
       Route::get('/student/view/{id}','Student\StudentController@view2')->name('project-student-view');
-
       Route::get('/student/edit/{id}','Student\StudentController@edit2')->name('project-student-edit');
       Route::post('/student/update/{id}','Student\StudentController@update2')->name('project-student-update'); 
-      Route::match(['get', 'post'],'/student/delete/{id}','Student\StudentController@delete2')->name('project-student-delete'); 
-
+      Route::match(['get', 'post'],'/student/delete/{id}','Student\StudentController@delete2')->name('project-student-delete');
       Route::get('/student/registerv2','Student\StudentController@Register2');
       Route::post('/student/SaveRegister2','Student\StudentController@SaveRegister2')->name('studentRegister2.save');
       // Route::post('/SaveRegister2','ProjectActivities\StudentActivitiesController@store')->name('stu.pro.save');
@@ -1005,7 +967,8 @@ Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
   Route::get('front','Quiz\QuizController@front')->name('front')->middleware('auth');
   // Quiz Subject
     Route::group(['as'=>'quiz.','prefix'=>'quiz/','namespace'=>'Quiz','middleware' =>['auth']],function (){
-      Route::get('subject','QuizController@index')->name('subject.index');
+      Route::get('/subject', ['middleware' => ['role:admin-project|teacher-project','permission:project-manage-quiz'], 'uses' => 'QuizController@index'])->name('subject.index');
+      // Route::get('subject','QuizController@index')->name('subject.index');
       Route::get('subject/create','QuizController@create')->name('subject.create');
       Route::post('subject/save','QuizController@store')->name('subject.store');
       Route::get('subject/{quiz}/show','QuizController@show')->name('subject.show');
