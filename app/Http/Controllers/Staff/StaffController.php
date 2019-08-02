@@ -66,7 +66,9 @@ class StaffController extends CollegeBaseController
               }
           })
           ->get();
-      $data['designations'] = $this->staffDesignationList();
+        //   $data['designations'] = $this->staffDesignationList();
+      $data['designations'] = StaffDesignation::select('id', 'title','title_kh')->orderBy('title')->get(); //$this->staffDesignationList();
+
       $data['url'] = URL::current();
       $data['filter_query'] = $this->filter_query;
       return view(parent::loadDataToView($this->view_path.'.index'), compact('data'));
