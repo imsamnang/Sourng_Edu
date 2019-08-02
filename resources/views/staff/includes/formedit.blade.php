@@ -309,7 +309,7 @@
             {{--Temporaray_Address Province district commune --}}
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label class="control-label col-xs-12 col-sm-2 control-label">{{ __('shortcoure_Province') }}</label>
+                    <label class="control-label col-xs-12 col-sm-3 control-label">{{ __('shortcoure_Province') }}</label>
                     <div class="col-xs-12 col-sm-9">
                       <input type="text" name="temp_address" value="{{ $data['row']->temp_address }}" style="width: 100%">
                     </div>
@@ -318,7 +318,7 @@
 
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label class="control-label col-xs-12 col-sm-2 control-label">{{ __('shortcoure_District') }}</label>
+                    <label class="control-label col-xs-12 col-sm-3 control-label">{{ __('shortcoure_District') }}</label>
                     <div class="col-xs-12 col-sm-9">
                       <input type="text" name="temp_state" value="{{ $data['row']->temp_state }}" style="width: 100%">
                     </div>
@@ -327,7 +327,7 @@
 
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label class="control-label col-xs-12 col-sm-2 control-label">{{ __('shortcoure_Commune') }}</label>
+                    <label class="control-label col-xs-12 col-sm-3 control-label">{{ __('shortcoure_Commune') }}</label>
                     <div class="col-xs-12 col-sm-9">
                       <input type="text" name="temp_country" value="{{ $data['row']->temp_country }}" style="width: 100%">
                     </div>
@@ -336,9 +336,9 @@
 
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label class="control-label col-xs-12 col-sm-2 control-label">{{ __('shortcoure_Village') }}</label>
+                    <label class="control-label col-xs-12 col-sm-3 control-label">{{ __('shortcoure_Village') }}</label>
                     <div class="col-xs-12 col-sm-9">
-                      <input type="text" name="temp_village" value="{{ $data['row']->temp_village }}" style="width: 100%">
+                      <input type="text" name="temp_village" value="{{ $data['row']->temp_village }}" style="width:100%">
                     </div>
                   </div>
                 </div>
