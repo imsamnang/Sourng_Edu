@@ -69,24 +69,22 @@
     @include('includes.scripts.jquery_validation_scripts')
     <!-- inline scripts related to this page -->
     <script type="text/javascript">
+      /*Change Field Value on Capital Letter When Keyup*/
+      $(function() {
+          $('.upper').keyup(function() {
+              this.value = this.value.toUpperCase();
+          });
+      });
+      /*end capital function*/
 
-        /*Change Field Value on Capital Letter When Keyup*/
-        $(function() {
-            $('.upper').keyup(function() {
-                this.value = this.value.toUpperCase();
-            });
-        });
-        /*end capital function*/
-
-        /*copy permanent address on temporary address*/
-        function CopyAddress(f) {
-            if(f.permanent_address_copier.checked == true) {
-                f.temp_address.value = f.address.value;
-                f.temp_state.value = f.state.value;
-                f.temp_country.value = f.country.value;
-            }
-        }
-
+      /*copy permanent address on temporary address*/
+      function CopyAddress(f) {
+          if(f.permanent_address_copier.checked == true) {
+              f.temp_address.value = f.address.value;
+              f.temp_state.value = f.state.value;
+              f.temp_country.value = f.country.value;
+          }
+      }
     </script>
     @include('includes.scripts.inputMask_script')
     @include('includes.scripts.datepicker_script')

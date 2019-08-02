@@ -10,11 +10,6 @@ use View, URL;
 
 class RoleController extends CollegeBaseController
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     protected $base_route = 'role';
     protected $view_path = 'user.role';
     protected $panel = 'Roles';
@@ -29,11 +24,6 @@ class RoleController extends CollegeBaseController
         return view(parent::loadDataToView($this->view_path.'.index'), compact('data'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $data = [];
@@ -43,12 +33,6 @@ class RoleController extends CollegeBaseController
         return view(parent::loadDataToView($this->view_path.'.add'), compact('data'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $role = Role::create($request->except(['permission','_token']));
@@ -61,23 +45,11 @@ class RoleController extends CollegeBaseController
         return redirect()->route($this->base_route);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         if (!$data['row'] = Role::find($id)) return parent::invalidRequest();
@@ -87,13 +59,6 @@ class RoleController extends CollegeBaseController
         return view(parent::loadDataToView($this->view_path.'.edit'), compact('data'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         if (!$role = Role::find($id)) return parent::invalidRequest();
@@ -114,12 +79,6 @@ class RoleController extends CollegeBaseController
         return redirect()->route($this->base_route);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Request $request, $id)
     {
         /*Delete Previous Permission*/
