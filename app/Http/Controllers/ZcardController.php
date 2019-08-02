@@ -12,8 +12,12 @@ class ZcardController extends Controller
 
     public function index()
     {      
-        $data['card_front'] = asset('images/card/card250x350-01.jpg');
-        $data['card_back'] = asset('images/card/card250x350-02.jpg');
+
+        $data['card_front_250x350'] = asset('images/card/card250x350-01.jpg');
+        $data['card_back_250x350'] = asset('images/card/card250x350-02.jpg');
+        $data['card_front_350x250'] = asset('images/card/card350x250-01.jpg');
+        $data['card_back_350x250'] = asset('images/card/card350x250-02.jpg');
+
         $data['profile'] =  asset('assets/images/avatars/avatar4.png');
         $data['qr_code'] =  asset('images/qr.png');
         return view('z-card', $data);
@@ -23,7 +27,13 @@ class ZcardController extends Controller
     {    
 
         $response = array();
-    
+
+        $data['card_front_250x350'] = asset('images/card/card250x350-01.jpg');
+        $data['card_back_250x350'] = asset('images/card/card250x350-02.jpg');
+        $data['card_front_350x250'] = asset('images/card/card350x250-01.jpg');
+        $data['card_back_350x250'] = asset('images/card/card350x250-02.jpg');
+
+        $settingCard    = json_decode($request->card);
         $settingProfile = json_decode($request->profile);
         $settingName_KM = json_decode($request->name_km);
         $settingName_EN = json_decode($request->name_en);
@@ -33,6 +43,8 @@ class ZcardController extends Controller
         $settingId      = json_decode($request->id);
         $settingQr      = json_decode($request->qr);
         
+       
+  
         $file_tmp_front_card = false;
         if($request->hasFile('front_card')){
             $file = $request->front_card;           
@@ -41,8 +53,10 @@ class ZcardController extends Controller
             $file_str  = file_get_contents($file_tmp);
             $tob64img  = base64_encode($file_str);
             $file_tmp_front_card = 'data:'. $file_type .';base64,'. $tob64img;  
+        }else{
+            $file_tmp_front_card = ($settingCard && ($settingCard->transform == 'horizontal')) ? $data['card_front_250x350'] : $data['card_front_350x250'] ;
         }
-
+      
         $file_tmp_back_card = false;
         if($request->hasFile('back_card')){
             $file = $request->back_card;           
@@ -51,6 +65,8 @@ class ZcardController extends Controller
             $file_str  = file_get_contents($file_tmp);
             $tob64img  = base64_encode($file_str);
             $file_tmp_back_card = 'data:'. $file_type .';base64,'. $tob64img;  
+        }else{
+            $file_tmp_back_card = ($settingCard && ($settingCard->transform == 'horizontal')) ? $data['card_back_250x350'] : $data['card_back_350x250'] ;
         }
 
         $students = Student::get();
@@ -59,20 +75,22 @@ class ZcardController extends Controller
             $card_front = [
                     'x'     => 0,
                     'y'     => 0,
-                    'width' => 250 ,
-                    'height' => 350, 
-                    'image' => $file_tmp_front_card ? $file_tmp_front_card : asset('images/card/card250x350-01.jpg')
+                    'width' => ($settingCard && $settingCard->transform == 'horizontal') ? 250 : 350 ,
+                    'height' => ($settingCard && $settingCard->transform == 'horizontal') ? 350 : 250, 
+                    'image' => $file_tmp_front_card
                 ];
               
             $card_back  = [
-                    'x'     => 252,
+                    'x'     => ($settingCard && $settingCard->transform == 'horizontal') ? 252 : 352,
                     'y'     => 0,
-                    'width' => 250 ,
-                    'height' => 350, 
-                    'image' =>$file_tmp_back_card ? $file_tmp_back_card : asset('images/card/card250x350-02.jpg')
+                    'width' => ($settingCard && $settingCard->transform == 'horizontal') ? 250 : 350 ,
+                    'height' => ($settingCard && $settingCard->transform == 'horizontal') ? 350 : 250, 
+                    'image' =>$file_tmp_back_card
                 ];
-            $textColor ='#23499E';
-    
+
+            $textColor = $settingCard ? $settingCard->text_color : '#23499E';
+            
+         
     
             foreach ($students as $key => $row) {
                 $profile = asset('assets/images/avatars/avatar4.png');
@@ -107,8 +125,8 @@ class ZcardController extends Controller
                 $make_card = [
                     'id' => str_replace(' ','-',$name_en).'-'.$id,
                     'attrs' => [
-                        'width' => 502,
-                        'height' => 350,
+                        'width' => ($settingCard && $settingCard->transform == 'horizontal') ? 502 : 702,
+                        'height' => ($settingCard && $settingCard->transform == 'horizontal') ?  350 : 250,
                     ],
                     'className' => 'Stage',
                     'children' =>
@@ -146,32 +164,28 @@ class ZcardController extends Controller
                         [
                             'attrs' => [],
                             'className' => 'Layer',
-                            'children' => [
+                            'children' => [       
                                 [
                                     'attrs' => [
-                                        'x'          => $settingId ? $settingId->x : 100,
-                                        'y'          => $settingId ? $settingId->y : 292,
-                                        'text'       =>  $id,
-                                        'name'       => 'id',
-                                        'fill'       => $textColor,
-                                        'scaleX'     => $settingId ? $settingId->scaleX : 1,
-                                        'scaleY'     => $settingId ? $settingId->scaleY : 1,
-                                        'offsetX'    => $settingId ? $settingId->offsetX :0,
-                                        'offsetY'    => $settingId ? $settingId->offsetY :0,
-                                        'skewX'      => $settingId ? $settingId->skewX : 0,
-                                        'skewY'      => $settingId ? $settingId->skewY : 0,                                  
-                                        'fontSize'   => $settingId ? $settingId->fontSize : 14,
-                                        'fontFamily' => $settingId ? $settingId->fontFamily : 'NiDAKhmerEmpire',
-                                        'fontStyle' =>  $settingId ? $settingId->fontStyle : 'normal',                                     
-                                        'width'      => $settingId ? $settingId->width : 150,
-                                        'height'     => $settingId ? $settingId->height : 14,
+                                        'x' => $settingProfile ? $settingProfile->x : (($settingCard && $settingCard->transform == 'horizontal') ? 90 : 20),
+                                        'y' => $settingProfile ? $settingProfile->y : (($settingCard && $settingCard->transform == 'horizontal') ? 110: 80),
+                                        'scaleX' => $settingProfile ? $settingProfile->scaleX : 1,
+                                        'scaleY' => $settingProfile ? $settingProfile->scaleY : 1,
+                                        'offsetX' => $settingProfile ? $settingProfile->offsetX :0,
+                                        'offsetY' => $settingProfile ? $settingProfile->offsetY :0,
+                                        'skewX' =>$settingProfile ? $settingProfile->skewX : 0,
+                                        'skewY' =>$settingProfile ? $settingProfile->skewY : 0,
+                                        'width' => $settingProfile ? $settingProfile->width : 75,
+                                        'height' => $settingProfile ? $settingProfile->height :  80,
+                                        'source'=> $profile,
+                                        'name' => 'profile',
                                     ],
-                                    'className' => 'Text',
+                                    'className' => 'Image',
                                 ],
                                 [
                                     'attrs' => [                                    
-                                        'x'          => $settingName_KM ? $settingName_KM->x : 100,
-                                        'y'          => $settingName_KM ? $settingName_KM->y : 205,
+                                        'x'          => $settingName_KM ? $settingName_KM->x : (($settingCard && $settingCard->transform == 'horizontal') ? 100 : 180),
+                                        'y'          => $settingName_KM ? $settingName_KM->y : (($settingCard && $settingCard->transform == 'horizontal') ? 205 : 80),
                                         'text'       =>  $name_km,
                                         'name'       => 'name_km',
                                         'fill'       => $textColor,
@@ -193,9 +207,8 @@ class ZcardController extends Controller
                                     'attrs' =>
                                     [
                                         
-                                        'x'          => $settingName_EN ? $settingName_EN->x : 100,
-                                        'y'          => $settingName_EN ? $settingName_EN->y : 226,
-                                     
+                                        'x'          => $settingName_EN ? $settingName_EN->x :  (($settingCard && $settingCard->transform == 'horizontal') ? 100: 180),
+                                        'y'          => $settingName_EN ? $settingName_EN->y :  (($settingCard && $settingCard->transform == 'horizontal') ? 226: 102),
                                         'text'       =>  $name_en,
                                         'name'       => 'name_en',
                                         'fill'       => $textColor,
@@ -214,32 +227,9 @@ class ZcardController extends Controller
                                     'className' => 'Text',
                                 ],
                                 [
-                                    'attrs' => [
-                                    
-                                        'x'          => $settingCourse ? $settingCourse->x : 100,
-                                        'y'          => $settingCourse ? $settingCourse->y : 272,
-                                        'text'       =>  $course,
-                                        'name'       => 'course',
-                                        'fill'       => $textColor,
-                                        'scaleX'     => $settingCourse ? $settingCourse->scaleX : 1,
-                                        'scaleY'     => $settingCourse ? $settingCourse->scaleY : 1,
-                                        'offsetX'    => $settingCourse ? $settingCourse->offsetX :0,
-                                        'offsetY'    => $settingCourse ? $settingCourse->offsetY :0,
-                                        'skewX'      => $settingCourse ? $settingCourse->skewX : 0,
-                                        'skewY'      => $settingCourse ? $settingCourse->skewY : 0,                                  
-                                        'fontSize'   => $settingCourse ? $settingCourse->fontSize : 14,
-                                        'fontFamily' => $settingCourse ? $settingCourse->fontFamily : 'NiDAKhmerEmpire',
-                                        'fontStyle' =>  $settingCourse ? $settingCourse->fontStyle : 'normal',                                     
-                                        'width'      => $settingCourse ? $settingCourse->width : 150,
-                                        'height'     => $settingCourse ? $settingCourse->height : 14,
-                                    ],
-                                    'className' => 'Text',
-                                ],
-                                [
-                                    'attrs' => [
-                                                                            
-                                        'x'          => $settingGender ? $settingGender->x : 100,
-                                        'y'          => $settingGender ? $settingGender->y : 248,
+                                    'attrs' => [                                                                            
+                                        'x'          => $settingGender ? $settingGender->x : (($settingCard && $settingCard->transform == 'horizontal') ? 100: 180),
+                                        'y'          => $settingGender ? $settingGender->y : (($settingCard && $settingCard->transform == 'horizontal') ? 248: 122),
                                         'text'       =>  $gender,
                                         'name'       => 'gender',
                                         'fill'       => $textColor,
@@ -259,30 +249,54 @@ class ZcardController extends Controller
                                 ],
     
                                 [
-                                    'attrs' => [
-                                        'x' => $settingProfile ? $settingProfile->x : 90,
-                                        'y' => $settingProfile ? $settingProfile->y : 110,
-                                        'scaleX' => $settingProfile ? $settingProfile->scaleX : 1,
-                                        'scaleY' => $settingProfile ? $settingProfile->scaleY : 1,
-                                        'offsetX' => $settingProfile ? $settingProfile->offsetX :0,
-                                        'offsetY' => $settingProfile ? $settingProfile->offsetY :0,
-                                        'skewX' =>$settingProfile ? $settingProfile->skewX : 0,
-                                        'skewY' =>$settingProfile ? $settingProfile->skewY : 0,
-                                        'width' => $settingProfile ? $settingProfile->width : 75,
-                                        'height' => $settingProfile ? $settingProfile->height :  80,
-                                        'source'=> $profile,
-                                        'name' => 'profile',
+                                    'attrs' => [                                    
+                                        'x'          => $settingCourse ? $settingCourse->x : (($settingCard && $settingCard->transform == 'horizontal') ? 100: 180),
+                                        'y'          => $settingCourse ? $settingCourse->y : (($settingCard && $settingCard->transform == 'horizontal') ? 272 : 148),
+                                        'text'       =>  $course,
+                                        'name'       => 'course',
+                                        'fill'       => $textColor,
+                                        'scaleX'     => $settingCourse ? $settingCourse->scaleX : 1,
+                                        'scaleY'     => $settingCourse ? $settingCourse->scaleY : 1,
+                                        'offsetX'    => $settingCourse ? $settingCourse->offsetX :0,
+                                        'offsetY'    => $settingCourse ? $settingCourse->offsetY :0,
+                                        'skewX'      => $settingCourse ? $settingCourse->skewX : 0,
+                                        'skewY'      => $settingCourse ? $settingCourse->skewY : 0,                                  
+                                        'fontSize'   => $settingCourse ? $settingCourse->fontSize : 14,
+                                        'fontFamily' => $settingCourse ? $settingCourse->fontFamily : 'NiDAKhmerEmpire',
+                                        'fontStyle' =>  $settingCourse ? $settingCourse->fontStyle : 'normal',                                     
+                                        'width'      => $settingCourse ? $settingCourse->width : 150,
+                                        'height'     => $settingCourse ? $settingCourse->height : 14,
                                     ],
-                                    'className' => 'Image',
+                                    'className' => 'Text',
                                 ],
-    
+                                   [
+                                    'attrs' => [
+                                        'x'          => $settingId ? $settingId->x : (($settingCard && $settingCard->transform == 'horizontal') ? 100 : 180),
+                                        'y'          => $settingId ? $settingId->y : (($settingCard && $settingCard->transform == 'horizontal') ? 292 : 166),
+                                        'text'       =>  $id,
+                                        'name'       => 'id',
+                                        'fill'       => $textColor,
+                                        'scaleX'     => $settingId ? $settingId->scaleX : 1,
+                                        'scaleY'     => $settingId ? $settingId->scaleY : 1,
+                                        'offsetX'    => $settingId ? $settingId->offsetX :0,
+                                        'offsetY'    => $settingId ? $settingId->offsetY :0,
+                                        'skewX'      => $settingId ? $settingId->skewX : 0,
+                                        'skewY'      => $settingId ? $settingId->skewY : 0,                                  
+                                        'fontSize'   => $settingId ? $settingId->fontSize : 14,
+                                        'fontFamily' => $settingId ? $settingId->fontFamily : 'NiDAKhmerEmpire',
+                                        'fontStyle' =>  $settingId ? $settingId->fontStyle : 'normal',                                     
+                                        'width'      => $settingId ? $settingId->width : 150,
+                                        'height'     => $settingId ? $settingId->height : 14,
+                                    ],
+                                    'className' => 'Text',
+                                ],  
                                 [
                                     'attrs' =>
                                     [
                                        
                                         
-                                        'x' => $settingQr ? $settingQr->x : 350,
-                                        'y' => $settingQr ? $settingQr->y : 102,
+                                        'x' => $settingQr ? $settingQr->x : (($settingCard && $settingCard->transform == 'horizontal') ? 350: 494),
+                                        'y' => $settingQr ? $settingQr->y : (($settingCard && $settingCard->transform == 'horizontal') ? 102: 40),
                                         'scaleX' => $settingQr ? $settingQr->scaleX : 1,
                                         'scaleY' => $settingQr ? $settingQr->scaleY : 1,
                                         'offsetX' => $settingQr ? $settingQr->offsetX :0,
