@@ -203,12 +203,12 @@
                     @foreach ($provinces as $row)
                         @if($flag=='kh')
                         {
-                        <option value="{{$row->id}}">{{ $row->name_kh }}</option>
+                        <option value="{{$row->id}}" {{ $row->id==$data['row']->province_id?'selected' :'' }}>{{ $row->name_kh }}</option>
                         }
                         @endif
                         @if($flag=='en')
                         {
-                        <option value="{{$row->id}}">{{ $row->name_en }}</option>
+                        <option value="{{$row->id}}" {{ $row->id==$data['row']->province_id?'selected' :'' }}>{{ $row->name_en }}</option>
                         }
                         @endif
                         @endforeach
@@ -222,7 +222,7 @@
               <div class="form-group">
                 <label class="control-label col-xs-12 col-sm-3 control-label">{{ __('shortcoure_District') }}</label>
                 <div class="col-xs-12 col-sm-9">
-                  <select style="width: 100%" name="district_id" id="district" required="" disabled>
+                  <select style="width: 100%" name="district_id" id="district" required="">
                     @if($flag=='kh')
                     {
                     <option value="0">ជ្រើសខាងក្រោម៖ </option>
@@ -233,6 +233,18 @@
                     <option value="0">Please Choose</option>
                     }
                     @endif
+                    @foreach ($destrict as $districts)
+                      @if($flag=='kh')
+                        {
+                        <option value="{{$districts->id}}"{{ $districts->id==$data['row']->district_id?'selected' :'' }}>{{ $districts->name_kh }}</option>
+                        }
+                        @endif
+                        @if($flag=='en')
+                        {
+                        <option value="{{$districts->id}}" {{ $districts->id==$data['row']->district_id?'selected' :'' }}>{{ $districts->name_en }}</option>
+                        }
+                        @endif                   
+                    @endforeach
                   </select>
                 </div>
               </div>
@@ -242,7 +254,7 @@
               <div class="form-group">
                 <label class="control-label col-xs-12 col-sm-3 control-label">{{ __('shortcoure_Commune') }}</label>
                 <div class="col-xs-12 col-sm-9">
-                  <select style="width: 100%" name="commune_id" id="commune" required="" disabled>
+                  <select style="width: 100%" name="commune_id" id="commune" required="">
                     @if($flag=='kh')
                     {
                     <option value="0">ជ្រើសខាងក្រោម៖ </option>
@@ -253,6 +265,18 @@
                     <option value="0">Please Choose</option>
                     }
                     @endif
+                    @foreach ($commune as $communes)
+                      @if($flag=='kh')
+                        {
+                        <option value="{{$communes->id}}" {{ $communes->id==$data['row']->commune_id?'selected' :'' }}>{{ $communes->name_kh }}</option>
+                        }
+                        @endif
+                        @if($flag=='en')
+                        {
+                        <option value="{{$communes->id}}" {{ $communes->id==$data['row']->commune_id?'selected' :'' }}>{{ $communes->name_en }}</option>
+                        }
+                        @endif                   
+                    @endforeach
                   </select>
                 </div>
               </div>

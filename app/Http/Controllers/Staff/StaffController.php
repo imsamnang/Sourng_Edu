@@ -2,27 +2,30 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\User;
-use Image, URL;
-use ViewHelper;
-use App\Models\Note;
-use App\Models\Staff;
-use App\Models\Gender;
-use App\Models\Document;
-use App\Models\Institute;
-use App\Traits\UserScope;
-use App\Models\Attendance;
-use App\Models\Attendence;
-use Illuminate\Http\Request;
-use App\Models\LibraryMember;
-use App\Models\ResidentHistory;
-use App\Models\StaffDesignation;
-use App\Models\TransportHistory;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\CollegeBaseController;
 use App\Http\Requests\Staff\Registration\AddValidation;
 use App\Http\Requests\Staff\Registration\EditValidation;
+use App\Models\Attendance;
+use App\Models\Attendence;
+use App\Models\Commune;
+use App\Models\District;
+use App\Models\Document;
+use App\Models\Gender;
+use App\Models\Institute;
+use App\Models\LibraryMember;
+use App\Models\Note;
+use App\Models\Province;
+use App\Models\ResidentHistory;
+use App\Models\Staff;
+use App\Models\StaffDesignation;
+use App\Models\TransportHistory;
+use App\Traits\UserScope;
+use App\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Image, URL;
+use ViewHelper;
 
 class StaffController extends CollegeBaseController
 {
@@ -77,13 +80,14 @@ class StaffController extends CollegeBaseController
 
     public function add()
     {
+        $provinces = Province::all();
         $data = [];
 
         $data['designations'] = StaffDesignation::select('id', 'title','title_kh')->orderBy('title')->get(); //$this->staffDesignationList();
         $data['institute'] = Institute::select('id','name_kh','name_en')->orderBy('name_kh')->get(); //$this->getInstitutes();
         $data['gender']=Gender::all();
 
-        return view(parent::loadDataToView($this->view_path.'.add'), compact('data'));
+        return view(parent::loadDataToView($this->view_path.'.add'), compact('data','provinces'));
     }
 
     public function store(AddValidation $request)
@@ -207,11 +211,15 @@ class StaffController extends CollegeBaseController
     public function edit(Request $request, $id)
     {
         $data = [];
+        $provinces = Province::all();
+        $destrict= District::all();
+        $commune= Commune::all();
+        $data['institute'] = Institute::select('id','name_kh','name_en')->orderBy('name_kh')->get();
+        $data['gender']=Gender::all();
         if (!$data['row'] = Staff::find($id)) return parent::invalidRequest();
-
-        $data['designations'] = $this->staffDesignationList();
-
-        return view(parent::loadDataToView($this->view_path.'.edit'), compact('data'));
+        $data['designations'] = StaffDesignation::select('id','title')->orderBy('title')->get();
+        // return $data;
+        return view(parent::loadDataToView($this->view_path.'.edit'), compact('data','provinces','destrict','commune'));
     }
 
     public function update(EditValidation $request, $id)
@@ -469,7 +477,7 @@ class StaffController extends CollegeBaseController
         $data['filter_query'] = $this->filter_query;
         // return $data;
         if(auth()->user()->hasRole('admin-project')){
-            return view('ProjectActivities.staff.index', compact('data'));
+            return view('projectactivities.staff.index', compact('data'));
         }else{
             return redirect()->route('home');
         }      
@@ -481,7 +489,7 @@ class StaffController extends CollegeBaseController
 
         $data['designations'] = $this->staffDesignationList();
 
-        return view('ProjectActivities.staff.add', compact('data'));
+        return view('projectactivities.staff.add', compact('data'));
     }
 
     public function save(AddValidation $request)

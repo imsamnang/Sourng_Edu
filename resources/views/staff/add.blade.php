@@ -1,3 +1,4 @@
+<?php $flag=App()->getLocale(); ?>
 @extends('layouts.master')
 
 @section('css')
@@ -33,7 +34,7 @@
                         </div>
                         {!! Form::open(['route' => $base_route.'.store', 'method' => 'POST', 'class' => 'form-horizontal',
                         'id' => 'validation-form', "enctype" => "multipart/form-data"]) !!}
-
+                            <input type="hidden" name="flag" value="{{ $flag }}" id="flag">
                         @include($view_path.'.includes.form')
 
                         <div class="clearfix form-actions">
@@ -51,7 +52,7 @@
                         </div>
 
                         <div class="hr hr-24"></div>
-
+                        
                         {!! Form::close() !!}
 
                     </div><!-- /.col -->
@@ -64,6 +65,7 @@
 @endsection
 
 @section('js')
+    @include('ProjectActivities.includes.provinces')
     @include('includes.scripts.jquery_validation_scripts')
     <!-- inline scripts related to this page -->
     <script type="text/javascript">
