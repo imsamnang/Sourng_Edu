@@ -967,7 +967,7 @@ Auth::routes();
   Route::get('front','Quiz\QuizController@front')->name('front')->middleware('auth');
   // Quiz Subject
     Route::group(['as'=>'quiz.','prefix'=>'quiz/','namespace'=>'Quiz','middleware' =>['auth']],function (){
-      Route::get('/subject', ['middleware' => ['role:admin-project|teacher-project','permission:project-manage-quiz'], 'uses' => 'QuizController@index'])->name('subject.index');
+      Route::get('/subject', ['middleware' => ['role:admin-project|teacher-project','permission:project-quiz'], 'uses' => 'QuizController@index'])->name('subject.index');
       // Route::get('subject','QuizController@index')->name('subject.index');
       Route::get('subject/create','QuizController@create')->name('subject.create');
       Route::post('subject/save','QuizController@store')->name('subject.store');

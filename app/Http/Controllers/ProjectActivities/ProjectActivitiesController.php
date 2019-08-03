@@ -31,71 +31,82 @@ use App\Http\Requests\Staff\Registration\AddValidation;
 
 class ProjectActivitiesController extends Controller
 {
-    // protected $base_route = 'projects';
-    // protected $view_path = 'ProjectActivities';
-    // protected $panel = '';
-    // protected $folder_path;
-    // protected $folder_name = 'projects';
-    // protected $filter_query = [];
+  // protected $base_route = 'projects';
+  // protected $view_path = 'ProjectActivities';
+  // protected $panel = '';
+  // protected $folder_path;
+  // protected $folder_name = 'projects';
+  // protected $filter_query = [];
 
-    public function __construct()
-    {
-        $this->middleware('auth');
+  public function __construct()
+  {
+      $this->middleware('auth');
+  }
+
+  public function index(Request $request )
+  {
+    $data = [];
+        $data['generalSetting'] = GeneralSetting::findOrFail(1)->first();
+        $data['ListCourse']=Subject::all();
+        $data['UserReader']=User::WHERE('email',auth()->user()->email)
+                            ->ORWHERE('contact_number',auth()->user()->email)                          
+                            ->first();
+        $data['userRole']=Role::WHERE('id',$data['UserReader']->role_id)->first();
+        $data['YourInstitute']=Institute::WHERE('id',Auth::user()->institute_id)->first();
+        $data['allStudents']=Student::all()->where('institute_id',Auth::user()->institute_id)->count();
+        $data['allStudentsF']=Student::all()
+                              ->where('institute_id',Auth::user()->institute_id)
+                              ->where('gender',2)
+                              ->count();
+        $data['allStaffs']=Staff::all()->where('institute_id',Auth::user()->institute_id)->count();
+        $data['allStaffsF']=Student::all()
+                            ->where('institute_id',Auth::user()->institute_id)
+                            ->where('gender',2)
+                            ->count();
+        $data['allBooks']=Book::all()->where('institute_id',Auth::user()->institute_id)->count();
+        $data['book_categories']=BookCategory::all()->where('institute_id',Auth::user()->institute_id)->count();
+        $data['book_masters']=BookMasters::all()->where('institute_id',Auth::user()->institute_id)->count();
+
+        // $data['TotalShortCourse']=BookMasters::all()->where('institute_id',Auth::user()->institute_id)->count();
+        $data['TotalShortCourse'] = DB::table('course_short_student')
+                      ->select(DB::raw('count(*) as ShortCourse_count,course_short_id,course_name'))  
+                      ->join('course_short','course_short.id','=','course_short_student.course_short_id')
+                      ->groupBy('course_short_id')
+                      ->get();
+        $data['TotalLongCourse'] = DB::table('course_long_student')
+                      ->select(DB::raw('count(*) as LongCourse_count'))           
+                      ->groupBy('course_long_id')
+                      ->get();    
+         $data['users']= User::all();
+        if(Auth::check()) {
+            return view('ProjectActivities.dashboard.project-dashboard',compact('data'));
+        }else{
+            return redirect()->route('projects');
+        }
+  }
+
+  public function authenticate(Request $request)
+  {
+    $credentials = $request->only('email', 'password');
+    if (Auth::attempt($credentials)) {
+          // Authentication passed...
+        if(auth()->user()->hasRole('student-project')){          
+          // return redirect()->intended($login);
+          return redirect()->route('student-project');
+        }elseif(auth()->user()->hasRole('teacher-project')){    
+          // return "Teacher Dashboard";      
+          return redirect()->route('teacher-project');
+          // return redirect()->intended($login);
+        }elseif(auth()->user()->hasRole('project')){
+          // return "Project Dashboard";          
+          return redirect()->route('admin-project');
+        }elseif(auth()->user()->hasRole('admin-project')){
+          return redirect()->route('admin-project');
+        }         
+    }else{
+        return redirect()->back();
     }
-
-    public function index(Request $request )
-    {
-        $data = [];
-        $generalSetting = GeneralSetting::findOrFail(1)->first();        
-        $credentials = $request->only('email', 'password');
-
-        if (Auth::check()) {
-          // The user is logged in...
-          if(auth()->user()->hasRole('student-project')){          
-            // return redirect()->intended($login);
-            return redirect()->route('student-project');;
-          }elseif(auth()->user()->hasRole('staff')){    
-            // return "Teacher Dashboard";      
-            return redirect()->route('userstaff');
-            // return redirect()->intended($login);
-          }elseif(auth()->user()->hasRole('admin-project')){
-            // return "Project Dashboard";          
-            return redirect()->route('admin-project');
-
-          }elseif(auth()->user()->hasRole('admin')){
-            // return redirect()->route('/');
-            return "Project Admin"; 
-          }            
-          else{
-            return view('ProjectActivities.login.login',compact('generalSetting'));
-          } 
-      }else{
-        return view('ProjectActivities.login.login',compact('generalSetting'));
-      }
-    }
-
-    public function authenticate(Request $request)
-    {
-      $credentials = $request->only('email', 'password');
-      if (Auth::attempt($credentials)) {
-            // Authentication passed...
-          if(auth()->user()->hasRole('student-project')){          
-            // return redirect()->intended($login);
-            return redirect()->route('student-project');
-          }elseif(auth()->user()->hasRole('teacher-project')){    
-            // return "Teacher Dashboard";      
-            return redirect()->route('teacher-project');
-            // return redirect()->intended($login);
-          }elseif(auth()->user()->hasRole('project')){
-            // return "Project Dashboard";          
-            return redirect()->route('admin-project');
-          }elseif(auth()->user()->hasRole('admin-project')){
-            return redirect()->route('admin-project');
-          }         
-      }else{
-          return redirect()->back();
-      }
-    }
+  }
 
   public function user_project(Request $r)
   {

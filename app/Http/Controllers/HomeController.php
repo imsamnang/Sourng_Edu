@@ -52,17 +52,18 @@ class HomeController extends CollegeBaseController
             return redirect()->route('user-guardian');
     // ពិនិត្យបុគ្គលិក
         if(auth()->user()->hasRole('staff'))
-            return redirect()->route('user-staff');    
+            return redirect()->route('user-staff');
+
     // Manage Teacher of Project
         if(auth()->user()->hasRole('teacher-project'))
-            return redirect()->route('teacher-project');
+            return redirect()->route('projects');
     // student project
         if(auth()->user()->hasRole('student-project'))
             return redirect()->route('projects');
         if(auth()->user()->hasRole('user-project'))
             return redirect()->route('user-project');
         if(auth()->user()->hasRole('admin-project'))
-            return redirect()->route('admin-project');      
+            return redirect()->route('projects');      
     /* Setup dashboard for super-admin, admin, account, library-*/
         $data = [];
         $year = Year::where('active_status','=',1)->first();
