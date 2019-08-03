@@ -75,10 +75,11 @@
                                         <a href="{{ route($base_route.'.edit', ['id' => $staff->id]) }}" class="btn btn-primary btn-minier btn-success">
                                             <i class="ace-icon fa fa-pencil bigger-130"></i>
                                         </a>
-
+                                        
                                         <a href="{{ route($base_route.'.delete', ['id' => $staff->id]) }}" class="btn btn-primary btn-minier btn-danger bootbox-confirm" >
                                             <i class="ace-icon fa fa-trash-o bigger-130"></i>
                                         </a>
+
                                     </div>
                                     <div class="hidden-md hidden-lg">
                                         <div class="inline pos-rel">

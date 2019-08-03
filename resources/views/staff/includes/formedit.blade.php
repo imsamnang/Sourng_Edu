@@ -184,112 +184,81 @@
 
             {{-- Address Province district commune --}}
 
-            <div class="col-md-6">
-              <div class="form-group">
-                <label class="control-label col-xs-12 col-sm-3 control-label">{{ __('shortcoure_Province') }}</label>
-                <div class="col-xs-12 col-sm-9">
-                  <select style="width: 100%" name="province_id" id="province">
-                    @if($flag=='kh')
-                    {
-                    <option value="0">ជ្រើសខាងក្រោម៖ </option>
-                    }
-                    @endif
-                    @if($flag=='en')
-                    {
-                    <option value="0">Please Choose</option>
-                    }
-                    @endif
-                    
-                    @foreach ($provinces as $row)
+                <div class="form-group">
+                    {!! Form::label('address', __('staff_frm_reg_Address'), ['class' => 'col-sm-1 control-label']) !!}
+                    <div class="col-sm-7">
+                        {!! Form::text('address', null, ["class" => "form-control border-form upper","required"]) !!}
+                        @include('includes.form_fields_validation_message', ['name' => 'address'])
+                    </div>
+
+                      <label class="control-label col-xs-12 col-sm-1 control-label">{{ __('shortcoure_Province') }}</label>
+                    <div class="col-sm-3">
+                      <select style="width: 100%" name="province_id" id="province">
                         @if($flag=='kh')
                         {
-                        <option value="{{$row->id}}" {{ $row->id==$data['row']->province_id?'selected' :'' }}>{{ $row->name_kh }}</option>
+                        <option value="0">ជ្រើសខាងក្រោម៖ </option>
                         }
                         @endif
                         @if($flag=='en')
                         {
-                        <option value="{{$row->id}}" {{ $row->id==$data['row']->province_id?'selected' :'' }}>{{ $row->name_en }}</option>
+                        <option value="0">Please Choose</option>
                         }
                         @endif
-                        @endforeach
-
-                  </select>
+                        
+                        @foreach ($provinces as $row)
+                            @if($flag=='kh')
+                            {
+                            <option value="{{$row->id}}">{{ $row->name_kh }}</option>
+                            }
+                            @endif
+                            @if($flag=='en')
+                            {
+                            <option value="{{$row->id}}">{{ $row->name_en }}</option>
+                            }
+                            @endif
+                            @endforeach
+                      </select>
+                      @include('includes.form_fields_validation_message', ['name' => 'province_id'])
+                    </div>
                 </div>
-              </div>
-            </div>
 
-            <div class="col-md-6">
-              <div class="form-group">
-                <label class="control-label col-xs-12 col-sm-3 control-label">{{ __('shortcoure_District') }}</label>
-                <div class="col-xs-12 col-sm-9">
-                  <select style="width: 100%" name="district_id" id="district" required="">
-                    @if($flag=='kh')
-                    {
-                    <option value="0">ជ្រើសខាងក្រោម៖ </option>
-                    }
-                    @endif
-                    @if($flag=='en')
-                    {
-                    <option value="0">Please Choose</option>
-                    }
-                    @endif
-                    @foreach ($destrict as $districts)
+                <div class="form-group">
+                  <label class="control-label col-xs-12 col-sm-1 control-label">{{ __('shortcoure_District') }}</label>
+                  <div class="col-sm-3">
+                    <select style="width: 100%" name="district_id" id="district" required="" disabled>
                       @if($flag=='kh')
-                        {
-                        <option value="{{$districts->id}}"{{ $districts->id==$data['row']->district_id?'selected' :'' }}>{{ $districts->name_kh }}</option>
-                        }
-                        @endif
-                        @if($flag=='en')
-                        {
-                        <option value="{{$districts->id}}" {{ $districts->id==$data['row']->district_id?'selected' :'' }}>{{ $districts->name_en }}</option>
-                        }
-                        @endif                   
-                    @endforeach
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-6">
-              <div class="form-group">
-                <label class="control-label col-xs-12 col-sm-3 control-label">{{ __('shortcoure_Commune') }}</label>
-                <div class="col-xs-12 col-sm-9">
-                  <select style="width: 100%" name="commune_id" id="commune" required="">
-                    @if($flag=='kh')
-                    {
-                    <option value="0">ជ្រើសខាងក្រោម៖ </option>
-                    }
-                    @endif
-                    @if($flag=='en')
-                    {
-                    <option value="0">Please Choose</option>
-                    }
-                    @endif
-                    @foreach ($commune as $communes)
+                      {
+                      <option value="0">ជ្រើសខាងក្រោម៖ </option>
+                      }
+                      @endif
+                      @if($flag=='en')
+                      {
+                      <option value="0">Please Choose</option>
+                      }
+                      @endif
+                    </select>
+                  </div>
+                  <label class="control-label col-xs-12 col-sm-1 control-label">{{ __('shortcoure_Commune') }}</label>
+                  <div class="col-sm-3">
+                    <select style="width: 100%" name="commune_id" id="commune" required="" disabled>
                       @if($flag=='kh')
-                        {
-                        <option value="{{$communes->id}}" {{ $communes->id==$data['row']->commune_id?'selected' :'' }}>{{ $communes->name_kh }}</option>
-                        }
-                        @endif
-                        @if($flag=='en')
-                        {
-                        <option value="{{$communes->id}}" {{ $communes->id==$data['row']->commune_id?'selected' :'' }}>{{ $communes->name_en }}</option>
-                        }
-                        @endif                   
-                    @endforeach
-                  </select>
+                      {
+                      <option value="0">ជ្រើសខាងក្រោម៖ </option>
+                      }
+                      @endif
+                      @if($flag=='en')
+                      {
+                      <option value="0">Please Choose</option>
+                      }
+                      @endif
+                    </select>
+                  </div>
+                  <label class="control-label col-xs-12 col-sm-1 control-label">{{ __('Village') }}</label>
+                  <div class="col-sm-3">
+                    {!! Form::text('village', null, ["class" => "form-control border-form upper","required"]) !!}
+                    @include('includes.form_fields_validation_message', ['name' => 'village'])
+                  </div>
                 </div>
-              </div>
-            </div>
-
-            <div class="col-md-6">
-              <div class="form-group">
-                <label class="control-label col-xs-12 col-sm-3 control-label">{{ __('shortcoure_Village') }}</label>
-                <div class="col-xs-12 col-sm-9">
-                  <input type="text" name="address" value="{{ $data['row']->address }}" style="width: 100%">
-                </div>
-              </div>
-            </div>
 
             {{-- End Address Province district commune --}}
 
@@ -307,39 +276,35 @@
             <hr>
             <hr class="hr-8">
             {{--Temporaray_Address Province district commune --}}
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label class="control-label col-xs-12 col-sm-3 control-label">{{ __('shortcoure_Province') }}</label>
-                    <div class="col-xs-12 col-sm-9">
+                <div class="form-group">
+                    {!! Form::label('address', __('staff_frm_reg_Address'), ['class' => 'col-sm-1 control-label']) !!}
+                    <div class="col-sm-7">
+                        {!! Form::text('address', null, ["class" => "form-control border-form upper","required"]) !!}
+                        @include('includes.form_fields_validation_message', ['name' => 'address'])
+                    </div>
+
+                      <label class="control-label col-xs-12 col-sm-1 control-label">{{ __('shortcoure_Province') }}</label>
+                    <div class="col-sm-3">
                       <input type="text" name="temp_address" value="{{ $data['row']->temp_address }}" style="width: 100%">
+                      @include('includes.form_fields_validation_message', ['name' => 'province_id'])
                     </div>
-                  </div>
                 </div>
 
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label class="control-label col-xs-12 col-sm-3 control-label">{{ __('shortcoure_District') }}</label>
-                    <div class="col-xs-12 col-sm-9">
-                      <input type="text" name="temp_state" value="{{ $data['row']->temp_state }}" style="width: 100%">
-                    </div>
+                <div class="form-group">
+                  <label class="control-label col-xs-12 col-sm-1 control-label">{{ __('shortcoure_District') }}</label>
+                  <div class="col-sm-3">
+                    <input type="text" name="temp_state" value="{{ $data['row']->temp_state }}" style="width: 100%">
                   </div>
-                </div>
 
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label class="control-label col-xs-12 col-sm-3 control-label">{{ __('shortcoure_Commune') }}</label>
-                    <div class="col-xs-12 col-sm-9">
-                      <input type="text" name="temp_country" value="{{ $data['row']->temp_country }}" style="width: 100%">
-                    </div>
+                  <label class="control-label col-xs-12 col-sm-1 control-label">{{ __('shortcoure_Commune') }}</label>
+                  <div class="col-sm-3">
+                    <input type="text" name="temp_country" value="{{ $data['row']->temp_country }}" style="width: 100%">
                   </div>
-                </div>
-
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label class="control-label col-xs-12 col-sm-3 control-label">{{ __('shortcoure_Village') }}</label>
-                    <div class="col-xs-12 col-sm-9">
-                      <input type="text" name="temp_village" value="{{ $data['row']->temp_village }}" style="width:100%">
-                    </div>
+                  
+                  <label class="control-label col-xs-12 col-sm-1 control-label">{{ __('Village') }}</label>
+                  <div class="col-sm-3">
+                    {!! Form::text('village', null, ["class" => "form-control border-form upper","required"]) !!}
+                    @include('includes.form_fields_validation_message', ['name' => 'village'])
                   </div>
                 </div>
             {{-- End Temporaray_Address Province district commune --}}
