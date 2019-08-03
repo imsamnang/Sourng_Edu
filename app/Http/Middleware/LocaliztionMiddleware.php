@@ -11,8 +11,7 @@ class LocaliztionMiddleware
   {
     if(\Session::has('locale')){
       \App::setLocale(\Session::get('locale'));
-      //The default Language in Config/App.php is English
-      
+      //The default Language in Config/App.php is English      
     }
     return $next($request);
   }
