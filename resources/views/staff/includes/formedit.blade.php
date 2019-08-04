@@ -162,35 +162,13 @@
 
             <div class="label label-warning arrowed-in arrowed-right arrowed">@lang('staff_frm_reg_Permanent_Address')</div>
             <hr class="hr-8">
-          {{--   <div class="form-group">
-                {!! Form::label('address', __('staff_frm_reg_Address'), ['class' => 'col-sm-1 control-label']) !!}
-                <div class="col-sm-3">
-                    {!! Form::text('address', null, ["class" => "form-control border-form upper","required"]) !!}
-                    @include('includes.form_fields_validation_message', ['name' => 'address'])
-                </div>
-
-                {!! Form::label('state', __('staff_frm_reg_State'), ['class' => 'col-sm-1 control-label']) !!}
-                <div class="col-sm-3">
-                    {!! Form::text('state', null, ["class" => "form-control border-form upper","required"]) !!}
-                    @include('includes.form_fields_validation_message', ['name' => 'state'])
-                </div>
-
-                {!! Form::label('country', __('staff_frm_reg_Country'), ['class' => 'col-sm-1 control-label']) !!}
-                <div class="col-sm-3">
-                    {!! Form::text('country', null, ["class" => "form-control border-form upper","required"]) !!}
-                    @include('includes.form_fields_validation_message', ['name' => 'country'])
-                </div>
-            </div> --}}
-
             {{-- Address Province district commune --}}
-
                 <div class="form-group">
                     {!! Form::label('address', __('staff_frm_reg_Address'), ['class' => 'col-sm-1 control-label']) !!}
                     <div class="col-sm-7">
                         {!! Form::text('address', null, ["class" => "form-control border-form upper","required"]) !!}
                         @include('includes.form_fields_validation_message', ['name' => 'address'])
                     </div>
-
                       <label class="control-label col-xs-12 col-sm-1 control-label">{{ __('shortcoure_Province') }}</label>
                     <div class="col-sm-3">
                       <select style="width: 100%" name="province_id" id="province">
@@ -203,8 +181,7 @@
                         {
                         <option value="0">Please Choose</option>
                         }
-                        @endif
-                        
+                        @endif                        
                         @foreach ($provinces as $row)
                             @if($flag=='kh')
                             {
@@ -216,12 +193,11 @@
                             <option value="{{$row->id}}">{{ $row->name_en }}</option>
                             }
                             @endif
-                            @endforeach
+                        @endforeach
                       </select>
                       @include('includes.form_fields_validation_message', ['name' => 'province_id'])
                     </div>
                 </div>
-
                 <div class="form-group">
                   <label class="control-label col-xs-12 col-sm-1 control-label">{{ __('shortcoure_District') }}</label>
                   <div class="col-sm-3">
@@ -259,11 +235,8 @@
                     @include('includes.form_fields_validation_message', ['name' => 'village'])
                   </div>
                 </div>
-
             {{-- End Address Province district commune --}}
-
             <div class="label label-warning arrowed-in arrowed-right arrowed">@lang('staff_frm_reg_Temporary_Address')</div>
-
             <div class="control-group col-sm-12">
                 <div class="radio">
                     <label>
@@ -277,35 +250,11 @@
             <hr class="hr-8">
             {{--Temporaray_Address Province district commune --}}
                 <div class="form-group">
-                    {!! Form::label('address', __('staff_frm_reg_Address'), ['class' => 'col-sm-1 control-label']) !!}
-                    <div class="col-sm-7">
-                        {!! Form::text('address', null, ["class" => "form-control border-form upper","required"]) !!}
-                        @include('includes.form_fields_validation_message', ['name' => 'address'])
+                    {!! Form::label('temp_address', __('staff_frm_reg_Address'), ['class' => 'col-sm-2 control-label']) !!}
+                    <div class="col-sm-10">
+                        {!! Form::text('temp_address', null, ["class" => "form-control border-form upper","required"]) !!}
+                        @include('includes.form_fields_validation_message', ['name' => 'temp_address'])
                     </div>
-
-                      <label class="control-label col-xs-12 col-sm-1 control-label">{{ __('shortcoure_Province') }}</label>
-                    <div class="col-sm-3">
-                      <input type="text" name="temp_address" value="{{ $data['row']->temp_address }}" style="width: 100%">
-                      @include('includes.form_fields_validation_message', ['name' => 'province_id'])
-                    </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="control-label col-xs-12 col-sm-1 control-label">{{ __('shortcoure_District') }}</label>
-                  <div class="col-sm-3">
-                    <input type="text" name="temp_state" value="{{ $data['row']->temp_state }}" style="width: 100%">
-                  </div>
-
-                  <label class="control-label col-xs-12 col-sm-1 control-label">{{ __('shortcoure_Commune') }}</label>
-                  <div class="col-sm-3">
-                    <input type="text" name="temp_country" value="{{ $data['row']->temp_country }}" style="width: 100%">
-                  </div>
-                  
-                  <label class="control-label col-xs-12 col-sm-1 control-label">{{ __('Village') }}</label>
-                  <div class="col-sm-3">
-                    {!! Form::text('village', null, ["class" => "form-control border-form upper","required"]) !!}
-                    @include('includes.form_fields_validation_message', ['name' => 'village'])
-                  </div>
                 </div>
             {{-- End Temporaray_Address Province district commune --}}
 

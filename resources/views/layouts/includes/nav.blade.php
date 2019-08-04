@@ -216,7 +216,7 @@
                   Khmer
                 </a>
               </li>
-              <li>
+            {{--<li>
                 <a href="{{ url('locale') }}/th">
                   <img src="{{asset('images/flags/th.png')}}" class="img-flag" alt="" width="32" height="18">
                   Thai
@@ -233,7 +233,7 @@
                   <img src="{{asset('images/flags/de.png')}}" class="img-flag" alt="" width="32" height="18">
                   German
                 </a>
-              </li>
+              </li> --}}
             </ul>
           </li>
         {{-- @endability --}}
