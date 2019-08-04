@@ -181,8 +181,8 @@ Auth::routes();
   Route::group(['prefix' => 'staff/', 'as' => 'staff','namespace' => 'Staff\\'], function () {
       /*Staff Routes*/
       Route::get('',                          ['as' => '',                    'middleware' => ['ability:super-admin,staff-index'],        'uses' => 'StaffController@index']);
-      Route::get('add',                       ['as' => '.add',                'middleware' => ['ability:super-admin,staff-add'],          'uses' => 'StaffController@add']);
-      Route::post('store',                    ['as' => '.store',              'middleware' => ['ability:super-admin,staff-add'],          'uses' => 'StaffController@store']);
+      Route::get('add',                       ['as' => '.add',                'middleware' => ['ability:super-admin|admin,staff-add'],          'uses' => 'StaffController@add']);
+      Route::post('store',                    ['as' => '.store',              'middleware' => ['ability:super-admin|admin,staff-add'],          'uses' => 'StaffController@store']);
       Route::get('{id}/edit',                 ['as' => '.edit',               'middleware' => ['ability:super-admin,staff-edit'],         'uses' => 'StaffController@edit']);
       Route::post('{id}/update',              ['as' => '.update',             'middleware' => ['ability:super-admin,staff-edit'],         'uses' => 'StaffController@update']);
       Route::get('{id}/view',                 ['as' => '.view',               'middleware' => ['ability:super-admin,staff-view'],         'uses' => 'StaffController@view']);

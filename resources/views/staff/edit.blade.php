@@ -56,9 +56,7 @@
     @include('includes.scripts.jquery_validation_scripts')
     <!-- inline scripts related to this page -->
     <script type="text/javascript">
-
         function loadSemesters($this) {
-
             $.ajax({
                 type: 'POST',
                 url: '{{ route('student.find-semester') }}',
@@ -78,9 +76,7 @@
                     }
                 }
             });
-
         }
-
         $(document).ready(function () {
             jqueryValidation(
                 {
@@ -276,14 +272,11 @@
                 }
             );
         });
-
         $(function() {
             $('#faculty').change(function(){
                 $('#row_dim').hide();
-
             });
         });
-
         $(function() {
             $('#faculty').hide();
             $('#type').change(function(){
@@ -294,7 +287,6 @@
                 }
             });
         });
-
         /*Change Field Value on Capital Letter When Keyup*/
         $(function() {
             $('.upper').keyup(function() {
@@ -302,8 +294,6 @@
             });
         });
         /*end capital function*/
-
-
         /*copy permanent address on temporary address*/
         function CopyAddress(f) {
             if(f.permanent_address_copier.checked == true) {
@@ -313,7 +303,6 @@
                 f.temporary_country.value = f.permanent_country.value;
             }
         }
-
         /*copy Father Detail on Guardian Detail*//*guardian_is*/
         function FatherAsGuardian(f) {
             if(f.guardian_is.value == 'father_as_guardian') {
@@ -332,7 +321,6 @@
                 f.other_guardian.checked == false;
             }
         }
-
         /*copy Mother Detail on Guardian Detail*/
         function MotherAsGuardian(f) {
             if(f.guardian_is.value == 'mother_as_guardian') {
@@ -351,7 +339,6 @@
                 f.other_guardian.checked == false;
             }
         }
-
         /*Blank Guardian Detail to Enter New*/
         function OtherGuardian(f) {
             if(f.guardian_is.value == 'other_guardian') {
@@ -372,6 +359,7 @@
         }
 
     </script>
+    @include('ProjectActivities.includes.provinces')
     @include('includes.scripts.inputMask_script')
     @include('includes.scripts.datepicker_script')
 

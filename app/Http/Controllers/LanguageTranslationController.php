@@ -4,17 +4,17 @@
 namespace App\Http\Controllers;
 
 
-use Illuminate\Http\Request;
+use App\Models\Language;
 use DB;
 use File;
+use Illuminate\Http\Request;
 
 class LanguageTranslationController extends Controller
 {
   public function index()
   {
- 	  $languages = DB::table('languages')->get();
- 	  $columns = [];
-  	$columnsCount = $languages->count();
+ 	  $languages = Language::all();
+   	$columnsCount = $languages->count();
     if($languages->count() > 0){
       foreach ($languages as $key => $language){
         if ($key == 0) {

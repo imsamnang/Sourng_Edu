@@ -14,7 +14,6 @@
   </style>
 </head>
 <body>
-
 <div class="container">
     <h1>School Management System Multi Language Translation</h1>
     <form method="POST" action="{{ route('translations.create') }}">

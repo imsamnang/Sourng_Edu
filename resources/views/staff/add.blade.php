@@ -81,11 +81,10 @@
       function CopyAddress(f) {
           if(f.permanent_address_copier.checked == true) {
               f.temp_address.value = f.address.value;
-              f.temp_state.value = f.state.value;
-              f.temp_country.value = f.country.value;
           }
       }
     </script>
+    @include('ProjectActivities.includes.provinces')
     @include('includes.scripts.inputMask_script')
     @include('includes.scripts.datepicker_script')
 
