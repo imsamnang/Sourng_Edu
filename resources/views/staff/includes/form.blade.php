@@ -52,7 +52,7 @@
                     {!! Form::text('last_name', null, ["placeholder" => "LAST NAME", "class" => "form-control border-form upper","required"]) !!}
                     @include('includes.form_fields_validation_message', ['name' => 'last_name'])
                 </div>
-
+@role('super-admin')
                  {!! Form::label('institute_id', 'Institute', ['class' => 'col-sm-1 control-label',]) !!}       
                 <div class="col-sm-3">
                     <select name="institute_id" id="institute_id" class="form-control" required>
@@ -64,10 +64,10 @@
                                 <option value="{{ $row->id }}">{{ $row->name_en }}</option>  
                             @endif
                         @endforeach
-                    </select>
-                   
+                    </select>                   
                     @include('includes.form_fields_validation_message', ['name' => 'institute_id'])
                 </div>
+@endrole                
             </div>
 
             <div class="form-group">      

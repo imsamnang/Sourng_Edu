@@ -178,7 +178,7 @@ Auth::routes();
       Route::post('note/bulk-action',             ['as' => '.note.bulk-action',    'middleware' => ['ability:super-admin,student-note-bulk-action'],      'uses' => 'NoteController@bulkAction']);
   });
 /*Staff Grouping*/
-  Route::group(['prefix' => 'staff/',                                     'as' => 'staff',                                       'namespace' => 'Staff\\'], function () {
+  Route::group(['prefix' => 'staff/', 'as' => 'staff','namespace' => 'Staff\\'], function () {
       /*Staff Routes*/
       Route::get('',                          ['as' => '',                    'middleware' => ['ability:super-admin,staff-index'],        'uses' => 'StaffController@index']);
       Route::get('add',                       ['as' => '.add',                'middleware' => ['ability:super-admin,staff-add'],          'uses' => 'StaffController@add']);
@@ -190,7 +190,6 @@ Auth::routes();
       Route::get('{id}/active',               ['as' => '.active',             'middleware' => ['ability:super-admin,staff-active'],       'uses' => 'StaffController@Active']);
       Route::get('{id}/in-active',            ['as' => '.in-active',          'middleware' => ['ability:super-admin,staff-in-active'],    'uses' => 'StaffController@inActive']);
       Route::post('bulk-action',              ['as' => '.bulk-action',        'middleware' => ['ability:super-admin,staff-bulk-action'],  'uses' => 'StaffController@bulkAction']);
-
       Route::get('import',                      ['as' => '.import',             'middleware' => ['ability:super-admin,staff-add'],           'uses' => 'StaffController@importStaff']);
       Route::post('import',                     ['as' => '.bulk.import',        'middleware' => ['ability:super-admin,staff-add'],             'uses' => 'StaffController@handleImportStaff']);
 
