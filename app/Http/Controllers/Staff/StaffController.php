@@ -27,6 +27,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\CollegeBaseController;
 use App\Http\Requests\Staff\Registration\AddValidation;
 use App\Http\Requests\Staff\Registration\EditValidation;
+use Session;
 
 class StaffController extends CollegeBaseController
 {
@@ -79,7 +80,19 @@ class StaffController extends CollegeBaseController
     $data = [];
     $data['designations'] = StaffDesignation::select('id', 'title','title_kh')->orderBy('title')->get(); //$this->staffDesignationList();
     $data['institute'] = Institute::select('id','name_kh','name_en')->orderBy('name_kh')->get(); //$this->getInstitutes();
-    $data['gender']=Gender::all();
+    // $data['gender']=Gender::all();
+
+    $flag=Session::get('locale');
+    if($flag=='kh'){
+      $data['gender'] = Gender::pluck('gender_kh','id')->toArray();
+     
+      
+    }
+    if($flag=='en'){
+      $data['gender']=Gender::pluck('gender_en','id')->toArray();
+            
+    }
+   
     return view(parent::loadDataToView($this->view_path.'.add'), compact('data','provinces'));
   }
 
@@ -193,9 +206,23 @@ class StaffController extends CollegeBaseController
         ->get();
     //login credential
     $data['staff_login'] = User::where([['role_id',5],['hook_id',$data['staff']->id]])->first();
-    $data['gender']=Gender::all();
+    // $data['gender']=Gender::all();
     $data['url'] = URL::current();
-    return view(parent::loadDataToView($this->view_path.'.detail.index'), compact('data'));
+
+    $flag=Session::get('locale');
+    if($flag=='kh'){
+      $gender = Gender::pluck('id','gender_kh')->toArray();
+      $data['staff']->gender==1?'ប្រុស':'ស្រី';
+      
+    }
+    if($flag=='en'){
+      $gender=Gender::pluck('id','gender_en')->toArray();
+      $data['staff']->gender==1?'Male':'Female';      
+    }
+    // return $gender;
+
+
+    return view(parent::loadDataToView($this->view_path.'.detail.index'), compact('data','gender'));
   }
 
   public function edit(Request $request, $id)

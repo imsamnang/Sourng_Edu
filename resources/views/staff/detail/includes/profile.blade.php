@@ -60,12 +60,8 @@
         <div class="profile-info-name"> @lang('staff_frm_reg_Gender') </div>
         <div class="profile-info-value">
           <span class="editable" id="student_name">
-            {{-- {{ $data['staff']->gender }} --}}
-            @if ($flag=='kh')
-            {{$data['staff']->gender==1?'ប្រុស':'ស្រី'}}
-            @else
-            {{$data['staff']->gender==1?'Male':'Female'}}
-            @endif            
+            {{ $data['staff']->gender }}
+                  
           </span>
         </div>
         <div class="profile-info-name"> @lang('staff_frm_reg_Blood_Group') </div>

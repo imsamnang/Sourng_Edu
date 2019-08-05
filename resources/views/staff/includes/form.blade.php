@@ -141,12 +141,13 @@
             {!! Form::label('gender', __('staff_frm_reg_Gender'), ['class' => 'col-sm-2 control-label']) !!}
             <div class="col-sm-2">                   
                 <select name="gender" id="gender" class="form-control border-form" required>
-                    @foreach ($data['gender'] as $item)
-                        @if ($flag=='kh')
+                    @foreach ($data['gender'] as $key => $item)
+                        {{-- @if ($flag=='kh')
                             <option value="{{ $item->id }}">{{ $item->gender_kh }}</option>
                         @else
                              <option value="{{ $item->id }}">{{ $item->gender_en }}</option>
-                        @endif
+                        @endif --}}
+                        <option value="{{ $key }}">{{ $item}}</option>
                     @endforeach
                 </select>
 
