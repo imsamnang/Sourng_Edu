@@ -48,7 +48,6 @@ class CourseShort extends Model
       return $this->hasMany(CourseShortTeacher::class, 'course_short_id');
     } 
 
-   
 
   }
 
