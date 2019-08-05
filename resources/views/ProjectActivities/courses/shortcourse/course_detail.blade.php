@@ -117,40 +117,46 @@
 
                               <?php $i=0;?>
 
-                              @foreach ($teacher_course as $item)
-                                    <div class="col-md-4">
-                                          <div class="form-group">    
-                                                <label><strong>{{ __('shortcoure_Teacher_Name') }} (<?php echo $i=$i+1; ?>)</strong></label>&emsp;                                                 
-                                                @if ($flag=='kh')
-                                                <label style="color: red;">{{$item->first_name}} </label>
-                                                @endif
-                                                @if ($flag=='en')
-                                                <label style="color: red;">{{$item->last_name}} </label>
-                                                @endif
-                                          </div>
-                                    </div>   
 
-                                    <div class="col-md-3">
-                                          <div class="form-group">                                                       
-                                                <label style="color: red;"> <i class="fa fa-phone-square" style="color:green;" aria-hidden="true"></i> {{$item->home_phone}} - <i class="fa fa-calendar" style="color:green;"  aria-hidden="true"></i>{{date('Y-m-d',strtotime($item->date_of_birth))}}</label>
-                                          </div>
-                                    </div>
 
-                                    <div class="col-md-4">
-                                          <div class="form-group">
-                                                <label><strong>{{__('total_teacher_hours1')}} ({{$i}})</strong></label>&emsp;
-                                                @if ($flag=='kh')
-                                                <label style="color: red; margin-left: 20px;" >{{$item->total_training_hour}} ម៉ោង</label>
-                                                @endif
-                                                @if ($flag=='en')
-                                                <label style="color: red; margin-left: 5px;">{{$item->total_training_hour}} Hours</label>
-                                                @endif
-                                          </div>
-                                    </div>                                        
+
+                        <div class="row">
+                            <div class="col-md-4" style="margin-left: 15px;">
+                              @foreach ($shortcourse_detail->courseShortTeacher as $teacher)              
+                                <div class="form-group">
+                                  <label><strong>{{ __('shortcoure_Teacher_Name') }} (<?php echo $i=$i+1; ?>)</strong></label>
+                                  @if ($flag=='kh')
+                                    <label style="color: red;margin-left: 44px;">{{$teacher->staff->first_name}}</label>
+                                  @endif
+                                  @if ($flag=='en')
+                                    <label style="color: red;margin-left: 5px;">{{$teacher->staff->last_name}}</label>
+                                  @endif
+                                </div>
                               @endforeach
+                            </div>
+                              
+                              <div class="col-md-3">
+                                     @foreach ($shortcourse_detail->courseShortTeacher as $teacher) 
+                                        <div class="form-group">                                                       
+                                          <label style="color: red;"> <i class="fa fa-phone-square" style="color:green;" aria-hidden="true"></i> {{$teacher->staff->home_phone}} - <i class="fa fa-calendar" style="color:green;"  aria-hidden="true"></i>{{date('Y-m-d',strtotime($teacher->staff->date_of_birth))}}</label>
+                                        </div>
+                                    @endforeach
+                              </div>
 
-
-                     
+                            <div class="col-md-4">
+                              @foreach ($shortcourse_detail->courseShortTeacher as $teacher)              
+                                <div class="form-group">
+                                  <label><strong>{{__('total_teacher_hours1')}}({{$i}})</strong></label>&emsp;
+                                  @if ($flag=='kh')
+                                    <label style="color: red;margin-left: 44px;">{{$teacher->total_hours}} ម៉ោង</label>
+                                  @endif
+                                  @if ($flag=='en')
+                                    <label style="color: red;margin-left: 5px;">{{$teacher->total_hours}} ម៉ោង</label>
+                                  @endif
+                                </div>
+                              @endforeach
+                            </div>        
+                      </div>
 
 
 
