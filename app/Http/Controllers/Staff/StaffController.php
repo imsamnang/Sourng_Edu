@@ -114,7 +114,8 @@ class StaffController extends CollegeBaseController
           'hook_id'=>$staffSaved->id,
           'institute_id'=>$staffSaved->institute_id,
           'created_at'=>$request->join_date,
-          'contact_number'=>$request->home_phone
+          'contact_number'=>$request->home_phone,
+          'pob'=>$request->pob
       ];
       $StaffAccessLogin = User::create($StaffAccessLogin);
     }

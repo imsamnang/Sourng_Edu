@@ -15,7 +15,7 @@ class Staff extends BaseModel
         'blood_group', 'nationality','mother_tongue', 'address','temp_address','temp_village',
         'home_phone', 'mobile_1', 'mobile_2', 'email', 'qualification', 'experience', 
         'experience_info', 'other_info', 'staff_image','institute_id','province_id','district_id',
-        'commune_id','village'];
+        'commune_id'];
 
     public function payrollMaster()
     {

@@ -26,7 +26,7 @@ class AddValidation extends FormRequest
             'qualification'         => 'required',
             'institute_id'          => 'required',
             'main_image'            => 'mimes:jpeg,bmp,png',
-            'village'               => 'required',
+            'pob'                   => 'required',
         ];
 
     }

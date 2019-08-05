@@ -103,8 +103,27 @@
           <span class="editable" id="email">{{ $data['staff']->qualification }}</span>
         </div>
       </div>
+
+
+      <div class="profile-info-row">
+          <div class="profile-info-name"> {{$flag=='kh'?'កន្លែងកំណើត':'Place Of Birth'}} </div>
+          <div class="profile-info-value">
+              <span class="editable" id="permanent_place">{{ $data['staff']->pob }}</span>
+             
+              
+          </div>
+          
+        </div>
+
+
+
     </div>
+    
   </div>
+
+  
+
+  
   </div><!-- /.row -->
 
   <div class="row">
@@ -114,26 +133,52 @@
     <div class="space-6"></div>
     <div class="profile-user-info profile-user-info-striped">
       <div class="profile-info-row">
-        <div class="profile-info-name"> @lang('staff_frm_reg_Address') </div>
+
+        <div class="profile-info-name"> @lang('staff_frm_reg_Permanent_Address') </div>
         <div class="profile-info-value">
           <span class="editable" id="permanent_place">{{ $data['staff']->address }}</span>
+          <span class="editable" id="permanent_zone">{{ 
+              $flag=='kh'?$data['staff']->commune->name_kh:$data['staff']->commune->name_en 
+              }}
+          </span>
+          <span class="editable" id="permanent_zone">{{ 
+              $flag=='en'?$data['staff']->district->name_en:$data['staff']->district->name_kh 
+              }}</span>
+          <span class="editable" id="permanent_district">{{ 
+              $flag=='kh'?$data['staff']->province->name_kh:$data['staff']->province->name_en 
+              }}</span>
+
+
         </div>
-        <div class="profile-info-name"> @lang('staff_frm_reg_province') </div>
+
+        {{-- <div class="profile-info-name"> @lang('staff_frm_reg_commune') </div>
         <div class="profile-info-value">
-          <span class="editable" id="permanent_district">{{ $data['staff']->province->name_en }}</span>
+          <span class="editable" id="permanent_zone">{{ 
+            $flag=='kh'?$data['staff']->commune->name_kh:$data['staff']->commune->name_en 
+            }}
+          </span>
         </div>
         <div class="profile-info-name"> @lang('staff_frm_reg_district') </div>
         <div class="profile-info-value">
-          <span class="editable" id="permanent_zone">{{ $data['staff']->district->name_en }}</span>
+          <span class="editable" id="permanent_zone">{{ 
+            $flag=='en'?$data['staff']->district->name_en:$data['staff']->district->name_kh 
+            }}</span>
         </div>
-        <div class="profile-info-name"> @lang('staff_frm_reg_commune') </div>
+
+        <div class="profile-info-name"> @lang('staff_frm_reg_province') </div>
         <div class="profile-info-value">
-          <span class="editable" id="permanent_zone">{{ $data['staff']->commune->name_en }}</span>
-        </div>
+          <span class="editable" id="permanent_district">{{ 
+            $flag=='kh'?$data['staff']->province->name_kh:$data['staff']->province->name_en 
+            }}</span>
+        </div> --}}
+        
+
+       
       {{--<div class="profile-info-name"> @lang('staff_frm_reg_Country') </div>
         <div class="profile-info-value">
           <span class="editable" id="permanent_zone">{{ $data['staff']->village }}</span>
         </div> --}}
+
       </div>
     </div>
     <div class="space-6"></div>
