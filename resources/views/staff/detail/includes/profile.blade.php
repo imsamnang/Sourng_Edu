@@ -60,7 +60,7 @@
         <div class="profile-info-name"> @lang('staff_frm_reg_Gender') </div>
         <div class="profile-info-value">
           <span class="editable" id="student_name">
-            {{ $data['staff']->gender }}
+            {{ $data['gender']['0'] }}
                   
           </span>
         </div>
@@ -92,11 +92,11 @@
       <div class="profile-info-row">
         <div class="profile-info-name"> @lang('staff_frm_reg_HomeTel') </div>
         <div class="profile-info-value">
-          <span class="editable" id="email">{{ $data['staff']->home_phone }}</span>
+          <span class="editable" id="home_phone">{{ $data['staff']->home_phone }}</span>
         </div>
-        <div class="profile-info-name"> @lang('staff_frm_reg_Qualification') </div>
+        <div class="profile-info-name"> @lang('cbo_general_education') </div>
         <div class="profile-info-value">
-          <span class="editable" id="email">{{ $data['staff']->qualification }}</span>
+          <span class="editable" id="qualification_id">{{ $data['GeneralEducation']['0'] }}</span>
         </div>
       </div>
 
@@ -219,22 +219,57 @@
     <div class="label label-info label-xlg arrowed-in arrowed-right arrowed">@lang('staff_frm_reg_Qualification_Detail')</div>
     <div class="space-6"></div>
     <div class="profile-user-info profile-user-info-striped">
+
       <div class="profile-info-row">
+        
         <div class="profile-info-name"> @lang('staff_frm_reg_Qualification')   </div>
         <div class="profile-info-value">
-          <span class="editable" id="temporary_place">{{ $data['staff']->qualification }}</span>
+          <span class="editable" id="temporary_place">{{ $data['teacer_exam']  }}</span>
         </div>
-        <div class="profile-info-name"> @lang('staff_frm_reg_Experience')</div>
+
+        <div class="profile-info-name"> ជាប់តេស្តសមត្ថភាព</div>
         <div class="profile-info-value">
-          <span class="editable" id="guardian_eligibility">{{ $data['staff']->experience }}</span>
+          <span class="editable" id="temporary_place">{{ $data['passed_competency']  }}</span>
         </div>
+
+              
       </div>
+
+      <div class="profile-info-row">
+          <div class="profile-info-name"> សមាជិកនៃសមាគមអាជីព	 </div>
+          <div class="profile-info-value">
+              <span class="editable" id="guardian_eligibility">{{ $data['association'] }} </span>
+          </div>
+        </div>
+
+
+      <div class="profile-info-row">
+          <div class="profile-info-name">បទពិសោធន៍ការងារ</div>
+          <div class="profile-info-name"> ក្រៅពី TVET (ចំនួនឆ្នាំ)</div>
+          
+          <div class="profile-info-name"> @lang('staff_frm_reg_Experience')</div>
+          <div class="profile-info-value">
+            <span class="editable" id="guardian_eligibility">{{ $data['qualifications']->teaching }} {{ $data['Exp_year']}}</span>
+          </div>
+  
+          <div class="profile-info-name"> ការងារផ្សេងៗ </div>
+          <div class="profile-info-value">
+            <span class="editable" id="guardian_eligibility">{{ $data['qualifications']->teaching }} {{ $data['Exp_year']}}</span>
+          </div>
+
+          
+      </div>
+
+      
+
+
       <div class="profile-info-row">
         <div class="profile-info-name"> @lang('staff_frm_reg_Experience_Information')   </div>
         <div class="profile-info-value">
           <span class="editable" id="guardian_office">{{ $data['staff']->experience_info }}</span>
         </div>
       </div>
+
       <div class="profile-info-row">
         <div class="profile-info-name"> @lang('staff_frm_reg_Other_Information')   </div>
         <div class="profile-info-value">

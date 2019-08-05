@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Session;
 use App\User;
 use Image, URL;
 use ViewHelper;
@@ -16,18 +17,22 @@ use App\Models\Institute;
 use App\Traits\UserScope;
 use App\Models\Attendance;
 use App\Models\Attendence;
+use App\Models\Association;
+use App\Models\TeacherExam;
 use App\Models\Designations;
 use Illuminate\Http\Request;
 use App\Models\LibraryMember;
+use App\Models\Qualifications;
 use App\Models\ResidentHistory;
+use App\Models\GeneralEducation;
 use App\Models\StaffDesignation;
 use App\Models\TransportHistory;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\CollegeBaseController;
 use App\Http\Requests\Staff\Registration\AddValidation;
 use App\Http\Requests\Staff\Registration\EditValidation;
-use Session;
 
 class StaffController extends CollegeBaseController
 {
@@ -50,7 +55,7 @@ class StaffController extends CollegeBaseController
   {
     $data = [];
     $data['staff'] = Staff::select('id','reg_no', 'first_name',  'middle_name', 'last_name',
-         'mobile_1','designation', 'qualification', 'status')
+         'mobile_1','designation', 'qualification_id', 'status')
         ->where(function ($query) use ($request) {
             if ($request->has('reg_no')) {
               $query->where('reg_no', 'like', '%'.$request->reg_no.'%');
@@ -86,11 +91,23 @@ class StaffController extends CollegeBaseController
 
     if($flag=='kh'){
       $data['gender'] = Gender::pluck('gender_kh','id')->toArray();
+      $data['firstName']='ឈ្មោះពេញខ្មែរ';
+      $data['lastName']='ឈ្មោះពេញ ឡាតាំង';
+      $data['pob']='ភូមិ គោករុន ឃុំមុខប៉ែន ស្រុកពួក ខេត្តសៀមរាប';
+      $data['Nationality']='ខ្មែរ';
+      $data['Institute']='វិទ្យាស្ថាន';
+      $data['teacher_exam']='សញ្ញាបត្រគរុកោសល្យ';
      
       
     }
     if($flag=='en'){
       $data['gender']=Gender::pluck('gender_en','id')->toArray();
+      $data['firstName']='Khmer Full Name';
+      $data['lastName']='Latin Full Name';
+      $data['pob']='ភូមិ គោករុន ឃុំមុខប៉ែន ស្រុកពួក ខេត្តសៀមរាប';
+      $data['Nationality']='Khmer';
+      $data['Institute']='Institute';
+      $data['teacher_exam']='Teacher Exam';
             
     }
     // return $data['gender'];
@@ -141,6 +158,8 @@ class StaffController extends CollegeBaseController
   public function view($id)
   {
     $data = [];
+    $flag=App()->getLocale();
+
     $data['staff']=Staff::where('id',$id)->first();    
     if (!$data['staff']){
         request()->session()->flash($this->message_warning, "Not a Valid Staff");
@@ -206,22 +225,43 @@ class StaffController extends CollegeBaseController
         ->join('transport_users as tu','tu.id','=','transport_histories.travellers_id')
         ->orderBy('transport_histories.created_at')
         ->get();
+
     //login credential
     $data['staff_login'] = User::where([['role_id',5],['hook_id',$data['staff']->id]])->first();
+    
     // $data['gender']=Gender::all();
     $data['url'] = URL::current();
 
-    $flag=Session::get('locale');
+ 
+    $data['qualifications']=Qualifications::where('id', $data['staff']->qualification_id)->first(); //DB::table('qualifications')->where('id', $data['staff']->qualification_id)->first();
+    $data['teacer_exam']=TeacherExam::where('id', $data['qualifications']->teacher_exam_id)->first(); //DB::table('qualifications')->where('id', $data['staff']->qualification_id)->first();
+    $data['association']=Association::where('id', $data['qualifications']->association_id)->first();
+    
     if($flag=='kh'){
-      $gender = Gender::pluck('id','gender_kh')->toArray();
-      $data['staff']->gender==1?'ប្រុស':'ស្រី';
       
+      $data['gender']=DB::table('gender')->where('id', $data['staff']->gender)->pluck('gender_kh')->toArray();
+      $data['GeneralEducation']=DB::table('general_education')->where('id', $data['staff']->general_education_id)->pluck('general_education_kh')->toArray();
+      $data['teacer_exam']=$data['teacer_exam']->title_kh;
+      $data['passed_competency']=$data['qualifications']->passed_competency==1?'បាទ':'ទេ';
+      $data['Exp_year']='ឆ្នាំ';
+      // association_id
+      $data['association']=$data['association']->association_kh;
+
+   
     }
     if($flag=='en'){
-      $gender=Gender::pluck('id','gender_en')->toArray();
-      $data['staff']->gender==1?'Male':'Female';      
+      
+      $data['gender']=DB::table('gender')->where('id', $data['staff']->gender)->pluck('gender_en')->toArray();
+      $data['GeneralEducation']=DB::table('general_education')->where('id', $data['staff']->general_education_id)->pluck('general_education_en')->toArray();
+      $data['teacer_exam']=$data['teacer_exam']->title_en;
+      $data['passed_competency']=$data['qualifications']->passed_competency==1?'Yes':'No';
+      $data['Exp_year']='Years';
+      $data['association']=$data['association']->association_en;
+
     }
-    // return $gender;
+
+
+    // return $data['teacer_exam'];
 
 
     return view(parent::loadDataToView($this->view_path.'.detail.index'), compact('data','gender'));
@@ -411,7 +451,7 @@ class StaffController extends CollegeBaseController
               'date_of_birth'         => 'required',
               'gender'                => 'required',
               'email'                 => 'required | unique:staff,email',
-              'qualification'         => 'required',
+              'qualification_id'      => 'required',
               'mobile_1'              => 'required',
               'main_image'           => 'mimes:jpeg,bmp,png',
           ]);
@@ -446,7 +486,7 @@ class StaffController extends CollegeBaseController
             "temp_address"        => $row['temp_address'],
             "temp_state"          => $row['temp_state'],
             "temp_country"        => $row['temp_country'],
-            "qualification"       => $row['qualification'],
+            "qualification_id"    => $row['qualification_id'],
             "experience"          => $row['experience'],
             "experience_info"     => $row['experience_info'],
             "other_info"          => $row['other_info'],
@@ -465,7 +505,7 @@ class StaffController extends CollegeBaseController
   {
     $data = [];
     $data['staff'] = Staff::select('id','reg_no', 'first_name',  'middle_name', 'last_name',
-        'mobile_1','designation', 'qualification', 'status')
+        'mobile_1','designation', 'qualification_id', 'status')
         ->where(function ($query) use ($request) {
           if ($request->has('reg_no')) {
             $query->where('reg_no', 'like', '%'.$request->reg_no.'%');
