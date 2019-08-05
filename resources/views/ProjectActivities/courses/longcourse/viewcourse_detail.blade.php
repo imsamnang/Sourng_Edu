@@ -42,7 +42,7 @@
                   <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="mytab4">
                         {{-- <h2>record # ps-852</h2> --}}
                         <li class="active">
-                              <a style="font-family: 'khmer os battambang'; font-size:18px; padding:10px 5px 10px 5px; " data-toggle="tab" href="#registrationinfo">កម្មវិធីលម្អិត # ps - {{ $longcourse_detail->id }}&#8203;</a>
+                              <a style="font-family: 'khmer os battambang'; font-size:18px; padding:10px 5px 10px 5px; " data-toggle="tab" href="#registrationinfo">កម្មវិធីលម្អិត # PL - {{ $longcourse_detail->id }}&#8203;</a>
                         </li>
       
                   </ul>
