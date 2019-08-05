@@ -80,9 +80,10 @@ class StaffController extends CollegeBaseController
     $data = [];
     $data['designations'] = StaffDesignation::select('id', 'title','title_kh')->orderBy('title')->get(); //$this->staffDesignationList();
     $data['institute'] = Institute::select('id','name_kh','name_en')->orderBy('name_kh')->get(); //$this->getInstitutes();
-    // $data['gender']=Gender::all();
+    // $data['gender']='';
 
-    $flag=Session::get('locale');
+    $flag=App()->getLocale();
+
     if($flag=='kh'){
       $data['gender'] = Gender::pluck('gender_kh','id')->toArray();
      
@@ -92,6 +93,7 @@ class StaffController extends CollegeBaseController
       $data['gender']=Gender::pluck('gender_en','id')->toArray();
             
     }
+    // return $data['gender'];
    
     return view(parent::loadDataToView($this->view_path.'.add'), compact('data','provinces'));
   }
