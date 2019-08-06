@@ -34,7 +34,7 @@
                         </div>
                         {!! Form::open(['route' => $base_route.'.register', 'method' => 'POST', 'class' => 'form-horizontal',
                         'id' => 'validation-form', "enctype" => "multipart/form-data"]) !!}
-
+                        <input type="hidden" name="flag" value="{{ $Flag }}" id="flag">
                         @include($view_path.'.registration.includes.form')
 
                         <div class="clearfix form-actions">
@@ -66,6 +66,7 @@
 
 @section('js')
     <!-- page specific plugin scripts -->
+    @include('ProjectActivities.includes.provinces')
     @include('includes.scripts.jquery_validation_scripts')
     @include('student.registration.includes.student-comman-script')
     @include('includes.scripts.inputMask_script')

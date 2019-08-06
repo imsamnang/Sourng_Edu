@@ -103,12 +103,13 @@ class StudentController extends CollegeBaseController
     public function registration()
     {
       $data = [];
+      $provinces= Province::all();
       $data['blank_ins'] = new Student();
       $data['gender']=Gender::all();
       $data['faculties'] = $this->activeFaculties();
       $academicStatus = StudentStatus::select('id', 'title')->Active()->pluck('title','id')->toArray();
       $data['academic_status'] = array_prepend($academicStatus,'Select Status',0);
-      return view(parent::loadDataToView($this->view_path.'.registration.register'), compact('data'));
+      return view(parent::loadDataToView($this->view_path.'.registration.register'), compact('data','provinces'));
     }
 
     public function register(AddValidation $request)
@@ -329,7 +330,8 @@ class StudentController extends CollegeBaseController
 
     public function edit(Request $request, $id)
     {
-      $data = [];      
+      $data = [];  
+      $provinces= Province::all();    
       $data['row'] = Student::select('students.id','students.reg_no', 'students.reg_date', 'students.university_reg',
           'students.faculty','students.semester', 'students.academic_status', 'students.first_name', 'students.middle_name',
           'students.last_name', 'students.date_of_birth', 'students.gender', 'students.blood_group', 'students.nationality',
@@ -365,7 +367,7 @@ class StudentController extends CollegeBaseController
       $data['academicInfo-html'] = view($this->view_path.'.registration.includes.forms.academic_tr_edit', [
           'academicInfos' => $data['academicInfo']
       ])->render();
-      return view(parent::loadDataToView($this->view_path.'.registration.edit'), compact('data'));
+      return view(parent::loadDataToView($this->view_path.'.registration.edit'), compact('data','provinces'));
     }
 
     public function update(EditValidation $request, $id)

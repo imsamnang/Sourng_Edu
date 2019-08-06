@@ -27,7 +27,7 @@
                    'id' => 'validation-form', "enctype" => "multipart/form-data"]) !!}
                         {!! Form::hidden('id', $data['row']->id) !!}
                         {{--{!! Form::hidden('guardians_id', $data['row']->guardians_id) !!}--}}
-                        @include($view_path.'.registration.includes.form')
+                        @include($view_path.'.registration.includes.editform')
                         <div class="clearfix form-actions">
                             <div class="col-md-12 align-right">
                                 <button class="btn btn-info" type="submit">

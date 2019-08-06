@@ -232,8 +232,7 @@
                     }
                     @endif
                     </select>
-                </div>
-        
+                </div>  
         </div>
         {{-- End Address Province district commune --}}
         <div class="label label-warning arrowed-in arrowed-right arrowed">@lang('staff_frm_reg_Temporary_Address')</div>

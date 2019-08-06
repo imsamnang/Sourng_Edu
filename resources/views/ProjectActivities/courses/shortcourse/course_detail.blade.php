@@ -117,9 +117,6 @@
 
                               <?php $i=0;?>
 
-
-
-
                         <div class="row">
                             <div class="col-md-4" style="margin-left: 15px;">
                               @foreach ($shortcourse_detail->courseShortTeacher as $teacher)              
@@ -146,7 +143,7 @@
                             <div class="col-md-4">
                               @foreach ($shortcourse_detail->courseShortTeacher as $teacher)              
                                 <div class="form-group">
-                                  <label><strong>{{__('total_teacher_hours1')}}({{$i}})</strong></label>&emsp;
+                                  <label><strong>{{__('total_teacher_hours1')}}</strong></label>&emsp;
                                   @if ($flag=='kh')
                                     <label style="color: red;margin-left: 44px;">{{$teacher->total_hours}} ម៉ោង</label>
                                   @endif
