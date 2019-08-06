@@ -1,9 +1,9 @@
 <?php
 
 //for switching language route
-Route::get('/locale/{locale}',function($locale){
-  Session::put('locale',$locale);
-  return redirect()->back();
+  Route::get('/locale/{locale}',function($locale){
+    Session::put('locale',$locale);
+    return redirect()->back();
 });
 
 //for language tranlation route
@@ -35,7 +35,6 @@ Auth::routes();
 // Permission Routes
     Route::get('permission/add',['as' => 'permission.add',              'middleware' => ['ability:super-admin,role-add'],'uses' => 'PermissionController@create']);
     Route::post('permission/store',['as' => 'permission.store',              'middleware' => ['ability:super-admin,role-add'],'uses' => 'PermissionController@store']);
-
 /* User Routes */
     Route::get('user',                    ['as' => 'user',                  'middleware' => ['ability:super-admin,user-index'],             'uses' => 'UserController@index']);
     Route::get('user/add',                ['as' => 'user.add',              'middleware' => ['ability:super-admin,user-add'],               'uses' => 'UserController@add']);
@@ -1000,21 +999,19 @@ Auth::routes();
 	  Route::get('/export', 'ExportExcelController@export')->name('export');
 	  Route::get('/export2', 'ExportExcelController@excel')->name('export2');
 
-
-
-    // For Image 
+  // For Image 
     Route::get('/image','ZimageController@index');
     Route::post('/image/upload','ZimageController@store');
     Route::post('/image/rotate/{id}','ZimageController@rotate');
     Route::post('/image/delete/{id}','ZimageController@delete');
     Route::post('/image/save','ZimageController@save');
 
-    //For QR 
+  //For QR 
     Route::get('/qr','ZqrController@index');
     Route::get('/qr/code/{code}','ZqrController@code');
     Route::post('/qr/code','ZqrController@code');
 
-    // For Card
+  // For Card
     Route::get('/card','ZcardController@index');
     Route::post('/card/result','ZcardController@result');
     Route::get('/card/result','ZcardController@result');

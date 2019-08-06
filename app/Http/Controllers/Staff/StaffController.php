@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\Staff;
-
 use Session;
 use App\User;
 use Image, URL;
@@ -42,9 +41,9 @@ class StaffController extends CollegeBaseController
   protected $folder_path;
   protected $folder_name = 'staff';
   protected $filter_query = [];
+  private $flag;
 
   use UserScope;
-
   public function __construct()
   {
     $this->middleware('auth');
@@ -71,9 +70,7 @@ class StaffController extends CollegeBaseController
             }
         })
         ->get();
-      //   $data['designations'] = $this->staffDesignationList();
-    $data['designations'] = StaffDesignation::select('id', 'title','title_kh')->orderBy('title')->get(); //$this->staffDesignationList();
-
+    $data['designations'] = StaffDesignation::select('id', 'title','title_kh')->orderBy('title')->get(); //
     $data['url'] = URL::current();
     $data['filter_query'] = $this->filter_query;
     return view(parent::loadDataToView($this->view_path.'.index'), compact('data'));
@@ -81,38 +78,33 @@ class StaffController extends CollegeBaseController
 
   public function add(Request $request)
   {
-    $provinces = Province::all();
+    $this->flag = app()->getLocale();
     $data = [];
-    $data['designations'] = StaffDesignation::select('id', 'title','title_kh')->orderBy('title')->get(); //$this->staffDesignationList();
-    $data['institute'] = Institute::select('id','name_kh','name_en')->orderBy('name_kh')->get(); //$this->getInstitutes();
-    // $data['gender']='';
-
-    $flag=App()->getLocale();
-
-    if($flag=='kh'){
+    if($this->flag=='kh'){
+      $data['designations'] = StaffDesignation::pluck('title_kh','id')->toArray();
+      $data['option'] = 'ជ្រើសខាងក្រោម៖';
+      $data['provinces'] = Province::pluck('name_kh','id')->toArray();
       $data['gender'] = Gender::pluck('gender_kh','id')->toArray();
       $data['firstName']='ឈ្មោះពេញខ្មែរ';
       $data['lastName']='ឈ្មោះពេញ ឡាតាំង';
       $data['pob']='ភូមិ គោករុន ឃុំមុខប៉ែន ស្រុកពួក ខេត្តសៀមរាប';
       $data['Nationality']='ខ្មែរ';
-      $data['Institute']='វិទ្យាស្ថាន';
-      $data['teacher_exam']='សញ្ញាបត្រគរុកោសល្យ';
-     
-      
+      $data['institute']=Institute::pluck('name_kh','id')->toArray();
+      $data['teacher_exam']=TeacherExam::pluck('title_kh','id')->toArray();      
     }
-    if($flag=='en'){
+    if($this->flag=='en'){
+      $data['designations'] = StaffDesignation::pluck('title','id')->toArray();
+      $data['option'] ='Please Choose';
+      $data['provinces'] = Province::pluck('name_en','id')->toArray();
       $data['gender']=Gender::pluck('gender_en','id')->toArray();
       $data['firstName']='Khmer Full Name';
       $data['lastName']='Latin Full Name';
       $data['pob']='ភូមិ គោករុន ឃុំមុខប៉ែន ស្រុកពួក ខេត្តសៀមរាប';
       $data['Nationality']='Khmer';
-      $data['Institute']='Institute';
-      $data['teacher_exam']='Teacher Exam';
-            
+      $data['institute']=Institute::pluck('name_en','id')->toArray();
+      $data['teacher_exam']=TeacherExam::pluck('title_en','id')->toArray();             
     }
-    // return $data['gender'];
-   
-    return view(parent::loadDataToView($this->view_path.'.add'), compact('data','provinces'));
+    return view(parent::loadDataToView($this->view_path.'.add'), compact('data'));
   }
 
   public function store(AddValidation $request)
@@ -132,7 +124,6 @@ class StaffController extends CollegeBaseController
     $request->request->add(['created_by' => auth()->user()->id]);
     $request->request->add(['institute_id' => $institute_id]);
     $request->request->add(['staff_image' => $image_name]);
-    // return $request->all();
     $staffSaved = Staff::create($request->all());
     if($staffSaved){
       $new_password = bcrypt(substr($request->home_phone, -4));
@@ -159,7 +150,6 @@ class StaffController extends CollegeBaseController
   {
     $data = [];
     $flag=App()->getLocale();
-
     $data['staff']=Staff::where('id',$id)->first();    
     if (!$data['staff']){
         request()->session()->flash($this->message_warning, "Not a Valid Staff");
@@ -225,178 +215,163 @@ class StaffController extends CollegeBaseController
         ->join('transport_users as tu','tu.id','=','transport_histories.travellers_id')
         ->orderBy('transport_histories.created_at')
         ->get();
-
     //login credential
     $data['staff_login'] = User::where([['role_id',5],['hook_id',$data['staff']->id]])->first();
-    
-    // $data['gender']=Gender::all();
-    $data['url'] = URL::current();
-
- 
+        // $data['gender']=Gender::all();
+    $data['url'] = URL::current(); 
     $data['qualifications']=Qualifications::where('id', $data['staff']->qualification_id)->first(); //DB::table('qualifications')->where('id', $data['staff']->qualification_id)->first();
     $data['teacer_exam']=TeacherExam::where('id', $data['qualifications']->teacher_exam_id)->first(); //DB::table('qualifications')->where('id', $data['staff']->qualification_id)->first();
     $data['association']=Association::where('id', $data['qualifications']->association_id)->first();
-    
-    if($flag=='kh'){
-      
+    if($flag=='kh'){      
       $data['gender']=DB::table('gender')->where('id', $data['staff']->gender)->pluck('gender_kh')->toArray();
       $data['GeneralEducation']=DB::table('general_education')->where('id', $data['staff']->general_education_id)->pluck('general_education_kh')->toArray();
       $data['teacer_exam']=$data['teacer_exam']->title_kh;
       $data['passed_competency']=$data['qualifications']->passed_competency==1?'បាទ':'ទេ';
       $data['Exp_year']='ឆ្នាំ';
       // association_id
-      $data['association']=$data['association']->association_kh;
-
-   
+      $data['association']=$data['association']->association_kh;   
     }
-    if($flag=='en'){
-      
+    if($flag=='en'){      
       $data['gender']=DB::table('gender')->where('id', $data['staff']->gender)->pluck('gender_en')->toArray();
       $data['GeneralEducation']=DB::table('general_education')->where('id', $data['staff']->general_education_id)->pluck('general_education_en')->toArray();
       $data['teacer_exam']=$data['teacer_exam']->title_en;
       $data['passed_competency']=$data['qualifications']->passed_competency==1?'Yes':'No';
       $data['Exp_year']='Years';
       $data['association']=$data['association']->association_en;
-
     }
-
-
-    // return $data['teacer_exam'];
-
-
     return view(parent::loadDataToView($this->view_path.'.detail.index'), compact('data','gender'));
   }
 
   public function edit(Request $request, $id)
   {
-      $data = [];
-      $provinces = Province::all();
-      $destrict= District::all();
-      $commune= Commune::all();
-      $data['institute'] = Institute::select('id','name_kh','name_en')->orderBy('name_kh')->get();
-      $data['gender']=Gender::all();
-      if (!$data['row'] = Staff::find($id)) return parent::invalidRequest();
-      $data['designations'] = StaffDesignation::select('id','title')->orderBy('title')->get();
-      // return $data;
-      return view(parent::loadDataToView($this->view_path.'.edit'), compact('data','provinces','destrict','commune'));
+    $this->flag = app()->getLocale();
+    $data = [];
+    if (!$data['row'] = Staff::find($id)) return parent::invalidRequest();
+    if($this->flag=='kh'){
+      $data['option'] ='ជ្រើសខាងក្រោម៖';
+      $data['institute'] = Institute::pluck('name_kh','id')->toArray();
+      $data['gender']=Gender::pluck('gender_kh','id')->toArray();
+      $data['provinces'] = Province::pluck('name_kh','id')->toArray();
+      $data['districts'] = District::pluck('name_kh','id')
+                            ->where('province_id',$data['row']->province_id)->toArray();
+      $data['communes'] = Commune::pluck('name_kh','id')
+                            ->where('district_id',$data['row']->commune->district_id)->toArray();
+      $data['designations'] = StaffDesignation::pluck('title_kh','id')->toArray();
+      $data['teacher_exam']=TeacherExam::pluck('title_kh','id')->toArray();  
+    }
+    if($this->flag=='en'){
+      $data['option'] ='Please Choose';
+      $data['institute'] = Institute::pluck('name_en','id')->toArray();
+      $data['gender']=Gender::pluck('gender_en','id')->toArray();
+      $data['provinces'] = Province::pluck('name_en','id')->toArray();
+      $data['districts'] = District::where('province_id',$data['row']->province_id)
+                                    ->pluck('name_en','id')->toArray();
+      $data['communes'] = Commune::where('district_id',$data['row']->commune->district_id)
+                                  ->pluck('name_en','id')->toArray();
+      $data['designations'] = StaffDesignation::pluck('title','id')->toArray();
+      $data['teacher_exam']=TeacherExam::pluck('title_en','id')->toArray();   
+    }    
+    // return $data;
+    return view(parent::loadDataToView($this->view_path.'.edit'), compact('data'));
   }
 
   public function update(EditValidation $request, $id)
   {
-      $data = [];
-      if (!$row = Staff::find($id))
-          return parent::invalidRequest();
-      if ($request->hasFile('main_image')){
-          $image_name = parent::uploadImages($request, 'main_image');
-          // remove old image from folder
-          if (file_exists($this->folder_path.$row->staff_image))
-              @unlink($this->folder_path.$row->staff_image);
-      }
-
-      $request->request->add(['last_updated_by' => auth()->user()->id]);
-      $request->request->add(['staff_image' => isset($image_name)?$image_name:$row->staff_image]);
-
-      $row->update($request->all());
-
-      $request->session()->flash($this->message_success, $this->panel. ' Updated Successfully.');
-      return redirect()->route($this->base_route);
+    $data = [];
+    if (!$row = Staff::find($id))
+        return parent::invalidRequest();
+    if ($request->hasFile('main_image')){
+        $image_name = parent::uploadImages($request, 'main_image');
+        // remove old image from folder
+        if (file_exists($this->folder_path.$row->staff_image))
+            @unlink($this->folder_path.$row->staff_image);
+    }
+    $request->request->add(['last_updated_by' => auth()->user()->id]);
+    $request->request->add(['staff_image' => isset($image_name)?$image_name:$row->staff_image]);
+    $row->update($request->all());
+    $request->session()->flash($this->message_success, $this->panel. ' Updated Successfully.');
+    return redirect()->route($this->base_route);
   }
 
   public function delete(Request $request, $id)
   {
-      if (!$row = Staff::find($id)) return parent::invalidRequest();
-
-      if (file_exists($this->folder_path.$row->staff_image))
-          @unlink($this->folder_path.$row->staff_image);
-
-      $row->delete();
-
-      $request->session()->flash($this->message_success, $this->panel.' Deleted Successfully.');
-      return redirect()->route($this->base_route);
+    if (!$row = Staff::find($id)) return parent::invalidRequest();
+    if (file_exists($this->folder_path.$row->staff_image))
+        @unlink($this->folder_path.$row->staff_image);
+    $row->delete();
+    $request->session()->flash($this->message_success, $this->panel.' Deleted Successfully.');
+    return redirect()->route($this->base_route);
   }
 
   public function active(request $request, $id)
   {
-      if (!$row = Staff::find($id)) return parent::invalidRequest();
-
-      $request->request->add(['status' => 'active']);
-
-      $row->update($request->all());
-
-      $request->session()->flash($this->message_success, $row->reg_no.' '.$this->panel.' Active Successfully.');
-      return redirect()->route($this->base_route);
+    if (!$row = Staff::find($id)) return parent::invalidRequest();
+    $request->request->add(['status' => 'active']);
+    $row->update($request->all());
+    $request->session()->flash($this->message_success, $row->reg_no.' '.$this->panel.' Active Successfully.');
+    return redirect()->route($this->base_route);
   }
 
   public function inActive(request $request, $id)
   {
-      if (!$row = Staff::find($id)) return parent::invalidRequest();
-
-      $request->request->add(['status' => 'in-active']);
-
-      $row->update($request->all());
-
-      $request->session()->flash($this->message_success, $row->reg_no.' '.$this->panel.' In-Active Successfully.');
-      return redirect()->route($this->base_route);
+    if (!$row = Staff::find($id)) return parent::invalidRequest();
+    $request->request->add(['status' => 'in-active']);
+    $row->update($request->all());
+    $request->session()->flash($this->message_success, $row->reg_no.' '.$this->panel.' In-Active Successfully.');
+    return redirect()->route($this->base_route);
   }
 
   public function bulkAction(Request $request)
   {
-      if ($request->has('bulk_action') && in_array($request->get('bulk_action'), ['active', 'in-active', 'delete'])) {
-
-          if ($request->has('chkIds')) {
-              foreach ($request->get('chkIds') as $row_id) {
-                  switch ($request->get('bulk_action')) {
-                      case 'active':
-                      case 'in-active':
-                          $row = Staff::find($row_id);
-                          if ($row) {
-                              $row->status = $request->get('bulk_action') == 'active'?'active':'in-active';
-                              $row->save();
-                          }
-                          break;
-                      case 'delete':
-                          $row = Staff::find($row_id);
-                          if (file_exists($this->folder_path.$row->staff_image))
-                              @unlink($this->folder_path.$row->staff_image);
-
-                          $row->delete();
-                          break;
-                  }
+    if ($request->has('bulk_action') && in_array($request->get('bulk_action'), ['active', 'in-active', 'delete'])) {
+        if ($request->has('chkIds')) {
+          foreach ($request->get('chkIds') as $row_id) {
+            switch ($request->get('bulk_action')) {
+              case 'active':
+              case 'in-active':
+                $row = Staff::find($row_id);
+                if ($row) {
+                  $row->status = $request->get('bulk_action') == 'active'?'active':'in-active';
+                  $row->save();
+                }
+                break;
+              case 'delete':
+                $row = Staff::find($row_id);
+                if (file_exists($this->folder_path.$row->staff_image))
+                    @unlink($this->folder_path.$row->staff_image);
+                $row->delete();
+                break;
               }
+            }
+            if ($request->get('bulk_action') == 'active' || $request->get('bulk_action') == 'in-active')
+                $request->session()->flash($this->message_success, $request->get('bulk_action'). ' Action Successfully.');
+            else
+                $request->session()->flash($this->message_success, 'Deleted successfully.');
 
-              if ($request->get('bulk_action') == 'active' || $request->get('bulk_action') == 'in-active')
-                  $request->session()->flash($this->message_success, $request->get('bulk_action'). ' Action Successfully.');
-              else
-                  $request->session()->flash($this->message_success, 'Deleted successfully.');
-
-              return redirect()->route($this->base_route);
-
-          } else {
-              $request->session()->flash($this->message_warning, 'Please, Check at least one row.');
-              return redirect()->route($this->base_route);
-          }
-
-      } else return parent::invalidRequest();
+            return redirect()->route($this->base_route);
+        } else {
+          $request->session()->flash($this->message_warning, 'Please, Check at least one row.');
+          return redirect()->route($this->base_route);
+        }
+    } else return parent::invalidRequest();
   }
 
   public function staffDesignationList()
-  {
-      /*get designation*/
-      $designation = StaffDesignation::select('id','title')->orderBy('title')->get();
-      $designation = array_pluck($designation,'title','id');
-      //$designation = array_prepend($designation,'Select Designation...','0');
-      /*designation represent as list*/
-      return $designation;
+  {      
+    /*get designation*/
+    $designation = StaffDesignation::select('id','title')->orderBy('title')->get();
+    $designation = array_pluck($designation,'title','id');
+    //$designation = array_prepend($designation,'Select Designation...','0');
+    /*designation represent as list*/
+    return $designation;
   }
 
   public function getInstitutes()
   {
-      /*get designation*/
-      $Institute = Institute::select('id','name_kh','name_en')->orderBy('name_kh')->get();
-      $Institute = array_pluck($Institute,'name_kh','id');
-      //$designation = array_prepend($designation,'Select Designation...','0');
-      /*designation represent as list*/
-      return $Institute;
+    /*get designation*/
+    $Institute = Institute::select('id','name_kh','name_en')->orderBy('name_kh')->get();
+    $Institute = array_pluck($Institute,'name_kh','id');
+    return $Institute;
   }
 
   /*bulk import*/
@@ -416,17 +391,14 @@ class StaffController extends CollegeBaseController
               ->back()
               ->withErrors($validator);
       }
-
       $file = $request->file('file');
       $csvData = file_get_contents($file);
       $rows = array_map("str_getcsv", explode("\n", $csvData));
       $header = array_shift($rows);
-
       foreach ($rows as $row) {
           if (count($header) != count($row)) {
               continue;
           }
-
           $row = array_combine($header, $row);
           //Designation id
           $designation = StaffDesignation::where('title',$row['designation'])->first();
@@ -437,11 +409,9 @@ class StaffController extends CollegeBaseController
                   'title' => strtoupper($row['designation']),
                   'created_by' => auth()->user()->id
               ]);
-
               $designationId = $designation->id;
           }
-
-          //Staff validation
+        //Staff validation
           $validator = Validator::make($row, [
               'reg_no'                => 'required  | unique:staff,reg_no',
               'join_date'              => 'required',
@@ -493,9 +463,7 @@ class StaffController extends CollegeBaseController
             'created_by'          => auth()->user()->id
 
           ]);
-
       }
-
       $request->session()->flash($this->message_success,'Staffs imported Successfully');
       return redirect()->route($this->base_route);
   }

@@ -19,31 +19,31 @@ class Staff extends BaseModel
 
     public function payrollMaster()
     {
-        return $this->hasMany(PayrollMaster::class, 'staff_id');
+      return $this->hasMany(PayrollMaster::class, 'staff_id');
     }
 
     public function paySalary()
     {
-        return $this->hasMany(SalaryPay::class, 'staff_id');
+      return $this->hasMany(SalaryPay::class, 'staff_id');
     }
 
     public function province()   
     {
-        return $this->belongsTo(Province::class, 'province_id');
+      return $this->belongsTo(Province::class, 'province_id');
     }
 
     public function district()   
     {
-        return $this->belongsTo(District::class, 'district_id');
+      return $this->belongsTo(District::class, 'district_id');
     }
 
     public function commune()   
     {
-        return $this->belongsTo(Commune::class, 'commune_id');
+      return $this->belongsTo(Commune::class, 'commune_id');
     }
     public function designat()   
     {
-        return $this->belongsTo(StaffDesignation::class, 'designation');
+      return $this->belongsTo(StaffDesignation::class, 'designation');
     }
 
 }
