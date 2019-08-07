@@ -28,7 +28,9 @@
           <div class="col-sm-3">
             <select name="designation" id="designation" class="form-control border-form" required>
               @foreach ( $data['designations'] as $key => $item)
-                <option value="{{ $key }}">{{ $item}}</option>
+                <option value="{{ $key }}"
+                  {{$data['row']['designation']==$key?'selected':''}}
+                >{{ $item}}</option>
               @endforeach
             </select>                
             @include('includes.form_fields_validation_message', ['name' => 'designation'])
