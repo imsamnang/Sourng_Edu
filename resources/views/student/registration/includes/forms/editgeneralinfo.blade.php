@@ -283,7 +283,7 @@
     {!! Form::label('address', __('stu_Address'), ['class' => 'col-sm-1 control-label']) !!}
     <div class="col-sm-11">
         {!! Form::text('address', null, ["placeholder"=>'ភូមិ គោករុន ឃុំមុខប៉ែន ស្រុកពួក ខេត្តសៀមរាប',"class" => "form-control border-form upper","required"]) !!}
-        @include('includes.form_fields_validation_message', ['name' => 'address'])
+        @include('includes.form_fields_validation_message', ['name' => 'temp_address'])
     </div>           
 </div>
 {{-- End temporary Address --}}
