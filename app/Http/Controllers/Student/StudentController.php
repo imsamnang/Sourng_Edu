@@ -10,6 +10,8 @@ use App\Models\Addressinfo;
 use App\Models\AlertSetting;
 use App\Models\Attendance;
 use App\Models\Attendence;
+use App\Models\Commune;
+use App\Models\District;
 use App\Models\Document;
 use App\Models\Faculty;
 use App\Models\Gender;
@@ -36,9 +38,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
 use Image, URL;
+use QrCode;
 use RealRashid\SweetAlert\Facades\Alert;
 use ViewHelper;
-use QrCode;
 
 class StudentController extends CollegeBaseController
 {
@@ -331,7 +333,9 @@ class StudentController extends CollegeBaseController
     public function edit(Request $request, $id)
     {
       $data = [];  
-      $provinces= Province::all();    
+      $provinces= Province::all();
+      $district= District::all();
+      $commune= Commune::all();    
       $data['row'] = Student::select('students.id','students.reg_no', 'students.reg_date', 'students.university_reg',
           'students.faculty','students.semester', 'students.academic_status', 'students.first_name', 'students.middle_name',
           'students.last_name', 'students.date_of_birth', 'students.gender', 'students.blood_group', 'students.nationality',
