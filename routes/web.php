@@ -902,7 +902,7 @@ Auth::routes();
       Route::get('/staff-add','Staff\StaffController@staffAdd')->name('staff-add');
       Route::post('/staff-save','Staff\StaffController@save')->name('staff-save');
 
-//========== Manage Dashboard =========== SENG Sourng
+  //========== Manage Dashboard =========== SENG Sourng
       Route::get('/project-book','ProjectActivities\BookController@index')->name('project-book');    
       Route::get('/admin-project','ProjectActivities\ProjectActivitiesController@admin_project')->name('admin-project');
       Route::get('/user-project','ProjectActivities\ProjectActivitiesController@user_project')->name('user-project');

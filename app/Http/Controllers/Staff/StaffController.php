@@ -99,7 +99,7 @@ class StaffController extends CollegeBaseController
       $data['gender']=Gender::pluck('gender_en','id')->toArray();
       $data['firstName']='Khmer Full Name';
       $data['lastName']='Latin Full Name';
-      $data['pob']='ភូមិ គោករុន ឃុំមុខប៉ែន ស្រុកពួក ខេត្តសៀមរាប';
+      $data['pob']='Kork Run Village, Muk Pen Commune, Pouk District, Siemreap Province';
       $data['Nationality']='Khmer';
       $data['institute']=Institute::pluck('name_en','id')->toArray();
       $data['teacher_exam']=TeacherExam::pluck('title_en','id')->toArray();             
@@ -124,6 +124,7 @@ class StaffController extends CollegeBaseController
     $request->request->add(['created_by' => auth()->user()->id]);
     $request->request->add(['institute_id' => $institute_id]);
     $request->request->add(['staff_image' => $image_name]);
+    // return $request->all();
     $staffSaved = Staff::create($request->all());
     if($staffSaved){
       $new_password = bcrypt(substr($request->home_phone, -4));
@@ -149,8 +150,8 @@ class StaffController extends CollegeBaseController
   public function view($id)
   {
     $data = [];
-    $flag=App()->getLocale();
-    $data['staff']=Staff::where('id',$id)->first();    
+    $this->flag=App()->getLocale();
+    $data['staff']=Staff::where('id',$id)->first();
     if (!$data['staff']){
         request()->session()->flash($this->message_warning, "Not a Valid Staff");
         return redirect()->route($this->base_route);
@@ -174,21 +175,14 @@ class StaffController extends CollegeBaseController
             ->join('book_masters as bm','bm.id','=','b.book_masters_id')
             ->orderBy('book_issues.issued_on', 'desc')
             ->get();
-    }
-    $data['attendance'] = Attendance::select('attendances.id', 'attendances.attendees_type', 'attendances.link_id',
-        'attendances.years_id', 'attendances.months_id', 'attendances.day_1', 'attendances.day_2', 'attendances.day_3',
-        'attendances.day_4', 'attendances.day_5', 'attendances.day_6', 'attendances.day_7', 'attendances.day_8',
-        'attendances.day_9', 'attendances.day_10', 'attendances.day_11', 'attendances.day_12', 'attendances.day_13',
-        'attendances.day_14', 'attendances.day_15', 'attendances.day_16', 'attendances.day_17', 'attendances.day_18',
-        'attendances.day_19', 'attendances.day_20', 'attendances.day_21', 'attendances.day_22', 'attendances.day_23',
-        'attendances.day_24', 'attendances.day_25', 'attendances.day_26', 'attendances.day_27', 'attendances.day_28',
-        'attendances.day_29', 'attendances.day_30', 'attendances.day_31')
-        ->where('attendances.attendees_type', 2)
-        ->where('attendances.link_id',$data['staff']->id)
-        ->join('students as s', 's.id', '=', 'attendances.link_id')
-        ->orderBy('attendances.years_id','asc')
-        ->orderBy('attendances.months_id','asc')
-        ->get();
+    }    
+      $data['attendance'] = Attendance::select('attendances.id', 'attendances.attendees_type', 'attendances.link_id','attendances.years_id', 'attendances.months_id', 'attendances.day_1', 'attendances.day_2', 'attendances.day_3','attendances.day_4', 'attendances.day_5', 'attendances.day_6', 'attendances.day_7', 'attendances.day_8','attendances.day_9', 'attendances.day_10', 'attendances.day_11', 'attendances.day_12', 'attendances.day_13','attendances.day_14', 'attendances.day_15', 'attendances.day_16', 'attendances.day_17', 'attendances.day_18','attendances.day_19', 'attendances.day_20', 'attendances.day_21', 'attendances.day_22', 'attendances.day_23','attendances.day_24', 'attendances.day_25', 'attendances.day_26', 'attendances.day_27', 'attendances.day_28', 'attendances.day_29', 'attendances.day_30', 'attendances.day_31')
+      ->where('attendances.attendees_type', 2)
+      ->where('attendances.link_id',$data['staff']->id)
+      ->join('students as s', 's.id', '=', 'attendances.link_id')
+      ->orderBy('attendances.years_id','asc')
+      ->orderBy('attendances.months_id','asc')
+      ->get();
     $data['note'] = Note::select('created_at', 'id', 'member_type','member_id','subject', 'note', 'status')
         ->where('member_type','=','staff')
         ->where('member_id','=', $data['staff']->id)
@@ -215,26 +209,24 @@ class StaffController extends CollegeBaseController
         ->join('transport_users as tu','tu.id','=','transport_histories.travellers_id')
         ->orderBy('transport_histories.created_at')
         ->get();
-    //login credential
+  //login credential
     $data['staff_login'] = User::where([['role_id',5],['hook_id',$data['staff']->id]])->first();
-        // $data['gender']=Gender::all();
     $data['url'] = URL::current(); 
-    $data['qualifications']=Qualifications::where('id', $data['staff']->qualification_id)->first(); //DB::table('qualifications')->where('id', $data['staff']->qualification_id)->first();
-    $data['teacer_exam']=TeacherExam::where('id', $data['qualifications']->teacher_exam_id)->first(); //DB::table('qualifications')->where('id', $data['staff']->qualification_id)->first();
+    $data['qualifications']=Qualifications::where('id', $data['staff']->qualification_id)->first(); //
+    $data['teacher_exam']=TeacherExam::where('id', $data['qualifications']->teacher_exam_id)->first(); //
     $data['association']=Association::where('id', $data['qualifications']->association_id)->first();
-    if($flag=='kh'){      
+    if($this->flag=='kh'){      
       $data['gender']=DB::table('gender')->where('id', $data['staff']->gender)->pluck('gender_kh')->toArray();
       $data['GeneralEducation']=DB::table('general_education')->where('id', $data['staff']->general_education_id)->pluck('general_education_kh')->toArray();
-      $data['teacer_exam']=$data['teacer_exam']->title_kh;
+      $data['teacher_exam']=$data['teacher_exam']->title_kh;
       $data['passed_competency']=$data['qualifications']->passed_competency==1?'បាទ':'ទេ';
       $data['Exp_year']='ឆ្នាំ';
-      // association_id
       $data['association']=$data['association']->association_kh;   
     }
-    if($flag=='en'){      
+    if($this->flag=='en'){      
       $data['gender']=DB::table('gender')->where('id', $data['staff']->gender)->pluck('gender_en')->toArray();
       $data['GeneralEducation']=DB::table('general_education')->where('id', $data['staff']->general_education_id)->pluck('general_education_en')->toArray();
-      $data['teacer_exam']=$data['teacer_exam']->title_en;
+      $data['teacher_exam']=$data['teacher_exam']->title_en;
       $data['passed_competency']=$data['qualifications']->passed_competency==1?'Yes':'No';
       $data['Exp_year']='Years';
       $data['association']=$data['association']->association_en;

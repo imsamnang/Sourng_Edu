@@ -120,7 +120,7 @@
           @include('includes.form_fields_validation_message', ['name' => 'mother_name'])
         </div>
       </div>
-      {{-- End parent Info --}}
+      {{-- Contact Detail --}}
       <div class="label label-warning arrowed-in arrowed-right arrowed">Contact Detail</div>
       <hr class="hr-8">
       <div class="form-group">
@@ -178,15 +178,17 @@
       {{-- End Address Province district commune --}}
       {{-- Temporary Address --}}
       <div class="label label-warning arrowed-in arrowed-right arrowed">@lang('staff_frm_reg_Temporary_Address')</div>
-      <div class="control-group col-sm-12">
+      <br><br>
+      {{-- <hr class="hr-8"> --}}
+       <div class="control-group col-sm-12">
         <div class="radio">
           <label>
             {!! Form::checkbox('permanent_address_copier', '', false, ['class' => 'ace', "onclick"=>"CopyAddress(this.form)"]) !!}
             <span class="lbl"> @lang('staff_frm_reg_Temporaray_Address_Same_As_Permanent_Address') </span>
           </label>
         </div>
+        <br>
       </div>
-      <hr class="hr-8">
       {{--Temporaray_Address Province district commune --}}
       <div class="form-group">
         {!! Form::label('temp_address', __('staff_frm_reg_Address'), ['class' => 'col-sm-2 control-label']) !!}

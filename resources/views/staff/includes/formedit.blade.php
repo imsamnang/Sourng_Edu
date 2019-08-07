@@ -12,7 +12,7 @@
     <div id="registrationinfo" class="tab-pane active">
       <span class="label label-info arrowed-in arrowed-right arrowed responsive">Red mark input are required </span>
       <hr class="hr-16">
-      {{-- row-1 --}}
+      {{-- Regno/JoinDate/Designation --}}
       <div class="form-group">
           {!! Form::label('reg_no', __('staff_frm_reg_Reg_No'), ['class' => 'col-sm-2 control-label']) !!}
           <div class="col-sm-1">
@@ -21,7 +21,7 @@
           </div>
           {!! Form::label('join_date', __('staff_frm_reg_Join_Date'), ['class' => 'col-sm-2 control-label']) !!}
           <div class="col-sm-2">
-              {!! Form::text('join_date', date('Y-M-d',strtotime($data['row']['join_date'])), ["class" => "form-control date-picker border-form","required"]) !!}
+              {!! Form::text('join_date', $data['row']['join_date'], ["data-date-format" => "yyyy-mm-dd","class" => "form-control date-picker border-form input-mask-date","required"]) !!}
               @include('includes.form_fields_validation_message', ['name' => 'join_date'])
           </div>
           {!! Form::label('designation', __('staff_frm_reg_Designation'), ['class' => 'col-sm-2 control-label']) !!}
@@ -34,7 +34,7 @@
             @include('includes.form_fields_validation_message', ['name' => 'designation'])
           </div>
       </div>
-      {{-- row-2 --}}
+      {{-- Name of staff/Institute --}}
       <div class="form-group">
           {!! Form::label('first_name', __('staff_frm_reg_NAME_OF_STAFF'), ['class' => 'col-sm-2 control-label',]) !!}
           <div class="col-sm-3">
@@ -57,7 +57,7 @@
           </div>
           @endrole
       </div>
-      {{-- row-3 --}}
+      {{-- Father Name/Mother Name --}}
       <div class="form-group">
           {!! Form::label('father_name', __('staff_frm_reg_Father_Name'), ['class' => 'col-sm-2 control-label',]) !!}
           <div class="col-sm-4">
@@ -69,8 +69,8 @@
               {!! Form::text('mother_name', $data['row']['mother_name'], ["placeholder" => " ", "class" => "form-control border-form upper"]) !!}
               @include('includes.form_fields_validation_message', ['name' => 'mother_name'])
           </div>
-      </div>
-      {{-- row-4 --}}
+      </div>          
+      {{-- Date of Birth/Gender/Blood Group --}}
       <div class="form-group">
           {!! Form::label('date_of_birth', __('staff_frm_reg_DOB'), ['class' => 'col-sm-2 control-label']) !!}
           <div class="col-sm-2">
@@ -93,7 +93,15 @@
             @include('includes.form_fields_validation_message', ['name' => 'blood_group'])
           </div>
       </div>
-      {{-- row-5 --}}
+      {{-- Place of Birth --}}
+      <div class="form-group">
+        {!! Form::label('pob', __('staff_frm_pob_Address'), ['class' => 'col-sm-2 control-label']) !!}
+        <div class="col-sm-10">
+          {!! Form::text('pob', $data['row']['pob'], ["placeholder" => $data['row']['pob'],"class" => "form-control border-form upper","required"]) !!}
+          @include('includes.form_fields_validation_message', ['name' => 'address'])
+        </div>
+      </div>        
+      {{-- Nationality/Mother​ Tong/E-mail --}}
       <div class="form-group">
           {!! Form::label('nationality', __('staff_frm_reg_Nationality'), ['class' => 'col-sm-2 control-label']) !!}
           <div class="col-sm-2">
@@ -200,13 +208,16 @@
       {{-- End Temporaray_Address Province district commune --}}
       <div class="label label-warning arrowed-in arrowed-right arrowed">@lang('staff_frm_reg_Qualification_Detail')</div>
       <hr class="hr-8">
+      {{-- Qualification Detail: --}}
       <div class="form-group">
         {!! Form::label('qualification', __('staff_frm_reg_Qualification'), ['class' => 'col-sm-2 control-label']) !!}
         <div class="col-sm-2">          
           <select name="general_education_id" class="form-control border-form upper" required>
             <option value="0">{{  $data['option'] }}</option>
             @foreach ($data['teacher_exam'] as $key => $item)
-              <option value="{{  $key }}">{{  $item }}</option>
+              <option value="{{  $key }}"
+              {{$data['row']['general_education_id']==$key?'selected':''}}
+              >{{  $item }}</option>
             @endforeach
           </select>
           @include('includes.form_fields_validation_message', ['name' => 'general_education_id'])
@@ -216,7 +227,9 @@
           <select name="qualification_id" class="form-control border-form upper" required>
             <option value="0">{{  $data['option'] }}</option>
             @foreach ($data['teacher_exam'] as $key => $item)
-              <option value="{{  $key }}">{{  $item }}</option>
+              <option value="{{  $key }}"
+              {{$data['row']['qualification_id']==$key?'selected':''}}
+              >{{  $item }}</option>
             @endforeach
           </select>
           @include('includes.form_fields_validation_message', ['name' => 'qualification_id'])
@@ -233,7 +246,6 @@
               {!! Form::textarea('experience_info', $data['row']['experience_info'], ["class" => "form-control border-form ", "rows"=>"3"]) !!}
               @include('includes.form_fields_validation_message', ['name' => 'experience_info'])
           </div>
-
           {!! Form::label('other_info', __('staff_frm_reg_Other_Information'), ['class' => 'col-sm-2 control-label']) !!}
           <div class="col-sm-4">
               {!! Form::textarea('other_info', $data['row']['other_info'], ["class" => "form-control border-form", "rows"=>"3"]) !!}
