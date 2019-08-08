@@ -371,7 +371,7 @@ class StudentController extends CollegeBaseController
       $data['academicInfo-html'] = view($this->view_path.'.registration.includes.forms.academic_tr_edit', [
           'academicInfos' => $data['academicInfo']
       ])->render();
-      return view(parent::loadDataToView($this->view_path.'.registration.edit'), compact('data','provinces'));
+      return view(parent::loadDataToView($this->view_path.'.registration.edit'), compact('data','provinces','district','commune'));
     }
 
     public function update(EditValidation $request, $id)

@@ -19,9 +19,9 @@ class Addressinfo extends BaseModel
         return $this->belongsTo(Student::class, 'id');
     }
 
-    public function province()
+    public function provinces()
     {
-        return $this->belongsTo(Province::class, 'province_id');
+        return $this->belongsTo(Province::class,'province_id');
     }
 
     public function district()
