@@ -101,9 +101,9 @@ class ZcardController extends Controller
                 ];
 
             $textColor = $settingCard ? $settingCard->text_color : '#23499E';
-            
+            $qrSize  = 100;
          
-    
+                
             foreach ($students as $key => $row) {
                 $profile = asset('assets/images/avatars/avatar4.png');
                 $id      = $row->id;
@@ -129,15 +129,15 @@ class ZcardController extends Controller
                 $QRCODE = base64_encode(QrCode::format('png')
                     ->color(38, 38, 38, 0.85)
                     ->backgroundColor(255, 255, 255, 0.82)
-                    ->size(70)
-                    ->merge($qr_img_center,.1,true)
+                    ->size($qrSize)
+                    ->merge($qr_img_center,.15,true)
                     ->generate($QRCODE_N_URL));
     
                 $qrCode  = 'data:image/png;base64,'.$QRCODE;
                 $make_card = [
                     'id' => str_replace(' ','-',$name_en).'-'.$id,
                     'attrs' => [
-                        'width' => ($settingCard && $settingCard->transform == 'horizontal') ? 502 : 702,
+                        'width' => ($settingCard && $settingCard->transform == 'horizontal') ? 504 : 704,
                         'height' => ($settingCard && $settingCard->transform == 'horizontal') ?  350 : 250,
                     ],
                     'className' => 'Stage',
@@ -307,16 +307,16 @@ class ZcardController extends Controller
                                     [
                                        
                                         
-                                        'x' => $settingQr ? $settingQr->x : (($settingCard && $settingCard->transform == 'horizontal') ? 350: 494),
-                                        'y' => $settingQr ? $settingQr->y : (($settingCard && $settingCard->transform == 'horizontal') ? 102: 40),
+                                        'x' => $settingQr ? $settingQr->x : (($settingCard && $settingCard->transform == 'horizontal') ? 330: 480),
+                                        'y' => $settingQr ? $settingQr->y : (($settingCard && $settingCard->transform == 'horizontal') ? 75: 35),
                                         'scaleX' => $settingQr ? $settingQr->scaleX : 1,
                                         'scaleY' => $settingQr ? $settingQr->scaleY : 1,
                                         'offsetX' => $settingQr ? $settingQr->offsetX :0,
                                         'offsetY' => $settingQr ? $settingQr->offsetY :0,
                                         'skewX' =>$settingQr ? $settingQr->skewX : 0,
                                         'skewY' =>$settingQr ? $settingQr->skewY : 0,
-                                        'width' => $settingQr ? $settingQr->width : 70,
-                                        'height' => $settingQr ? $settingQr->height :  70,
+                                        'width' => $settingQr ? $settingQr->width : $qrSize,
+                                        'height' => $settingQr ? $settingQr->height :  $qrSize,
                                         'source'=> $qrCode,
                                         'name' => 'qr-code',
                                     ],

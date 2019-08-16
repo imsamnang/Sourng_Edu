@@ -1255,8 +1255,8 @@ class StudentController extends CollegeBaseController
 
         $QRCODE = array(
             'id' => $data['student']->id,
-            'name' => $data['student']->first_name,
-            'postion'=> 'student'
+            //'name' => $data['student']->first_name,
+            //'position'=> 'student'
 
         );
         $serialize  = serialize($QRCODE);
@@ -1266,7 +1266,7 @@ class StudentController extends CollegeBaseController
         $data['QRCODE'] = base64_encode(QrCode::format('png')
             ->color(38, 38, 38, 0.85)
             ->backgroundColor(255, 255, 255, 0.82)
-            ->size(200)
+            ->size(100)
             ->generate($QRCODE_N_URL));
 
 
