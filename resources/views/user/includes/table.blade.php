@@ -1,8 +1,6 @@
 <div class="row">
     <div class="col-xs-12">
-    @include('includes.data_table_header')
-    <!-- div.table-responsive -->
-        <div class="table-responsive">
+           <div class="table-responsive">
             {!! Form::open(['route' => $base_route.'.bulk-action', 'id' => 'bulk_action_form']) !!}
             <table id="dynamic-table" class="table table-striped table-bordered table-hover">
                 <thead>
