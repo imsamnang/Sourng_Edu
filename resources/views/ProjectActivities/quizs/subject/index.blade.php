@@ -42,7 +42,7 @@
                             @endif
                           </td>
                           <td>
-                            <a href="{{ route('front') }}" class="btn btn-success btn-sm">Start Quiz</a>
+                            <a href="{{ route('front',$userid) }}" class="btn btn-success btn-sm">Start Quiz</a>
                           </td>
                           <td>
                             <form method="POST" action="{{route('quiz.subject.destroy',$quiz->id)}}" accept-charset="UTF-8" style="display:inline" id="deleteObject-{{$quiz->id}}">

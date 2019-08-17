@@ -166,7 +166,7 @@
                 <b class="arrow"></b>
               </li>
               <li class="{!! request()->is('account/fees/head')?'active':'' !!}  hover">
-                <a href="{{ route('front') }}">
+                <a href="{{ route('front',13) }}">
                   <i class="menu-icon fa fa-caret-right"></i>
                     @lang('Quiz Start')
                 </a>

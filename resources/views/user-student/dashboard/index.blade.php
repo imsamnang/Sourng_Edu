@@ -166,35 +166,34 @@
                         </div><!-- /.row -->
                         <div class="hr-double hr-16"></div>
                         <div class="row">  
-                                <div class="col-md-2" style="padding-top:20px;">
-                                        <a href="{{ url('projects/pretest/'.$data['student']->id.'/3') }}" class="easy-link-menu">
-                                            <div class="dash-card card-yellow text-xs-center">
-                                                <div class="card-block">
-                                                    <h4 class="card-title">
-                                                    <i class="ace-icon fa fa-line-chart"></i>
-                                                    </h4>
-                                                    <p class="card-text">ធ្វើតេស្ត​ មុនវគ្គ</p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                
-                                    <div class="col-md-2" style="padding-top:20px;">
-                                        <a href="http://schoolmis.edu/exam/post-test" class="easy-link-menu">
-                                            <div class="dash-card card-red text-xs-center">
-                                                <div class="card-block">
-                                                    <h4 class="card-title">
-                                                    <i class="ace-icon fa fa-line-chart"></i>
-                                                    </h4>
-                                                    <p class="card-text"> ធ្វើតេស្តក្រោយវគ្គ</p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-
-                            <div class="col-md-12">
-                                <div>{!! $data['feeCompare']->container() !!}</div>
-                            </div>
+                          <div class="col-md-2" style="padding-top:20px;">
+                              <a href="{{ route('pretest') }}" class="easy-link-menu">
+                                  <div class="dash-card card-yellow text-xs-center">
+                                      <div class="card-block">
+                                          <h4 class="card-title">
+                                          <i class="ace-icon fa fa-line-chart"></i>
+                                          </h4>
+                                          <p class="card-text">ធ្វើតេស្ត​ មុនវគ្គ</p>
+                                      </div>
+                                  </div>
+                              </a>
+                          </div>
+      
+                          <div class="col-md-2" style="padding-top:20px;">
+                              <a href="{{ route('posttest') }}" class="easy-link-menu">
+                                  <div class="dash-card card-red text-xs-center">
+                                      <div class="card-block">
+                                          <h4 class="card-title">
+                                          <i class="ace-icon fa fa-line-chart"></i>
+                                          </h4>
+                                          <p class="card-text"> ធ្វើតេស្តក្រោយវគ្គ</p>
+                                      </div>
+                                  </div>
+                              </a>
+                          </div>
+                          <div class="col-md-12">
+                              <div>{!! $data['feeCompare']->container() !!}</div>
+                          </div>
                         </div>
                     </div>
                     </div><!-- /.row -->

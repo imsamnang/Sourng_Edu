@@ -80,6 +80,7 @@
   <div class="container">
     <div class="quiz-main-block">
       <div class="row">
+        <input type="hidden" name="test_type" value="{{ $test_type }}">
         @if ($allQuiz->count()>0)
           @foreach ($allQuiz as $subject)
             <div class="col-md-4">
@@ -93,7 +94,7 @@
                           <li>Per Question Mark <i class="fa fa-long-arrow-right"></i></li>
                           <li>Total Marks <i class="fa fa-long-arrow-right"></i></li>
                           <li>Total Questions <i class="fa fa-long-arrow-right"></i></li>
-                          <li>Total Time <i class="fa fa-long-arrow-right"></i></li>
+                          <li>Total Time <i class="fa fa-long-arrow-right"></i></li>                         
                         </ul>
                       </div>
                       <div class="col-xs-6">
@@ -117,7 +118,7 @@
                   </div>
                   <div class="card-action">
                     <center>
-                      <a href="{{route('quiz.start.quiz',$subject->slug)}}" class="btn btn-primary btn-block" title="Start Quiz">Start Quiz</a>
+                      <a href="{{route('quiz.start.quiz',[$subject->slug,$test_type])}}" class="btn btn-primary btn-block" title="Start Quiz">Start Quiz</a>
                     </center>
                   </div>
                 </div>
