@@ -386,8 +386,8 @@
         </div>
     </div>
 </div>
-<div class="col-xs-12">
-    <span>See more at <a href="{{url('/qr')}}">QR Code Reader.</a></span>
+<div class="col-xs-12 hidden-print" hidden>
+    <span class="hidden-print">See <a href="{{url('/qr')}}">QR Code Reader.</a></span>
 </div>
 <div class="row hidden-print" hidden>
     <div class="space-8"></div>
@@ -455,5 +455,6 @@
             </span>
         </div>
     </div>
+
 </div>
 

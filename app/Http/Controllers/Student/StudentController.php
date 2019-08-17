@@ -216,10 +216,10 @@ class StudentController extends CollegeBaseController
           ->join('guardian_details as gd', 'gd.id', '=', 'sg.guardians_id')
           ->first();
 
-      if (!$data['student']){
-          request()->session()->flash($this->message_warning, "Not a Valid Student");
-          return redirect()->route($this->base_route);
-      }
+        if (!$data['student']){
+            request()->session()->flash($this->message_warning, "Not a Valid Student");
+            return redirect()->route($this->base_route);
+        }
 
       $data['fee_master'] = $data['student']->feeMaster()->orderBy('fee_due_date','desc')->get();
       $data['fee_collection'] = $data['student']->feeCollect()->get();
@@ -327,7 +327,27 @@ class StudentController extends CollegeBaseController
         $data['guardian_login'] = User::where([['role_id',7],['hook_id',$data['student']->guardian_id]])->first();
 
         $data['url'] = URL::current();
+
+        $QRCODE = array(
+            'id' => $data['student']->id,
+            'name' => $data['student']->first_name,
+            'postion'=> 'student'
+
+        );
+        $serialize  = serialize($QRCODE);
+        $encrypt    = base64_encode($serialize);       
+        $QRCODE_N_URL = url('/qr/code').'/'.$encrypt;
+      
+        $data['QRCODE'] = base64_encode(QrCode::format('png')
+            ->color(38, 38, 38, 0.85)
+            ->backgroundColor(255, 255, 255, 0.82)
+            ->size(200)
+            ->generate($QRCODE_N_URL));
+            
+
         return view(parent::loadDataToView($this->view_path.'.detail.index'), compact('data'));
+
+
     }
 
     public function edit(Request $request, $id)
@@ -371,7 +391,7 @@ class StudentController extends CollegeBaseController
       $data['academicInfo-html'] = view($this->view_path.'.registration.includes.forms.academic_tr_edit', [
           'academicInfos' => $data['academicInfo']
       ])->render();
-      return view(parent::loadDataToView($this->view_path.'.registration.edit'), compact('data','provinces'));
+      return view(parent::loadDataToView($this->view_path.'.registration.edit'), compact('data','provinces','district','commune'));
     }
 
     public function update(EditValidation $request, $id)
@@ -1235,8 +1255,8 @@ class StudentController extends CollegeBaseController
 
         $QRCODE = array(
             'id' => $data['student']->id,
-            'name' => $data['student']->first_name,
-            'postion'=> 'student'
+            //'name' => $data['student']->first_name,
+            //'position'=> 'student'
 
         );
         $serialize  = serialize($QRCODE);
@@ -1246,8 +1266,11 @@ class StudentController extends CollegeBaseController
         $data['QRCODE'] = base64_encode(QrCode::format('png')
             ->color(38, 38, 38, 0.85)
             ->backgroundColor(255, 255, 255, 0.82)
-            ->size(200)
+            ->size(100)
             ->generate($QRCODE_N_URL));
+
+
+
         return view('ProjectActivities.students.detail.index', compact('data'));
     }    
 
