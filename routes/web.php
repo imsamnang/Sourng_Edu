@@ -23,7 +23,6 @@ Auth::routes();
 
 /*for Dashboard's*/
   Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
-
 /* Roles Routes */
     Route::get('role',                    ['as' => 'role',                  'middleware' => ['ability:super-admin,role-index'],         'uses' => 'RoleController@index']);
     Route::get('role/add',                ['as' => 'role.add',              'middleware' => ['ability:super-admin,role-add'],           'uses' => 'RoleController@create']);
@@ -32,14 +31,14 @@ Auth::routes();
     Route::post('role/{id}/update',       ['as' => 'role.update',           'middleware' => ['ability:super-admin,role-edit'],          'uses' => 'RoleController@update']);
     Route::get('role/{id}/view',          ['as' => 'role.view',             'middleware' => ['ability:super-admin,role-view'],          'uses' => 'RoleController@show']);
     Route::get('role/{id}/delete',        ['as' => 'role.delete',           'middleware' => ['ability:super-admin,role-delete'],        'uses' => 'RoleController@destroy']);
+
 // Permission Routes
-     Route::get('permission',['as' => 'permission', 'middleware' => ['ability:super-admin,role-index'], 'uses' => 'PermissionController@index']);
+    Route::get('permission',['as' => 'permission', 'middleware' => ['ability:super-admin,role-index'], 'uses' => 'PermissionController@index']);
     Route::get('permission/add',['as' => 'permission.add',              'middleware' => ['ability:super-admin,permission-add'],'uses' => 'PermissionController@create']);
     Route::post('permission/store',['as' => 'permission.store',              'middleware' => ['ability:super-admin,permission-add'],'uses' => 'PermissionController@store']);
     Route::get('permission/{id}/edit',          ['as' => 'permission.edit',             'middleware' => ['ability:super-admin,permission-edit'],          'uses' => 'PermissionController@edit']);
     Route::post('permission/{id}/update',       ['as' => 'permission.update',           'middleware' => ['ability:super-admin,permission-edit'],          'uses' => 'PermissionController@update']);
     Route::get('permission/{id}/delete',        ['as' => 'permission.delete',           'middleware' => ['ability:super-admin,permission-delete'],        'uses' => 'PermissionController@destroy']);
-
 /* User Routes */
     Route::get('user',                    ['as' => 'user',                  'middleware' => ['ability:super-admin,user-index'],             'uses' => 'UserController@index']);
     Route::get('user/add',                ['as' => 'user.add',              'middleware' => ['ability:super-admin,user-add'],               'uses' => 'UserController@add']);
@@ -1003,6 +1002,8 @@ Auth::routes();
     Route::post('answer/{question}/save','QuestionsController@saveAnswer')->name('answer.store');    
   });
 
+    Route::get('teacher/register','Teacher\TeacherController@create')->name('teacher.register');
+    Route::post('teacher/register','Teacher\TeacherController@store')->name('teacher.store');
   // Export data to Excel
 	  Route::get('/export_excel', 'ExportExcelController@index');
 	  Route::get('/export_excel/excel', 'ExportExcelController@excel')->name('export_excel.excel');
