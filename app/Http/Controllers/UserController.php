@@ -90,7 +90,6 @@ class UserController extends CollegeBaseController
     {
         $data = [];
         $data['roles'] = Role::where('id','<>','1')->get();
-
         return view(parent::loadDataToView($this->view_path.'.add'), compact('data'));
     }
 

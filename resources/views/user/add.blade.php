@@ -56,63 +56,57 @@
 @endsection
 
 @section('js')
+  @include('includes.scripts.jquery_validation_scripts')
+  <script src="{{ asset('assets/js/notify.min.js') }}"></script>
+  <script>
+    $(document).ready(function () {
 
-    @include('includes.scripts.jquery_validation_scripts')
-    <script src="{{ asset('assets/js/notify.min.js') }}"></script>
-    <script>
+        /*function passCheck(){
+            alert('Attention!, Please Enter Value Greater Than 0');
+            pass = $("#pass").val();
+            repeatpass = $("#repeatpass").val();
+            if(pass == repeatpass){
+                $.notify("Please, Choose Your Target Year.", "warning");
+            }
+        }*/
 
-        $(document).ready(function () {
-
-            /*function passCheck(){
-                alert('Attention!, Please Enter Value Greater Than 0');
-                pass = $("#pass").val();
-                repeatpass = $("#repeatpass").val();
-                if(pass == repeatpass){
-                    $.notify("Please, Choose Your Target Year.", "warning");
-                }
-            }*/
-
-            jqueryValidation(
-                {
-                    "name": {
-                        required: true,
-                    },
-                    "email": {
-                        required: true,
-                    },
-                    "password": {
-                        required: true,
-                    },
-                    "contact_number": {
-                        required: true,
-                    },
-                    "address": {
-                        required: true,
-                    }
-
+        jqueryValidation(
+            {
+                "name": {
+                    required: true,
                 },
-                {
-                    "name": {
-                        required: "Please, Add User Name.",
-                    },
-                    "email": {
-                        required: "Please, Add User Email.",
-                    },
-                    "password": {
-                        required: "Please, Add User Password.",
-                    },
-                    "contact_number": {
-                        required: "Please, Add Contact Number.",
-                    },
-                    "address": {
-                        required: "Please, Add Address.",
-                    }
+                "email": {
+                    required: true,
+                },
+                "password": {
+                    required: true,
+                },
+                "contact_number": {
+                    required: true,
+                },
+                "address": {
+                    required: true,
                 }
-            );
 
-
-        });
-        /*'name', 'email', 'password', 'profile_image', 'contact_number', 'address','user_type',*/
-    </script>
-
+            },
+            {
+                "name": {
+                    required: "Please, Add User Name.",
+                },
+                "email": {
+                    required: "Please, Add User Email.",
+                },
+                "password": {
+                    required: "Please, Add User Password.",
+                },
+                "contact_number": {
+                    required: "Please, Add Contact Number.",
+                },
+                "address": {
+                    required: "Please, Add Address.",
+                }
+            }
+        );
+    });
+  </script>
 @endsection
