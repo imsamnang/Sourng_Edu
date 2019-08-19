@@ -1,12 +1,13 @@
-@extends('ProjectActivities.layout.master')
+@extends('layouts.master')
+{{-- @extends('ProjectActivities.layout.master') --}}
 
 @push('custom-css')
     <!-- page specific plugin styles -->
 @endpush
 
-@section('menu-panel')
+{{-- @section('menu-panel')
     @include('ProjectActivities.layout.menu.menu_admin')
-@endsection
+@endsection --}}
 
 @section('content')
   <div class="main-content">
@@ -42,7 +43,7 @@
                             @endif
                           </td>
                           <td>
-                            <a href="{{ route('front',$userid) }}" class="btn btn-success btn-sm">Start Quiz</a>
+                            <a href="{{ route('pretest') }}" class="btn btn-success btn-sm">Start Quiz</a>
                           </td>
                           <td>
                             <form method="POST" action="{{route('quiz.subject.destroy',$quiz->id)}}" accept-charset="UTF-8" style="display:inline" id="deleteObject-{{$quiz->id}}">
@@ -73,6 +74,6 @@
 @endsection
 
 
-@push('custom-js')
+@section('js')
   @include('ProjectActivities.quizs.delete_confirm')
-@endpush
+@endsection

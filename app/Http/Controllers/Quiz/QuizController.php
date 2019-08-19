@@ -2,29 +2,28 @@
 
 namespace App\Http\Controllers\Quiz;
 
-use DB;
-use Auth;
+use App\Http\Controllers\Controller;
 use App\Models\CourseShort;
+use App\Models\Courseshortstudent;
 use App\Models\Quiz\Answer;
-use Illuminate\Http\Request;
+use App\Models\Quiz\AverageScore;
 use App\Models\Quiz\Question;
-use App\Models\Quiz\UserAnswer;
+use App\Models\Quiz\QuestionQuiz;
 use App\Models\Quiz\QuizResults;
 use App\Models\Quiz\SubjectQuiz;
-use App\Models\Quiz\AverageScore;
-use App\Models\Quiz\QuestionQuiz;
-
-use App\Models\Courseshortstudent;
-use App\Http\Controllers\Controller;
+use App\Models\Quiz\UserAnswer;
+use App\Models\Subject;
+use Auth;
+use DB;
+use Illuminate\Http\Request;
 
 class QuizController extends Controller
 {
   public function index()
   {
     // $generalSetting = GeneralSetting::findOrFail(1)->first();
-    $userid=auth()->user()->id;
     $allQuiz = SubjectQuiz::all();
-    return view('ProjectActivities.quizs.subject.index',compact('allQuiz','coundSubQuiz','userid'));
+    return view('ProjectActivities.quizs.subject.index',compact('allQuiz','coundSubQuiz'));
   }
 
   public function front()

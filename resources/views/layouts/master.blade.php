@@ -1,6 +1,6 @@
 @include('layouts.includes.header')
-    <body class="no-skin">
-    {{--Preloader Css--}}
+  <body class="no-skin">
+  {{--Preloader Css--}}
     {{--<style>
         #overlay {
             background: #E4E6E9;

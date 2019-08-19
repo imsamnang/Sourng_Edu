@@ -1,4 +1,5 @@
-@extends('ProjectActivities.layout.master')
+@extends('layouts.master')
+{{-- @extends('ProjectActivities.layout.master') --}}
 @section('page-title')
 {{--   @if(isset($generalSetting->institute))
     IMS | {{$generalSetting->institute}}
@@ -7,13 +8,13 @@
   @endif --}}
 @endsection
 
-@push('custom-css')
+@section('css')
     
-@endpush
-
-@section('menu-panel')
-    @include('ProjectActivities.layout.menu.menu_admin')
 @endsection
+
+{{-- @section('menu-panel')
+    @include('ProjectActivities.layout.menu.menu_admin')
+@endsection --}}
 
 @section('content')
 
@@ -56,6 +57,6 @@
 </div>
 @endsection
   {{-- For Custom JS --}}
-@push('custom-js')
+@section('js')
     
-@endpush
+@endsection
