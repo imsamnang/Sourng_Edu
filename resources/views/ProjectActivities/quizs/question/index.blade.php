@@ -1,13 +1,10 @@
-@extends('ProjectActivities.layout.master')
+@extends('layouts.master')
+{{-- @extends('ProjectActivities.layout.master') --}}
 
-@push('custom-css')
-    <!-- page specific plugin styles -->
 
-@endpush
-
-@section('menu-panel')
+{{-- @section('menu-panel')
     @include('ProjectActivities.layout.menu.menu_admin')
-@endsection
+@endsection --}}
 
 @section('content')
   <div class="main-content">
@@ -26,11 +23,10 @@
 @endsection
 
 
-@push('custom-js')
+@section('custom-js')
   {{-- @include('includes.scripts.jquery_validation_scripts') --}}
   <!-- inline scripts related to this page -->
   <script type="text/javascript">
-
   </script>
   @include('ProjectActivities.students.includes.dataTable_scripts')
-@endpush
+@endsection

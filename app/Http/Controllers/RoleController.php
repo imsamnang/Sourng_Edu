@@ -26,11 +26,11 @@ class RoleController extends CollegeBaseController
 
     public function create()
     {
-        $data = [];
-       $permissions = Permission::all();
-       $data['permission'] = $permissions->groupBy('group');
-       //dd($data['permission']->groupBy('group'));
-        return view(parent::loadDataToView($this->view_path.'.add'), compact('data'));
+      $data = [];
+      $permissions = Permission::all();
+      $data['permission'] = $permissions->groupBy('group');
+      //dd($data['permission']->groupBy('group'));
+      return view(parent::loadDataToView($this->view_path.'.add'), compact('data'));
     }
 
     public function store(Request $request)

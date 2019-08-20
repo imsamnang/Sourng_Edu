@@ -1,15 +1,13 @@
-@extends('ProjectActivities.layout.app')
+@extends('layouts.master')
+{{-- @extends('ProjectActivities.layout.app') --}}
 
 @section('content')
-    <h3 class="page-title">@lang('quickadmin.questions.title')</h3>
-    
+    <h3 class="page-title">@lang('quickadmin.questions.title')</h3>    
     {!! Form::model($question, ['method' => 'PUT', 'route' => ['questions.update', $question->id]]) !!}
-
     <div class="panel panel-default">
         <div class="panel-heading">
             @lang('quickadmin.edit')
         </div>
-
         <div class="panel-body">
             <div class="row">
                 <div class="col-xs-12 form-group">
@@ -77,5 +75,5 @@
 
     {!! Form::submit(trans('quickadmin.update'), ['class' => 'btn btn-danger']) !!}
     {!! Form::close() !!}
-@stop
+@endsection
 

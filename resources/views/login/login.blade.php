@@ -93,9 +93,9 @@
                   </div><!-- /.widget-main -->
                   <div class="toolbar clearfix">
                     <div>
-                      <a href="#"  class="user-signup-link">
+                      <a href="{{ route('teacher.register') }}" class="user-signup-link">
                         <i class="ace-icon fa fa-arrow-left"></i>
-                        Student Register
+                        Register
                       </a>
                     </div>
                     <div>

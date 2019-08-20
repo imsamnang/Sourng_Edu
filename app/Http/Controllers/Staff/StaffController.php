@@ -142,9 +142,14 @@ class StaffController extends CollegeBaseController
           'pob'=>$request->pob
       ];
       $StaffAccessLogin = User::create($StaffAccessLogin);
+      $role_user = DB::table('role_user')
+                  ->insert(['user_id'=>$StaffAccessLogin->id,
+                            'role_id'=>$StaffAccessLogin->role_id
+                          ]);      
     }
     $request->session()->flash($this->message_success, $this->panel. ' Created Successfully.');
-    return redirect()->route($this->base_route);
+    // return redirect()->route($this->base_route);
+    return redirect()->route('home');
   }
 
   public function view($id)

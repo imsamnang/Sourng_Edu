@@ -45,6 +45,7 @@
     </div>
   </nav>
 @stop
+
 @section('script_clock')
 	<script src="{{ asset('assets/js/jquery-3.3.1.min.js') }}"></script>
 	<script>
@@ -136,6 +137,7 @@
 											<input type="hidden" name="quiz-id" id="test-id" value="{{ $sub->id }}">
 											<input type="hidden" name="quiz-slug" id="test-slug" value="{{ $sub->slug }}">
 											<input type="hidden" name="user-id" id="student-id" value="{{ Auth::user()->id }}">
+											<input type="hidden" name="test_type" value="{{ $test_type }}" id="test_type">
 											{!! Form::input('hidden','time_taken'.$question->id,null,['id'=>'time_taken'.$question->id]) !!}
 											<p>{{ $allQuestion->links('vendor.pagination.myown') }}</p>					        		
 					        	</div>

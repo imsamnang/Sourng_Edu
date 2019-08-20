@@ -461,6 +461,13 @@
                 </li>
             </ul>
         </li>
+        <li class="{!! request()->is('quiz/subject*')?'active':'' !!}">
+          <a href="{{ route('quiz.subject.index') }}" >
+            <i class="menu-icon fa fa-tachometer"></i>
+            <span class="menu-text"> @lang('Manage Quiz') </span>
+            <b class="arrow fa fa-angle-down"></b>
+          </a>
+        </li>        
         @endability
 
         {{-- Hostel --}}

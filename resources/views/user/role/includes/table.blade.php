@@ -1,4 +1,4 @@
-<div class="row">
+    <div class="row">
     <div class="col-xs-12">
         <h4 class="header large lighter blue"><i class="fa fa-list" aria-hidden="true"></i>&nbsp;{{ $panel }} List</h4>
         <div class="clearfix">

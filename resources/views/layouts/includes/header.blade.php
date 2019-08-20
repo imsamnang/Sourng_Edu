@@ -33,9 +33,7 @@
     <!--[if lte IE 9]>
     <link rel="stylesheet" href="{{ asset('assets/css/ace-ie.min.css') }}" />
     <![endif]-->
-
     @yield('css')
-
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}" />
     <!-- ace settings handler -->
     <script src="{{ asset('assets/js/ace-extra.min.js') }}"></script>
@@ -44,7 +42,6 @@
     <script src="{{ asset('assets/js/html5shiv.min.js') }}"></script>
     <script src="{{ asset('assets/js/respond.min.js') }}"></script>
     <![endif]-->
-
     <link rel="stylesheet" href="{{ asset('assets/css/jquery-ui.custom.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap-datepicker3.min.css') }}" />
     {{-- <link href="{{ asset('assets/css/toastr.min.css') }}" rel="stylesheet"> --}}
