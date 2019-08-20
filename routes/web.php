@@ -33,7 +33,7 @@ Auth::routes();
     Route::get('role/{id}/view',          ['as' => 'role.view',             'middleware' => ['ability:super-admin,role-view'],          'uses' => 'RoleController@show']);
     Route::get('role/{id}/delete',        ['as' => 'role.delete',           'middleware' => ['ability:super-admin,role-delete'],        'uses' => 'RoleController@destroy']);
 // Permission Routes
-     Route::get('permission',['as' => 'permission', 'middleware' => ['ability:super-admin,role-index'], 'uses' => 'PermissionController@index']);
+    Route::get('permission',['as' => 'permission', 'middleware' => ['ability:super-admin,role-index'], 'uses' => 'PermissionController@index']);
     Route::get('permission/add',['as' => 'permission.add',              'middleware' => ['ability:super-admin,permission-add'],'uses' => 'PermissionController@create']);
     Route::post('permission/store',['as' => 'permission.store',              'middleware' => ['ability:super-admin,permission-add'],'uses' => 'PermissionController@store']);
     Route::get('permission/{id}/edit',          ['as' => 'permission.edit',             'middleware' => ['ability:super-admin,permission-edit'],          'uses' => 'PermissionController@edit']);
