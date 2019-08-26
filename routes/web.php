@@ -13,8 +13,7 @@
   Route::delete('translations/destroy/{key}', 'LanguageTranslationController@destroy')->name('translations.destroy');
   Route::post('translations/create', 'LanguageTranslationController@store')->name('translations.create');
   Route::get('check-translation', function(){
-    \App::setLocale('fr');
-    
+    \App::setLocale('fr');    
     dd(__('website'));
   });
 
