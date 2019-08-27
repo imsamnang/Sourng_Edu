@@ -79,7 +79,7 @@ Auth::routes();
       Route::get('profile',                       ['as' => '.profile',            'uses' => 'HomeController@profile']);
       Route::post('{id}/password',                ['as' => '.password',           'uses' => 'HomeController@password']);
       Route::get('notice',                        ['as' => '.notice',             'uses' => 'HomeController@notice']);
-//guardian's student wise summary routes
+  //guardian's student wise summary routes
       Route::get('students',                      ['as' => '.students',               'uses' => 'HomeController@students']);
       Route::get('students/{id}/profile',         ['as' => '.students.profile',       'uses' => 'HomeController@studentProfile']);
       Route::get('students/{id}/fees',            ['as' => '.students.fees',          'uses' => 'HomeController@fees']);
@@ -119,9 +119,9 @@ Auth::routes();
       /*Assignment*/
       Route::get('assignment',                           ['as' => '.assignment',                   'middleware' => ['ability:super-admin,assignment-index'],               'uses' => 'HomeController@assignment']);
   });
+
 /*Students Grouping*/
   Route::group(['prefix' => 'student/','as' => 'student','namespace' => 'Student\\'], function () {
-
       Route::get('',['as' => '','middleware' => ['ability:super-admin,student-index'],'uses' => 'StudentController@index']);
       Route::get('registration',              ['as' => '.registration',            'middleware' => ['ability:super-admin,student-registration'],           'uses' => 'StudentController@registration']);
       Route::post('register',                 ['as' => '.register',                'middleware' => ['ability:super-admin,student-register'],'uses' => 'StudentController@register']);
@@ -142,22 +142,22 @@ Auth::routes();
       Route::post('import',                     ['as' => '.bulk.import',        'middleware' => ['ability:super-admin,student-add'],             'uses' => 'StudentController@handleImportStudent']);
 
       /*Student transfer */
-      Route::get('transfer',                  ['as' => '.transfer',                  'middleware' => ['ability:super-admin,student-transfer'],      'uses' => 'StudentController@transfer']);
-      Route::post('transfering',              ['as' => '.transfering',               'middleware' => ['ability:super-admin,student-transfer'],      'uses' => 'StudentController@transfering']);
+        Route::get('transfer',                  ['as' => '.transfer',                  'middleware' => ['ability:super-admin,student-transfer'],      'uses' => 'StudentController@transfer']);
+        Route::post('transfering',              ['as' => '.transfering',               'middleware' => ['ability:super-admin,student-transfer'],      'uses' => 'StudentController@transfering']);
 
       /*Student login access*/
-      Route::post('user/create',             ['as' => '.user.create',                  'middleware' => ['ability:super-admin,user-add'],                    'uses' => 'StudentController@createUser']);
-      Route::post('{id}/user/update',        ['as' => '.user.update',                  'middleware' => ['ability:super-admin,user-edit'],                   'uses' => 'StudentController@updateUser']);
-      Route::get('{id}/user/active',         ['as' => '.user.active',                  'middleware' => ['ability:super-admin,user-active'],                 'uses' => 'StudentController@activeUser']);
-      Route::get('{id}/user/in-active',      ['as' => '.user.in-active',               'middleware' => ['ability:super-admin,user-in-active'],              'uses' => 'StudentController@inActiveUser']);
-      Route::get('{id}/user/delete',         ['as' => '.user.delete',                  'middleware' => ['ability:super-admin,user-delete'],                 'uses' => 'StudentController@deleteUser']);
+        Route::post('user/create',             ['as' => '.user.create',                  'middleware' => ['ability:super-admin,user-add'],                    'uses' => 'StudentController@createUser']);
+        Route::post('{id}/user/update',        ['as' => '.user.update',                  'middleware' => ['ability:super-admin,user-edit'],                   'uses' => 'StudentController@updateUser']);
+        Route::get('{id}/user/active',         ['as' => '.user.active',                  'middleware' => ['ability:super-admin,user-active'],                 'uses' => 'StudentController@activeUser']);
+        Route::get('{id}/user/in-active',      ['as' => '.user.in-active',               'middleware' => ['ability:super-admin,user-in-active'],              'uses' => 'StudentController@inActiveUser']);
+        Route::get('{id}/user/delete',         ['as' => '.user.delete',                  'middleware' => ['ability:super-admin,user-delete'],                 'uses' => 'StudentController@deleteUser']);
 
       /*Guardian login access*/
-      Route::post('guardian/user/create',             ['as' => '.guardian.user.create',                  'middleware' => ['ability:super-admin,user-add'],                    'uses' => 'StudentController@createUser']);
-      Route::post('guardian/{id}/user/update',        ['as' => '.guardian.user.update',                  'middleware' => ['ability:super-admin,user-edit'],                   'uses' => 'StudentController@updateUser']);
-      Route::get('guardian/{id}/user/active',         ['as' => '.guardian.user.active',                  'middleware' => ['ability:super-admin,user-active'],                 'uses' => 'StudentController@activeUser']);
-      Route::get('guardian/{id}/user/in-active',      ['as' => '.guardian.user.in-active',               'middleware' => ['ability:super-admin,user-in-active'],              'uses' => 'StudentController@inActiveUser']);
-      Route::get('guardian/{id}/user/delete',         ['as' => '.guardian.user.delete',                  'middleware' => ['ability:super-admin,user-delete'],                 'uses' => 'StudentController@deleteUser']);
+        Route::post('guardian/user/create',             ['as' => '.guardian.user.create',                  'middleware' => ['ability:super-admin,user-add'],                    'uses' => 'StudentController@createUser']);
+        Route::post('guardian/{id}/user/update',        ['as' => '.guardian.user.update',                  'middleware' => ['ability:super-admin,user-edit'],                   'uses' => 'StudentController@updateUser']);
+        Route::get('guardian/{id}/user/active',         ['as' => '.guardian.user.active',                  'middleware' => ['ability:super-admin,user-active'],                 'uses' => 'StudentController@activeUser']);
+        Route::get('guardian/{id}/user/in-active',      ['as' => '.guardian.user.in-active',               'middleware' => ['ability:super-admin,user-in-active'],              'uses' => 'StudentController@inActiveUser']);
+        Route::get('guardian/{id}/user/delete',         ['as' => '.guardian.user.delete',                  'middleware' => ['ability:super-admin,user-delete'],                 'uses' => 'StudentController@deleteUser']);
 
       /*Student Document Upload*/
       Route::get('document',                      ['as' => '.document',                'middleware' => ['ability:super-admin,student-document-index'],      'uses' => 'DocumentController@index']);
@@ -168,8 +168,7 @@ Auth::routes();
       Route::get('document/{id}/active',          ['as' => '.document.active',         'middleware' => ['ability:super-admin,student-document-active'],      'uses' => 'DocumentController@Active']);
       Route::get('document/{id}/in-active',       ['as' => '.document.in-active',      'middleware' => ['ability:super-admin,student-document-in-active'],      'uses' => 'DocumentController@inActive']);
       Route::post('document/bulk-action',         ['as' => '.document.bulk-action',    'middleware' => ['ability:super-admin,student-document-bulk-action'],      'uses' => 'DocumentController@bulkAction']);
-
-      /*Student Notes Creating*/
+    /*Student Notes Creating*/
       Route::get('note',                          ['as' => '.note',                'middleware' => ['ability:super-admin,student-note-index'],      'uses' => 'NoteController@index']);
       Route::post('note/store',                   ['as' => '.note.store',          'middleware' => ['ability:super-admin,student-note-add'],      'uses' => 'NoteController@store']);
       Route::get('note/{id}/edit',                ['as' => '.note.edit',           'middleware' => ['ability:super-admin,student-note-edit'],      'uses' => 'NoteController@edit']);
@@ -179,9 +178,12 @@ Auth::routes();
       Route::get('note/{id}/in-active',           ['as' => '.note.in-active',      'middleware' => ['ability:super-admin,student-note-in-active'],      'uses' => 'NoteController@inActive']);
       Route::post('note/bulk-action',             ['as' => '.note.bulk-action',    'middleware' => ['ability:super-admin,student-note-bulk-action'],      'uses' => 'NoteController@bulkAction']);
   });
+
+// student download ducument route
+Route::get('documents/student/{member_id}/{document_id}',['as' => 'student.document.download', 'middleware' => ['ability:super-admin,student-document-index'], 'uses' => 'Student\DocumentController@download']);
 /*Staff Grouping*/
   Route::group(['prefix' => 'staff/', 'as' => 'staff','namespace' => 'Staff\\'], function () {
-      /*Staff Routes*/
+    /*Staff Routes*/
       Route::get('',                          ['as' => '',                    'middleware' => ['ability:super-admin,staff-index'],        'uses' => 'StaffController@index']);
       Route::get('add',                       ['as' => '.add',                'middleware' => ['ability:super-admin|admin,staff-add'],          'uses' => 'StaffController@add']);
       Route::post('store',                    ['as' => '.store',              'middleware' => ['ability:super-admin|admin,staff-add'],          'uses' => 'StaffController@store']);
@@ -233,8 +235,9 @@ Auth::routes();
       Route::get('designation/{id}/in-active',    ['as' => '.designation.in-active',      'middleware' => ['ability:super-admin,staff-designation-in-active'],    'uses' => 'DesignationController@inActive']);
       Route::post('designation/bulk-action',      ['as' => '.designation.bulk-action',    'middleware' => ['ability:super-admin,staff-designation-bulk-action'],  'uses' => 'DesignationController@bulkAction']);
   });
+
   /*Accounting Grouping*/
-  Route::group(['prefix' => 'account/',                                   'as' => 'account.',                                    'namespace' => 'Account\\'], function () {
+    Route::group(['prefix' => 'account/',                                   'as' => 'account.',                                    'namespace' => 'Account\\'], function () {
    /*Fees Group*/
       /*Balance Fees*/
       Route::get('fees/',                    ['as' => 'fees',                          'middleware' => ['ability:super-admin,fees-index'],            'uses' => 'Fees\FeesBaseController@index']);
@@ -337,6 +340,7 @@ Auth::routes();
       Route::get('transaction/{id}/in-active',     ['as' => 'transaction.in-active',        'middleware' => ['ability:super-admin,transaction-in-active'],            'uses' => 'Transaction\TransactionController@inActive']);
       Route::post('transaction/tr-html',           ['as' => 'transaction.tr-html',                                                                                    'uses' => 'Transaction\TransactionController@trHtmlRow']);
   });
+
 /*Library Grouping*/
   Route::group(['prefix' => 'library/',                                   'as' => 'library.',                                    'namespace' => 'Library\\'], function () {
       Route::get('',                          ['as' => '',                        'middleware' => ['ability:super-admin,library-index'],           'uses' => 'LibraryBaseController@index']);
@@ -961,7 +965,6 @@ Auth::routes();
     Route::post('longCourse_detail/updateFund','ProjectActivities\LongcourseController@Long_updateFund')->name('projects.longcoursedetail.updatefund');
     //=================View Long Course Detail==============Ratha
     Route::get('/longcourse/detail/{id}','ProjectActivities\LongcourseController@ViewLongCourseDetail')->name('projects.longcoursedetail');
- 
 });
 
 //Quiz Route

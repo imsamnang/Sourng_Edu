@@ -8,6 +8,8 @@ use App\Http\Requests\Student\Document\EditValidation;
 use App\Models\Document;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
+use Session;
 use ViewHelper;
 use view;
 
@@ -27,42 +29,33 @@ class DocumentController extends CollegeBaseController
 
     public function index(Request $request)
     {
-        $data = [];
-        $data['document'] = Document::select('id', 'member_type','member_id', 'title', 'file', 'status')
-            ->where('member_type','=','student')
-            ->get();
-
-        return view(parent::loadDataToView($this->view_path.'.index'), compact('data'));
+      $data = [];
+      $data['document'] = Document::select('id', 'member_type','member_id', 'title', 'file', 'status','download_count')
+          ->where('member_type','=','student')
+          ->get();
+      return view(parent::loadDataToView($this->view_path.'.index'), compact('data'));
     }
 
     public function store(AddValidation $request)
     {
-        $reg_no = $request->get('reg_no');
-
-        $student = Student::select('id')->where('reg_no','=',$reg_no)->first();
-        if (!$student)
-            return redirect()->route('student.document')->with('message_warning', 'Please Check Student Registration Number. This Registration Number is Not a valid Student Registration.');
-
-        $name = str_slug($request->get('title'));
-
-        if ($request->hasFile('document_file')){
-            $document_file = parent::uploadFile($request, $reg_no , $name ,'document_file');
-
-            $request->request->add(['created_by' => auth()->user()->id]);
-            $request->request->add(['member_id' => $student->id]);
-            $request->request->add(['file' => $document_file]);
-            $request->request->add(['member_type' => 'student']);
-
-            Document::create($request->all());
-
-            $request->session()->flash($this->message_success, $this->panel. ' Uploaded Successfully.');
-            return redirect()->route($this->base_route);
-        }else{
-            $request->session()->flash($this->message_warning, 'File Not Uploaded Yet or File Not Selected');
-            return back();
-        }
-
-
+      $reg_no = $request->get('reg_no');
+      $student = Student::select('id')->where('reg_no','=',$reg_no)->first();
+      if (!$student)
+        return redirect()->route('student.document')->with('message_warning', 'Please Check Student Registration Number. This Registration Number is Not a valid Student Registration.');
+      $name = str_slug($request->get('title'));
+      if ($request->hasFile('document_file')){
+        $document_file = parent::uploadFile($request, $reg_no , $name ,'document_file');
+        $request->request->add(['created_by' => auth()->user()->id]);
+        $request->request->add(['member_id' => $student->id]);
+        $request->request->add(['file' => $document_file]);
+        $request->request->add(['member_type' => 'student']);
+        Document::create($request->all());
+        $request->session()->flash($this->message_success, $this->panel. ' Uploaded Successfully.');
+        return redirect()->route($this->base_route);
+      }else{
+        $request->session()->flash($this->message_warning, 'File Not Uploaded Yet or File Not Selected');
+        return back();
+      }
     }
 
     public function edit(Request $request, $id)
@@ -183,4 +176,18 @@ class DocumentController extends CollegeBaseController
         $request->session()->flash($this->message_success, $this->panel.' In-Active Successfully.');
         return redirect()->route($this->base_route);
     }
+
+    public function download(Request $request, $member_id,$document_id)
+    {
+      // $dl = Document::where('file',$document_id)->first();
+      $dl = Document::find($document_id);
+      $dlpath = public_path().'\documents'.DIRECTORY_SEPARATOR.'student'.DIRECTORY_SEPARATOR.ViewHelper::getStudentById( $dl->member_id ).'/'.$dl->file;   
+      $dlKey = 'count_'.$document_id;
+      if(!Session::has($dlKey)){
+          $dl->download_count = ($dl->download_count)+1;
+          $dl->save();
+          Session::put($dlKey,1);
+      }
+      return Response::download($dlpath,$dl->file);
+    }    
 }
