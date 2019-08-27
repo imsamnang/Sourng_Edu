@@ -10,6 +10,8 @@ use App\Models\Staff;
 use Illuminate\Http\Request;
 use ViewHelper;
 use view;
+use Session;
+use Response;
 
 class DocumentController extends CollegeBaseController
 {
@@ -28,7 +30,7 @@ class DocumentController extends CollegeBaseController
     public function index(Request $request)
     {
         $data = [];
-        $data['document'] = Document::select('id', 'member_type','member_id', 'title', 'file', 'status')
+        $data['document'] = Document::select('id', 'member_type','member_id', 'title', 'file', 'status','download_count')
             ->where('member_type','=','staff')
             ->get();
 
@@ -183,4 +185,18 @@ class DocumentController extends CollegeBaseController
         $request->session()->flash($this->message_success, $this->panel.' In-Active Successfully.');
         return redirect()->route($this->base_route);
     }
+
+    public function download(Request $request, $member_id,$document_id)
+    {
+      // $dl = Document::where('file',$document_id)->first();
+      $dl = Document::find($document_id);
+      $dlpath = public_path().'\documents'.DIRECTORY_SEPARATOR.'staff'.DIRECTORY_SEPARATOR.ViewHelper::getStaffById( $dl->member_id ).DIRECTORY_SEPARATOR.$dl->file;
+      $dlKey = 'count_'.$document_id;
+      if(!Session::has($dlKey)){
+          $dl->download_count = ($dl->download_count)+1;
+          $dl->save();
+          Session::put($dlKey,1);
+      }
+      return Response::download($dlpath,$dl->file);
+    }    
 }

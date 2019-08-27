@@ -121,7 +121,7 @@ Auth::routes();
   });
 
 /*Students Grouping*/
-  Route::group(['prefix' => 'student/','as' => 'student','namespace' => 'Student\\'], function () {
+    Route::group(['prefix' => 'student/','as' => 'student','namespace' => 'Student\\'], function () {
       Route::get('',['as' => '','middleware' => ['ability:super-admin,student-index'],'uses' => 'StudentController@index']);
       Route::get('registration',              ['as' => '.registration',            'middleware' => ['ability:super-admin,student-registration'],           'uses' => 'StudentController@registration']);
       Route::post('register',                 ['as' => '.register',                'middleware' => ['ability:super-admin,student-register'],'uses' => 'StudentController@register']);
@@ -159,7 +159,7 @@ Auth::routes();
         Route::get('guardian/{id}/user/in-active',      ['as' => '.guardian.user.in-active',               'middleware' => ['ability:super-admin,user-in-active'],              'uses' => 'StudentController@inActiveUser']);
         Route::get('guardian/{id}/user/delete',         ['as' => '.guardian.user.delete',                  'middleware' => ['ability:super-admin,user-delete'],                 'uses' => 'StudentController@deleteUser']);
 
-      /*Student Document Upload*/
+    /*Student Document Upload*/
       Route::get('document',                      ['as' => '.document',                'middleware' => ['ability:super-admin,student-document-index'],      'uses' => 'DocumentController@index']);
       Route::post('document/store',               ['as' => '.document.store',          'middleware' => ['ability:super-admin,student-document-add'],      'uses' => 'DocumentController@store']);
       Route::get('document/{id}/edit',            ['as' => '.document.edit',           'middleware' => ['ability:super-admin,student-document-edit'],      'uses' => 'DocumentController@edit']);
@@ -180,7 +180,10 @@ Auth::routes();
   });
 
 // student download ducument route
-Route::get('documents/student/{member_id}/{document_id}',['as' => 'student.document.download', 'middleware' => ['ability:super-admin,student-document-index'], 'uses' => 'Student\DocumentController@download']);
+  Route::get('documents/student/{member_id}/{document_id}',['as' => 'student.document.download', 'middleware' => ['ability:super-admin,student-document-index'], 'uses' => 'Student\DocumentController@download']);
+// student download ducument route
+  Route::get('documents/staff/{member_id}/{document_id}',['as' => 'staff.document.download', 'middleware' => ['ability:super-admin,student-document-index'], 'uses' => 'Staff\DocumentController@download']);  
+
 /*Staff Grouping*/
   Route::group(['prefix' => 'staff/', 'as' => 'staff','namespace' => 'Staff\\'], function () {
     /*Staff Routes*/
@@ -198,14 +201,14 @@ Route::get('documents/student/{member_id}/{document_id}',['as' => 'student.docum
       Route::post('import',                     ['as' => '.bulk.import',        'middleware' => ['ability:super-admin,staff-add'],             'uses' => 'StaffController@handleImportStaff']);
 
 
-      /*Staff login access*/
+    /*Staff login access*/
       Route::post('user/create',             ['as' => '.user.create',                  'middleware' => ['ability:super-admin,user-add'],                    'uses' => 'StaffController@createUser']);
       Route::post('{id}/user/update',        ['as' => '.user.update',                  'middleware' => ['ability:super-admin,user-edit'],                   'uses' => 'StaffController@updateUser']);
       Route::get('{id}/user/active',         ['as' => '.user.active',                  'middleware' => ['ability:super-admin,user-active'],                 'uses' => 'StaffController@activeUser']);
       Route::get('{id}/user/in-active',      ['as' => '.user.in-active',               'middleware' => ['ability:super-admin,user-in-active'],              'uses' => 'StaffController@inActiveUser']);
       Route::get('{id}/user/delete',         ['as' => '.user.delete',                  'middleware' => ['ability:super-admin,user-delete'],                 'uses' => 'StaffController@deleteUser']);
 
-      /*Staff Document Upload*/
+    /*Staff Document Upload*/
       Route::get('document',                  ['as' => '.document',               'middleware' => ['ability:super-admin,staff-document-index'],       'uses' => 'DocumentController@index']);
       Route::post('document/store',           ['as' => '.document.store',         'middleware' => ['ability:super-admin,staff-document-add'],         'uses' => 'DocumentController@store']);
       Route::get('document/{id}/edit',        ['as' => '.document.edit',          'middleware' => ['ability:super-admin,staff-document-edit'],        'uses' => 'DocumentController@edit']);

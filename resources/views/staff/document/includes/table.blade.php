@@ -16,7 +16,8 @@
                   </th>
                   <th>@lang('staff_tbl_doc_S_N')</th>
                   <th>@lang('staff_tbl_doc_Reg_No')</th>
-                  <th>{{ $panel }}</th>
+                  <th>@lang('File Name')</th>
+                  <th>@lang('Has Downloaded')</th>
                   <th>@lang('staff_tbl_doc_Status')</th>
                   <th></th>
                 </tr>
@@ -35,11 +36,14 @@
                         <td>{{ $i }}</td>
                         <td><a href="{{ route('staff.view', ['id' => $document->member_id]) }}"> {{  ViewHelper::getStaffById( $document->member_id ) }}</a></td>
                         <td>
-                          <a href="{{ asset('documents'.DIRECTORY_SEPARATOR.'staff'.DIRECTORY_SEPARATOR.ViewHelper::getStaffById( $document->member_id ).'/'.$document->file) }}" target="_blank">
+                          {{--<a href="{{ asset('documents'.DIRECTORY_SEPARATOR.'staff'.DIRECTORY_SEPARATOR.ViewHelper::getStaffById( $document->member_id ).'/'.$document->file) }}" target="_blank">
                                 <i class="ace-icon fa fa-download bigger-120"></i> &nbsp;{{ $document->title }}
-                          </a>
+                          </a> --}}
+                          <a href="{{route('staff.document.download',[ViewHelper::getStaffById($document->member_id),$document->id])}}" target="_blank">
+                                <i class="ace-icon fa fa-download bigger-120"></i> &nbsp;{{ $document->title }}
+                          </a>                          
                         </td>
-                        {{--<td>{{ $document->status }}</td>--}}
+                        <td>{{ $document->download_count }} times</td>
                         <td class="hidden-480 ">
                             <div class="btn-group">
                                 <button data-toggle="dropdown" class="btn btn-primary btn-minier dropdown-toggle {{ $document->status == 'active'?"btn-info":"btn-warning" }}" >
