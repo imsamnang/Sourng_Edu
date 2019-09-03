@@ -30,43 +30,43 @@
                 <div class="profile-info-value">
                     <span class="editable" id="reg_no">{{ $data['staff']->reg_no }}</span>
                 </div>
-                <div class="profile-info-name"> Join Date :</div>
+        <div class="profile-info-name"> {{__('acc_tbl_balance_payroll_Join_Date')}} :</div>
                 <div class="profile-info-value">
                     <span class="editable" id="reg_date">{{ \Carbon\Carbon::parse($data['staff']->join_date)->format('Y-m-d')}}</span>
                 </div>
             </div>
 
             <div class="profile-info-row">
-                <div class="profile-info-name">Designation : </div>
+                <div class="profile-info-name">{{__('m_designations')}} : </div>
                 <div class="profile-info-value">
                     <span class="editable" id="designation">{{ ViewHelper::getDesignationId($data['staff']->designation) }}</span>
                 </div>
 
-                <div class="profile-info-name"> Qualification: </div>
+                <div class="profile-info-name"> {{__('cbo_general_education')}}: </div>
                 <div class="profile-info-value">
-                    <span class="editable" id="qualification">{{ $data['staff']->qualification }}</span>
+                    <span class="editable" id="qualification">{{ $data['staff']->general_education_id }}</span>
                 </div>
             </div>
 
             <div class="profile-info-row">
-                <div class="profile-info-name"> Name : </div>
+                <div class="profile-info-name"> {{__('member_tbl_staff_Staff_Name')}} : </div>
                 <div class="profile-info-value">
                     <span class="editable" id="student_name">{{ $data['staff']->first_name.' '.
                     $data['staff']->middle_name.' '.$data['staff']->last_name }}</span>
                 </div>
-                <div class="profile-info-name"> DOB : </div>
+                <div class="profile-info-name"> {{__('staff_frm_reg_DOB')}} : </div>
                 <div class="profile-info-value">
                     <span class="editable" id="date_of_birth">{{ \Carbon\Carbon::parse($data['staff']->date_of_birth)->format('Y-m-d')}}</span>
                 </div>
             </div>
 
             <div class="profile-info-row">
-                <div class="profile-info-name"> E-mail : </div>
+                <div class="profile-info-name"> {{__('staff_frm_reg_Email')}} : </div>
                 <div class="profile-info-value">
                     <span class="editable" id="email">{{ $data['staff']->email }}</span>
                 </div>
 
-                <div class="profile-info-name"> Mobile No : </div>
+                <div class="profile-info-name"> {{__('staff_frm_reg_Mobile_No')}} : </div>
                 <div class="profile-info-value">
                     <span class="editable" id="email">{{ $data['staff']->mobile_1.','.$data['staff']->mobile_2 }}</span>
                 </div>

@@ -194,6 +194,7 @@ class StudentController extends CollegeBaseController
 
     public function view($id)
     {
+        $this->flag=App()->getLocale();
       $data = [];
       $data['student'] = Student::select('students.id','students.reg_no', 'students.reg_date', 'students.university_reg',
           'students.faculty','students.semester', 'students.academic_status', 'students.first_name', 'students.middle_name',

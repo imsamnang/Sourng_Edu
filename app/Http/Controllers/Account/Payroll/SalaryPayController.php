@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Account\Payroll;
 
-use App\Http\Controllers\CollegeBaseController;
-use App\Models\FeeMaster;
-use App\Models\SalaryPay;
-use App\Models\Staff;
-use Illuminate\Http\Request;
 use view, URL;
 use ViewHelper;
+use App\Models\Staff;
+use App\Models\FeeMaster;
+use App\Models\SalaryPay;
+use Illuminate\Http\Request;
+use App\Http\Controllers\CollegeBaseController;
 class SalaryPayController extends CollegeBaseController
 {
     protected $base_route = 'account.salary.payment';
@@ -25,7 +25,7 @@ class SalaryPayController extends CollegeBaseController
     {
         $data = [];
         $data['staff'] = Staff::select('id', 'reg_no', 'first_name',  'middle_name', 'last_name',
-            'father_name', 'mobile_1','designation','qualification','status')
+            'father_name', 'mobile_1','designation','qualification_id','general_education_id','status')
             ->where(function ($query) use ($request) {
 
                 if ($request->has('reg_no')) {
@@ -66,7 +66,7 @@ class SalaryPayController extends CollegeBaseController
     {
         $data = [];
         $data['staff'] = Staff::select('id','reg_no', 'join_date', 'first_name',  'middle_name', 'last_name',
-            'date_of_birth', 'home_phone','email', 'mobile_1', 'designation','qualification','staff_image', 'status')
+            'date_of_birth', 'home_phone','email', 'mobile_1', 'designation','qualification_id','general_education_id','staff_image', 'status')
             ->where('id','=',$id)
             ->first();
 
