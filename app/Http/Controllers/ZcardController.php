@@ -137,7 +137,7 @@ class ZcardController extends Controller
                 $make_card = [
                     'id' => str_replace(' ','-',$name_en).'-'.$id,
                     'attrs' => [
-                        'width' => ($settingCard && $settingCard->transform == 'horizontal') ? 502 : 702,
+                        'width' => ($settingCard && $settingCard->transform == 'horizontal') ? 504 : 704,
                         'height' => ($settingCard && $settingCard->transform == 'horizontal') ?  350 : 250,
                     ],
                     'className' => 'Stage',

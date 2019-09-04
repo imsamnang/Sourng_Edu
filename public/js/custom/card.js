@@ -26,19 +26,23 @@
                   $('#transform').unbind();
                   $('input[type="file"]').unbind();
                   $('form').unbind();
-  
+                  
                   if (typeof options === 'object') {
                     card.CreateLayout($.extend(card.defaultSettings(), options)); 
                   }else{
                     card.CreateLayout(card.defaultSettings()); 
                   }
                   card.createEvent();  
-                  card.result();    
+                  card.result();  
+                  
+                  $(".card-body").css({
+                    padding : card.SETTINGS.transform == 'horizontal' ? "1.25rem" : "1.25rem 0" 
+                  });
                 },
                 defaultSettings: () => {
                   return {
                     transform: 'horizontal', // vertical and horizontal
-                    container_width: 502,
+                    container_width: 504,
                     container_height: 350,
                     max_width: 150,
                     max_height: 14,
@@ -54,14 +58,16 @@
                
                   card.SETTINGS = {
                       transform : settings.transform,
-                      container_width : settings.transform == 'horizontal' ? 502 : 704,
+                      container_width : settings.transform == 'horizontal' ? 504 : 704,
                       container_height : settings.transform == 'horizontal' ? 350 : 250,    
                       max_width: settings.max_width,
                       max_height: settings.max_height,             
                       font_size : settings.font_size,
                       text_color : settings.text_color,
                     }
-            
+                    
+                  
+
                   //Assign 
                   card.CARD_FRONT.image = settings.transform == 'horizontal' ? $(self).attr('data-card-front-250x350') : $(self).attr('data-card-front-350x250');
                   card.CARD_BACK.image = settings.transform == 'horizontal' ? $(self).attr('data-card-back-250x350') : $(self).attr('data-card-back-350x250');
@@ -212,11 +218,11 @@
                     CreateQrCode = new Image();
                   CreateQrCode.onload = function () {
                     var QrCodeImage = new Konva.Image({
-                      x: settings.transform == 'horizontal' ? 350 : 494,
-                      y: settings.transform == 'horizontal' ? 102 : 40,
+                      x: settings.transform == 'horizontal' ? 330 : 480,
+                      y: settings.transform == 'horizontal' ? 75 : 35,
                       image: CreateQrCode,
-                      width: 70,
-                      height: 70,
+                      width: 100,
+                      height: 100,
                       name: "qr",
                       id: "qr",
                       draggable: true
@@ -347,7 +353,7 @@
                       keepRatio: true,
                       boundBoxFunc: function (oldBoundBox, newBoundBox) {
   
-                        if (Math.abs(newBoundBox.width) > MAX_WIDTH) {
+                        if (Math.abs(newBoundBox.width) > card.SETTINGS.max_width) {
                           return oldBoundBox;
                         }
                         return newBoundBox;

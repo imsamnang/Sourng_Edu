@@ -13,11 +13,11 @@
   <title>Card</title>
   <style>
     [id^="stage"] {
-      margin: auto 2mm;
+      margin: auto 2mm 1mm;
       @if ($card && $card->transform=='horizontal') display: inline-block;
-      margin: auto 1px;
-      height: 346px;
-      width: 501px;
+      margin: auto 0.3mm 0.1mm;
+      height: 350px;
+      width: 504px;
       @endif
     }
   </style>
