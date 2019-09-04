@@ -21,12 +21,16 @@ class AddValidation extends FormRequest
             'last_name'             => 'required',
             'date_of_birth'         => 'required',
             'nationality'           => 'required',
+            'pob'                   => 'required',
             'gender'                => 'required',
             'email'                 => 'required | unique:staff,email',
-            'qualification'         => 'required',
+            'qualification_id'      => 'required',
+            'general_education_id'  => 'required',
             'institute_id'          => 'required',
             'main_image'            => 'mimes:jpeg,bmp,png',
-            'pob'                   => 'required',
+            'province_id'           => 'required',
+            'district_id'           => 'required',
+            'commune_id'           => 'required',
         ];
 
     }

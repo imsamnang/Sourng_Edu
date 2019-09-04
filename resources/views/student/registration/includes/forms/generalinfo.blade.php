@@ -190,11 +190,11 @@
 
 {{-- Address Province district commune --}}
 <div class="form-group">
-        {!! Form::label('address', __('stu_Address'), ['class' => 'col-sm-1 control-label']) !!}
-        <div class="col-sm-11">
-            {!! Form::text('address', null, ["placeholder"=>'ភូមិ គោករុន ឃុំមុខប៉ែន ស្រុកពួក ខេត្តសៀមរាប',"class" => "form-control border-form upper","required"]) !!}
-            @include('includes.form_fields_validation_message', ['name' => 'address'])
-        </div>           
+    {!! Form::label('address', __('stu_Address'), ['class' => 'col-sm-1 control-label']) !!}
+    <div class="col-sm-11">
+        {!! Form::text('address', null, ["class" => "form-control border-form upper"]) !!}
+        @include('includes.form_fields_validation_message', ['name' => 'address'])
+    </div>           
 </div>
 
 <div class="form-group">
@@ -278,12 +278,31 @@
 
 <hr>
 <hr class="hr-8">
+{{-- <div class="form-group">
+    {!! Form::label('temp_address', __('stu_temp_Address'), ['class' => 'col-sm-1 control-label']) !!}
+    <div class="col-sm-3">
+        {!! Form::text('temp_address', null, ["class" => "form-control border-form upper"]) !!}
+        @include('includes.form_fields_validation_message', ['name' => 'temp_address'])
+    </div>
+
+    {!! Form::label('temp_state', __('stu_temp_State'), ['class' => 'col-sm-1 control-label']) !!}
+    <div class="col-sm-3">
+        {!! Form::text('temp_state', null, ["class" => "form-control border-form upper"]) !!}
+        @include('includes.form_fields_validation_message', ['name' => 'temp_state'])
+    </div>
+
+    {!! Form::label('temp_country', __('stu_temp_Country'), ['class' => 'col-sm-1 control-label']) !!}
+    <div class="col-sm-3">
+        {!! Form::text('temp_country', null, ["class" => "form-control border-form upper"]) !!}
+        @include('includes.form_fields_validation_message', ['name' => 'temp_country'])
+    </div>
+</div> --}}
 {{-- Temporary Address --}}
 <div class="form-group">
-    {!! Form::label('address', __('stu_Address'), ['class' => 'col-sm-1 control-label']) !!}
+    {!! Form::label('temp_address', __('stu_temp_Address'), ['class' => 'col-sm-1 control-label']) !!}
     <div class="col-sm-11">
-        {!! Form::text('address', null, ["placeholder"=>'ភូមិ គោករុន ឃុំមុខប៉ែន ស្រុកពួក ខេត្តសៀមរាប',"class" => "form-control border-form upper","required"]) !!}
-        @include('includes.form_fields_validation_message', ['name' => 'address'])
+        {!! Form::text('temp_address', null, ["class" => "form-control border-form upper"]) !!}
+        @include('includes.form_fields_validation_message', ['name' => 'temp_address'])
     </div>           
 </div>
 {{-- End temporary Address --}}

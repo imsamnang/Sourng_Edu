@@ -1,12 +1,13 @@
-@extends('ProjectActivities.layout.master')
+@extends('layouts.master')
+{{-- @extends('ProjectActivities.layout.master') --}}
 
-@push('custom-css')
+@section('css')
   <link rel="stylesheet" href="{{asset('assets/quiz/custom.css')}}">
-@endpush
-
-@section('menu-panel')
-    @include('ProjectActivities.layout.menu.menu_admin')
 @endsection
+
+{{-- @section('menu-panel')
+    @include('ProjectActivities.layout.menu.menu_admin')
+@endsection --}}
 
 @section('content')
   <div class="main-content">
@@ -49,7 +50,7 @@
   <!-- /.main-content -->
 @endsection
 
-@push('custom-js')
+@section('js')
   {{-- @include('includes.scripts.jquery_validation_scripts') --}}
   <script src="{{asset('assets/quiz/jquery.session.js')}}"></script>
   <script src="{{asset('assets/quiz/custom.js')}}"></script>
@@ -87,4 +88,4 @@
       }
     });    
   </script>
-@endpush
+@endsection

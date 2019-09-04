@@ -33,20 +33,16 @@ class UserController extends CollegeBaseController
         if($request->has('role')){
             $data['rows'] = User::select('users.id', 'users.name', 'users.email', 'users.profile_image', 'users.contact_number',
                 'users.address', 'users.status', 'ru.role_id')
-                /*->where('ru.user_id','<>',1)*/
                 ->where(function ($query) use ($request) {
-
                     if ($request->has('name')) {
                         $query->where('users.name', 'like', '%'.$request->name.'%')
                             ->orWhere('users.email', 'like', '%'.$request->name.'%');
                         $this->filter_query['users.name'] = $request->name;
                     }
-
                     if ($request->has('role')) {
                         $query->where('ru.role_id', '=',$request->get('role'));
                         $this->filter_query['ru.role_id'] = $request->get('role');
                     }
-
                     if ($request->has('status')) {
                         $query->where('users.status', $request->status == 'active'?1:0);
                         $this->filter_query['users.status'] = $request->get('status');
@@ -57,15 +53,12 @@ class UserController extends CollegeBaseController
         }else{
             $data['rows'] = User::select('users.id', 'users.name', 'users.email', 'users.profile_image', 'users.contact_number',
                 'users.address', 'users.status')
-                /*->where('users.id','<>',1)*/
                 ->where(function ($query) use ($request) {
-
                     if ($request->has('name')) {
                         $query->where('users.name', 'like', '%'.$request->name.'%')
                             ->orWhere('users.email', 'like', '%'.$request->name.'%');
                         $this->filter_query['users.name'] = $request->name;
                     }
-
                     if ($request->has('status')) {
                         $query->where('users.status', $request->status == 'active'?1:0);
                         $this->filter_query['users.status'] = $request->get('status');
@@ -73,16 +66,13 @@ class UserController extends CollegeBaseController
                 })
                 ->get();
         }
-
         $data['roles'] = [];
         $data['roles'][0] = 'Select Role';
         foreach (Role::select('id', 'display_name')->where('id','<>','1')->get() as $role) {
             $data['roles'][$role->id] = $role->display_name;
         }
-
         $data['url'] = URL::current();
         $data['filter_query'] = $this->filter_query;
-
         return view(parent::loadDataToView($this->view_path.'.index'), compact('data'));
     }
 
@@ -90,7 +80,6 @@ class UserController extends CollegeBaseController
     {
         $data = [];
         $data['roles'] = Role::where('id','<>','1')->get();
-
         return view(parent::loadDataToView($this->view_path.'.add'), compact('data'));
     }
 

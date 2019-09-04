@@ -17,15 +17,13 @@
             //.wrap("<div class='dataTables_borderWrap' />")   //if you are applying horizontal scrolling (sScrollX)
                 .DataTable( {
                     bAutoWidth: false,
-                    "lengthMenu": [ [50, 100, 200, 300, 400, 500, -1], [50, 100, 200, 300, 400, 500, 'All'] ],
+                    "lengthMenu": [ [15,50, 100, 200, 300, 400, -1], [15,50, 100, 200, 300, 400, 'All'] ],
                     /*"aoColumns": [
                      { "bSortable": false },
                      null, null,null, null, null,
                      { "bSortable": false }
                      ],*/
                     "aaSorting": [],
-
-
                     //"bProcessing": true,
                     //"bServerSide": true,
                     //"sAjaxSource": "http://127.0.0.1/table.php"	,
@@ -33,17 +31,12 @@
                     //,
                     //"sScrollY": "200px",
                     //"bPaginate": false,
-
                    "sScrollX": "100%",
                    "sScrollXInner": "100%",
                     "bScrollCollapse": true,
                     //Note: if you are applying horizontal scrolling (sScrollX) on a ".table-bordered"
                     //you may want to wrap the table inside a "div.dataTables_borderWrap" element
-
                     //"iDisplayLength": 50
-
-
-
                     select: {
                         style: 'multi'
                     }

@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers\Quiz;
 
-use DB;
-use Auth;
+use App\Http\Controllers\Controller;
 use App\Models\CourseShort;
+use App\Models\Courseshortstudent;
 use App\Models\Quiz\Answer;
-use Illuminate\Http\Request;
+use App\Models\Quiz\AverageScore;
 use App\Models\Quiz\Question;
-use App\Models\Quiz\UserAnswer;
+use App\Models\Quiz\QuestionQuiz;
 use App\Models\Quiz\QuizResults;
 use App\Models\Quiz\SubjectQuiz;
-use App\Models\Quiz\AverageScore;
-use App\Models\Quiz\QuestionQuiz;
-
-use App\Models\Courseshortstudent;
-use App\Http\Controllers\Controller;
+use App\Models\Quiz\UserAnswer;
+use App\Models\Subject;
+use Auth;
+use DB;
+use Illuminate\Http\Request;
 
 class QuizController extends Controller
 {
@@ -31,7 +31,6 @@ class QuizController extends Controller
     // DB::enableQueryLog();
     // $csStudent = Courseshortstudent::where('student_id',14)->get();
     // dd(DB::getQueryLog($csStudent));
-    // return $csStudent;
     $allQuiz= SubjectQuiz::whereNotIn('id',
                 QuizResults::where('user_id',Auth::user()->id)
                 ->pluck('subject_id'))
@@ -41,6 +40,44 @@ class QuizController extends Controller
                 ->pluck('subject_id'))
                 ->get();
     return view('ProjectActivities.quizs.mainquiz',compact('allQuiz','allQuizDone'));
+  }
+
+  public function preTest()
+  {
+    // DB::enableQueryLog();
+    // $csStudent = Courseshortstudent::where('student_id',14)->get();
+    // dd(DB::getQueryLog($csStudent));
+    $test_type = 1;
+    $allQuiz= SubjectQuiz::whereNotIn('id',
+                QuizResults::where('user_id',Auth::user()->id)
+                            ->where('test_type_id',1)
+                ->pluck('subject_id'))
+                ->get();
+    $allQuizDone= SubjectQuiz::WhereIn('id',
+                QuizResults::where('user_id',Auth::user()->id)
+                            ->where('test_type_id',1)
+                ->pluck('subject_id'))
+                ->get();
+    return view('ProjectActivities.quizs.mainquiz',compact('allQuiz','allQuizDone','test_type'));
+  }
+
+  public function postTest()
+  {
+    $test_type=2;
+    // DB::enableQueryLog();
+    // $csStudent = Courseshortstudent::where('student_id',14)->get();
+    // dd(DB::getQueryLog($csStudent));
+    $allQuiz= SubjectQuiz::whereNotIn('id',
+                QuizResults::where('user_id',Auth::user()->id)
+                            ->where('test_type_id',2)
+                ->pluck('subject_id'))
+                ->get();
+    $allQuizDone= SubjectQuiz::WhereIn('id',
+                QuizResults::where('user_id',Auth::user()->id)
+                            ->where('test_type_id',2)
+                ->pluck('subject_id'))
+                ->get();
+    return view('ProjectActivities.quizs.mainquiz',compact('allQuiz','allQuizDone','test_type'));
   }
 
   public function create()
@@ -119,18 +156,18 @@ class QuizController extends Controller
     return view('ProjectActivities.quizs.start', compact('quiz', 'questions'));
   }
 
-  public function takeQuiz($quiz)
+  public function takeQuiz(Request $request, $quiz, $test_type)
   {
     $sub = SubjectQuiz::where('slug',$quiz)->first();
     $duration = $sub->question_duration;
     $allQuestion = $sub->questions()->paginate(1);
     $totalQuestionCount = $sub->questions()->count();
-    // return view('quizs.appearQuiz',compact('sub','allQuestion'));
-    return view('ProjectActivities.quizs.start',compact('sub','allQuestion','duration','totalQuestionCount'));
+    return view('ProjectActivities.quizs.start',compact('sub','allQuestion','duration','totalQuestionCount','test_type'));
   }
 
   public function nextClickStore(request $request)
   {
+    $test_type = $request->test_type;
     $page = $request->input('page');
     $question_id = $request->input('question_id');
     $time_remaining = $request->input('queDuration');
@@ -151,6 +188,7 @@ class QuizController extends Controller
         $newQuizAppear->subject_id = $quizid;
         $newQuizAppear->user_name = $userName;
         $newQuizAppear->marks_scored = 0;
+        $newQuizAppear->test_type_id = $test_type;
         $newQuizAppear->save();
     }
     // $uniqueQuizQuery = \DB::table('quiz_results')->where('user_id', $userId)->orderBy('id','desc')->first();
@@ -162,12 +200,12 @@ class QuizController extends Controller
     $user_Answer_Id->userData_appear_id = $uniqueQuizAppearId;
     $user_Answer_Id->subject_id = $quizid;
     $user_Answer_Id->question_id = $question_id;
+    $user_Answer_Id->test_type_id = $test_type;
     if ($answer == null) {
-        $user_Answer_Id->user_answer_id = "Not Answered";
+      $user_Answer_Id->user_answer_id = "Not Answered";
     }else{
-        $user_Answer_Id->user_answer_id = $answer;
+      $user_Answer_Id->user_answer_id = $answer;
     }
-    // $findQuestion = \DB::table('answers')->where('question_id', $question_id)->first();
     $findQuestion = Answer::where('question_id',$question_id)->first();
     $correctAnsDb = $findQuestion->option_id;
     // $findDuration = \DB::table('subject_quizzes')->where('id',$quizid)->first();
@@ -188,11 +226,12 @@ class QuizController extends Controller
     }
     $user_Answer_Id->save();
     $page += 1;
-    return redirect('/quiz/takequiz/'.$quizslug.'?page='.$page);
+    return redirect('/quiz/takequiz/'.$quizslug.'/'.$test_type.'?page='.$page);
   }
 
   public function storeQuiz(Request $request)
   {
+    $test_type = $request->test_type;
     $question_id = $request->input('question_id');
     $time_remaining = $request->input('queDuration');
     $question_id = reset($question_id);
@@ -240,6 +279,7 @@ class QuizController extends Controller
     }else{
         $user_Answer_Id->correct = 0;
     }
+    $user_Answer_Id->test_type_id = $test_type;
     $user_Answer_Id->save();
     $marks_scored = $marks_scored;
     /**
@@ -262,16 +302,17 @@ class QuizController extends Controller
       $avgScore->subject_id = $quizid;
       $avgScore->avg_score = $avg_marks;
       $avgScore->appear_count = $quizAppearCount;
+      $avgScore->test_type_id = $test_type;
       $avgScore->save();
     }else{
         // $userFindQuery = \DB::table('average_scores')->where('user_id', $userId)->where('subject_id', $quizid)->select('avgid');
       $userFindQuery = AverageScore::where('user_id', $userId)->where('subject_id', $quizid)->select('avgid');
-        $getAvgidObj = $userFindQuery->get('avgid');
-        foreach ($getAvgidObj as $id){
-           $avgId = $id->avgid;
-       }
-       $updateAvgScore = ['avg_Score' => $avg_marks, 'appear_count' => $quizAppearCount];
-       AverageScore::where('avgid', $avgId)->update($updateAvgScore);
+      $getAvgidObj = $userFindQuery->get('avgid');
+      foreach ($getAvgidObj as $id){
+         $avgId = $id->avgid;
+     }
+     $updateAvgScore = ['avg_Score' => $avg_marks, 'appear_count' => $quizAppearCount];
+     AverageScore::where('avgid', $avgId)->update($updateAvgScore);
    }
    $sub = SubjectQuiz::where('id', $quizid)->first();
    $questionsCount = $sub->questions()->count();

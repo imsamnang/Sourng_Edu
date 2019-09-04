@@ -27,15 +27,21 @@ class EditValidation extends FormRequest
         return [
             'reg_no'                => 'required  | unique:staff,reg_no,'.$this->request->get('id'),
             'join_date'              => 'required',
-            'designation'              => 'required',
+            'designation'           => 'required',
             'first_name'            => 'required',
             'last_name'             => 'required',
             'date_of_birth'         => 'required',
+            'nationality'           => 'required',
+            'pob'                   => 'required',
             'gender'                => 'required',
-            'email'                 => 'required | unique:staff,email,'.$this->request->get('id'),
-            'qualification'         => 'required',
-            'mobile_1'              => 'required',
-            'main_image'           => 'mimes:jpeg,bmp,png',
+            'email'                 => 'required',
+            'qualification_id'      => 'required',
+            'general_education_id'  => 'required',
+            'institute_id'          => 'required',
+            'main_image'            => 'mimes:jpeg,bmp,png',
+            'province_id'           => 'required',
+            'district_id'           => 'required',
+            'commune_id'           => 'required',
         ];
 
     }

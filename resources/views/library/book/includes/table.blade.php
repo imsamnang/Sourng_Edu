@@ -23,7 +23,7 @@
 									<th>@lang('book_tbl_Available')</th>
 									<th>@lang('book_tbl_Issued')</th>
 									<th>@lang('book_tbl_Status')</th>
-									<th></th>
+									<th>Action</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -36,7 +36,6 @@
 															<input type="checkbox" name="chkIds[]" value="{{ $books->id }}" class="ace" />
 															<span class="lbl"></span>
 													</label>
-											</td>
 											</td>
 											<td>{{ $i }}</td>
 											<td>
@@ -52,16 +51,20 @@
 															</a>
 													@endif
 											</td>
-											<td><a href="{{ route($base_route.'.view', ['id' => $books->id]) }}">{{ $books->title }} </a></td>
+											<td>
+												<a href="{{ route($base_route.'.view', ['id' => $books->id]) }}">
+													{{ $books->title }}
+												</a>
+											</td>
 											<td>
 													<a href="{{ route('library.book') }}?author={{$books->author}}">
 															{{ $books->author }}
 													</a>
 											</td>
 											<td>
-													<a href="{{ route('library.book') }}?publisher={{$books->publisher}}">
-															{{ $books->publisher }}
-													</a>
+												<a href="{{ route('library.book') }}?publisher={{$books->publisher}}">
+													{{ $books->publisher }}
+												</a>
 											</td>
 											<td>{{ $books->bookCollection()->count() }} </td>
 											<td>{{ $books->bookCollection()->where('book_status','=',1)->count() }} </td>
@@ -119,9 +122,9 @@
 
 																		<li>
 																				<a href="{{ route($base_route.'.delete', ['id' => $books->id]) }}" class="tooltip-error bootbox-confirm" data-rel="tooltip" title="Delete">
-																										<span class="red ">
-																												<i class="ace-icon fa fa-trash-o bigger-120"></i>
-																										</span>
+																					<span class="red ">
+																							<i class="ace-icon fa fa-trash-o bigger-120"></i>
+																					</span>
 																				</a>
 																		</li>
 																</ul>
@@ -136,7 +139,7 @@
 								@endforeach
 							@else
 								<tr>
-									<td colspan="10">No {{ $panel }} data found.</td>
+									<td colspan="12">No {{ $panel }} data found.</td>
 									</td>
 								</tr>
 							@endif

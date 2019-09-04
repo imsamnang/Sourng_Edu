@@ -100,7 +100,7 @@
                     <b class="arrow"></b>
                 </li>
                 <li class="{!! request()->is('account/fees/head')?'active':'' !!}  hover">
-                    <a href="#">
+                    {{-- <a href="#"> --}}
                         <i class="menu-icon fa fa-caret-right"></i>
                         @lang('New Quiz')
                     </a>

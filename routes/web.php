@@ -1,9 +1,9 @@
 <?php
 
 //for switching language route
-Route::get('/locale/{locale}',function($locale){
-  Session::put('locale',$locale);
-  return redirect()->back();
+  Route::get('/locale/{locale}',function($locale){
+    Session::put('locale',$locale);
+    return redirect()->back();
 });
 
 //for language tranlation route
@@ -13,8 +13,7 @@ Route::get('/locale/{locale}',function($locale){
   Route::delete('translations/destroy/{key}', 'LanguageTranslationController@destroy')->name('translations.destroy');
   Route::post('translations/create', 'LanguageTranslationController@store')->name('translations.create');
   Route::get('check-translation', function(){
-    \App::setLocale('fr');
-    
+    \App::setLocale('fr');    
     dd(__('website'));
   });
 
@@ -23,7 +22,6 @@ Auth::routes();
 
 /*for Dashboard's*/
   Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
-
 /* Roles Routes */
     Route::get('role',                    ['as' => 'role',                  'middleware' => ['ability:super-admin,role-index'],         'uses' => 'RoleController@index']);
     Route::get('role/add',                ['as' => 'role.add',              'middleware' => ['ability:super-admin,role-add'],           'uses' => 'RoleController@create']);
@@ -32,10 +30,14 @@ Auth::routes();
     Route::post('role/{id}/update',       ['as' => 'role.update',           'middleware' => ['ability:super-admin,role-edit'],          'uses' => 'RoleController@update']);
     Route::get('role/{id}/view',          ['as' => 'role.view',             'middleware' => ['ability:super-admin,role-view'],          'uses' => 'RoleController@show']);
     Route::get('role/{id}/delete',        ['as' => 'role.delete',           'middleware' => ['ability:super-admin,role-delete'],        'uses' => 'RoleController@destroy']);
-// Permission Routes
-    Route::get('permission/add',['as' => 'permission.add',              'middleware' => ['ability:super-admin,role-add'],'uses' => 'PermissionController@create']);
-    Route::post('permission/store',['as' => 'permission.store',              'middleware' => ['ability:super-admin,role-add'],'uses' => 'PermissionController@store']);
 
+// Permission Routes
+    Route::get('permission',['as' => 'permission', 'middleware' => ['ability:super-admin,role-index'], 'uses' => 'PermissionController@index']);
+    Route::get('permission/add',['as' => 'permission.add',              'middleware' => ['ability:super-admin,permission-add'],'uses' => 'PermissionController@create']);
+    Route::post('permission/store',['as' => 'permission.store',              'middleware' => ['ability:super-admin,permission-add'],'uses' => 'PermissionController@store']);
+    Route::get('permission/{id}/edit',          ['as' => 'permission.edit',             'middleware' => ['ability:super-admin,permission-edit'],          'uses' => 'PermissionController@edit']);
+    Route::post('permission/{id}/update',       ['as' => 'permission.update',           'middleware' => ['ability:super-admin,permission-edit'],          'uses' => 'PermissionController@update']);
+    Route::get('permission/{id}/delete',        ['as' => 'permission.delete',           'middleware' => ['ability:super-admin,permission-delete'],        'uses' => 'PermissionController@destroy']);
 /* User Routes */
     Route::get('user',                    ['as' => 'user',                  'middleware' => ['ability:super-admin,user-index'],             'uses' => 'UserController@index']);
     Route::get('user/add',                ['as' => 'user.add',              'middleware' => ['ability:super-admin,user-add'],               'uses' => 'UserController@add']);
@@ -77,7 +79,7 @@ Auth::routes();
       Route::get('profile',                       ['as' => '.profile',            'uses' => 'HomeController@profile']);
       Route::post('{id}/password',                ['as' => '.password',           'uses' => 'HomeController@password']);
       Route::get('notice',                        ['as' => '.notice',             'uses' => 'HomeController@notice']);
-//guardian's student wise summary routes
+  //guardian's student wise summary routes
       Route::get('students',                      ['as' => '.students',               'uses' => 'HomeController@students']);
       Route::get('students/{id}/profile',         ['as' => '.students.profile',       'uses' => 'HomeController@studentProfile']);
       Route::get('students/{id}/fees',            ['as' => '.students.fees',          'uses' => 'HomeController@fees']);
@@ -117,9 +119,9 @@ Auth::routes();
       /*Assignment*/
       Route::get('assignment',                           ['as' => '.assignment',                   'middleware' => ['ability:super-admin,assignment-index'],               'uses' => 'HomeController@assignment']);
   });
-/*Students Grouping*/
-  Route::group(['prefix' => 'student/','as' => 'student','namespace' => 'Student\\'], function () {
 
+/*Students Grouping*/
+    Route::group(['prefix' => 'student/','as' => 'student','namespace' => 'Student\\'], function () {
       Route::get('',['as' => '','middleware' => ['ability:super-admin,student-index'],'uses' => 'StudentController@index']);
       Route::get('registration',              ['as' => '.registration',            'middleware' => ['ability:super-admin,student-registration'],           'uses' => 'StudentController@registration']);
       Route::post('register',                 ['as' => '.register',                'middleware' => ['ability:super-admin,student-register'],'uses' => 'StudentController@register']);
@@ -140,24 +142,24 @@ Auth::routes();
       Route::post('import',                     ['as' => '.bulk.import',        'middleware' => ['ability:super-admin,student-add'],             'uses' => 'StudentController@handleImportStudent']);
 
       /*Student transfer */
-      Route::get('transfer',                  ['as' => '.transfer',                  'middleware' => ['ability:super-admin,student-transfer'],      'uses' => 'StudentController@transfer']);
-      Route::post('transfering',              ['as' => '.transfering',               'middleware' => ['ability:super-admin,student-transfer'],      'uses' => 'StudentController@transfering']);
+        Route::get('transfer',                  ['as' => '.transfer',                  'middleware' => ['ability:super-admin,student-transfer'],      'uses' => 'StudentController@transfer']);
+        Route::post('transfering',              ['as' => '.transfering',               'middleware' => ['ability:super-admin,student-transfer'],      'uses' => 'StudentController@transfering']);
 
       /*Student login access*/
-      Route::post('user/create',             ['as' => '.user.create',                  'middleware' => ['ability:super-admin,user-add'],                    'uses' => 'StudentController@createUser']);
-      Route::post('{id}/user/update',        ['as' => '.user.update',                  'middleware' => ['ability:super-admin,user-edit'],                   'uses' => 'StudentController@updateUser']);
-      Route::get('{id}/user/active',         ['as' => '.user.active',                  'middleware' => ['ability:super-admin,user-active'],                 'uses' => 'StudentController@activeUser']);
-      Route::get('{id}/user/in-active',      ['as' => '.user.in-active',               'middleware' => ['ability:super-admin,user-in-active'],              'uses' => 'StudentController@inActiveUser']);
-      Route::get('{id}/user/delete',         ['as' => '.user.delete',                  'middleware' => ['ability:super-admin,user-delete'],                 'uses' => 'StudentController@deleteUser']);
+        Route::post('user/create',             ['as' => '.user.create',                  'middleware' => ['ability:super-admin,user-add'],                    'uses' => 'StudentController@createUser']);
+        Route::post('{id}/user/update',        ['as' => '.user.update',                  'middleware' => ['ability:super-admin,user-edit'],                   'uses' => 'StudentController@updateUser']);
+        Route::get('{id}/user/active',         ['as' => '.user.active',                  'middleware' => ['ability:super-admin,user-active'],                 'uses' => 'StudentController@activeUser']);
+        Route::get('{id}/user/in-active',      ['as' => '.user.in-active',               'middleware' => ['ability:super-admin,user-in-active'],              'uses' => 'StudentController@inActiveUser']);
+        Route::get('{id}/user/delete',         ['as' => '.user.delete',                  'middleware' => ['ability:super-admin,user-delete'],                 'uses' => 'StudentController@deleteUser']);
 
       /*Guardian login access*/
-      Route::post('guardian/user/create',             ['as' => '.guardian.user.create',                  'middleware' => ['ability:super-admin,user-add'],                    'uses' => 'StudentController@createUser']);
-      Route::post('guardian/{id}/user/update',        ['as' => '.guardian.user.update',                  'middleware' => ['ability:super-admin,user-edit'],                   'uses' => 'StudentController@updateUser']);
-      Route::get('guardian/{id}/user/active',         ['as' => '.guardian.user.active',                  'middleware' => ['ability:super-admin,user-active'],                 'uses' => 'StudentController@activeUser']);
-      Route::get('guardian/{id}/user/in-active',      ['as' => '.guardian.user.in-active',               'middleware' => ['ability:super-admin,user-in-active'],              'uses' => 'StudentController@inActiveUser']);
-      Route::get('guardian/{id}/user/delete',         ['as' => '.guardian.user.delete',                  'middleware' => ['ability:super-admin,user-delete'],                 'uses' => 'StudentController@deleteUser']);
+        Route::post('guardian/user/create',             ['as' => '.guardian.user.create',                  'middleware' => ['ability:super-admin,user-add'],                    'uses' => 'StudentController@createUser']);
+        Route::post('guardian/{id}/user/update',        ['as' => '.guardian.user.update',                  'middleware' => ['ability:super-admin,user-edit'],                   'uses' => 'StudentController@updateUser']);
+        Route::get('guardian/{id}/user/active',         ['as' => '.guardian.user.active',                  'middleware' => ['ability:super-admin,user-active'],                 'uses' => 'StudentController@activeUser']);
+        Route::get('guardian/{id}/user/in-active',      ['as' => '.guardian.user.in-active',               'middleware' => ['ability:super-admin,user-in-active'],              'uses' => 'StudentController@inActiveUser']);
+        Route::get('guardian/{id}/user/delete',         ['as' => '.guardian.user.delete',                  'middleware' => ['ability:super-admin,user-delete'],                 'uses' => 'StudentController@deleteUser']);
 
-      /*Student Document Upload*/
+    /*Student Document Upload*/
       Route::get('document',                      ['as' => '.document',                'middleware' => ['ability:super-admin,student-document-index'],      'uses' => 'DocumentController@index']);
       Route::post('document/store',               ['as' => '.document.store',          'middleware' => ['ability:super-admin,student-document-add'],      'uses' => 'DocumentController@store']);
       Route::get('document/{id}/edit',            ['as' => '.document.edit',           'middleware' => ['ability:super-admin,student-document-edit'],      'uses' => 'DocumentController@edit']);
@@ -166,8 +168,7 @@ Auth::routes();
       Route::get('document/{id}/active',          ['as' => '.document.active',         'middleware' => ['ability:super-admin,student-document-active'],      'uses' => 'DocumentController@Active']);
       Route::get('document/{id}/in-active',       ['as' => '.document.in-active',      'middleware' => ['ability:super-admin,student-document-in-active'],      'uses' => 'DocumentController@inActive']);
       Route::post('document/bulk-action',         ['as' => '.document.bulk-action',    'middleware' => ['ability:super-admin,student-document-bulk-action'],      'uses' => 'DocumentController@bulkAction']);
-
-      /*Student Notes Creating*/
+    /*Student Notes Creating*/
       Route::get('note',                          ['as' => '.note',                'middleware' => ['ability:super-admin,student-note-index'],      'uses' => 'NoteController@index']);
       Route::post('note/store',                   ['as' => '.note.store',          'middleware' => ['ability:super-admin,student-note-add'],      'uses' => 'NoteController@store']);
       Route::get('note/{id}/edit',                ['as' => '.note.edit',           'middleware' => ['ability:super-admin,student-note-edit'],      'uses' => 'NoteController@edit']);
@@ -177,9 +178,15 @@ Auth::routes();
       Route::get('note/{id}/in-active',           ['as' => '.note.in-active',      'middleware' => ['ability:super-admin,student-note-in-active'],      'uses' => 'NoteController@inActive']);
       Route::post('note/bulk-action',             ['as' => '.note.bulk-action',    'middleware' => ['ability:super-admin,student-note-bulk-action'],      'uses' => 'NoteController@bulkAction']);
   });
+
+// student download ducument route
+  Route::get('documents/student/{member_id}/{document_id}',['as' => 'student.document.download', 'middleware' => ['ability:super-admin,student-document-index'], 'uses' => 'Student\DocumentController@download']);
+// student download ducument route
+  Route::get('documents/staff/{member_id}/{document_id}',['as' => 'staff.document.download', 'middleware' => ['ability:super-admin,student-document-index'], 'uses' => 'Staff\DocumentController@download']);  
+
 /*Staff Grouping*/
   Route::group(['prefix' => 'staff/', 'as' => 'staff','namespace' => 'Staff\\'], function () {
-      /*Staff Routes*/
+    /*Staff Routes*/
       Route::get('',                          ['as' => '',                    'middleware' => ['ability:super-admin,staff-index'],        'uses' => 'StaffController@index']);
       Route::get('add',                       ['as' => '.add',                'middleware' => ['ability:super-admin|admin,staff-add'],          'uses' => 'StaffController@add']);
       Route::post('store',                    ['as' => '.store',              'middleware' => ['ability:super-admin|admin,staff-add'],          'uses' => 'StaffController@store']);
@@ -194,14 +201,14 @@ Auth::routes();
       Route::post('import',                     ['as' => '.bulk.import',        'middleware' => ['ability:super-admin,staff-add'],             'uses' => 'StaffController@handleImportStaff']);
 
 
-      /*Staff login access*/
+    /*Staff login access*/
       Route::post('user/create',             ['as' => '.user.create',                  'middleware' => ['ability:super-admin,user-add'],                    'uses' => 'StaffController@createUser']);
       Route::post('{id}/user/update',        ['as' => '.user.update',                  'middleware' => ['ability:super-admin,user-edit'],                   'uses' => 'StaffController@updateUser']);
       Route::get('{id}/user/active',         ['as' => '.user.active',                  'middleware' => ['ability:super-admin,user-active'],                 'uses' => 'StaffController@activeUser']);
       Route::get('{id}/user/in-active',      ['as' => '.user.in-active',               'middleware' => ['ability:super-admin,user-in-active'],              'uses' => 'StaffController@inActiveUser']);
       Route::get('{id}/user/delete',         ['as' => '.user.delete',                  'middleware' => ['ability:super-admin,user-delete'],                 'uses' => 'StaffController@deleteUser']);
 
-      /*Staff Document Upload*/
+    /*Staff Document Upload*/
       Route::get('document',                  ['as' => '.document',               'middleware' => ['ability:super-admin,staff-document-index'],       'uses' => 'DocumentController@index']);
       Route::post('document/store',           ['as' => '.document.store',         'middleware' => ['ability:super-admin,staff-document-add'],         'uses' => 'DocumentController@store']);
       Route::get('document/{id}/edit',        ['as' => '.document.edit',          'middleware' => ['ability:super-admin,staff-document-edit'],        'uses' => 'DocumentController@edit']);
@@ -231,8 +238,9 @@ Auth::routes();
       Route::get('designation/{id}/in-active',    ['as' => '.designation.in-active',      'middleware' => ['ability:super-admin,staff-designation-in-active'],    'uses' => 'DesignationController@inActive']);
       Route::post('designation/bulk-action',      ['as' => '.designation.bulk-action',    'middleware' => ['ability:super-admin,staff-designation-bulk-action'],  'uses' => 'DesignationController@bulkAction']);
   });
+
   /*Accounting Grouping*/
-  Route::group(['prefix' => 'account/',                                   'as' => 'account.',                                    'namespace' => 'Account\\'], function () {
+    Route::group(['prefix' => 'account/',                                   'as' => 'account.',                                    'namespace' => 'Account\\'], function () {
    /*Fees Group*/
       /*Balance Fees*/
       Route::get('fees/',                    ['as' => 'fees',                          'middleware' => ['ability:super-admin,fees-index'],            'uses' => 'Fees\FeesBaseController@index']);
@@ -335,6 +343,7 @@ Auth::routes();
       Route::get('transaction/{id}/in-active',     ['as' => 'transaction.in-active',        'middleware' => ['ability:super-admin,transaction-in-active'],            'uses' => 'Transaction\TransactionController@inActive']);
       Route::post('transaction/tr-html',           ['as' => 'transaction.tr-html',                                                                                    'uses' => 'Transaction\TransactionController@trHtmlRow']);
   });
+
 /*Library Grouping*/
   Route::group(['prefix' => 'library/',                                   'as' => 'library.',                                    'namespace' => 'Library\\'], function () {
       Route::get('',                          ['as' => '',                        'middleware' => ['ability:super-admin,library-index'],           'uses' => 'LibraryBaseController@index']);
@@ -903,7 +912,7 @@ Auth::routes();
       Route::get('/staff-add','Staff\StaffController@staffAdd')->name('staff-add');
       Route::post('/staff-save','Staff\StaffController@save')->name('staff-save');
 
-//========== Manage Dashboard =========== SENG Sourng
+  //========== Manage Dashboard =========== SENG Sourng
       Route::get('/project-book','ProjectActivities\BookController@index')->name('project-book');    
       Route::get('/admin-project','ProjectActivities\ProjectActivitiesController@admin_project')->name('admin-project');
       Route::get('/user-project','ProjectActivities\ProjectActivitiesController@user_project')->name('user-project');
@@ -959,28 +968,32 @@ Auth::routes();
     Route::post('longCourse_detail/updateFund','ProjectActivities\LongcourseController@Long_updateFund')->name('projects.longcoursedetail.updatefund');
     //=================View Long Course Detail==============Ratha
     Route::get('/longcourse/detail/{id}','ProjectActivities\LongcourseController@ViewLongCourseDetail')->name('projects.longcoursedetail');
- 
 });
 
 //Quiz Route
   Route::get('front','Quiz\QuizController@front')->name('front')->middleware('auth');
+  Route::get('pretest/start','Quiz\QuizController@preTest')->name('pretest')->middleware('auth');
+  Route::get('posttest/start','Quiz\QuizController@postTest')->name('posttest')->middleware('auth');
+  // Route::get('quiz/{userid}/start','Quiz\QuizController@front')->name('front')->middleware('auth');
   // Quiz Subject
     Route::group(['as'=>'quiz.','prefix'=>'quiz/','namespace'=>'Quiz','middleware' =>['auth']],function (){
-      Route::get('/subject', ['middleware' => ['role:admin-project|teacher-project','permission:project-quiz'], 'uses' => 'QuizController@index'])->name('subject.index');
-      // Route::get('subject','QuizController@index')->name('subject.index');
+      // Route::get('/subject', ['middleware' => ['role:admin-project|teacher-project','permission:project-quiz'], 'uses' => 'QuizController@index'])->name('subject.index');
+      Route::get('subject','QuizController@index')->name('subject.index');
       Route::get('subject/create','QuizController@create')->name('subject.create');
       Route::post('subject/save','QuizController@store')->name('subject.store');
       Route::get('subject/{quiz}/show','QuizController@show')->name('subject.show');
       Route::delete('subject/{quiz}/delete', 'QuizController@destroy')->name('subject.destroy');
 
-      Route::get('takequiz/{quiz}', 'QuizController@takeQuiz')->name('start.quiz');
+      Route::get('takequiz/{quiz}/{test_type}', 'QuizController@takeQuiz')->name('start.quiz');
       Route::post('nextclick', 'QuizController@nextClickStore')->name('next.quiz');
       Route::post('finishQuiz', 'QuizController@storeQuiz')->name('finish.quiz');
-      
+
+  // QuizResults
       Route::get('/userResults', 'UserController@showAppearedQuiz')->name('user.result');
       Route::get('/viewSigleResult/{quizappearid}', 'UserController@singleResult')->name('single.result');
       Route::get('/quizLeaderboard/{quiz}', 'UserController@viewLeaderboard')->name('leaderboard');
     });
+
   // Quiz Questions
     Route::group(['as'=>'quiz.','prefix'=>'quiz/','namespace'=>'Quiz','middleware' =>['auth']],function (){
       Route::get('{question}/question/create','QuestionsController@create')->name('question.create');
@@ -989,10 +1002,13 @@ Auth::routes();
       Route::get('{subject}/{question}/show','QuestionsController@show')->name('question.show');
       Route::post('{question}/question/update','QuestionsController@update')->name('question.update');
       Route::get('question/{question}/destroy','QuestionsController@destroy')->name('question.destroy');
+
   // Quiz Answers
     Route::post('answer/{question}/save','QuestionsController@saveAnswer')->name('answer.store');    
   });
 
+    Route::get('teacher/register','Teacher\TeacherController@create')->name('teacher.register');
+    Route::post('teacher/register','Teacher\TeacherController@store')->name('teacher.store');
   // Export data to Excel
 	  Route::get('/export_excel', 'ExportExcelController@index');
 	  Route::get('/export_excel/excel', 'ExportExcelController@excel')->name('export_excel.excel');
@@ -1000,21 +1016,19 @@ Auth::routes();
 	  Route::get('/export', 'ExportExcelController@export')->name('export');
 	  Route::get('/export2', 'ExportExcelController@excel')->name('export2');
 
-
-
-    // For Image 
+  // For Image 
     Route::get('/image','ZimageController@index');
     Route::post('/image/upload','ZimageController@store');
     Route::post('/image/rotate/{id}','ZimageController@rotate');
     Route::post('/image/delete/{id}','ZimageController@delete');
     Route::post('/image/save','ZimageController@save');
 
-    //For QR 
+  //For QR 
     Route::get('/qr','ZqrController@index');
     Route::get('/qr/code/{code}','ZqrController@code');
     Route::post('/qr/code','ZqrController@code');
 
-    // For Card
+  // For Card
     Route::get('/card','ZcardController@index');
     Route::post('/card/result','ZcardController@result');
     Route::get('/card/result','ZcardController@result');

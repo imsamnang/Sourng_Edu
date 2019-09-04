@@ -16,4 +16,9 @@ class Document extends BaseModel
 	->orWhere('description', 'like', '%' .$s. '%');
 	}
 
+	public function student()
+	{
+		return $this->belongsTo(Student::class,'member_id','id');
+	}
+
 }

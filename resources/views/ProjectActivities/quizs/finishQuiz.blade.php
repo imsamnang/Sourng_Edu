@@ -98,7 +98,7 @@
                   <td colspan="5">
                     <h2 class="text-center">Thank You!</h2>
                     <center>                      
-                      <a href="{{ route('front') }}" class="btn btn-success">Take More Quiz</a>
+                      <a href="{{ route('user-student') }}" class="btn btn-success">Take More Quiz</a>
                     </center>
                   </td>
                 </tr>

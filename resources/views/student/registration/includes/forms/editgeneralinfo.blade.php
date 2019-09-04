@@ -230,7 +230,7 @@
 
         <label class="control-label col-xs-12 col-sm-1 control-label">{{ __('shortcoure_District') }}</label>
         <div class="col-sm-3">
-            <select style="width: 100%" name="district_id" id="district" required="" disabled>
+            <select style="width: 100%" name="district_id" id="district" required="">
             @if($flag=='kh')
             {
             <option value="0">ជ្រើសខាងក្រោម៖ </option>
@@ -241,11 +241,25 @@
             <option value="0">Please Choose</option>
             }
             @endif
+            @foreach($district as $district)
+            {
+                @if($flag=='kh')
+                {
+                <option {{ $district->id }}>{{ $district->name_kh }}</option>
+                }
+                @endif
+                @if($flag=='en')
+                {
+                <option {{ $district->id }}>{{ $district->name_en }}</option>
+                }
+                @endif
+            }
+            @endforeach
             </select>
         </div>
         <label class="control-label col-xs-12 col-sm-1 control-label">{{ __('shortcoure_Commune') }}</label>
         <div class="col-sm-3">
-            <select style="width: 100%" name="commune_id" id="commune" required="" disabled>
+            <select style="width: 100%" name="commune_id" id="commune" required="">
             @if($flag=='kh')
             {
             <option value="0">ជ្រើសខាងក្រោម៖ </option>
@@ -256,6 +270,20 @@
             <option value="0">Please Choose</option>
             }
             @endif
+            @foreach($commune as $commune)
+            {
+                @if($flag=='kh')
+                {
+                <option {{ $commune->id }}>{{ $commune->name_kh }}</option>
+                }
+                @endif
+                @if($flag=='en')
+                {
+                <option {{ $commune->id }}>{{ $commune->name_en }}</option>
+                }
+                @endif
+            }
+            @endforeach
             </select>
         </div>  
 </div>
@@ -283,7 +311,7 @@
     {!! Form::label('address', __('stu_Address'), ['class' => 'col-sm-1 control-label']) !!}
     <div class="col-sm-11">
         {!! Form::text('address', null, ["placeholder"=>'ភូមិ គោករុន ឃុំមុខប៉ែន ស្រុកពួក ខេត្តសៀមរាប',"class" => "form-control border-form upper","required"]) !!}
-        @include('includes.form_fields_validation_message', ['name' => 'address'])
+        @include('includes.form_fields_validation_message', ['name' => 'temp_address'])
     </div>           
 </div>
 {{-- End temporary Address --}}

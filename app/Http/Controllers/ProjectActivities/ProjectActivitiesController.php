@@ -78,8 +78,9 @@ class ProjectActivitiesController extends Controller
                       ->groupBy('course_long_id')
                       ->get();    
          $data['users']= User::all();
+         $userid= auth()->user()->id;
         if(Auth::check()) {
-            return view('ProjectActivities.dashboard.project-dashboard',compact('data'));
+            return view('ProjectActivities.dashboard.project-dashboard',compact('data','userid'));
         }else{
             return redirect()->route('projects');
         }

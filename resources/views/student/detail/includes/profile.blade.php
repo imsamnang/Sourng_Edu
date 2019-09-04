@@ -17,7 +17,15 @@
             </span>
 
             <div class="space-4"></div>
-            {{--<div class="width-80 label label-info label-xlg arrowed-in arrowed-in-right">
+
+            <div class="col-xs-8">
+                <img src="data:image/png;base64,{{$data['QRCODE']}}" title="Download this QR code">
+                {{-- <span>Download this QR code.</span> --}}
+            </div>
+
+
+            {{--
+                <div class="width-80 label label-info label-xlg arrowed-in arrowed-in-right">
                 <div class="inline position-relative">
                     <a href="#" class="user-title-label dropdown-toggle" data-toggle="dropdown">
                         <i class="ace-icon fa fa-circle light-green"></i>
@@ -53,9 +61,15 @@
                         </li>
                     </ul>
                 </div>
-            </div>--}}
+            </div>
+            
+            --}}
 
         </div>
+        <div class="col-xs-12">
+            <span class="hidden-print">See<a href="{{url('/qr')}}">QR Code Reader.</a></span>
+        </div>
+
     </div>
     <div class="col-xs-12 col-sm-9 col-print-9">
         {{--<div class="center">
@@ -382,9 +396,10 @@
     </div>
 </div>
 
-<div class="row hidden-print">
+{{-- <div class="row hidden-print"> --}}
+<div class="row">
     <div class="space-8"></div>
-    <div class="col-xs-12 col-sm-3 center">
+    <div class="col-xs-3 col-sm-3 center">
         <div>
             <div class="width-80 label label-info label-xlg arrowed-in arrowed-in-right">
                 <div class="inline position-relative">
@@ -406,7 +421,7 @@
     </div>
 
 
-    <div class="col-xs-12 col-sm-3 center">
+    <div class="col-xs-3 col-sm-3 center">
         <div>
             <div class="width-80 label label-info label-xlg arrowed-in arrowed-in-right">
                 <div class="inline position-relative">
@@ -428,7 +443,7 @@
     </div>
 
 
-    <div class="col-xs-12 col-sm-3 center">
+    <div class="col-xs-3 col-sm-3 center">
         <div>
             <div class="width-80 label label-info label-xlg arrowed-in arrowed-in-right">
                 <div class="inline position-relative">

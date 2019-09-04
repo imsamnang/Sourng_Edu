@@ -224,7 +224,7 @@
         
         <div class="profile-info-name"> @lang('staff_frm_reg_Qualification')   </div>
         <div class="profile-info-value">
-          <span class="editable" id="temporary_place">{{ $data['teacer_exam']  }}</span>
+          <span class="editable" id="temporary_place">{{ $data['teacher_exam']  }}</span>
         </div>
 
         <div class="profile-info-name"> ជាប់តេស្តសមត្ថភាព</div>
