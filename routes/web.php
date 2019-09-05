@@ -1033,10 +1033,16 @@ Auth::routes();
     Route::post('/card/result','ZcardController@result');
     Route::get('/card/result','ZcardController@result');
 
+
+  // For Card
+  Route::get('/menu','MenuController@index');  
+  Route::post('/menu/save_menu','MenuController@save_menu');  
+  Route::post('/menu/save','MenuController@save');  
+  Route::post('/menu/delete','MenuController@delete');  
+    
   // Login Logout Activities
 //   Route::group(['namespace' => 'LoginActivity\Http\Controllers', 'middleware' => ['web', 'auth']], function() {
 //     Route::get('login-activity', 'LoginActivityController@index');
 // });
 
 // Route::get('login-activity', 'LoginActivityController@index');
-
