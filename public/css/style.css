@@ -90,7 +90,6 @@ p {
 
 .dd-handle {
   display: block;
-  height: 30px;
   margin: 5px 0;
   padding: 5px 10px;
   color: #333;
@@ -275,9 +274,9 @@ p {
 
 .dd3-content {
   display: block;
-  height: 30px;
+  height: 40px;
   margin: 5px 0;
-  padding: 5px 10px 5px 40px;
+  padding: 5px;
   color: #333;
   text-decoration: none;
   font-weight: bold;

@@ -15,19 +15,26 @@ class MenuController extends Controller
 
             $thisRef = &$ref[$data->id];
             $thisRef['parent'] = $data->parent;
-            $thisRef['label'] = $data->label;
-            $thisRef['link'] = $data->link;
+            $thisRef['text'] = $data->text;
+            $thisRef['title'] = $data->title;
+            $thisRef['href'] = $data->href;
+            $thisRef['icon'] = $data->icon;
+            $thisRef['target'] = $data->target;
             $thisRef['id'] = $data->id;
 
             if ($data->parent == 0) {
                 $items[$data->id] = &$thisRef;
             } else {
-                $ref[$data->parent]['child'][$data->id] = &$thisRef;
+                $ref[$data->parent]['children'][$data->id] = &$thisRef;
             }
         }
+       // $menu = $items;   
 
-        $menu = $items;
-
+        $toArray = [];
+        foreach ($items as $key => $value) {
+            $toArray [] = $value;
+        }
+        $menu = $toArray;   
         return  view("z-menu", compact('menu'));
     }
     public function save_menu()
@@ -35,8 +42,11 @@ class MenuController extends Controller
         if (request()->get("id")) {
 
             DB::table('tbl_menu')->where("id", request()->get("id"))->update([
-                "label"    => request()->get("label"),
-                "link"    => request()->get("link"),
+                "icon"    => request()->get("icon"),
+                "text"    => request()->get("text"),
+                "href"    => request()->get("href"),
+                "target"    => request()->get("target"),
+                "title"    => request()->get("title"),
             ]);
 
             $response = array(
@@ -46,14 +56,17 @@ class MenuController extends Controller
             );
         } else {
             $id =  DB::table('tbl_menu')->insertGetId([
-                "label"    => request()->get("label"),
-                "link"    => request()->get("link"),
+                "icon"    => request()->get("icon"),
+                "text"    => request()->get("text"),
+                "href"    => request()->get("href"),
+                "target"    => request()->get("target"),
+                "title"    => request()->get("title"),
             ]);
 
 
             $data["id"] = $id;
-            $data["label"] =  request()->get("label");
-            $data["link"] =  request()->get("link");
+            $data["text"] =  request()->get("text");
+            $data["href"] =  request()->get("href");
             $response = array(
                 "success" => true,
                 "data" =>  $data,
@@ -65,14 +78,29 @@ class MenuController extends Controller
         return $response;
     }
     public function save()
-    {
-        $data = json_decode(request()->get('data'));
+    {   
+      
+
+        $json = request()->get("data");
+        $data = json_decode($json);     
+
+        $response = array(
+            "success" => false,
+            "data" => $data,
+            "message" =>  "data are same before.",
+            "type" => "save",
+        );        
+
+
+
+
         function parseJsonArray($jsonArray, $parentID = 0)
         {
 
             $return = array();
             foreach ($jsonArray as $subArray) {
                 $returnSubSubArray = array();
+             
                 if (isset($subArray->children)) {
                     $returnSubSubArray = parseJsonArray($subArray->children, $subArray->id);
                 }
@@ -83,16 +111,26 @@ class MenuController extends Controller
             return $return;
         }
 
-        $readbleArray = parseJsonArray($data);
-
+        $readbleArray = parseJsonArray($data);      
         $i = 0;
         foreach ($readbleArray as $row) {
             $i++;
-            DB::table('tbl_menu')->where("id", $row['id'])->update([
+            $update =  DB::table('tbl_menu')->where("id", $row['id'])->update([
                 "parent"    => $row['parentID'],
                 "sort"    => $i,
             ]);
+
+            if($update){
+                $response = array(
+                    "success" => true,
+                    "data" => $data,
+                    "message" =>  "save successfully",
+                    "type" => "save",
+                );
+            }
         }
+
+        return $response;
     }
     public function delete()
     {
@@ -100,17 +138,24 @@ class MenuController extends Controller
         function recursiveDelete($id)
         {        
 
-            $query = DB::table('tbl_menu')->where('parent', $id)->get()->toArray();
+            $query = DB::table('tbl_menu')->where('parent', $id)->get();
          
             if ($query) {
-                foreach ($query as $row) {
-                    recursiveDelete($row['id']);
+                foreach ($query as $row) {                 
+                    recursiveDelete($row->id);
                 }
                
             }
-            DB::table('tbl_menu')->where('id', $id)->delete();         
+            DB::table('tbl_menu')->where('id', $id)->delete();  
+            
+            
+            return array(
+                "success" => true,
+                "message" =>  "delete successfully",
+                "type" => "delete",
+        );
         }
 
-        recursiveDelete(request()->get("id"));
+       return recursiveDelete(request()->get("id"));
     }
 }

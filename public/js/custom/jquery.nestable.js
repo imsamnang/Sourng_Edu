@@ -38,8 +38,8 @@
             placeClass      : 'dd-placeholder',
             noDragClass     : 'dd-nodrag',
             emptyClass      : 'dd-empty',
-            expandBtnHTML   : '<button data-action="expand" type="button">Expand</button>',
-            collapseBtnHTML : '<button data-action="collapse" type="button">Collapse</button>',
+            expandBtnHTML   : '<button class="btn btn-success" data-action="expand" type="button"><i class="fa fa-plus"></i></button>',
+            collapseBtnHTML : '<button class="btn btn-success" data-action="collapse" type="button"><i class="fa fa-minus"></i></button>',
             group           : 0,
             maxDepth        : 10,
             threshold       : 20
@@ -69,20 +69,23 @@
                 list.setParent($(el));
             });
 
-            list.el.on('click', 'button', function(e) {
-                if (list.dragEl) {
-                    return;
-                }
-                var target = $(e.currentTarget),
-                    action = target.data('action'),
-                    item   = target.parent(list.options.itemNodeName);
-                if (action === 'collapse') {
-                    list.collapseItem(item);
-                }
-                if (action === 'expand') {
-                    list.expandItem(item);
-                }
-            });
+            // list.el.on('click', 'button', function(e) {
+            //     alert();
+            //     e.preventDefault()              
+            //     var target = $(e.currentTarget),
+            //         action = target.data('action'),
+            //         item   = target.parent(list.options.itemNodeName);
+            //     if (action === 'collapse') {
+            //         list.collapseItem(item);
+            //     }
+            //     if (action === 'expand') {
+            //         list.expandItem(item);
+            //     }
+
+            //       if (list.dragEl) {
+            //         return;
+            //     }
+            // });
 
             var onStartEvent = function(e)
             {
