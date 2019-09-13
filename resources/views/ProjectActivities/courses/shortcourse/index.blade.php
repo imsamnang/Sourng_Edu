@@ -1,5 +1,3 @@
-
-
 @extends('ProjectActivities.layout.master')
 
 @push('custom-css')

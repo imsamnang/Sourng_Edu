@@ -23,7 +23,7 @@ class QuizController extends Controller
   {
     // $generalSetting = GeneralSetting::findOrFail(1)->first();
     $allQuiz = SubjectQuiz::all();
-    return view('ProjectActivities.quizs.subject.index',compact('allQuiz','coundSubQuiz'));
+    return view('ProjectActivities.quizs.subject.index',compact('allQuiz'));
   }
 
   public function front()
