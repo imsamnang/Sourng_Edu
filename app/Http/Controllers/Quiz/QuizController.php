@@ -31,15 +31,7 @@ class QuizController extends Controller
     // DB::enableQueryLog();
     // $csStudent = Courseshortstudent::where('student_id',14)->get();
     // dd(DB::getQueryLog($csStudent));
-    $allQuiz= SubjectQuiz::whereNotIn('id',
-                QuizResults::where('user_id',Auth::user()->id)
-                ->pluck('subject_id'))
-                ->get();
-    $allQuizDone= SubjectQuiz::WhereIn('id',
-                QuizResults::where('user_id',Auth::user()->id)
-                ->pluck('subject_id'))
-                ->get();
-    return view('ProjectActivities.quizs.mainquiz',compact('allQuiz','allQuizDone'));
+    return view('ProjectActivities.quizs.test_type');
   }
 
   public function preTest()
