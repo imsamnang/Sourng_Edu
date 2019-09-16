@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Quiz;
 
 use App\Http\Controllers\Controller;
@@ -11,34 +10,53 @@ use DB;
 
 class UserController extends Controller
 {
-    protected $limit = 9;
+  protected $limit = 9;
 
-    public function showAppearedQuiz(Request $request)
-    {
-        $userId  = Auth::user()->id;
-        // DB::enableQueryLog();
-        $userQuizs = QuizResults::with('subject','user')
-                                ->where('user_id',$userId)
-                                ->paginate($this->limit);   
-        // dd(DB::getQueryLog());
-        return view('ProjectActivities.students.dashboard',compact('userQuizs'));
-    }
+  public function showAppearedQuiz(Request $request)
+  {
+    $userId  = Auth::user()->id;
+    // DB::enableQueryLog();                         
+    $userQuizs_Pretest = QuizResults::with('subject','user')
+                            ->where('user_id',$userId)
+                            ->where('test_type_id',1)
+                            ->paginate($this->limit);
+    $userQuizs_Posttest = QuizResults::with('subject','user')
+                            ->where('user_id',$userId)
+                            ->where('test_type_id',2)
+                            ->paginate($this->limit);
+    // dd(DB::getQueryLog());
+    return view('ProjectActivities.students.dashboard',compact('userQuizs_Pretest','userQuizs_Posttest'));
+  }
 
-    public function singleResult(Request $request, $QuizResultsId)
-    {
-      // DB::enableQueryLog();
-      $allUserAnswer = UserAnswer::with('option','question','answer')
-                                  ->where('userData_appear_id',$QuizResultsId)
-                                  ->get();
-      // dd(DB::getQueryLog());                                  
-      $subjectName = UserAnswer::with('subject')
+  public function singleResult(Request $request, $QuizResultsId)
+  {
+    // DB::enableQueryLog();
+    $allUserAnswer = UserAnswer::with('option','question','answer')
                                 ->where('subject_id',$QuizResultsId)
-                                ->first();
-      //for chart************
-      $countTrue = \DB::table('user_answers')->where('userData_appear_id' , $QuizResultsId)->where('correct' , 1)->count();
-      $countFalse = \DB::table('user_answers')->where('userData_appear_id' , $QuizResultsId)->where('correct' , 0)->count();
-      $totalQuestion = $countTrue + $countFalse;
-      return view('ProjectActivities.students.viewSingleResult',compact('countTrue','countFalse','totalQuestion','allUserAnswer','subjectName'));
+                                ->get();
+    // dd(DB::getQueryLog());                                  
+    $subjectName = UserAnswer::with('subject')
+                              ->where('subject_id',$QuizResultsId)
+                              ->first();
+    //for chart************
+    $countTrue = \DB::table('user_answers')->where('userData_appear_id' , $QuizResultsId)->where('correct' , 1)->count();
+    $countFalse = \DB::table('user_answers')->where('userData_appear_id' , $QuizResultsId)->where('correct' , 0)->count();
+    $totalQuestion = $countTrue + $countFalse;
+    return view('ProjectActivities.students.viewSingleResult',compact('countTrue','countFalse','totalQuestion','allUserAnswer','subjectName'));
+  }
+
+  public function viewAllResult(Request $request,$test_type_id)
+  {
+    $allAnswer_Pretest = UserAnswer::with('option','question','answer')
+                                ->where('test_type_id',$test_type_id)
+                                ->get();
+    $allAnswer_Posttest = UserAnswer::with('option','question','answer')
+                                ->where('test_type_id',$test_type_id)
+                                ->get();
+    // $countTrue = \DB::table('user_answers')->where('userData_appear_id' , $QuizResultsId)->where('correct' , 1)->count();
+    // $countFalse = \DB::table('user_answers')->where('userData_appear_id' , $QuizResultsId)->where('correct' , 0)->count();
+    // $totalQuestion = $countTrue + $countFalse;                                
+    return view('ProjectActivities.students.viewAllResult',compact('allAnswer_Pretest','allAnswer_Posttest'));                                
   }
 
   public function viewLeaderboard(Request $request, Quiz $quiz)

@@ -882,7 +882,7 @@ Auth::routes();
     Route::get('get-district-list','ProjectActivities\ProvinceDistrictCommnueController@getDistrictList');
     Route::get('get-commune-list','ProjectActivities\ProvinceDistrictCommnueController@getCommuneList');
     Route::get('get-district-list-kh','ProjectActivities\ProvinceDistrictCommnueController@getDistrictListKh');
-    Route::get('get-commune-list-kh','ProjectActivities\ProvinceDistrictCommnueController@getCommuneListKh');    
+    Route::get('get-commune-list-kh','ProjectActivities\ProvinceDistrictCommnueController@getCommuneListKh'); 
 
     Route::prefix('projects')->group(function(){
       Route::get('/','ProjectActivities\ProjectActivitiesController@index')->name('projects');
@@ -991,6 +991,7 @@ Auth::routes();
   // QuizResults
       Route::get('/userResults', 'UserController@showAppearedQuiz')->name('user.result');
       Route::get('/viewSigleResult/{quizappearid}', 'UserController@singleResult')->name('single.result');
+      Route::get('/viewAllResult/{test_type_id}', 'UserController@viewAllResult')->name('allresult');      
       Route::get('/quizLeaderboard/{quiz}', 'UserController@viewLeaderboard')->name('leaderboard');
     });
 
@@ -1004,8 +1005,8 @@ Auth::routes();
       Route::get('question/{question}/destroy','QuestionsController@destroy')->name('question.destroy');
 
   // Quiz Answers
-    Route::post('answer/{question}/save','QuestionsController@saveAnswer')->name('answer.store');    
-  });
+      Route::post('answer/{question}/save','QuestionsController@saveAnswer')->name('answer.store');    
+    });
 
     Route::get('teacher/register','Teacher\TeacherController@create')->name('teacher.register');
     Route::post('teacher/register','Teacher\TeacherController@store')->name('teacher.store');
@@ -1035,10 +1036,10 @@ Auth::routes();
 
 
   // For Card
-  Route::get('/menu','MenuController@index');  
-  Route::post('/menu/save_menu','MenuController@save_menu');  
-  Route::post('/menu/save','MenuController@save');  
-  Route::post('/menu/delete','MenuController@delete');  
+    Route::get('/menu','MenuController@index');  
+    Route::post('/menu/save_menu','MenuController@save_menu');  
+    Route::post('/menu/save','MenuController@save');  
+    Route::post('/menu/delete','MenuController@delete');  
     
   // Login Logout Activities
 //   Route::group(['namespace' => 'LoginActivity\Http\Controllers', 'middleware' => ['web', 'auth']], function() {
