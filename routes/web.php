@@ -974,10 +974,9 @@ Auth::routes();
   Route::get('front','Quiz\QuizController@front')->name('front')->middleware('auth');
   Route::get('pretest/start','Quiz\QuizController@preTest')->name('pretest')->middleware('auth');
   Route::get('posttest/start','Quiz\QuizController@postTest')->name('posttest')->middleware('auth');
-  // Route::get('quiz/{userid}/start','Quiz\QuizController@front')->name('front')->middleware('auth');
+  
   // Quiz Subject
     Route::group(['as'=>'quiz.','prefix'=>'quiz/','namespace'=>'Quiz','middleware' =>['auth']],function (){
-      // Route::get('/subject', ['middleware' => ['role:admin-project|teacher-project','permission:project-quiz'], 'uses' => 'QuizController@index'])->name('subject.index');
       Route::get('subject','QuizController@index')->name('subject.index');
       Route::get('subject/create','QuizController@create')->name('subject.create');
       Route::post('subject/save','QuizController@store')->name('subject.store');
@@ -990,8 +989,9 @@ Auth::routes();
 
   // QuizResults
       Route::get('/userResults', 'UserController@showAppearedQuiz')->name('user.result');
-      Route::get('/viewSigleResult/{quizappearid}', 'UserController@singleResult')->name('single.result');
-      Route::get('/viewAllResult/{test_type_id}', 'UserController@viewAllResult')->name('allresult');      
+      // Route::get('/viewSigleResult/{quizappearid}', 'UserController@singleResult')->name('single.result');
+      Route::get('/viewSigleResult/{quizappearid}', 'UserController@show')->name('single.result');      
+      Route::get('/viewAllResult/{test_type_id}', 'UserController@viewAllResult')->name('allresult');
       Route::get('/quizLeaderboard/{quiz}', 'UserController@viewLeaderboard')->name('leaderboard');
     });
 
@@ -1005,7 +1005,7 @@ Auth::routes();
       Route::get('question/{question}/destroy','QuestionsController@destroy')->name('question.destroy');
 
   // Quiz Answers
-      Route::post('answer/{question}/save','QuestionsController@saveAnswer')->name('answer.store');    
+      Route::post('answer/{question}/save','QuestionsController@saveAnswer')->name('answer.store');
     });
 
     Route::get('teacher/register','Teacher\TeacherController@create')->name('teacher.register');

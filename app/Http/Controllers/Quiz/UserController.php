@@ -45,18 +45,27 @@ class UserController extends Controller
     return view('ProjectActivities.students.viewSingleResult',compact('countTrue','countFalse','totalQuestion','allUserAnswer','subjectName'));
   }
 
+  public function show($id)
+  {
+    $test = QuizResults::find($id)->load('user');
+    // return $test;
+    if ($test) {
+      $results = UserAnswer::where('userData_appear_id', $id)
+          ->with('question')
+          ->with('question.options')
+          ->with('answer')
+          ->get();
+    }
+    // return $results; 
+    return view('ProjectActivities.quizs.result.show', compact('test', 'results'));
+  }
   public function viewAllResult(Request $request,$test_type_id)
   {
-    $allAnswer_Pretest = UserAnswer::with('option','question','answer')
-                                ->where('test_type_id',$test_type_id)
-                                ->get();
-    $allAnswer_Posttest = UserAnswer::with('option','question','answer')
-                                ->where('test_type_id',$test_type_id)
-                                ->get();
+    $allResults= QuizResults::where('test_type_id',$test_type_id)->get();
     // $countTrue = \DB::table('user_answers')->where('userData_appear_id' , $QuizResultsId)->where('correct' , 1)->count();
     // $countFalse = \DB::table('user_answers')->where('userData_appear_id' , $QuizResultsId)->where('correct' , 0)->count();
     // $totalQuestion = $countTrue + $countFalse;                                
-    return view('ProjectActivities.students.viewAllResult',compact('allAnswer_Pretest','allAnswer_Posttest'));                                
+    return view('ProjectActivities.students.viewAllResult',compact('allResults'));                                
   }
 
   public function viewLeaderboard(Request $request, Quiz $quiz)

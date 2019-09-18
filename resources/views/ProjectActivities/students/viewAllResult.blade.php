@@ -24,16 +24,15 @@
                       <input type="checkbox" class="ace" />
                       <span class="lbl"></span>
                     </label>
-                  </th>                  
-                  <th>Quiz Title</th>
-                  <th>Correct Answer</th>
-                  <th>My Answer</th>
-                  <th>Mark</th>
-                  <th>Total Mask</th>
+                  </th>
+                  <th>No.</th>
+                  <th>Date</th>
+                  <th>Result</th>
+                  <th>Action</th>
                 </thead>
                 <tbody>
-                  @if($allAnswer_Pretest)
-                    @foreach($allAnswer_Pretest as $quiz)
+                  @if($allResults)
+                    @foreach($allResults as $quiz)
                       <tr>
                         <td class="center first-child">
                           <label>
@@ -41,21 +40,14 @@
                             <span class="lbl"></span>
                           </label>
                         </td>                        
-                        <td>{{ $quiz->question->title }}</td>
-                        <td>{{ $quiz->answer->option->title }}</td>
-                        <td>{{ $quiz->option->title }}</td>
-                        <td>{{ $quiz->subject->per_q_mark }}</td>
-                        {{-- <td>{{ $totalQuestion }}</td> --}}
+                        <td>{{$quiz->id}}</td>
+                        <td>{{$quiz->created_at->format('d/m/Y')}}</td>
+                        <td>{{$quiz->marks_scored}}</td>
+                        <td>
+                          <a href="{{route('quiz.single.result',$quiz->id)}}" class="btn btn-success btn-xs">View</a>
+                        </td>
                       </tr>
                     @endforeach
-                    <tr>
-                      <td>Total Correct</td>
-                      {{-- <td>{{ $countTrue }}</td> --}}
-                      <td>Total Incorrect</td>
-                      {{-- <td>{{ $countFalse }}</td> --}}
-                      <td>Total Score = </td>
-                      {{-- <td>{{ $countTrue }}</td> --}}
-                    </tr>
                   @else
                     <tr>
                       <td colspan="3">You have no available quizzes.</td>

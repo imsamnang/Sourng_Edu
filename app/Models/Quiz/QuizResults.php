@@ -10,7 +10,8 @@ class QuizResults extends Model
 {
   protected $table = 'quiz_results';
   protected $guarded = [];
-  public $timestamps = false;
+  // public $timestamps = false;
+  protected $dates = ['created_at'];
 
   public function user()
   {

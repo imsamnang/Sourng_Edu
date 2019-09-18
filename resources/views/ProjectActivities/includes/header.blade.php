@@ -31,7 +31,6 @@
     <link rel="stylesheet" href="{{ asset('assets/css/ace-part2.min.css') }}" class="ace-main-stylesheet" />
     <![endif]-->
     <link rel="stylesheet" href="{{ asset('assets/css/ace-skins.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/ace-rtl.min.css') }}" />
     <!-- inline styles related to this page -->
     <!--[if lte IE 9]>
     <link rel="stylesheet" href="{{ asset('assets/css/ace-ie.min.css') }}" />
@@ -43,10 +42,8 @@
     <script src="{{ asset('assets/js/ace-extra.min.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('assets/css/jquery-ui.custom.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap-datepicker3.min.css') }}" />
-    {{-- <link href="{{ asset('assets/css/toastr.min.css') }}" rel="stylesheet"> --}}
-    <link rel="stylesheet" href="{{ asset('assets/css/toastr.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/sweetalert2/sweetalert2.min.css') }}" />
-
+{{--     <link rel="stylesheet" href="{{ asset('assets/css/toastr.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/sweetalert2/sweetalert2.min.css') }}" /> --}}
     <script src="{{ asset('assets/js/jquery-2.1.4.min.js') }}"></script>
 
     @stack('custom-css')
