@@ -28,7 +28,7 @@ class QuestionsController extends Controller
     $quiz = SubjectQuiz::where('slug', $quiz)->get()->first();
     $question = Question::create([
                 'title' => $request->title,
-                'slug' => str_slug($request->title, '-'),
+                'slug' => $this->make_slug($request->title),
                 'status' => $request->active
               ]);
     $question->subjects()->save($quiz)->save();
@@ -39,10 +39,10 @@ class QuestionsController extends Controller
     return redirect()->route('quiz.subject.show', $quiz->slug);
   }
 
-  public function show($quiz, $question)
+  public function show($subject, $question)
   {
     $question = Question::where('slug', $question)->get()->first();
-    $quiz = SubjectQuiz::where('slug', $quiz)->get()->first();
+    $quiz = SubjectQuiz::where('slug', $subject)->get()->first();
     return view('ProjectActivities.quizs.question.show', compact('question', 'quiz'));
   }
 
