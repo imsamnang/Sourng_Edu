@@ -1,11 +1,11 @@
-@extends('ProjectActivities.layout.master')
-
-@push('custom-css')
-    <!-- page specific plugin styles -->
-@endpush
-
-@section('menu-panel')
-    @include('ProjectActivities.layout.menu.menu_admin')
+@extends('user-student.layouts.master')
+{{-- @extends('ProjectActivities.layout.master') --}}
+@section('page-title')
+  @if(isset($generalSetting->institute))
+    IMS | {{$generalSetting->institute}}
+  @else
+    IMS Management
+  @endif
 @endsection
 
 @section('content')
@@ -62,9 +62,8 @@
   </div>
   <!-- /.main-content -->
 @endsection
-
-
-@push('custom-js')
+  {{-- For Custom JS --}}
+@section('js')
   @include('ProjectActivities.quizs.dataTable_scripts')
   @include('ProjectActivities.quizs.delete_confirm')
-@endpush
+@endsection

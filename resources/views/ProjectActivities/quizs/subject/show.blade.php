@@ -12,10 +12,6 @@
     
 @endsection
 
-{{-- @section('menu-panel')
-    @include('ProjectActivities.layout.menu.menu_admin')
-@endsection --}}
-
 @section('content')
 
 <div class="container">
