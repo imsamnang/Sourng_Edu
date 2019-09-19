@@ -66,20 +66,20 @@
 
                         <div class="row">
                             <div class="col-sm-9">
-                                @role(['super-admin','admin','account'])
-                                    @include('dashboard.includes.account')
-                                @endrole
-                                @role(['super-admin','admin','library'])
-                                    @include('dashboard.includes.library')
-                                @endrole
-                                @role(['super-admin','admin'])
-                                @include('dashboard.includes.attendence')
-                                @endrole
-                            </div><!-- /.col -->
-                            <div class="col-sm-3">
-                                @include('dashboard.includes.summary')
-                            </div><!-- /.col -->
-                            {{--Faculty wise Student Status Summary--}}
+                              @role(['super-admin','admin','account'])
+                                  @include('dashboard.includes.account')
+                              @endrole
+                              @role(['super-admin','admin','library'])
+                                  @include('dashboard.includes.library')
+                              @endrole
+                              @role(['super-admin','admin'])
+                              @include('dashboard.includes.attendence')
+                              @endrole
+                          </div><!-- /.col -->
+                          <div class="col-sm-3">
+                              @include('dashboard.includes.summary')
+                          </div><!-- /.col -->
+                          {{--Faculty wise Student Status Summary--}}
                         </div>
 
         </div><!-- /.row -->

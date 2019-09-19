@@ -27,7 +27,6 @@
                     <div class="col-xs-12 ">
                         @include('includes.flash_messages')
                         @include('user-student.dashboard.includes.notice')
-
                     </div>
                     <div class="col-md-12">
                         <div class="row">
@@ -47,46 +46,44 @@
                                 @endif
                             </span>
 
-                                    <div class="space-4"></div>
+                              <div class="space-4"></div>
+                                  {{-- <div class="width-80 label label-warning label-xlg arrowed-right overflow-hidden">
+                                      <div class="inline position-relative ">
+                                          <a href="#" class="user-title-label dropdown-toggle" data-toggle="dropdown">
+                                              <span class="white" >{{ $data['student']->first_name.' '.
+                                          $data['student']->middle_name.' '.$data['student']->last_name }}</span>
+                                          </a>
+                                          <ul class="align-left dropdown-menu dropdown-caret dropdown-lighter">
+                                              <li class="dropdown-header"> Change Status </li>
 
-                                    {{-- <div class="width-80 label label-warning label-xlg arrowed-right overflow-hidden">
-                                        <div class="inline position-relative ">
-                                            <a href="#" class="user-title-label dropdown-toggle" data-toggle="dropdown">
-                                                <span class="white" >{{ $data['student']->first_name.' '.
-                                            $data['student']->middle_name.' '.$data['student']->last_name }}</span>
-                                            </a>
-                                            <ul class="align-left dropdown-menu dropdown-caret dropdown-lighter">
-                                                <li class="dropdown-header"> Change Status </li>
+                                              <li>
+                                                  <a href="#">
+                                                      <i class="ace-icon fa fa-circle green"></i>
+                                                      &nbsp;
+                                                      <span class="green">Available</span>
+                                                  </a>
+                                              </li>
 
-                                                <li>
-                                                    <a href="#">
-                                                        <i class="ace-icon fa fa-circle green"></i>
-                                                        &nbsp;
-                                                        <span class="green">Available</span>
-                                                    </a>
-                                                </li>
+                                              <li>
+                                                  <a href="#">
+                                                      <i class="ace-icon fa fa-circle red"></i>
+                                                      &nbsp;
+                                                      <span class="red">Busy</span>
+                                                  </a>
+                                              </li>
 
-                                                <li>
-                                                    <a href="#">
-                                                        <i class="ace-icon fa fa-circle red"></i>
-                                                        &nbsp;
-                                                        <span class="red">Busy</span>
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="#">
-                                                        <i class="ace-icon fa fa-circle grey"></i>
-                                                        &nbsp;
-                                                        <span class="grey">Invisible</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="space-6"></div> --}}
-
-                                </div>
+                                              <li>
+                                                  <a href="#">
+                                                      <i class="ace-icon fa fa-circle grey"></i>
+                                                      &nbsp;
+                                                      <span class="grey">Invisible</span>
+                                                  </a>
+                                              </li>
+                                          </ul>
+                                      </div>
+                                  </div>
+                                  <div class="space-6"></div> --}}
+                              </div>
                             </div>
                             <div class="col-xs-12 col-sm-9">
 

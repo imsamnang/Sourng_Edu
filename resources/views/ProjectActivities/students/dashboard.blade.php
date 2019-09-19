@@ -1,9 +1,10 @@
-@extends('ProjectActivities.layout.master')
+{{-- @extends('ProjectActivities.layout.master') --}}
+@extends('user-student.layouts.master')
 
-@push('custom-css')
+@section('css')
   <link href="{{ asset('css/quiz_result.css') }}" rel="stylesheet">
   <link rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}">  
-@endpush
+@endsection
 
 @section('menu-panel')
     @include('ProjectActivities.layout.menu.menu_admin')
@@ -158,7 +159,7 @@
   </div>
 @endsection
 
-@push('custom-js')
+@section('js')
   {{-- @include('includes.scripts.jquery_validation_scripts') --}}
   <!-- inline scripts related to this page -->
   <script type="text/javascript">
@@ -166,4 +167,4 @@
   </script>
   {{-- @include('includes.dataTable_scripts') --}}
   @include('ProjectActivities.quizs.delete_confirm')
-@endpush
+@endsection

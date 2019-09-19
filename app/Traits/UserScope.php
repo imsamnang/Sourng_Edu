@@ -105,11 +105,8 @@ trait UserScope{
     public function activeUser(request $request, $id)
     {
         if (!$row = User::find($id)) return parent::invalidRequest();
-
         $request->request->add(['status' => 'active']);
-
         $row->update($request->all());
-
         $request->session()->flash($this->message_success, 'User Un-Locked Successfully.');
         return redirect()->back();
     }
@@ -117,11 +114,8 @@ trait UserScope{
     public function inActiveUser(request $request, $id)
     {
         if (!$row = User::find($id)) return parent::invalidRequest();
-
         $request->request->add(['status' => 'in-active']);
-
         $row->update($request->all());
-
         $request->session()->flash($this->message_success, 'User Locked Successfully.');
         return redirect()->back();
     }

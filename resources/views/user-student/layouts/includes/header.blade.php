@@ -7,7 +7,7 @@
         @if(isset($generalSetting->institute))
             {{ $panel }} | {{$generalSetting->institute}}
         @else
-            {{ isset($panel)?$panel:'' }} | UNLIMITED Edu Firm
+            {{ isset($panel)?$panel:'' }} SourngEdu
         @endif
     </title>
 
@@ -34,7 +34,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/ace-part2.min.css') }}" class="ace-main-stylesheet" />
     <![endif]-->
     <link rel="stylesheet" href="{{ asset('assets/css/ace-skins.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/ace-rtl.min.css') }}" />
+    {{-- <link rel="stylesheet" href="{{ asset('assets/css/ace-rtl.min.css') }}" /> --}}
 
     <!-- inline styles related to this page -->
 

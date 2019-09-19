@@ -193,8 +193,8 @@
               <b class="arrow fa fa-angle-down"></b>
             </a>
           </li>
-        @endrole        
-        @role('user-project')
+        @endrole
+        @role('student')
           {{-- project manage quiz --}}
           <li class="{!! request()->is('account/fees*')?'active open':'' !!} hover">
             <a href="#" class="dropdown-toggle">

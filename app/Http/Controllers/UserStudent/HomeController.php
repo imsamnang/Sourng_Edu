@@ -53,7 +53,7 @@ class HomeController extends CollegeBaseController
           ->first();
       if (!$data['student']){
           request()->session()->flash($this->message_warning, "Not a Valid Student");
-          return redirect()->route($this->base_route);
+          return redirect()->route('user-student');
       }
       /*Notice*/
       $userRoleId = auth()->user()->roles()->first()->id;
@@ -102,7 +102,7 @@ class HomeController extends CollegeBaseController
 
         if (!$data['student']){
             request()->session()->flash($this->message_warning, "Not a Valid Student");
-            return redirect()->route($this->base_route);
+            return redirect()->route('user-student');
         }
 
         /*total Calculation on Table Foot*/

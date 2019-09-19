@@ -1,4 +1,5 @@
-@extends('ProjectActivities.layout.master')
+{{-- @extends('ProjectActivities.layout.master') --}}
+@extends('user-student.layouts.master')
 
 @push('custom-css')
   <style>

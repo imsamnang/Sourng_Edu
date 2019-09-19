@@ -24,7 +24,7 @@
 	        <h4>Quiz: {{ $quiz->title }}</h4>
 	        <hr>
 	        <div class="bottom-10"></div>
-	        <table class="table">
+	        <table id="dynamic-table" class="table table-striped table-bordered table-hover">
 	            <thead>
 	                <th>Questions</th>
 	                <th>Options</th>
@@ -43,14 +43,22 @@
 	                                {{ \App\Models\Quiz\Option::find($question->answers->first()->option_id)->title }}
 	                            @endif
 	                        </td>
-	                        <td><a href="{{route('quiz.question.destroy',$question->slug)}}">Delete Question</a></td>
+	                        <td>
+                            <form method="POST" action="{{route('quiz.question.destroy',$question->id)}}" accept-charset="UTF-8" style="display:inline" id="deleteObject-{{$question->id}}">
+                              {{csrf_field()}}
+                              {{method_field('DELETE')}}
+                              <a href="#" class="btn btn-danger btn-xs" onclick="deleteObject({{$question->id}})">Remove
+                              </a>
+                            </form>	                        
+                          </td>
+{{-- <td><a href="{{route('quiz.question.destroy',$question->slug)}}">Delete Question</a></td> --}}
 	                    </tr>
 	                @endforeach
 	            </tbody>
 	        </table>
 
-	        <a href="{{ route('quiz.subject.index') }}" class="btn btn-success">Home</a>
-	        <a href="{{ route('quiz.question.create', $quiz->slug) }}" class="btn btn-info">Add Questions</a>
+	        <a href="{{ route('quiz.subject.index') }}" class="btn btn-success btn-sm">Home</a>
+	        <a href="{{ route('quiz.question.create', $quiz->slug) }}" class="btn btn-info btn-sm">Add Questions</a>
 	    </div>    
     </div>
   {{-- </form> --}}
@@ -58,5 +66,6 @@
 @endsection
   {{-- For Custom JS --}}
 @section('js')
-    
+  @include('ProjectActivities.quizs.dataTable_scripts')
+  @include('ProjectActivities.quizs.delete_confirm')
 @endsection

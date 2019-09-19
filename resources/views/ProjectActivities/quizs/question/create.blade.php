@@ -32,12 +32,12 @@
                       {!! Form::checkbox('status') !!}
                       <input type="hidden" name="active" id="active" value="0">                      
                 </div>  
-                <div class="add-question-option btn btn-info">Add New Option</div>
+                <div class="add-question-option btn btn-info btn-xs">Add New Option</div>
                 <hr>
 
                 <div class="form-group">
-                    <a href="{{ route('quiz.subject.show', $quiz->slug) }}" class="btn btn-info">Back to quiz</a>
-                    {!! Form::submit('Submit', ['class' => 'btn btn-info']) !!}
+                    <a href="{{ route('quiz.subject.show', $quiz->slug) }}" class="btn btn-warning btn-xs">Back to quiz</a>
+                    {!! Form::submit('Submit', ['class' => 'btn btn-success btn-xs']) !!}
                 </div>
                 {!! Form::close() !!}
             </div>
@@ -78,6 +78,7 @@
       });
     });
   </script>
+
   <script type="text/javascript">
     $("#status").click(function () {
       if ($(this).prop("checked")) {
