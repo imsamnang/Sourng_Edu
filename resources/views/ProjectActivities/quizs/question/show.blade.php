@@ -40,7 +40,7 @@
                       @endforeach
                   </tbody>
               </table>
-              <a href="{{ route('quiz.subject.show', $quiz->slug) }}" class="btn btn-info">Back to Quiz</a>
+              <a href="{{ route('quiz.subject.show', $quiz->slug) }}" class="btn btn-warning btn-sm">Back to Quiz</a>
           @else
               <p>Please select your answers for this question</p>
               <hr>

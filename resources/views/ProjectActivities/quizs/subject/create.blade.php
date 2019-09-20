@@ -49,7 +49,7 @@
                 {!! Form::hidden('reference') !!}
 
                 <div class="form-group">
-                    {!! Form::submit('Submit', ['class' => 'btn btn-info']) !!}
+                    {!! Form::submit('Submit', ['class' => 'btn btn-success btn-sm']) !!}
                 </div>
                 {!! Form::close() !!}
             </div>            

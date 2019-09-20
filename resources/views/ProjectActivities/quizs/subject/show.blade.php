@@ -46,13 +46,12 @@
                               <a href="#" class="btn btn-danger btn-xs" onclick="deleteObject({{$question->id}})">Remove
                               </a>
                             </form>	                        
-                          </td>
-{{-- <td><a href="{{route('quiz.question.destroy',$question->slug)}}">Delete Question</a></td> --}}
+                          </td>	
 	                    </tr>
 	                @endforeach
 	            </tbody>
 	        </table>
-
+					<hr>
 	        <a href="{{ route('quiz.subject.index') }}" class="btn btn-success btn-sm">Home</a>
 	        <a href="{{ route('quiz.question.create', $quiz->slug) }}" class="btn btn-info btn-sm">Add Questions</a>
 	    </div>    

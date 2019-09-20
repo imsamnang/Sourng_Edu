@@ -9,8 +9,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Controller extends BaseController
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-
+   use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
   function make_slug($string) {
     // return preg_replace('/\s+/u', '-', trim($string));
     return str_replace('?', '', preg_replace('/\s+/u', '-', trim($string)));

@@ -878,11 +878,11 @@ Auth::routes();
   });
 
 // Manage Projects
-  // get district and commune
-    Route::get('get-district-list','ProjectActivities\ProvinceDistrictCommnueController@getDistrictList');
-    Route::get('get-commune-list','ProjectActivities\ProvinceDistrictCommnueController@getCommuneList');
-    Route::get('get-district-list-kh','ProjectActivities\ProvinceDistrictCommnueController@getDistrictListKh');
-    Route::get('get-commune-list-kh','ProjectActivities\ProvinceDistrictCommnueController@getCommuneListKh'); 
+    // get district and commune
+      Route::get('get-district-list','ProjectActivities\ProvinceDistrictCommnueController@getDistrictList');
+      Route::get('get-commune-list','ProjectActivities\ProvinceDistrictCommnueController@getCommuneList');
+      Route::get('get-district-list-kh','ProjectActivities\ProvinceDistrictCommnueController@getDistrictListKh');
+      Route::get('get-commune-list-kh','ProjectActivities\ProvinceDistrictCommnueController@getCommuneListKh'); 
 
     Route::prefix('projects')->group(function(){
       Route::get('/','ProjectActivities\ProjectActivitiesController@index')->name('projects');

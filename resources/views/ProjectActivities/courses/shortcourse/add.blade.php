@@ -9,18 +9,12 @@
 {{-- <link rel="stylesheet" href="{{ asset('assets/css/chosen.min.css') }}" /> --}}
 <link rel="stylesheet" href="{{ asset('assets/css/select2.min.css') }}" />
 <style>
-  /* .col-md-12,.col-md-9,.col-md-8,.col-md-7,.col-md-6,.col-md-5,.col-md-4,.col-md-3.col-md-2,.newstyle {
-    position: relative;
-    min-height: 1px;
-    padding-left: 6px;
-    padding-right: 0px;
-  } */
   a.btn.btn-success.btn-xs.add_button {
     margin-left: -25px;      
   }
   a.btn.btn-danger.btn-xs.remove_button {
     margin-left: -25px;
-  }    
+  }
 </style>
 @endpush
 
@@ -121,10 +115,10 @@
               </div>
             </div>
             {{-- Overal Fund --}}
-            <div class="col-md-5" style="margin-bottom: 15px;">
+            <div class="col-md-4" style="margin-bottom: 15px;">
               <div class="form-group">
-                <label class="control-label col-xs-12 col-sm-3 no-padding-right">{{ __('shortcoure_Overal-Fund') }}</label>
-                <div class="col-xs-12 col-sm-9 ">
+                <label class="control-label col-xs-12 col-sm-4 no-padding-right">{{ __('shortcoure_Overal-Fund') }}</label>
+                <div class="col-xs-12 col-sm-8 ">
                   <select style="width: 100%" name="cbo_fund_overall">
                     @if ($flag=='kh')
                     <option selected disabled>សូមជ្រើសរើស </option>
@@ -165,7 +159,7 @@
               </div>
             </div>            
             {{-- training hours --}}
-            <div class="col-md-3" style="margin-bottom: 15px;">
+            <div class="col-md-4" style="margin-bottom: 15px;">
               <div class="form-group">
                 <label class="control-label col-xs-12 col-sm-4 no-padding-right">{{ __('shortcoure_Total_Training_Hour') }}</label>
                 <div class="col-xs-12 col-sm-8">
