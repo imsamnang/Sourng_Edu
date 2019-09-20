@@ -1,13 +1,9 @@
 @extends('layouts.master')
 {{-- @extends('ProjectActivities.layout.master') --}}
 
-@push('custom-css')
-    <!-- page specific plugin styles -->
-@endpush
-
-{{-- @section('menu-panel')
-    @include('ProjectActivities.layout.menu.menu_admin')
-@endsection --}}
+@section('css')
+  <link rel="stylesheet" href="{{asset('assets/quiz/custom.css')}}">
+@endsection
 
 @section('content')
   <div class="main-content">
@@ -16,7 +12,7 @@
         <div class="row">
           <div class="col-md-6 col-md-offset-3">
             <div class="new-start">
-                <h4>New Quiz</h4>
+                <h3 class="text-primary"><strong>New Quiz</strong></h3>
                 <hr>
                 {!! Form::open(['route'=>['quiz.subject.store'],'method'=>'post']) !!}
                 <div class="form-group">
@@ -40,10 +36,13 @@
                     {!! Form::input('number', 'question_duration', null, ['class' => 'form-control']) !!}
                 </div>
 
+                {{-- status --}}
                 <div class="form-group">
-                    {!! Form::label('status', 'Active', ['class'=>'control-label']) !!}
-                    {!! Form::checkbox('status') !!}
-                    <input type="hidden" name="active" id="active" value="0">
+                  <label class="container">Active
+                    <input type="checkbox" name="status" id="status" value="0">
+                    <span class="checkmark"></span>
+                  </label>                
+                  <input type="hidden" name="active" id="active" value="0">
                 </div>
 
                 {!! Form::hidden('reference') !!}
@@ -61,7 +60,7 @@
   <!-- /.main-content -->
 @endsection
 
-@section('custom-js')
+@section('js')
   {{-- @include('includes.scripts.jquery_validation_scripts') --}}
   <!-- inline scripts related to this page -->
   <script type="text/javascript">
