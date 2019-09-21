@@ -2,8 +2,6 @@
 
 @section('head')
   <link href="{{ asset('css/front.css') }}" rel="stylesheet">
-  <link rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}">
-  {{-- <link rel="stylesheet" href="{{asset('assets/flipclock/flipclock.css')}}"> --}}
   <script>
     window.Laravel =  <?php echo json_encode([
         'csrfToken' => csrf_token(),
@@ -65,12 +63,12 @@
 					div.textContent = finalTime;
 					document.getElementById("queDuration").value = finalTime;
 					queDur = finalTime;
-					console.log(queDur);
+					// console.log(queDur);
 					if (count == 0 && document.querySelector(".next")) {
 							clearInterval(timer);
 							document.querySelector(".next").click();
 					}else if(count == 0){
-							console.log("Submit");
+							// console.log("Submit");
 							clearInterval(timer);
 							document.querySelector(".btn_quiz").click();
 					}
@@ -105,7 +103,7 @@
 							<div class="col-md-8 col-md-offset-2">
 								@foreach($allQuestion as $iteration => $question)
 									<blockquote> Total Questions &nbsp;&nbsp;{{ $page}} / {{ $totalQuestionCount }}	</blockquote>
-				        	<h3 class="question">{{ $question->title }}</h3>
+				        	<h3 class="question" style="font-family: 'Khmer OS Muol Light'; font-size:16px; padding:0px 5px 10px 5px; ">{{ $question->title }}</h3>
 									@if ( $allQuestion->hasMorePages())
 										{{ Form::open(array('route' => 'quiz.next.quiz', 'role' => 'form', 'name' => 'quiz', 'class' => 'form-horizontal', 'id' => 'myForm')) }}
 									@else
@@ -119,7 +117,7 @@
 		                @foreach($question->options as $ops)
 		                  @if($question->answers->count() === 1)
 		 										<div class="radio">
-		                      <label>
+		                      <label style="font-family: 'Khmer OS Battambang'; font-size:16px; padding:0px 5px 10px 5px;">
 		                        <input type="radio" class="input" name="answer[]" id="mc_c{{ $ops->title }}" value="{{$ops->id}}">
 		                        {{ $ops->title}}
 		                      </label>

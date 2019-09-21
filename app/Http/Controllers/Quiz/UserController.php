@@ -25,7 +25,7 @@ class UserController extends Controller
                             ->where('test_type_id',2)
                             ->paginate($this->limit);
     // dd(DB::getQueryLog());
-    return view('ProjectActivities.students.dashboard',compact('userQuizs_Pretest','userQuizs_Posttest'));
+    return view('ProjectActivities.quizs.result.dashboard',compact('userQuizs_Pretest','userQuizs_Posttest'));
   }
 
   public function singleResult(Request $request, $QuizResultsId)
@@ -42,7 +42,7 @@ class UserController extends Controller
     $countTrue = \DB::table('user_answers')->where('userData_appear_id' , $QuizResultsId)->where('correct' , 1)->count();
     $countFalse = \DB::table('user_answers')->where('userData_appear_id' , $QuizResultsId)->where('correct' , 0)->count();
     $totalQuestion = $countTrue + $countFalse;
-    return view('ProjectActivities.students.viewSingleResult',compact('countTrue','countFalse','totalQuestion','allUserAnswer','subjectName'));
+    return view('ProjectActivities.quizs.result.viewSingleResult',compact('countTrue','countFalse','totalQuestion','allUserAnswer','subjectName'));
   }
 
   public function show($id)
@@ -56,8 +56,9 @@ class UserController extends Controller
           ->with('answer')
           ->get();
     }
-    // return $results; 
-    return view('ProjectActivities.quizs.result.show', compact('test', 'results'));
+    // return $results;
+    return view('ProjectActivities.quizs.result.viewSingleResult', compact('test', 'results')); 
+    // return view('ProjectActivities.quizs.result.show', compact('test', 'results'));
   }
   public function viewAllResult(Request $request,$test_type_id)
   {

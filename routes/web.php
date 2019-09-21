@@ -989,8 +989,7 @@ Auth::routes();
 
   // QuizResults
       Route::get('/userResults', 'UserController@showAppearedQuiz')->name('user.result');
-      // Route::get('/viewSigleResult/{quizappearid}', 'UserController@singleResult')->name('single.result');
-      Route::get('/viewSigleResult/{quizappearid}', 'UserController@show')->name('single.result');      
+      Route::get('/viewSigleResult/{quizappearid}', 'UserController@show')->name('single.result');
       Route::get('/viewAllResult/{test_type_id}', 'UserController@viewAllResult')->name('allresult');
       Route::get('/quizLeaderboard/{quiz}', 'UserController@viewLeaderboard')->name('leaderboard');
     });

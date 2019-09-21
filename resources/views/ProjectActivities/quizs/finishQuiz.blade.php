@@ -2,7 +2,6 @@
 
 @section('head')
 	<link href="{{ asset('css/front.css') }}" rel="stylesheet">
-	<link rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}">
 	<script>
 	  window.Laravel =  <?php echo json_encode([
 	      'csrfToken' => csrf_token(),
@@ -75,7 +74,7 @@
       <div class="col-md-8 col-md-offset-2">
         <div class="home-main-block">
           <div class="question-block">
-            <h2 class="text-center main-block-heading">{{$sub->title}} Result</h2>
+            <h2 class="text-center main-block-heading" style="font-family: 'Khmer OS Battambang'; font-size:18px; padding:10px 5px 10px 5px;">{{$sub->title}} Result</h2>
             <table class="table table-bordered result-table">
               <thead>
                 <tr>
@@ -110,7 +109,7 @@
     </div>
 @endsection
 
-@section('script_clock')
+{{-- @section('script_clock')
 	<script src="{{ asset('js/jquery.min.js') }}"></script>
 	<script>
 	    function str_pad_left(string,pad,length) {
@@ -123,7 +122,7 @@
 	        };
 	    });
 	</script>	
-@endsection
+@endsection --}}
 
 @section('scripts')
 

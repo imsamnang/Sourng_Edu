@@ -2,7 +2,7 @@
 
 @section('head')
   <link href="{{ asset('css/front.css') }}" rel="stylesheet">
-  <link rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}">
+  <link rel="stylesheet" href="{{asset('assets/font-awesome/4.5.0/css/font-awesome.min.css')}}">
   <script>
     window.Laravel =  <?php echo json_encode([
         'csrfToken' => csrf_token(),
@@ -50,21 +50,18 @@
                       {{ Auth::user()->name }} <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                      {{-- @if ($auth->role == 'A') --}}
-                        <li><a href="{{url(route('quiz.user.result'))}}" title="Dashboard">Dashboard</a></li>
-                      {{-- @elseif ($auth->role == 'S') --}}
-                        {{-- <li><a href="{{url('/admin/my_reports')}}" title="Dashboard">Dashboard</a></li> --}}
-                      {{-- @endif --}}
                       <li>
-                        <a href="{{ route('logout') }}"
-                        onclick="event.preventDefault();
+                        <a href="{{url(route('quiz.user.result'))}}" title="Dashboard">Dashboard</a>
+                      </li>
+                      <li>
+                        <a href="{{ route('logout') }}" onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();">
                         Logout
-                      </a>
-                      <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        {{ csrf_field() }}
-                      </form>
-                    </li>
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                          {{ csrf_field() }}
+                        </form>
+                      </li>
                   </ul>
                 </li>
               @endguest
@@ -87,14 +84,14 @@
               <div class="topic-block">
                 <div class="card blue-grey darken-1">
                   <div class="card-content white-text">
-                    <span class="card-title">{{$subject->title}} Quiz</span>
+                    <span class="card-title" style="font-family: 'Khmer OS Battambang'; font-size:18px; padding:10px 5px 10px 5px;">{{$subject->title}}</span>
                     <div class="row">
                       <div class="col-xs-6 pad-0">
                         <ul class="topic-detail">
                           <li>Per Question Mark <i class="fa fa-long-arrow-right"></i></li>
                           <li>Total Marks <i class="fa fa-long-arrow-right"></i></li>
                           <li>Total Questions <i class="fa fa-long-arrow-right"></i></li>
-                          <li>Total Time <i class="fa fa-long-arrow-right"></i></li>                         
+                          <li>Total Time <i class="fa fa-long-arrow-right"></i></li>
                         </ul>
                       </div>
                       <div class="col-xs-6">
@@ -134,7 +131,7 @@
               <div class="topic-block">
                 <div class="card blue-grey darken-1">
                   <div class="card-content white-text">
-                    <span class="card-title">{{$subject->title}} Quiz</span>
+                    <span class="card-title" style="font-family: 'Khmer OS Battambang'; font-size:18px; padding:10px 5px 10px 5px;">{{$subject->title}} Quiz</span>
                     <div class="row">
                       <div class="col-xs-6 pad-0">
                         <ul class="topic-detail">

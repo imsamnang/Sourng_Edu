@@ -12,11 +12,6 @@ use Illuminate\Http\Request;
 class QuestionsController extends Controller
 {
 
-  public function index()
-  {
-
-  }
-
   public function create($quiz)
   {
     $quiz = SubjectQuiz::with('questions')->where('slug', $quiz)->get()->first();

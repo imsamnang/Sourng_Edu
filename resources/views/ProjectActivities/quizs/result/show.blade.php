@@ -1,7 +1,6 @@
-{{-- @extends('ProjectActivities.layout.master') --}}
 @extends('user-student.layouts.master')
 
-@push('custom-css')
+@section('custom-css')
   <style>
     .table-striped>tbody>tr:nth-of-type(odd){
       background-color: #f9f9f9;
@@ -15,7 +14,7 @@
         color: white;
     }    
   </style>
-@endpush
+@endsection
 
 @section('menu-panel')
   @include('ProjectActivities.layout.menu.menu_admin')
@@ -73,8 +72,8 @@
           </div>
       </div>
       <p>&nbsp;</p>
-      <a href="{{ route('user-student') }}" class="btn btn-default">Take another quiz</a>
-      <a href="{{ route('quiz.allresult',1) }}" class="btn btn-default">See all my results</a>
+      <a href="{{ route('user-student') }}" class="btn btn-primary btn-sm">Take another quiz</a>
+      <a href="{{ route('quiz.allresult',1) }}" class="btn btn-success btn-sm">See all my results</a>
     </div>
   </div>
 </div>

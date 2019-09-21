@@ -2,25 +2,11 @@
     <div class="footer-inner hidden-print">
         <div class="footer-content">
 			<span class="bigger-120">
-				<span class="blue bolder">&copy;Unlimited Edu Firm</span>
+				<span class="blue bolder">&copy;SourngEdu <strong class="text-capitalize orange2"> IMS </strong></span>
 			</span>
 
-            {{--<span class="action-buttons">
-				<a href="#">
-					<i class="ace-icon fa fa-twitter-square light-blue bigger-150"></i>
-				</a>
-
-				<a href="#">
-					<i class="ace-icon fa fa-facebook-square text-primary bigger-150"></i>
-				</a>
-
-				<a href="#">
-					<i class="ace-icon fa fa-rss-square orange bigger-150"></i>
-				</a>
-			</span>--}}
         </div>
     </div>
-	{{--<footer class="onlyprint">footer text for print<!--Content Goes Here--></footer>--}}
 </div>
 
 <!-- basic scripts -->
@@ -38,8 +24,5 @@
 </script>
 
 <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
-
-{{--<script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>--}}
-
 <script src="{{ asset('assets/js/toastr.min.js') }}"></script>
 
