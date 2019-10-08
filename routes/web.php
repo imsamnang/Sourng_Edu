@@ -20,6 +20,17 @@
 /*Auth Routes*/
 Auth::routes();
 
+
+/* Front End */
+  Route::get('/home', 'FrontController@index')->name('home');
+  Route::get('/about', 'FrontController@about')->name('about');
+  Route::get('/all-courses', 'FrontController@all_courses')->name('all-courses');
+  Route::get('/contact', 'FrontController@contact')->name('contact');
+/* End Front End */
+
+
+
+
 /*for Dashboard's*/
   Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
 /* Roles Routes */
@@ -1049,3 +1060,5 @@ Auth::routes();
 // });
 
 // Route::get('login-activity', 'LoginActivityController@index');
+
+
