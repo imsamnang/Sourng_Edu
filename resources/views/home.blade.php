@@ -1,58 +1,3 @@
-{{-- @extends('layouts.app')
-@section('nav')
-    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'RPITSSR') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                    onclick="event.preventDefault();
-                                                    document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
-            </div>
-        </nav>
-@endsection --}}
-
-
 @extends('layouts.main')
 @section('nav')
     @include('front.nav_home')
@@ -294,98 +239,38 @@
             </div>
             </div>
             <div class="row justify-content-center d-flex align-items-center">
-            <div class="col-lg-3 col-md-6 col-sm-12 single-trainer">
-                <div class="thumb d-flex justify-content-sm-center">
-                <img class="img-fluid" src="{{asset('front/img/trainer/t1.jpg')}}" alt="" />
-                </div>
-                <div class="meta-text text-sm-center">
-                <h4>Mated Nithan</h4>
-                <p class="designation">Sr. web designer</p>
-                <div class="mb-4">
-                    <p>
-                    If you are looking at blank cassettes on the web, you may be
-                    very confused at the.
-                    </p>
-                </div>
-                <div class="align-items-center justify-content-center d-flex">
-                    <a href="#"><i class="ti-facebook"></i></a>
-                    <a href="#"><i class="ti-twitter"></i></a>
-                    <a href="#"><i class="ti-linkedin"></i></a>
-                    <a href="#"><i class="ti-pinterest"></i></a>
-                </div>
-                </div>
-            </div>
 
-            <div class="col-lg-3 col-md-6 col-sm-12 single-trainer">
-                <div class="thumb d-flex justify-content-sm-center">
-                    <img class="img-fluid" src="{{asset('front/img/trainer/t2.jpg')}}" alt="" />
-                </div>
-                <div class="meta-text text-sm-center">
-                <h4>David Cameron</h4>
-                <p class="designation">Sr. web designer</p>
-                <div class="mb-4">
-                    <p>
-                    If you are looking at blank cassettes on the web, you may be
-                    very confused at the.
-                    </p>
-                </div>
-                <div class="align-items-center justify-content-center d-flex">
-                    <a href="#"><i class="ti-facebook"></i></a>
-                    <a href="#"><i class="ti-twitter"></i></a>
-                    <a href="#"><i class="ti-linkedin"></i></a>
-                    <a href="#"><i class="ti-pinterest"></i></a>
-                </div>
-                </div>
-            </div>
+                @foreach ($data['staff'] as $item)
+                    <div class="col-lg-3 col-md-6 col-sm-12 single-trainer">
+                        <div class="thumb d-flex justify-content-sm-center">
+                        <img class="img-fluid" src="{{asset('front/img/trainer/t1.jpg')}}" alt="" />
+                        </div>
+                        <div class="meta-text text-sm-center">
+                        <h4>{{$item->first_name}}<br>{{$item->last_name}}</h4>
+                        <p class="designation">{{$item->home_phone}}<br>{{$item->email}}</p>
 
-            <div class="col-lg-3 col-md-6 col-sm-12 single-trainer">
-                <div class="thumb d-flex justify-content-sm-center">
-                    <img class="img-fluid" src="{{asset('front/img/trainer/t3.jpg')}}" alt="" />
-                </div>
-                <div class="meta-text text-sm-center">
-                <h4>Jain Redmel</h4>
-                <p class="designation">Sr. Faculty Data Science</p>
-                <div class="mb-4">
-                    <p>
-                    If you are looking at blank cassettes on the web, you may be
-                    very confused at the.
-                    </p>
-                </div>
-                <div class="align-items-center justify-content-center d-flex">
-                    <a href="#"><i class="ti-facebook"></i></a>
-                    <a href="#"><i class="ti-twitter"></i></a>
-                    <a href="#"><i class="ti-linkedin"></i></a>
-                    <a href="#"><i class="ti-pinterest"></i></a>
-                </div>
-                </div>
-            </div>
+                        {{-- <div class="mb-4">
+                            <p>
+                            If you are looking at blank cassettes on the web, you may be
+                            very confused at the.
+                            </p>
+                        </div> --}}
 
-            <div class="col-lg-3 col-md-6 col-sm-12 single-trainer">
-                <div class="thumb d-flex justify-content-sm-center">
-                    <img class="img-fluid" src="{{asset('front/img/trainer/t4.jpg')}}" alt="" />
-                </div>
-                <div class="meta-text text-sm-center">
-                <h4>Nathan Macken</h4>
-                <p class="designation">Sr. web designer</p>
-                <div class="mb-4">
-                    <p>
-                    If you are looking at blank cassettes on the web, you may be
-                    very confused at the.
-                    </p>
-                </div>
-                <div class="align-items-center justify-content-center d-flex">
-                    <a href="#"><i class="ti-facebook"></i></a>
-                    <a href="#"><i class="ti-twitter"></i></a>
-                    <a href="#"><i class="ti-linkedin"></i></a>
-                    <a href="#"><i class="ti-pinterest"></i></a>
-                </div>
-                </div>
-            </div>
+                        <div class="align-items-center justify-content-center d-flex">
+                            <a href="#"><i class="ti-facebook"></i></a>
+                            <a href="#"><i class="ti-twitter"></i></a>
+                            <a href="#"><i class="ti-linkedin"></i></a>
+                            <a href="#"><i class="ti-pinterest"></i></a>
+                        </div>
+                        </div>
+                    </div>
+
+                @endforeach
+
             </div>
         </div>
     </section>
     <!--================ End Trainers Area =================-->
-
     <!--================ Start Events Area =================-->
     <div class="events_area">
         <div class="container">

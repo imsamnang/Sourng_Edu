@@ -34,7 +34,7 @@
         <li class="{!! request()->is('user-staff/attendance*')?'active':'' !!} hover">
             <a href="{{ route('user-staff.attendance') }}">
                 <i class="menu-icon fa fa-calendar" aria-hidden="true"></i>
-                <span class="menu-text"> Attendance</span>
+                <span class="menu-text"> {{__('lang_Attendance')}}</span>
             </a>
             <b class="arrow"></b>
         </li>

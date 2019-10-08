@@ -8,7 +8,7 @@
                         {{$generalSetting->institute}}
                     <strong class="text-capitalize orange2"> IMS </strong>
                     @else
-                        SourngEdu <strong class="text-capitalize orange2"> IMS </strong>
+                        RPITSSR <strong class="text-capitalize orange2"> IMS </strong>
                     @endif
                 </small>
             </a>
@@ -96,5 +96,54 @@
                 @endability
             </ul>
         </nav>
+
+        {{-- flag languages --}}
+        <nav role="navigation" class="navbar-menu pull-right collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    {{-- @ability('super-admin', 'admin-control') --}}
+                    <li>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <?php  $flag = app()->getLocale(); ?>
+                        <img src="{{asset('images/flags/'.$flag.'.png')}}" class="img-flag" alt="" width="32" height="18">
+                        &nbsp;{{ strtoupper($flag) }}
+                        </a>
+        
+                        <ul class="dropdown-menu dropdown-light-blue dropdown-caret">
+                        <li>
+                            <a href="{{ url('locale') }}/en">
+                            <img src="{{asset('images/flags/en.png')}}" class="img-flag" alt="" width="32" height="18">
+                            English
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url('locale') }}/kh">
+                            <img src="{{asset('images/flags/kh.png')}}" class="img-flag" alt="" width="32" height="18">
+                            Khmer
+                            </a>
+                        </li>
+                        {{--<li>
+                            <a href="{{ url('locale') }}/th">
+                            <img src="{{asset('images/flags/th.png')}}" class="img-flag" alt="" width="32" height="18">
+                            Thai
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url('locale') }}/fr">
+                            <img src="{{asset('images/flags/fr.png')}}" class="img-flag" alt="" width="32" height="18">
+                            French
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url('locale') }}/de">
+                            <img src="{{asset('images/flags/de.png')}}" class="img-flag" alt="" width="32" height="18">
+                            German
+                            </a>
+                        </li> --}}
+                        </ul>
+                    </li>
+                    {{-- @endability --}}
+                </ul>
+        </nav>
+
     </div><!-- /.navbar-container -->
 </div>

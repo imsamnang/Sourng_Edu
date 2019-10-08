@@ -39,9 +39,11 @@ class FrontController extends Controller
         //     ->orderBy('title')
         //     ->get();
         $data['subject']=Subject::all();
+        $data['staff']=Staff::take(4)->get();
+
         //return $data;
 
-        return view('home', compact('data'));
+        return view('front/home', compact('data'));
     }
 
     public function test(){

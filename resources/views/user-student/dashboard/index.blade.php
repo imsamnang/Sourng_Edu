@@ -1,3 +1,4 @@
+<?php  $flag = App()->getLocale();?>
 @extends('user-student.layouts.master')
 
 @section('css')
@@ -14,11 +15,12 @@
                 @include('user-student.layouts.includes.template_setting')
                 <div class="page-header">
                     <h1>
-                        Dashboard
+                        {{__('m_dashboard')}}
                         <small>
                             <i class="ace-icon fa fa-angle-double-right"></i>
                             Student
                         </small>
+                        {{-- <small><h3 class="hidden-480" style="font-family: 'Khmer OS Muol Light'; "><i class="fa fa-university" aria-hidden="true"></i>{{$flag=='kh'?$data['YourInstitute']->name_kh:$data['YourInstitute']->name_en}}</h3></small> --}}
                     </h1>
                 </div><!-- /.page-header -->
 
@@ -163,6 +165,7 @@
                         </div><!-- /.row -->
                         <div class="hr-double hr-16"></div>
                         <div class="row">  
+                         
                           <div class="col-md-2" style="padding-top:20px;">
                               <a href="{{ route('pretest') }}" class="easy-link-menu">
                                   <div class="dash-card card-yellow text-xs-center">
@@ -188,9 +191,18 @@
                                   </div>
                               </a>
                           </div>
-                          <div class="col-md-12">
-                              <div>{!! $data['feeCompare']->container() !!}</div>
-                          </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div>{!! $data['feeCompare']->container() !!}</div>
+                            </div>
+                            <div class="col-md-6">
+                                <div>
+                                    <h1>Result Rest</h1>
+                                    <h3>Content</h3>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     </div><!-- /.row -->

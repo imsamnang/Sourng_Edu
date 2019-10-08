@@ -9,7 +9,7 @@
         <li class="{!! request()->is('user-student')?'active':'' !!}">
             <a href="{{ route('user-student') }}" >
                 <i class="menu-icon fa fa-tachometer"></i>
-                <span class="menu-text"> Dashboard </span>
+                <span class="menu-text"> {{__('m_dashboard')}} </span>
             </a>
         </li>
 
@@ -17,7 +17,7 @@
         <li class="{!! request()->is('user-student/profile')?'active':'' !!}">
             <a href="{{ route('user-student.profile') }}" >
                 <i class="menu-icon fa fa-user"></i>
-                <span class="menu-text"> Profile </span>
+                <span class="menu-text"> {{__('stu_frm_detail_Profile')}} </span>
             </a>
         </li>
 
@@ -25,7 +25,7 @@
         <li class="{!! request()->is('user-student/fees*')?'active open':'' !!}  hover">
             <a href="{{ route('user-student.fees') }}" >
                 <i class="menu-icon fa fa-calculator" aria-hidden="true"></i>
-                <span class="menu-text">Fees</span>
+                <span class="menu-text">{{__('stu_frm_detail_Fees')}}</span>
             </a>
         </li>
 
@@ -33,7 +33,7 @@
         <li class="{!! request()->is('user-student/library*')?'active':'' !!} hover">
             <a href="{{ route('user-student.library') }}" >
                 <i class="menu-icon fa fa-book" aria-hidden="true"></i>
-                <span class="menu-text">Library</span>
+                <span class="menu-text">{{__('lang_Library')}}</span>
             </a>
             <b class="arrow"></b>
         </li>
@@ -42,7 +42,7 @@
         <li class="{!! request()->is('user-student/attendance*')?'active':'' !!} hover">
             <a href="{{ route('user-student.attendance') }}">
                 <i class="menu-icon fa fa-calendar" aria-hidden="true"></i>
-                <span class="menu-text"> Attendance</span>
+                <span class="menu-text"> {{__('lang_Attendance')}}</span>
             </a>
             <b class="arrow"></b>
         </li>
@@ -51,7 +51,7 @@
         <li class="{!! request()->is('user-student/exams*')?'active':'' !!} hover">
             <a href="{{ route('user-student.exams') }}">
                 <i class="menu-icon fa fa-line-chart"  aria-hidden="true"></i>
-                <span class="menu-text"> Examination</span>
+                <span class="menu-text"> {{__('m_Examination')}}</span>
             </a>
             <b class="arrow"></b>
         </li>
@@ -60,7 +60,7 @@
         <li class="{!! request()->is('user-student/hostel*')?'active':'' !!} hover">
             <a href="{{ route('user-student.hostel') }}">
                 <i class="menu-icon  fa fa-bed" aria-hidden="true"></i>
-                <span class="menu-text"> Hostels </span>
+                <span class="menu-text"> {{__('m_Hostels')}} </span>
             </a>
             <b class="arrow"></b>
         </li>
@@ -69,7 +69,7 @@
         <li class="{!! request()->is('user-student/transport*')?'active':'' !!} hover">
             <a href="{{ route('user-student.transport') }}">
                 <i class="menu-icon  fa fa-bus" aria-hidden="true"></i>
-                <span class="menu-text"> Transport </span>
+                <span class="menu-text"> {{__('m_Transport')}} </span>
             </a>
             <b class="arrow"></b>
         </li>
@@ -78,7 +78,7 @@
         <li class="{!! request()->is('user-student/subject*')?'active':'' !!} hover">
             <a href="{{ route('user-student.subject') }}">
                 <i class="menu-icon  fa fa-list-alt" aria-hidden="true"></i>
-                <span class="menu-text"> Course </span>
+                <span class="menu-text"> {{__('Faculty.Course')}} </span>
             </a>
             <b class="arrow"></b>
         </li>
@@ -87,25 +87,25 @@
         <li class="{!! request()->is('user-student/notice*')?'active':'' !!} hover">
             <a href="{{ route('user-student.notice') }}">
                 <i class="menu-icon  fa fa-bullhorn" aria-hidden="true"></i>
-                <span class="menu-text"> Notice </span>
+                <span class="menu-text"> {{__('info-notice.Notice')}} </span>
             </a>
             <b class="arrow"></b>
         </li>
 
         {{-- HomeWork --}}
-        {{--<li class="{!! request()->is('user-student/notice*')?'active':'' !!} hover">
+        {{-- <li class="{!! request()->is('user-student/notice*')?'active':'' !!} hover">
             <a href="{{ route('user-student.notice') }}">
                 <i class="menu-icon  fa fa-tasks" aria-hidden="true"></i>
                 <span class="menu-text"> HomeWork </span>
             </a>
             <b class="arrow"></b>
-        </li>--}}
+        </li> --}}
 
         {{-- Download --}}
         <li class="{!! request()->is('user-student/download*')?'active':'' !!} hover">
             <a href="{{ route('user-student.download') }}">
                 <i class="menu-icon  fa fa-download" aria-hidden="true"></i>
-                <span class="menu-text"> Download </span>
+                <span class="menu-text"> {{__('download.Download')}} </span>
             </a>
             <b class="arrow"></b>
         </li>
@@ -114,7 +114,7 @@
         <li class="{!! request()->is('user-student/assignment*')?'active':'' !!} hover">
             <a href="{{ route('user-student.assignment') }}">
                 <i class="menu-icon  fa fa-tasks" aria-hidden="true"></i>
-                <span class="menu-text"> Assignment </span>
+                <span class="menu-text"> {{__('m_Assignment')}} </span>
             </a>
             <b class="arrow"></b>
         </li>

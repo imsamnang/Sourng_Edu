@@ -28,7 +28,7 @@ Auth::routes();
   Route::get('/contact', 'FrontController@contact')->name('contact');
 /* End Front End */
 
-
+Route::get('/admin', 'HomeController@index')->name('admin');
 
 
 /*for Dashboard's*/

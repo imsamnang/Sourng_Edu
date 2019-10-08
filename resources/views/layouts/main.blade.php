@@ -22,6 +22,9 @@
     <!-- main css -->
 
     <link rel="stylesheet" href="{{asset('front/css/style.css')}}" />
+
+    <link href="https://fonts.googleapis.com/css?family=Battambang|Khmer|Odor+Mean+Chey|Suwannaphum&display=swap" rel="stylesheet">
+    
 </head>
 
 <body>
