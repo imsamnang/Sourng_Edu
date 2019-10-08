@@ -112,7 +112,7 @@
                         role="button"
                         aria-haspopup="true"
                         aria-expanded="false"
-                        >Blog</a
+                        >{{__('front_m_Blog')}}</a
                     >
                     <ul class="dropdown-menu">
                         <li class="nav-item">
