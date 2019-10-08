@@ -244,7 +244,7 @@
                 @foreach ($data['staff'] as $item)
                     <div class="col-lg-3 col-md-6 col-sm-12 single-trainer">
                         <div class="thumb d-flex justify-content-sm-center">
-                        <img class="img-fluid" src="{{asset('front/img/trainer/t1.jpg')}}" alt="" />
+                                <img class="img-fluid" src="{{asset('images/staff/'.$item->staff_image)}}" alt="" />
                         </div>
                         <div class="meta-text text-sm-center">
                         <h4>{{$item->first_name}}<br>{{$item->last_name}}</h4>

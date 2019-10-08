@@ -227,7 +227,11 @@ class HomeController extends CollegeBaseController
             ->options(['borderColor' => '#46b8da', 'backgroundColor'=>'transparent' ]);
         $data['transactionChart']->dataset('Expenses', 'line',$crTransaction)
             ->options(['borderColor' => '#FF6384', 'backgroundColor'=>'transparent' ]);
-        return view(parent::loadDataToView($this->view_path.'.index'), compact('data'));
+      
+        // $data['YourInstitute']=Institute::WHERE('id',Auth::user()->institute_id)->first();
+
+      
+            return view(parent::loadDataToView($this->view_path.'.index'), compact('data'));
     }
 
 }
