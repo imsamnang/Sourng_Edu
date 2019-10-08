@@ -7,6 +7,7 @@ use App\Models\Quiz\Answer;
 use App\Models\Quiz\QuizResults;
 use App\Models\Quiz\SubjectQuiz;
 use Illuminate\Http\Request;
+use DB;
 
 class QuizResultsController extends Controller
 {
@@ -29,7 +30,6 @@ class QuizResultsController extends Controller
           $message = 'You have already pass this quiz.';
           return back();
       } else {
-
         if($request->option){
             foreach($request->option as $key => $value){
                 $answer = Answer::select('option_id')->where('question_id','=',$key)->get();
@@ -50,7 +50,6 @@ class QuizResultsController extends Controller
                             }
                         }
                     }
-
                     if(isset($multiple_right_answer)){
                         if(count($multiple_right_answer) == count($answer)){
                             $correct_answer[$key] = $value;
@@ -63,7 +62,6 @@ class QuizResultsController extends Controller
                 }//End of Multiple answer
                 $multiple_right_answer = null;
             }
-
             if(isset($correct_answer)){
               $correct_answer_count = count($correct_answer);
             }else{
@@ -71,7 +69,6 @@ class QuizResultsController extends Controller
                 $correct_answer = null;
                 $chart = null;
             }
-
             if(isset($wrong_answer)){
               $wrong_answer_count = count($wrong_answer);
             }else {
@@ -79,7 +76,6 @@ class QuizResultsController extends Controller
               $wrong_answer = null;
             }
             $success_percentage = ceil(($correct_answer_count * 100)/($correct_answer_count + $wrong_answer_count));
-
             // Check the passed status and save the results.
             $passed = $this->checkPassedStatus($quiz, $success_percentage);
             $this->saveQuizResultData($quiz, $correct_answer_count, $wrong_answer_count, $success_percentage, $passed);
@@ -114,4 +110,27 @@ class QuizResultsController extends Controller
     ];
     QuizResults::create($result_data);
   }
+
+  public function showResult(Request $request)
+  {
+    return view('ProjectActivities.quizs.result.date_range');
+  }
+
+    function fetch_data(Request $request)
+    {
+     if($request->ajax())
+     {
+      if(!is_null($request->from_date) &&!is_null($request->to_date))
+      // if($request->from_date != '' && $request->to_date != '')
+      {
+        $data = DB::table('quiz_results')
+         ->whereBetween('result_date', array($request->from_date, $request->to_date))
+         ->get();
+      } else {
+        $data = DB::table('quiz_results')->orderBy('result_date', 'desc')->get();
+      }
+      // echo json_encode($data);
+      return json_encode($data);
+     }
+    }
 }

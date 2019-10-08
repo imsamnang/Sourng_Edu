@@ -364,7 +364,6 @@
                         <i class="menu-icon fa fa-caret-right"></i>
                         @lang('m_Student_Attendance')
                     </a>
-
                     <b class="arrow"></b>
                 </li>
 
@@ -373,7 +372,6 @@
                         <i class="menu-icon fa fa-caret-right"></i>
                         @lang('m_Staff_Attendance')
                     </a>
-
                     <b class="arrow"></b>
                 </li>
 
@@ -396,12 +394,9 @@
             <a href="#" class="dropdown-toggle">
                 <i class="menu-icon fa fa-line-chart"  aria-hidden="true"></i>
                 <span class="menu-text"> @lang('m_Examination')</span>
-
                 <b class="arrow fa fa-angle-down"></b>
             </a>
-
             <b class="arrow"></b>
-
             <ul class="submenu">
                 <li class="{!! request()->is('exam/schedule*')?'active':'' !!} hover">
                     <a href="{{ route('exam.schedule') }}">
@@ -426,7 +421,6 @@
                     </a>
                     <b class="arrow"></b>
                 </li>
-
 
                 <li class="hover">
                     <a href="#" class="dropdown-toggle">
@@ -463,11 +457,18 @@
         </li>
         <li class="{!! request()->is('quiz/subject*')?'active':'' !!}">
           <a href="{{ route('quiz.subject.index') }}" >
-            <i class="menu-icon fa fa-tachometer"></i>
-            <span class="menu-text"> @lang('Manage Quiz') </span>
-            <b class="arrow fa fa-angle-down"></b>
-          </a>
-        </li>        
+              <i class="menu-icon fa fa-tachometer"></i>
+              <span class="menu-text"> @lang('Manage Quiz') </span>
+              <b class="arrow fa fa-angle-down"></b>
+          </a>        
+        </li>
+        <li class="{!! request()->is('quiz/daterange*')?'active':'' !!}">
+          <a href="{{ route('quiz.daterange') }}" >
+              <i class="menu-icon fa fa-tachometer"></i>
+              <span class="menu-text"> @lang('All Quiz Result') </span>
+              <b class="arrow fa fa-angle-down"></b>
+          </a>        
+        </li>
         @endability
 
         {{-- Hostel --}}

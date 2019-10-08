@@ -992,6 +992,9 @@ Auth::routes();
       Route::get('/viewSigleResult/{quizappearid}', 'UserController@show')->name('single.result');
       Route::get('/viewAllResult/{test_type_id}', 'UserController@viewAllResult')->name('allresult');
       Route::get('/quizLeaderboard/{quiz}', 'UserController@viewLeaderboard')->name('leaderboard');
+      Route::get('/daterange', 'QuizResultsController@showResult')->name('daterange');
+      Route::post('/daterange/fetch_data', 'QuizResultsController@fetch_data')->name('daterange.fetch_data');
+
     });
 
   // Quiz Questions
@@ -1032,7 +1035,6 @@ Auth::routes();
     Route::get('/card','ZcardController@index');
     Route::post('/card/result','ZcardController@result');
     Route::get('/card/result','ZcardController@result');
-
 
   // For Card
     Route::get('/menu','MenuController@index');  
