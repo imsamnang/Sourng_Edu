@@ -116,21 +116,21 @@ class QuizResultsController extends Controller
     return view('ProjectActivities.quizs.result.date_range');
   }
 
-    function fetch_data(Request $request)
+  function fetch_data(Request $request)
+  {
+   if($request->ajax())
+   {
+    if(!is_null($request->from_date) &&!is_null($request->to_date))
+    // if($request->from_date != '' && $request->to_date != '')
     {
-     if($request->ajax())
-     {
-      if(!is_null($request->from_date) &&!is_null($request->to_date))
-      // if($request->from_date != '' && $request->to_date != '')
-      {
-        $data = DB::table('quiz_results')
-         ->whereBetween('result_date', array($request->from_date, $request->to_date))
-         ->get();
-      } else {
-        $data = DB::table('quiz_results')->orderBy('result_date', 'desc')->get();
-      }
-      // echo json_encode($data);
-      return json_encode($data);
-     }
+      $data = DB::table('quiz_results')
+       ->whereBetween('result_date', array($request->from_date, $request->to_date))
+       ->get();
+    } else {
+      $data = DB::table('quiz_results')->orderBy('result_date', 'desc')->get();
     }
+    // echo json_encode($data);
+    return json_encode($data);
+   }
+  }
 }

@@ -14,6 +14,7 @@ use App\Models\Quiz\SubjectQuiz;
 use App\Models\Quiz\UserAnswer;
 use App\Models\Subject;
 use Auth;
+use Carbon\Carbon;
 use DB;
 use Illuminate\Http\Request;
 
@@ -172,6 +173,7 @@ class QuizController extends Controller
     if ($answer != null) {
       $answer = reset($answer);
     }
+    $result_date = Carbon::now()->toDateString();
     $duration = preg_split('/:/', $time_remaining);
     $time_remaining_in_seconds = ((int)$duration[0] * 60) + ((int)$duration[1]);
     if ($page == 1) {
@@ -181,6 +183,7 @@ class QuizController extends Controller
         $newQuizAppear->user_name = $userName;
         $newQuizAppear->marks_scored = 0;
         $newQuizAppear->test_type_id = $test_type;
+        $newQuizAppear->result_date = $result_date;
         $newQuizAppear->save();
     }
     $uniqueQuizQuery = QuizResults::where('user_id',$userId)->orderBy('id','desc')->first();

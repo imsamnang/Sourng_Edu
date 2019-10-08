@@ -992,6 +992,7 @@ Auth::routes();
       Route::get('/viewSigleResult/{quizappearid}', 'UserController@show')->name('single.result');
       Route::get('/viewAllResult/{test_type_id}', 'UserController@viewAllResult')->name('allresult');
       Route::get('/quizLeaderboard/{quiz}', 'UserController@viewLeaderboard')->name('leaderboard');
+    // date range filter
       Route::get('/daterange', 'QuizResultsController@showResult')->name('daterange');
       Route::post('/daterange/fetch_data', 'QuizResultsController@fetch_data')->name('daterange.fetch_data');
 

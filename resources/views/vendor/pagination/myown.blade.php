@@ -7,4 +7,8 @@
       <li class="disabled" aria-disabled="true"><button type="submit" class="btn btn-success btn_quiz">Submit</button></li>
     @endif
   </ul>
+@else
+  <ul class="pagination" role="navigation">
+    <li class="disabled" aria-disabled="true"><button type="submit" class="btn btn-success btn_quiz">Submit</button></li>
+  </ul>
 @endif

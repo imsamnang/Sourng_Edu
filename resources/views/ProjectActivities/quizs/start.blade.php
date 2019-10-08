@@ -137,7 +137,7 @@
 											<input type="hidden" name="user-id" id="student-id" value="{{ Auth::user()->id }}">
 											<input type="hidden" name="test_type" value="{{ $test_type }}" id="test_type">
 											{!! Form::input('hidden','time_taken'.$question->id,null,['id'=>'time_taken'.$question->id]) !!}
-											<p>{{ $allQuestion->links('vendor.pagination.myown') }}</p>					        		
+											<p>{{ $allQuestion->links('vendor.pagination.myown') }}</p>
 					        	</div>
 					        </form>
 				        @endforeach

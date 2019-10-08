@@ -90,7 +90,7 @@
       }, 500);
       var nextRowID = 1;
       var newName = 1;
-      var maxField = 6; //Input fields increment limitation
+      var maxField = 15; //Input fields increment limitation
       var addButtonK = $('.add_button'); //Add button selector
       var wrapper = $('.field_wrapper'); //Input field wrapper
       var x = 1; //Initial field counter is 1
