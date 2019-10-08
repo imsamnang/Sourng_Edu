@@ -6,7 +6,7 @@ use App\Models\Staff;
 use App\Models\Subject;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class FrontController extends Controller
 {
     /**
      * Create a new controller instance.
