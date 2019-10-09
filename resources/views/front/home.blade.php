@@ -12,8 +12,7 @@
                   <div class="col-lg-12">
                   <div class="banner_content text-center">
                       <p class="text-uppercase">
-                          សេវាកម្មអប់រំតាមអ៊ិនធរណេតល្អបំផុតនៅលើពិភពលោក។
-                         
+                          សេវាកម្មអប់រំតាមអ៊ិនធរណេតល្អបំផុតនៅលើពិភពលោក។                         
                       </p>
                       <h2 class="text-uppercase mt-4 mb-5">
                           មើលនិងចុះឈ្មោះចូលរៀន
@@ -89,64 +88,57 @@
 
   <!--================ Start Popular Courses Area =================-->
   <div class="popular_courses">
-      <div class="container">
-          <div class="row justify-content-center">
-          <div class="col-lg-5">
-              <div class="main_title">
-              <h2 class="mb-3">Our Popular Courses</h2>
-
-              <p>
-                  Replenish man have thing gathering lights yielding shall you
-              </p>
-              </div>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-5">
+          <div class="main_title">
+            <h2 class="mb-3">Our Popular Courses</h2>
+            <p>
+              Replenish man have thing gathering lights yielding shall you
+            </p>
           </div>
-          </div>
-          <div class="row">
-          <!-- single course -->
-          <div class="col-lg-12">
-              <div class="owl-carousel active_course">
-
-                  @foreach ($data['subject'] as $item)
-                      <div class="single_course">
-                          <div class="course_head">
-                          <img class="img-fluid" src="{{asset('front/img/courses/c1.jpg')}}" alt="" />
-                          </div>
-                          <div class="course_content">
-                          <span class="price">$25</span>
-                          <span class="tag mb-4 d-inline-block">design</span>
-                          <h4 class="mb-3">
-                              <a href="course-details.html">{{$item->title}}</a>
-                          </h4>
-                          <p>
-                              One make creepeth man bearing their one firmament won't fowl
-                              meat over sea
-                          </p>
-                          <div
-                              class="course_meta d-flex justify-content-lg-between align-items-lg-center flex-lg-row flex-column mt-4"
-                          >
-                              <div class="authr_meta">
-                                  <img src="{{asset('front/img/courses/author1.png')}}" alt="" />
-                              <span class="d-inline-block ml-2">Cameron</span>
-                              </div>
-                              <div class="mt-lg-0 mt-3">
-                              <span class="meta_info mr-4">
-                                  <a href="#"> <i class="ti-user mr-2"></i>25 </a>
-                              </span>
-                              <span class="meta_info"
-                                  ><a href="#"> <i class="ti-heart mr-2"></i>35 </a></span
-                              >
-                              </div>
-                          </div>
-                          </div>
-                      </div>
-                  @endforeach
-
-
-
-              </div>
-          </div>
-          </div>
+        </div>
       </div>
+      <div class="row">
+        <!-- single course -->
+        <div class="col-lg-12">
+          <div class="owl-carousel active_course">
+            @foreach ($data['subject'] as $item)
+              <div class="single_course">
+                <div class="course_head">
+                  <img class="img-fluid" src="{{asset('front/img/courses/c1.jpg')}}" alt="" />
+                </div>
+                <div class="course_content">
+                  <span class="price">$25</span>
+                  <span class="tag mb-4 d-inline-block">design</span>
+                  <h4 class="mb-3">
+                    <a href="{{ route('front.course.detail',$item->slug) }}">{{$item->title}}</a>
+                  </h4>
+                  <p>
+                    One make creepeth man bearing their one firmament won't fowl
+                     meat over sea
+                  </p>
+                  <div class="course_meta d-flex justify-content-lg-between align-items-lg-center flex-lg-row flex-column mt-4">
+                      <div class="authr_meta">
+                        <img src="{{asset('front/img/courses/author1.png')}}" alt="" />
+                        <span class="d-inline-block ml-2">Cameron</span>
+                      </div>
+                      <div class="mt-lg-0 mt-3">
+                        <span class="meta_info mr-4">
+                          <a href="#"> <i class="ti-user mr-2"></i>25 </a>
+                        </span>
+                        <span class="meta_info">
+                          <a href="#"><i class="ti-heart mr-2"></i>{{ $item->view_count }}</a>
+                        </span>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            @endforeach
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   <!--================ End Popular Courses Area =================-->
 
@@ -353,125 +345,124 @@
 
   <!--================ Start Testimonial Area =================-->
   <div class="testimonial_area section_gap">
-      <div class="container">
-          <div class="row justify-content-center">
-          <div class="col-lg-5">
-              <div class="main_title">
-              <h2 class="mb-3">Client say about me</h2>
-              <p>
-                  Replenish man have thing gathering lights yielding shall you
-              </p>
-              </div>
-          </div>
-          </div>
-
-          <div class="row">
-          <div class="testi_slider owl-carousel">
-              <div class="testi_item">
-              <div class="row">
-                  <div class="col-lg-4 col-md-6">
-                  <img src="img/testimonials/t1.jpg" alt="" />
-                  </div>
-                  <div class="col-lg-8">
-                  <div class="testi_text">
-                      <h4>Elite Martin</h4>
-                      <p>
-                      Him, made can't called over won't there on divide there
-                      male fish beast own his day third seed sixth seas unto.
-                      Saw from
-                      </p>
-                  </div>
-                  </div>
-              </div>
-              </div>
-              <div class="testi_item">
-              <div class="row">
-                  <div class="col-lg-4 col-md-6">
-                  <img src="img/testimonials/t2.jpg" alt="" />
-                  </div>
-                  <div class="col-lg-8">
-                  <div class="testi_text">
-                      <h4>Davil Saden</h4>
-                      <p>
-                      Him, made can't called over won't there on divide there
-                      male fish beast own his day third seed sixth seas unto.
-                      Saw from
-                      </p>
-                  </div>
-                  </div>
-              </div>
-              </div>
-              <div class="testi_item">
-              <div class="row">
-                  <div class="col-lg-4 col-md-6">
-                  <img src="img/testimonials/t1.jpg" alt="" />
-                  </div>
-                  <div class="col-lg-8">
-                  <div class="testi_text">
-                      <h4>Elite Martin</h4>
-                      <p>
-                      Him, made can't called over won't there on divide there
-                      male fish beast own his day third seed sixth seas unto.
-                      Saw from
-                      </p>
-                  </div>
-                  </div>
-              </div>
-              </div>
-              <div class="testi_item">
-              <div class="row">
-                  <div class="col-lg-4 col-md-6">
-                  <img src="img/testimonials/t2.jpg" alt="" />
-                  </div>
-                  <div class="col-lg-8">
-                  <div class="testi_text">
-                      <h4>Davil Saden</h4>
-                      <p>
-                      Him, made can't called over won't there on divide there
-                      male fish beast own his day third seed sixth seas unto.
-                      Saw from
-                      </p>
-                  </div>
-                  </div>
-              </div>
-              </div>
-              <div class="testi_item">
-              <div class="row">
-                  <div class="col-lg-4 col-md-6">
-                  <img src="img/testimonials/t1.jpg" alt="" />
-                  </div>
-                  <div class="col-lg-8">
-                  <div class="testi_text">
-                      <h4>Elite Martin</h4>
-                      <p>
-                      Him, made can't called over won't there on divide there
-                      male fish beast own his day third seed sixth seas unto.
-                      Saw from
-                      </p>
-                  </div>
-                  </div>
-              </div>
-              </div>
-              <div class="testi_item">
-              <div class="row">
-                  <div class="col-lg-4 col-md-6">
-                  <img src="img/testimonials/t2.jpg" alt="" />
-                  </div>
-                  <div class="col-lg-8">
-                  <div class="testi_text">
-                      <h4>Davil Saden</h4>
-                      <p>
-                      Him, made can't called over won't there on divide there
-                      male fish beast own his day third seed sixth seas unto.
-                      Saw from
-                      </p>
-                  </div>
-                  </div>
-              </div>
-              </div>
-          </div>
-          </div>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-5">
+            <div class="main_title">
+            <h2 class="mb-3">Client say about me</h2>
+            <p>
+              Replenish man have thing gathering lights yielding shall you
+            </p>
+            </div>
+        </div>
       </div>
+      <div class="row">
+        <div class="testi_slider owl-carousel">
+            <div class="testi_item">
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                <img src="img/testimonials/t1.jpg" alt="" />
+                </div>
+                <div class="col-lg-8">
+                <div class="testi_text">
+                    <h4>Elite Martin</h4>
+                    <p>
+                    Him, made can't called over won't there on divide there
+                    male fish beast own his day third seed sixth seas unto.
+                    Saw from
+                    </p>
+                </div>
+                </div>
+            </div>
+            </div>
+            <div class="testi_item">
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                <img src="img/testimonials/t2.jpg" alt="" />
+                </div>
+                <div class="col-lg-8">
+                <div class="testi_text">
+                    <h4>Davil Saden</h4>
+                    <p>
+                    Him, made can't called over won't there on divide there
+                    male fish beast own his day third seed sixth seas unto.
+                    Saw from
+                    </p>
+                </div>
+                </div>
+            </div>
+            </div>
+            <div class="testi_item">
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                <img src="img/testimonials/t1.jpg" alt="" />
+                </div>
+                <div class="col-lg-8">
+                <div class="testi_text">
+                    <h4>Elite Martin</h4>
+                    <p>
+                    Him, made can't called over won't there on divide there
+                    male fish beast own his day third seed sixth seas unto.
+                    Saw from
+                    </p>
+                </div>
+                </div>
+            </div>
+            </div>
+            <div class="testi_item">
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                <img src="img/testimonials/t2.jpg" alt="" />
+                </div>
+                <div class="col-lg-8">
+                <div class="testi_text">
+                    <h4>Davil Saden</h4>
+                    <p>
+                    Him, made can't called over won't there on divide there
+                    male fish beast own his day third seed sixth seas unto.
+                    Saw from
+                    </p>
+                </div>
+                </div>
+            </div>
+            </div>
+            <div class="testi_item">
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                <img src="img/testimonials/t1.jpg" alt="" />
+                </div>
+                <div class="col-lg-8">
+                <div class="testi_text">
+                    <h4>Elite Martin</h4>
+                    <p>
+                    Him, made can't called over won't there on divide there
+                    male fish beast own his day third seed sixth seas unto.
+                    Saw from
+                    </p>
+                </div>
+                </div>
+            </div>
+            </div>
+            <div class="testi_item">
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                <img src="img/testimonials/t2.jpg" alt="" />
+                </div>
+                <div class="col-lg-8">
+                <div class="testi_text">
+                    <h4>Davil Saden</h4>
+                    <p>
+                    Him, made can't called over won't there on divide there
+                    male fish beast own his day third seed sixth seas unto.
+                    Saw from
+                    </p>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+      </div>
+    </div>
   </div>
   <!--================ End Testimonial Area =================-->
 
