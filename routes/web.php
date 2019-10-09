@@ -22,7 +22,7 @@ Auth::routes();
 
 
 /* Front End */
-  Route::get('/home', 'FrontController@index')->name('home');
+  Route::get('/', 'FrontController@index')->name('home');
   Route::get('/about', 'FrontController@about')->name('about');
   Route::get('/all-courses', 'FrontController@all_courses')->name('all-courses');
   Route::get('/contact', 'FrontController@contact')->name('contact');
@@ -32,7 +32,7 @@ Route::get('/admin', 'HomeController@index')->name('admin');
 
 
 /*for Dashboard's*/
-  Route::get('/', ['as' => 'home',    'uses' => 'HomeController@index']);
+  Route::get('/admin', ['as' => 'home',    'uses' => 'HomeController@index']);
 /* Roles Routes */
     Route::get('role',                    ['as' => 'role',                  'middleware' => ['ability:super-admin,role-index'],         'uses' => 'RoleController@index']);
     Route::get('role/add',                ['as' => 'role.add',              'middleware' => ['ability:super-admin,role-add'],           'uses' => 'RoleController@create']);
