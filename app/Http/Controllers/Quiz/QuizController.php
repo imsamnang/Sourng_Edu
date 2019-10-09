@@ -83,6 +83,14 @@ class QuizController extends Controller
   {
     $ref = '#'.str_random(10);
     $slug = $this->make_slug($request->name);
+
+    // $month = date("n");
+    // //the month number without any leading zeros
+    // $month = date("n", strtotime($month));
+    // //Calculate the year quarter.
+    // $yearQuarter = ceil($month / 3);
+
+
     $quiz = SubjectQuiz::create([
       'title'  => $request->name,
       'slug'  => $slug,
@@ -291,6 +299,7 @@ class QuizController extends Controller
    $sub = SubjectQuiz::where('id', $quizid)->first();
    $questionsCount = $sub->questions()->count();
    $percentage_correct = 100 * $marks_scored / $questionsCount;
+   
    return view('ProjectActivities.quizs.finishQuiz',compact('percentage_correct','questionsCount','uniqueQuizAppearId','sub','marks_scored'));
   }
 

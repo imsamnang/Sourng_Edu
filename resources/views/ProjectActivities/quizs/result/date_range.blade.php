@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
  <head>
-  <title>Date Range Fiter Data in Laravel using Ajax</title>
+  <title>Filter Quiz Result</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css" />
@@ -9,13 +9,15 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js"></script>
  </head>
  <body>
+    @include('ProjectActivities.layout.nav')
+    {{-- @include('layouts.includes.menu') --}}
   <br />
   <div class="container box">
-   <h3 align="center">Date Range Fiter Data in Laravel using Ajax</h3><br />
+   <h3 align="center">List All Student Take Quiz</h3><br />
    <div class="panel panel-default">
     <div class="panel-heading">
      <div class="row">
-      <div class="col-md-5">Sample Data - Total Records - <b><span id="total_records"></span></b></div>
+      <div class="col-md-5">Users Quiz Filter - Total Records - <b><span id="total_records"></span></b></div>
       <div class="col-md-5">
        <div class="input-group input-daterange">
            <input type="text" name="from_date" id="from_date" readonly class="form-control" />
@@ -34,9 +36,11 @@
       <table class="table table-striped table-bordered">
        <thead>
         <tr>
-         <th width="35%">Post Title</th>
-         <th width="50%">Post Description</th>
-         <th width="15%">Publish Date</th>
+          <th width="10%">ID</th>
+         <th width="35%">Student</th>
+         <th width="20%">Score</th>
+         <th width="20%">Quarter</th>
+         <th width="15%">Quiz Date</th>
         </tr>
        </thead>
        <tbody>
@@ -80,8 +84,10 @@ $(document).ready(function(){
     for(var count = 0; count < data.length; count++)
     {
      output += '<tr>';
+      output += '<td>' + data[count].id + '</td>';
      output += '<td>' + data[count].user_name + '</td>';
      output += '<td>' + data[count].marks_scored + '</td>';
+     output += '<td>' + 'Q'+data[count].quarter + '</td>';
      output += '<td>' + data[count].result_date + '</td></tr>';
     }
     $('tbody').html(output);
@@ -106,10 +112,12 @@ $(document).ready(function(){
       $('#total_records').text(data.length);
       for(var count = 0; count < data.length; count++)
       {
-       output += '<tr>';
-       output += '<td>' + data[count].user_name + '</td>';
-       output += '<td>' + data[count].marks_scored + '</td>';
-       output += '<td>' + data[count].result_date + '</td></tr>';
+        output += '<tr>';
+        output += '<td>' + data[count].id + '</td>';
+        output += '<td>' + data[count].user_name + '</td>';
+        output += '<td>' + data[count].marks_scored + '</td>';
+        output += '<td>' + 'Q'+data[count].quarter + '</td>';
+        output += '<td>' + data[count].result_date + '</td></tr>';
       }
       $('tbody').html(output);
      }

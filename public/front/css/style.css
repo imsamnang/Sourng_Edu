@@ -46,6 +46,42 @@ body {
     margin-right: 20px !important;
 }
 
+.course_details_area .title2{
+	font-size: 21px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px !important;
+    border-bottom: 1px solid #eeeeee !important;
+    position: relative;
+    padding-bottom: 10px;
+    margin-bottom: 22px;
+}
+.single_course .price{
+	line-height: 35px !important;
+    width: 95px !important;
+    text-align: center;
+    border-radius: 20px !important;
+	height: 35px !important;
+
+    background: #fdc632;
+}
+
+.course_details_area .title2:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    height: 1px;
+    width: 74px;
+    background: #fdc632;
+}
+
+
+.dropdown-menu.show {
+    display: block;
+    margin-top: -20px !important;;
+}
+
 h1,
 h2,
 h3,
@@ -109,23 +145,25 @@ button:focus {
 
 /*---------------------------------------------------- */
 /*----------------------------------------------------*/
+
+
 .section_gap {
-  padding: 130px 0; }
+  padding: 30px 0; }
   @media (max-width: 991px) {
     .section_gap {
-      padding: 70px 0; } }
+      padding: 10px 0; } }
 
 .section_gap_top {
   padding-top: 130px; }
   @media (max-width: 991px) {
     .section_gap_top {
-      padding-top: 70px; } }
+      padding-top: 10px; } }
 
 .section_gap_bottom {
   padding-bottom: 130px; }
   @media (max-width: 991px) {
     .section_gap_bottom {
-      padding-bottom: 70px; } }
+      padding-bottom: 20px; } }
 
 /* Main Title Area css
 ============================================================================================ */

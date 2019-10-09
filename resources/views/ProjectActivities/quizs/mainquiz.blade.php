@@ -28,7 +28,7 @@
             <div class="navbar-header">
               <!-- Branding Image -->
               {{-- @if($setting) --}}
-                <h4 class="heading">Laravel Quiz</h4>
+                <h4 class="heading">Pre-Test/Post-Test</h4>
               {{-- @endif --}}
             </div>
           </div>

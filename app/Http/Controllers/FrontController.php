@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Session;
 use App\Models\Staff;
 use App\Models\Subject;
 use Illuminate\Http\Request;
-use Session;
+use App\Models\CourseOutline;
 
 class FrontController extends Controller
 {
@@ -34,13 +35,19 @@ class FrontController extends Controller
     }
 
     public function courseDetail($slug){
-      $course = Subject::where('slug','=',$slug)->first();
-      $viewKey = 'blog_' .$course->id;
+      $data=[];
+
+      $data['subject'] = Subject::where('slug','=',$slug)->first();
+      
+      $viewKey = 'blog_' .$data['subject']->id;
       if(!Session::has($viewKey)){
-          $course->increment('view_count');
+        $data['subject']->increment('view_count');
           Session::put($viewKey,1);
-      }      
-      return view('front.course_detail',compact('course'));
+      }   
+      
+      $data['course_outline']=CourseOutline::Where('subject_id','=',$data['subject']->id)->get();
+      // return $data['course_outline'];
+      return view('front.course_detail',compact('data'));
     }
 
     // All Course Page

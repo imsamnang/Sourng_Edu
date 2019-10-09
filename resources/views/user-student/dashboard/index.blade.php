@@ -199,8 +199,41 @@
                             </div>
                             <div class="col-md-6">
                                 <div>
-                                    <h1>Result Rest</h1>
-                                    <h3>Content</h3>
+                                    @php
+                                        $QuizResult = App\Models\Quiz\QuizResults::where('user_id', auth()->user()->id)->get();                            
+                                    @endphp
+                                    {{-- <h1>Result Rest</h1> --}}
+                                    {{-- <h3>Content {{auth()->user()->id}}</h3> --}}
+                                    
+
+                                    <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th style="width: 60%;">Subject</th>
+                                                <th style="width: 20%;">Score</th>
+                                                <th style="width: 20%;">Date</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                        @foreach ($QuizResult as $QuizResults)
+                                            @php
+                                                $Subj = App\Models\Subject::where('id', $QuizResults->subject_id)->get();                            
+                                            @endphp
+                                            <tr>                                                
+                                            {{-- <h3>{{$QuizResults->user_name}}</h3> --}}
+                                            @foreach ($Subj as $Subjs)
+                                            <td>{{$Subjs->title}}</td>
+                                            @endforeach
+                                           
+                                            <td>{{$QuizResults->marks_scored}}</td>
+                                            <td>{{$QuizResults->result_date}}</td>
+                                                                                     
+                                            </tr>
+                                            @endforeach
+                                            </tbody>
+                                        </table>
+
+
                                 </div>
                             </div>
                         </div>

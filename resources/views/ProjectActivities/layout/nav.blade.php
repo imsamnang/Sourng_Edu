@@ -33,7 +33,7 @@
             <ul class="nav ace-nav">
                 <li class="light-blue dropdown-modal user-min">
                     <a data-toggle="dropdown" href="#" class="dropdown-toggle">
-                        <img class="nav-user-photo" src="{{ asset('images/user/'.auth()->user()->profile_image) }}" alt="Jason's Photo" />
+                        <img style="height: 32px;" class="nav-user-photo" src="{{ asset('images/user/'.auth()->user()->profile_image) }}" alt="Jason's Photo" />
                         <span class="user-info">
                                 <small>Welcome,</small>
                                 {{isset(auth()->user()->name)?auth()->user()->name:""}}

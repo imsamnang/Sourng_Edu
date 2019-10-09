@@ -106,29 +106,46 @@
             @foreach ($data['subject'] as $item)
               <div class="single_course">
                 <div class="course_head">
-                  <img class="img-fluid" src="{{asset('front/img/courses/c1.jpg')}}" alt="" />
+                  <img class="img-fluid" src="{{asset('images/book/'.$item->image.'')}}" alt="" />
                 </div>
                 <div class="course_content">
-                  <span class="price">$25</span>
-                  <span class="tag mb-4 d-inline-block">design</span>
+                    @if ($item->subject_fee==0.00)
+                        <span class="price">Free</span>
+                    @else
+                        <span class="price">${{$item->subject_fee}}</span>
+                    @endif
+
+                  {{-- <span class="price">$25</span> --}}
+
+                  <span class="tag mb-4 d-inline-block">{{$item->class_type}}</span>
+                  <span class="tag mb-4 d-inline-block">{{$item->credit_hour}}h</span>
                   <h4 class="mb-3">
                     <a href="{{ route('front.course.detail',$item->slug) }}">{{$item->title}}</a>
                   </h4>
-                  <p>
+                  {{-- <p>
                     One make creepeth man bearing their one firmament won't fowl
                      meat over sea
-                  </p>
+                  </p> --}}
+                  @php
+                    $staff = App\Models\Staff::where('id', $item->staff_id)->get();                            
+                  @endphp
+
                   <div class="course_meta d-flex justify-content-lg-between align-items-lg-center flex-lg-row flex-column mt-4">
                       <div class="authr_meta">
-                        <img src="{{asset('front/img/courses/author1.png')}}" alt="" />
-                        <span class="d-inline-block ml-2">Cameron</span>
+                        @foreach ($staff as $staff)
+                        <img style="width: 32px !important; border-radius: 10%;" src="{{asset('images/staff/'.$staff->staff_image.'')}}" alt="" />
+                        
+                        <span class="d-inline-block ml-2">                            
+                               {{$staff->first_name}}                            
+                        </span>
                       </div>
+                      @endforeach
                       <div class="mt-lg-0 mt-3">
                         <span class="meta_info mr-4">
                           <a href="#"> <i class="ti-user mr-2"></i>25 </a>
                         </span>
                         <span class="meta_info">
-                          <a href="#"><i class="ti-heart mr-2"></i>{{ $item->view_count }}</a>
+                          <a href="#"><i class="ti-eye mr-2"></i>{{ $item->view_count }}</a>
                         </span>
                       </div>
                   </div>
@@ -361,7 +378,7 @@
             <div class="testi_item">
             <div class="row">
                 <div class="col-lg-4 col-md-6">
-                <img src="img/testimonials/t1.jpg" alt="" />
+                <img src="{{asset('front/img/testimonials/t1.jpg')}}" alt="" />
                 </div>
                 <div class="col-lg-8">
                 <div class="testi_text">
@@ -378,7 +395,7 @@
             <div class="testi_item">
             <div class="row">
                 <div class="col-lg-4 col-md-6">
-                <img src="img/testimonials/t2.jpg" alt="" />
+                <img src="{{asset('front/img/testimonials/t2.jpg')}}" alt="" />
                 </div>
                 <div class="col-lg-8">
                 <div class="testi_text">
@@ -395,7 +412,7 @@
             <div class="testi_item">
             <div class="row">
                 <div class="col-lg-4 col-md-6">
-                <img src="img/testimonials/t1.jpg" alt="" />
+                <img src="{{asset('front/img/testimonials/t2.jpg')}}" alt="" />
                 </div>
                 <div class="col-lg-8">
                 <div class="testi_text">
@@ -412,7 +429,7 @@
             <div class="testi_item">
             <div class="row">
                 <div class="col-lg-4 col-md-6">
-                <img src="img/testimonials/t2.jpg" alt="" />
+                <img src="{{asset('front/img/testimonials/t2.jpg')}}" alt="" />
                 </div>
                 <div class="col-lg-8">
                 <div class="testi_text">
@@ -429,7 +446,7 @@
             <div class="testi_item">
             <div class="row">
                 <div class="col-lg-4 col-md-6">
-                <img src="img/testimonials/t1.jpg" alt="" />
+                <img src="{{asset('front/img/testimonials/t1.jpg')}}" alt="" />
                 </div>
                 <div class="col-lg-8">
                 <div class="testi_text">
@@ -446,7 +463,7 @@
             <div class="testi_item">
             <div class="row">
                 <div class="col-lg-4 col-md-6">
-                <img src="img/testimonials/t2.jpg" alt="" />
+                <img src="{{asset('front/img/testimonials/t2.jpg')}}" alt="" />
                 </div>
                 <div class="col-lg-8">
                 <div class="testi_text">
