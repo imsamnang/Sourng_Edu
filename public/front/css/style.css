@@ -76,6 +76,14 @@ body {
     background: #fdc632;
 }
 
+.header_area .navbar .nav .nav-item.submenu ul .nav-item .nav-link {
+  line-height: 35px !important;
+  color: #002347;
+  padding: 0px 10px !important;
+  transition: all 150ms linear;
+  display: block;
+  margin-right: 0px;
+}
 
 .dropdown-menu.show {
     display: block;
