@@ -134,12 +134,15 @@ class StaffController extends CollegeBaseController
           'password'=>$new_password,
           'address'=>$request->address,
           'profile_image'=>$staffSaved->staff_image,
-          'role_id'=>5,
+          'role_id'=>8,
           'hook_id'=>$staffSaved->id,
           'institute_id'=>$staffSaved->institute_id,
           'created_at'=>$request->join_date,
           'contact_number'=>$request->home_phone,
-          'pob'=>$request->pob
+          'pob'=>$request->pob,
+          'province_id'=>$request->province_id,
+          'district_id'=>$request->district_id,
+          'commune_id'=>$request->commune_id
       ];
       $StaffAccessLogin = User::create($StaffAccessLogin);
       $role_user = DB::table('role_user')
@@ -180,8 +183,9 @@ class StaffController extends CollegeBaseController
             ->join('book_masters as bm','bm.id','=','b.book_masters_id')
             ->orderBy('book_issues.issued_on', 'desc')
             ->get();
-    }    
-      $data['attendance'] = Attendance::select('attendances.id', 'attendances.attendees_type', 'attendances.link_id','attendances.years_id', 'attendances.months_id', 'attendances.day_1', 'attendances.day_2', 'attendances.day_3','attendances.day_4', 'attendances.day_5', 'attendances.day_6', 'attendances.day_7', 'attendances.day_8','attendances.day_9', 'attendances.day_10', 'attendances.day_11', 'attendances.day_12', 'attendances.day_13','attendances.day_14', 'attendances.day_15', 'attendances.day_16', 'attendances.day_17', 'attendances.day_18','attendances.day_19', 'attendances.day_20', 'attendances.day_21', 'attendances.day_22', 'attendances.day_23','attendances.day_24', 'attendances.day_25', 'attendances.day_26', 'attendances.day_27', 'attendances.day_28', 'attendances.day_29', 'attendances.day_30', 'attendances.day_31')
+    }
+
+    $data['attendance'] = Attendance::select('attendances.id', 'attendances.attendees_type', 'attendances.link_id','attendances.years_id', 'attendances.months_id', 'attendances.day_1', 'attendances.day_2', 'attendances.day_3','attendances.day_4', 'attendances.day_5', 'attendances.day_6', 'attendances.day_7', 'attendances.day_8','attendances.day_9', 'attendances.day_10', 'attendances.day_11', 'attendances.day_12', 'attendances.day_13','attendances.day_14', 'attendances.day_15', 'attendances.day_16', 'attendances.day_17', 'attendances.day_18','attendances.day_19', 'attendances.day_20', 'attendances.day_21', 'attendances.day_22', 'attendances.day_23','attendances.day_24', 'attendances.day_25', 'attendances.day_26', 'attendances.day_27', 'attendances.day_28', 'attendances.day_29', 'attendances.day_30', 'attendances.day_31')
       ->where('attendances.attendees_type', 2)
       ->where('attendances.link_id',$data['staff']->id)
       ->join('students as s', 's.id', '=', 'attendances.link_id')
@@ -283,6 +287,35 @@ class StaffController extends CollegeBaseController
         if (file_exists($this->folder_path.$row->staff_image))
             @unlink($this->folder_path.$row->staff_image);
     }
+
+  //   $StaffAccessLogin=[
+  //     // 'name'=>$staffSaved->first_name.' '.$staffSaved->middle_name.' '.$staffSaved->last_name,
+  //     // 'email'=>$staffSaved->email,
+  //     // 'password'=>$new_password,
+  //     // 'address'=>$request->address,
+  //     // 'profile_image'=>$staffSaved->staff_image,
+  //     // 'role_id'=>5,
+  //     // 'hook_id'=>$staffSaved->id,
+  //     // 'institute_id'=>$staffSaved->institute_id,
+  //     // 'created_at'=>$request->join_date,
+  //     // 'contact_number'=>$request->home_phone,
+  //     // 'pob'=>$request->pob,
+  //     'province_id'=>$request->province_id,
+  //     'district_id'=>$request->district_id,
+  //     'commune_id'=>$request->commune_id
+  // ];
+
+
+
+    // 'province_id'=>$request->province_id,
+    // 'district_id'=>$request->district_id,
+    // 'commune_id'=>$request->commune_id
+    // teacher_exam_id
+    // qualification_id
+    $request->request->add(['qualification_id' => $request->qualification_id]);
+    $request->request->add(['province_id' => $request->province_id]);
+    $request->request->add(['district_id'=> $request->district_id]);
+    $request->request->add(['commune_id' =>$request->commune_id]);
     $request->request->add(['last_updated_by' => auth()->user()->id]);
     $request->request->add(['staff_image' => isset($image_name)?$image_name:$row->staff_image]);
     $row->update($request->all());
