@@ -14,9 +14,14 @@
     {{-- <title>Edustage Education</title> --}}
     <title>{{ config('app.name', 'RPITSSR') }}</title>
     <!-- Bootstrap CSS -->
+
+    <link type="text/css" rel="stylesheet" href="{{ mix('css/app.css') }}">
+    {{-- <link type="text/css" rel="stylesheet" href="{{ mix('css/css/app.css') }}"> --}}
+
+    
     <link rel="stylesheet" href="{{asset('front/css/bootstrap.css')}}" />
-    <link rel="stylesheet" href="{{asset('front/css/flaticon.css')}}" />
-    <link rel="stylesheet" href="{{asset('front/css/themify-icons.css')}}" />
+    {{-- <link rel="stylesheet" href="{{asset('front/css/flaticon.css')}}" /> --}}
+    {{-- <link rel="stylesheet" href="{{asset('front/css/themify-icons.css')}}" /> --}}
     <link rel="stylesheet" href="{{asset('front/vendors/owl-carousel/owl.carousel.min.css')}}" />
     <link rel="stylesheet" href="{{asset('front/vendors/nice-select/css/nice-select.css')}}" />
     <!-- main css -->
@@ -25,6 +30,8 @@
 
     <link href="https://fonts.googleapis.com/css?family=Battambang|Khmer|Odor+Mean+Chey|Suwannaphum&display=swap" rel="stylesheet">
     
+    
+
 </head>
 
 <body>
@@ -39,7 +46,7 @@
             <div class="container">
                 <div class="row">
                 <div class="col-lg-2 col-md-6 single-footer-widget">
-                    <h4>Top Products</h4>
+                    <h4><span class="fa fa-user"></span>Top Products</h4>
                     <ul>
                     <li><a href="#">Managed Website</a></li>
                     <li><a href="#">Manage Reputation</a></li>

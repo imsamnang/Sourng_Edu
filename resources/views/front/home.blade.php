@@ -45,7 +45,9 @@
           <div class="row">
           <div class="col-lg-4 col-md-6">
               <div class="single_feature">
-              <div class="icon" style="text-align: center;"><span class="flaticon-student"></span></div>
+              <div class="icon" style="text-align: center;">
+                <span style="font-size: 40px;" class="fa fa-graduation-cap"></span>
+            </div>
               <div class="desc">
                   <h4 class="mt-3 mb-2" style="text-align: center;">កន្លែងអាហារូបករណ៍</h4>
                   <p>
@@ -58,7 +60,9 @@
 
           <div class="col-lg-4 col-md-6">
               <div class="single_feature">
-              <div class="icon" style="text-align: center;"><span class="flaticon-book"></span></div>
+              <div class="icon" style="text-align: center;">
+                <span style="font-size: 40px;" class="fa fa-book"></span>
+              </div>
               <div class="desc">
                   <h4 class="mt-3 mb-2" style="text-align: center;">លក់វគ្គសិក្សាតាមអ៊ីនធឺណិត</h4>
                   <p>
@@ -71,7 +75,10 @@
 
           <div class="col-lg-4 col-md-6">
               <div class="single_feature">
-              <div class="icon" style="text-align: center;"><span class="flaticon-earth"></span></div>
+              <div class="icon" style="text-align: center;">
+                {{-- <span class="flaticon-earth"></span> --}}
+                <span style="font-size: 40px;" class="fa fa-globe"></span>
+            </div>
               <div class="desc">
                   <h4 class="mt-3 mb-2" style="text-align: center;">វិញ្ញាបនប័ត្រជាសកល</h4>
                   <p>
@@ -142,10 +149,10 @@
                       @endforeach
                       <div class="mt-lg-0 mt-3">
                         <span class="meta_info mr-4">
-                          <a href="#"> <i class="ti-user mr-2"></i>25 </a>
+                          <a href="#"> <i class="fa fa-user mr-2"></i>25 </a>
                         </span>
                         <span class="meta_info">
-                          <a href="#"><i class="ti-eye mr-2"></i>{{ $item->view_count }}</a>
+                          <a href="#"><i class="fa fa-eye mr-2"></i>{{ $item->view_count }}</a>
                         </span>
                       </div>
                   </div>
@@ -267,10 +274,10 @@
                       </div> --}}
 
                       <div class="align-items-center justify-content-center d-flex">
-                          <a href="#"><i class="ti-facebook"></i></a>
-                          <a href="#"><i class="ti-twitter"></i></a>
-                          <a href="#"><i class="ti-linkedin"></i></a>
-                          <a href="#"><i class="ti-pinterest"></i></a>
+                          <a href="http://facebook.com/sourngkhmer"><i class="fab fa-facebook-square" aria-hidden="true"></i></a>
+                          <a href="#"><i class="fab fa-twitter-square"></i></a>
+                          <a href="#"><i class="fab fa-linkedin"></i></a>
+                          <a href="#"><i class="fab fa-pinterest"></i></a>
                       </div>
                       </div>
                   </div>
@@ -306,10 +313,11 @@
 
                   <div class="time-location">
                       <p>
-                      <span class="ti-time mr-2"></span> 12:00 AM - 12:30 AM
+                        <i class="fas fa-clock mr-2"></i> 12:00 AM - 12:30 AM
                       </p>
                       <p>
-                      <span class="ti-location-pin mr-2"></span> Hilton Quebec
+                            {{-- <span class="fab fa-map-marked-alt mr-2"></span> --}}
+                       <i class="fas fa-map-marked-alt"></i> Hilton Quebec
                       </p>
                   </div>
                   </div>
