@@ -10,6 +10,7 @@
 .idea/workspace.xml
 /.vagrant
 /tests
+/database/*
 Homestead.json
 Homestead.yaml
 npm-debug.log
