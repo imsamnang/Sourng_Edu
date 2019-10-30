@@ -198,9 +198,11 @@
         </div>
       </div>      
       {{-- End Temporaray_Address Province district commune --}}
+      
       {{-- (D) Qualification Detail: --}}
       <div class="label label-warning arrowed-in arrowed-right arrowed">(D) @lang('staff_frm_reg_Qualification_Detail')</div>
       <hr class="hr-8">
+      
       <div class="form-group">
         {!! Form::label('GeneralEducation', __('cbo_general_education'), ['class' => 'col-sm-2 control-label']) !!}
         <div class="col-sm-2">          
@@ -240,6 +242,7 @@
           @include('includes.form_fields_validation_message', ['name' => 'other_info'])
         </div>
       </div>
+
     </div>
     {{-- Profile Image --}}
     <div id="profileimage" class="tab-pane">
