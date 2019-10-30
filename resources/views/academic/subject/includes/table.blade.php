@@ -37,8 +37,14 @@
                                 {{ $subject->title }}
                                 <hr class="hr hr-2  ">
                                 <div class="label label-primary arrowed-right arrowed-in">
-                                    {{ $subject->code }}
+                                    {{ $subject->code }} 
                                 </div>
+                                <div class="label label-info arrowed-right arrowed-in">
+                                    {{ $subject->subject_fee }}
+                                </div>
+                                <br>
+                                <a class="label label-success arrowed-right arrowed-in" 
+                                href="{{url('course-outline/'.$subject->id.'/view')}}"> Course Outline</a>
                             </td>
                             <td>
                                 <table>
@@ -181,4 +187,5 @@
             {!! Form::close() !!}
         </div>
     </div>
+</div>
 </div>

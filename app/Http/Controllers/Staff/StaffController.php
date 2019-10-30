@@ -90,7 +90,9 @@ class StaffController extends CollegeBaseController
       $data['pob']='ភូមិ គោករុន ឃុំមុខប៉ែន ស្រុកពួក ខេត្តសៀមរាប';
       $data['Nationality']='ខ្មែរ';
       $data['institute']=Institute::pluck('name_kh','id')->toArray();
-      $data['teacher_exam']=TeacherExam::pluck('title_kh','id')->toArray();      
+      $data['teacher_exam']=TeacherExam::pluck('title_kh','id')->toArray();  
+      $data['GeneralEducation']=GeneralEducation::pluck('general_education_kh')->toArray();
+    
     }
     if($this->flag=='en'){
       $data['designations'] = StaffDesignation::pluck('title','id')->toArray();
@@ -102,7 +104,9 @@ class StaffController extends CollegeBaseController
       $data['pob']='Kork Run Village, Muk Pen Commune, Pouk District, Siemreap Province';
       $data['Nationality']='Khmer';
       $data['institute']=Institute::pluck('name_en','id')->toArray();
-      $data['teacher_exam']=TeacherExam::pluck('title_en','id')->toArray();             
+      $data['teacher_exam']=TeacherExam::pluck('title_en','id')->toArray();   
+      $data['GeneralEducation']=GeneralEducation::pluck('general_education_en')->toArray();
+          
     }
     return view(parent::loadDataToView($this->view_path.'.add'), compact('data'));
   }
@@ -125,7 +129,25 @@ class StaffController extends CollegeBaseController
     $request->request->add(['institute_id' => $institute_id]);
     $request->request->add(['staff_image' => $image_name]);
     // return $request->all();
-    $staffSaved = Staff::create($request->all());
+
+    // Save to Qualification
+    $QualificationData=[
+      'teacher_exam_id'=>$request->qualification_id,
+      'passed_competency'=>0,
+      'association_id'=>1,
+      'teaching'=>$request->experience, //Year Experiences
+      'other'=>1,     
+    ];
+
+    $Qualifications=Qualifications::create($QualificationData);
+
+    if($Qualifications){
+      $request->request->add(['qualification_id'=>$Qualifications->id]);
+      $staffSaved = Staff::create($request->all());
+
+    }
+
+    // $staffSaved = Staff::create($request->all());
     if($staffSaved){
       $new_password = bcrypt(substr($request->home_phone, -4));
       $StaffAccessLogin=[

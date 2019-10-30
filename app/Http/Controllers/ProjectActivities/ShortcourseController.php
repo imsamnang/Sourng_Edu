@@ -171,7 +171,7 @@ class ShortcourseController extends Controller
   function ShortCourse_detail(Request $request, $id)
   {
     $csDetail = CourseShort::findOrFail($id);
-    // return $csDetail->courseShortTeacher;
+    // return $csDetail->courseShortTeacher[1]->staff->first_name;
     $shortcoursestudent = Courseshortstudent::WHERE('course_short_id', $csDetail->id)->get();
     $provinces = Province::all();
     $district = District::all();
@@ -254,7 +254,6 @@ class ShortcourseController extends Controller
       ->where('course_short_id', $id)
       ->select('*')
       ->get();
-
 
     $data['faculty_selected'] = Faculty::findOrFail($need->faculty_id);
     $data['curriculum_End'] = CurriculumEndorsement::all();

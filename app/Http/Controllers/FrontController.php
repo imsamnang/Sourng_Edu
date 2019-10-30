@@ -7,12 +7,13 @@ use App\Models\Staff;
 use App\Models\Subject;
 use Illuminate\Http\Request;
 use App\Models\CourseOutline;
+use App\Models\SubjectCourseOutline;
 
 class FrontController extends Controller
 {
     public function __construct()
     {
-      //$this->middleware('auth');
+      // $this->middleware('auth');
       // $this->middleware('auth', ['except' => [
       //     'about',
       //     'index',
@@ -45,14 +46,37 @@ class FrontController extends Controller
           Session::put($viewKey,1);
       }   
       
-      $data['course_outline']=CourseOutline::Where('subject_id','=',$data['subject']->id)->get();
+      $data['course_outline']=SubjectCourseOutline::Where('subject_id','=',$data['subject']->id)->get();
+      // $data['course_outline']=SubjectCourseOutline::Where('subject_id','=',$data['subject']->id)->get();
+
       // return $data['course_outline'];
       return view('front.course_detail',compact('data'));
     }
 
+    // Course Outline Detail
+    public function SubjectCourseOutline($slug){
+      $data=[];
+      // return $slug;
+      $data['CourseOutline'] = SubjectCourseOutline::where('slug','=',$slug)->first();
+      
+      // return $data['CourseOutline'];
+
+      // $viewKey = 'blog_' .$data['subject']->id;
+      // if(!Session::has($viewKey)){
+      //   $data['subject']->increment('view_count');
+      //     Session::put($viewKey,1);
+      // }   
+      
+      // $data['course_outline']=SubjectCourseOutline::Where('subject_id','=',$data['subject']->id)->get();
+      // $data['course_outline']=SubjectCourseOutline::Where('subject_id','=',$data['subject']->id)->get();
+
+      // return $data['course_outline'];
+      return view('front.course_outline_detail',compact('data'));
+    }
+
     // All Course Page
     public function all_courses(){
-       return $this->getStaff(2);
+      return $this->getStaff(2);
         return "All Courses";
     }
 

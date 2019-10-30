@@ -113,7 +113,8 @@
             @foreach ($data['subject'] as $item)
               <div class="single_course">
                 <div class="course_head">
-                  <img class="img-fluid" src="{{asset('images/book/'.$item->image.'')}}" alt="" />
+                  <img class="img-fluid" style="transition: all .2s ease; vertical-align: middle !important; max-width: 100%;
+                  height: 300px !important;" src="{{asset('images/subject/'.$item->image.'')}}" alt="" />
                 </div>
                 <div class="course_content">
                     @if ($item->subject_fee==0.00)
@@ -260,7 +261,8 @@
               @foreach ($data['staff'] as $item)
                   <div class="col-lg-3 col-md-6 col-sm-12 single-trainer">
                       <div class="thumb d-flex justify-content-sm-center">
-                              <img class="img-fluid" src="{{asset('images/staff/'.$item->staff_image)}}" alt="" />
+                              <img class="img-fluid" style="transition: all .2s ease; vertical-align: middle !important; max-width: 100%;
+                              height: 300px !important;" src="{{asset('images/staff/'.$item->staff_image)}}" alt="" />
                       </div>
                       <div class="meta-text text-sm-center">
                       <h4>{{$item->first_name}}<br>{{$item->last_name}}</h4>

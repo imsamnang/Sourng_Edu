@@ -841,6 +841,14 @@
                             </a>
                             <b class="arrow"></b>
                         </li>
+                        {{-- <li class="{!! request()->is('course-outline*')?'active':'' !!} hover">
+                            <a href="{{ route('course-outline') }}">
+                                <i class="menu-icon fa fa-caret-right"></i>
+                                @lang('Course Outline')
+                            </a>
+                            <b class="arrow"></b>
+                        </li> --}}
+
                     </ul>
                 </li>
 

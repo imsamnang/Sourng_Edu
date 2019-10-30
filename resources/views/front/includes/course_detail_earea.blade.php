@@ -47,7 +47,7 @@
                                 @foreach ($data['course_outline'] as $item)
                                 <li class="justify-content-between d-flex">
                                         <p>{{$item->title}}</p>
-                                        <a class="primary-btn text-uppercase" href="#">View Details</a>
+                                        <a class="primary-btn text-uppercase" href="{{url('courseoutline/'.$item->slug.'/detail')}}">View Details</a>
                                     </li>
                                 @endforeach                           
     
@@ -90,19 +90,19 @@
                     </li>
                     <li>
                         <a class="justify-content-between d-flex" href="#">
-                            <p>Credit Hours </p>
+                            <p><i class="fas fa-clock"></i> Credit Hours </p>
                             <span>{{$data['subject']->credit_hour}} ម៉ោង​/Hours</span>
                         </a>
                     </li>
                     <li>
                         <a class="justify-content-between d-flex" href="#">
-                            <p>Class Type </p>
+                            <p><i class="fas fa-book"></i> Class Type </p>
                             <span>{{$data['subject']->class_type}}</span>
                         </a>
                     </li>
                     <li>
                         <a class="justify-content-between d-flex" href="#">
-                            <p>Readers in : {{ now()->year }}</p>
+                            <p><i class="fas fa-book-reader"></i> Readers in : {{ now()->year }}</p>
                             <span>{{$data['subject']->view_count}} នាក់​</span>
                         </a>
                     </li>

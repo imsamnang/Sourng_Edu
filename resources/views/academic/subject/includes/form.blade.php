@@ -1,6 +1,6 @@
 
 <div class="form-group">
-    {!! Form::label('title', __('Faculty.Subject'), ['class' => 'col-sm-3 control-label']) !!}
+    {!! Form::label('title', __('Subject'), ['class' => 'col-sm-3 control-label']) !!}
     <div class="col-sm-9">
         {!! Form::text('title', null, ["placeholder" => __('Faculty.e.g.English'), "class" => "form-control border-form upper","required"]) !!}
         @include('includes.form_fields_validation_message', ['name' => 'title'])
@@ -48,6 +48,15 @@
         @include('includes.form_fields_validation_message', ['name' => 'credit_hour'])
     </div>
 </div>
+{{-- Price --}}
+<div class="form-group">
+    {!! Form::label('subject_fee', __('Subject Fee'), ['class' => 'col-sm-4 control-label']) !!}
+    <div class="col-sm-8">
+        {!! Form::number('subject_fee', null, ["class" => "form-control border-form upper","placeholder" => __('តម្លៃ ០ គឺ Free'),'min'=>'0']) !!}
+        @include('includes.form_fields_validation_message', ['name' => 'subject_fee'])
+    </div>
+</div>
+
 
 <div class="form-group">
     {!! Form::label('sub_type', __('Faculty.SubjectType'), ['class' => 'col-sm-4 control-label']) !!}
@@ -80,3 +89,40 @@
         @include('includes.form_fields_validation_message', ['name' => 'description'])
     </div>
 </div>
+{{-- objective --}}
+<div class="form-group">
+    {!! Form::label('objective', __('Objective'), ['class' => 'col-sm-4 control-label']) !!}
+    <div class="col-sm-8">
+        {!! Form::textarea('objective', null, ["class" => "form-control border-form upper",'rows'=>'2']) !!}
+        @include('includes.form_fields_validation_message', ['name' => 'objective'])
+    </div>
+</div>
+
+<div class="form-group">
+    {!! Form::label('main_image', __('book_frm_Book_Image'), ['class' => 'col-sm-4 control-label']) !!}
+    <div class="col-sm-8">
+        {!! Form::file('main_image', null, ["placeholder" => "", "class" => "form-control border-form"]) !!}
+        @include('includes.form_fields_validation_message', ['name' => 'main_image'])
+    </div>
+</div>
+
+
+@if (isset($data['row']))
+
+    {{-- <div class="space-4"></div> --}}
+
+    <div class="form-group">
+        <label class="col-sm-4 control-label no-padding-right">Existing Image</label>
+        <div class="col-sm-8">
+            @if ($data['row']->image)
+            {!! Form::hidden('exist_Image', $data['row']->image, ["placeholder" => __('Your Old Image'), "class" => "form-control border-form upper"]) !!}
+                {{-- <img src="{{ asset('images/'.$folder_name.'/'.$data['row']->image) }}" width="100"> --}}
+                <img src="{{ asset('images/subject/'.$data['row']->image) }}" width="100">
+            @else
+                <p>@lang('book_frm_No_image')</p>
+            @endif
+
+        </div>
+    </div>
+@endif
+
