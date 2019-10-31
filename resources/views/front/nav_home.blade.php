@@ -1,4 +1,4 @@
-<header class="header_area">
+    <header class="header_area">
     <div class="main_menu">
         <div class="search_input" id="search_input_box">
         <div class="container">
@@ -37,49 +37,37 @@
                 >
                 {{-- flag languages --}}
                
-                <ul class="nav navbar-nav menu_nav ml-auto">                      
-
-                        <li class="nav-item submenu dropdown">
-                                <a   href="#"
-                                    class="nav-link dropdown-toggle"
-                                    data-toggle="dropdown"
-                                    role="button"
-                                    aria-haspopup="true"
-                                    aria-expanded="false"
-                                    >
-                                    <?php  $flag = app()->getLocale(); ?>
-                                    <img src="{{asset('images/flags/'.$flag.'.png')}}" class="img-flag" alt="" width="32" height="18">
-                                    &nbsp;{{ strtoupper($flag) }}
-                                </a >
-                                <ul class="dropdown-menu">
-                                    <li class="nav-item">
-                                            <a class="nav-link" href="{{ url('locale') }}/kh">
-                                                <img src="{{asset('images/flags/kh.png')}}" class="img-flag" alt="" width="32" height="18">
-                                                Khmer
-                                            </a>
-                                    </li>
-                                    <li class="nav-item">
-                                            <a class="nav-link" href="{{ url('locale') }}/en">
-                                                <img src="{{asset('images/flags/en.png')}}" class="img-flag" alt="" width="32" height="18">
-                                                English
-                                            </a>
-                                    </li>
-                                    
-                                </ul>
-                        </li>
-
-                </ul>
-                <ul class="nav navbar-nav menu_nav ml-auto">
+<ul class="nav navbar-nav menu_nav ml-auto">
+  <li class="nav-item submenu dropdown">
+    <a   href="#"
+      class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
+      aria-haspopup="true" aria-expanded="false" >
+      <?php  $flag = app()->getlocale(); ?>
+      <img src="{{asset('images/flags/'.$flag.'.png')}}" class="img-flag" alt="" width="32" height="18">
+      &nbsp;{{ strtoupper($flag) }}
+    </a >
+    <ul class="dropdown-menu">
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url('locale') }}/kh">
+          <img src="{{asset('images/flags/kh.png')}}" class="img-flag" alt="" width="32" height="18">
+          khmer
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url('locale') }}/en">
+          <img src="{{asset('images/flags/en.png')}}" class="img-flag" alt="" width="32" height="18">
+          english
+        </a>
+      </li>
+    </ul>
+  </li>
+</ul>
                     <li class="nav-item active">
                     <a class="nav-link" href="index.html"> {{__('front_m_Home')}}</a>
                     </li>
                     <li class="nav-item">
                     <a class="nav-link" href="about-us.html">{{__('front_m_About')}}</a>
                     </li>
-
-
-
-
 
                     <li class="nav-item submenu dropdown">
                     <a   href="#"
