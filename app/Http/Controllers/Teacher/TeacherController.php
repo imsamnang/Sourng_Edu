@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers\Teacher;
 
-use App\Http\Controllers\CollegeBaseController;
-use App\Http\Controllers\Controller;
-use App\Models\Gender;
-use App\Models\Institute;
-use App\Models\Province;
-use App\Models\Staff;
-use App\Models\StaffDesignation;
-use App\Models\TeacherExam;
-use App\Traits\UserScope;
-use App\User;
-use Illuminate\Http\Request;
 use DB;
+use App\User;
+use App\Models\Staff;
+use App\Models\Gender;
+use App\Models\Province;
+use App\Models\Institute;
+use App\Traits\UserScope;
+use App\Models\TeacherExam;
+use Illuminate\Http\Request;
+use App\Models\Qualifications;
+use App\Models\GeneralEducation;
+use App\Models\StaffDesignation;
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\CollegeBaseController;
 
 class TeacherController extends CollegeBaseController
 {
@@ -50,7 +52,10 @@ class TeacherController extends CollegeBaseController
       $data['pob']='ភូមិ គោករុន ឃុំមុខប៉ែន ស្រុកពួក ខេត្តសៀមរាប';
       $data['Nationality']='ខ្មែរ';
       $data['institute']=Institute::pluck('name_kh','id')->toArray();
-      $data['teacher_exam']=TeacherExam::pluck('title_kh','id')->toArray();      
+      $data['teacher_exam']=TeacherExam::pluck('title_kh','id')->toArray();  
+      $data['GeneralEducation']=GeneralEducation::pluck('general_education_kh')->toArray();
+
+      
     }
     if($this->flag=='en'){
       $data['designations'] = StaffDesignation::pluck('title','id')->toArray();
@@ -62,7 +67,9 @@ class TeacherController extends CollegeBaseController
       $data['pob']='Kork Run Village, Muk Pen Commune, Pouk District, Siemreap Province';
       $data['Nationality']='Khmer';
       $data['institute']=Institute::pluck('name_en','id')->toArray();
-      $data['teacher_exam']=TeacherExam::pluck('title_en','id')->toArray();             
+      $data['teacher_exam']=TeacherExam::pluck('title_en','id')->toArray();  
+      $data['GeneralEducation']=GeneralEducation::pluck('general_education_en')->toArray();
+           
     }
     return view(parent::loadDataToView($this->view_path.'.create'), compact('data'));
   }
@@ -85,7 +92,25 @@ class TeacherController extends CollegeBaseController
     $request->request->add(['created_by' => 1]);
     $request->request->add(['institute_id' => $institute_id]);
     $request->request->add(['staff_image' => $image_name]);
-    $staffSaved = Staff::create($request->all());
+
+    // Save to Qualification
+    $QualificationData=[
+      'teacher_exam_id'=>$request->qualification_id,
+      'passed_competency'=>0,
+      'association_id'=>1,
+      'teaching'=>$request->experience, //Year Experiences
+      'other'=>1,     
+    ];
+
+    $Qualifications=Qualifications::create($QualificationData);
+
+    if($Qualifications){
+      $request->request->add(['qualification_id'=>$Qualifications->id]);
+      $staffSaved = Staff::create($request->all());
+
+    }
+
+   
     if($staffSaved){
       $new_password = bcrypt(substr($request->home_phone, -4));
       $StaffAccessLogin=[

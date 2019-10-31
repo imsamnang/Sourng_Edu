@@ -10,8 +10,9 @@
                 placeholder="Search Here"
             />
             <button type="submit" class="btn"></button>
+            
             <span
-                class="ti-close"
+                class="fa fa-times"
                 id="close_search"
                 title="Close Search"
             ></span>
@@ -167,7 +168,8 @@
                     {{-- Search --}}
                     <li class="nav-item">
                         <a href="#" class="nav-link search" id="search">
-                            <i class="ti-search"></i>
+                            {{-- <i class="ti-search"></i> --}}
+                            <i class="fa fa-search"></i>
                         </a>
                     </li>
 

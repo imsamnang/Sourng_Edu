@@ -198,21 +198,23 @@
         </div>
       </div>      
       {{-- End Temporaray_Address Province district commune --}}
+      
       {{-- (D) Qualification Detail: --}}
       <div class="label label-warning arrowed-in arrowed-right arrowed">(D) @lang('staff_frm_reg_Qualification_Detail')</div>
       <hr class="hr-8">
+      
       <div class="form-group">
-        {!! Form::label('qualification', __('staff_frm_reg_Qualification'), ['class' => 'col-sm-2 control-label']) !!}
+        {!! Form::label('GeneralEducation', __('cbo_general_education'), ['class' => 'col-sm-2 control-label']) !!}
         <div class="col-sm-2">          
           <select name="general_education_id" class="form-control border-form upper" required>
             <option value="0">{{  $data['option'] }}</option>
-            @foreach ($data['teacher_exam'] as $key => $item)
+            @foreach ($data['GeneralEducation'] as $key => $item)
               <option value="{{  $key }}">{{  $item }}</option>
             @endforeach
           </select>
           @include('includes.form_fields_validation_message', ['name' => 'general_education_id'])
         </div>
-        {!! Form::label('qualification_id', __('Qualification'), ['class' => 'col-sm-2 control-label']) !!}
+        {!! Form::label('qualification_id', __('staff_frm_reg_Qualification'), ['class' => 'col-sm-2 control-label']) !!}
         <div class="col-sm-2">
           <select name="qualification_id" class="form-control border-form upper" required>
             <option value="0">{{  $data['option'] }}</option>
@@ -224,7 +226,7 @@
         </div>
         {!! Form::label('experience', __('staff_frm_reg_Experience'), ['class' => 'col-sm-2 control-label']) !!}
         <div class="col-sm-2">
-          {!! Form::text('experience', null, ["class" => "form-control border-form upper",]) !!}
+          {!! Form::number('experience', null, ["class" => "form-control border-form upper",'min'=>'0']) !!}
           @include('includes.form_fields_validation_message', ['name' => 'experience'])
         </div>
       </div>
@@ -240,6 +242,7 @@
           @include('includes.form_fields_validation_message', ['name' => 'other_info'])
         </div>
       </div>
+
     </div>
     {{-- Profile Image --}}
     <div id="profileimage" class="tab-pane">

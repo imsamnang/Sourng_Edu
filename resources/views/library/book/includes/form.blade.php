@@ -150,6 +150,7 @@
         @include('includes.form_fields_validation_message', ['name' => 'main_image'])
     </div>
 </div>
+
 @if (isset($data['row']))
 
     <div class="space-4"></div>

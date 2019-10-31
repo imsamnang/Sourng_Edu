@@ -1,5 +1,5 @@
 @include('layouts.includes.header')
-  <body class="no-skin">
+  <body class="black-skin">
   {{--Preloader Css--}}
     {{--<style>
         #overlay {

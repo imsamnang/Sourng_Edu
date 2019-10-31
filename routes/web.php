@@ -26,6 +26,8 @@ Auth::routes();
   Route::get('/about', 'FrontController@about')->name('about');
   Route::get('/all-courses', 'FrontController@all_courses')->name('all-courses');
   Route::get('/course/{slug}/detail', 'FrontController@courseDetail')->name('front.course.detail');
+  // courseOutlineDetail
+  Route::get('/courseoutline/{slug}/detail', 'FrontController@SubjectCourseOutline')->name('front.course.courseoutline');
   Route::get('/contact', 'FrontController@contact')->name('contact');
 /* End Front End */
 
@@ -747,6 +749,21 @@ Route::get('/admin', 'HomeController@index')->name('admin');
       Route::get('subject/{id}/in-active',     ['as' => 'subject.in-active',        'middleware' => ['ability:super-admin,subject-in-active'],            'uses' => 'SubjectController@inActive']);
       Route::post('subject/bulk-action',       ['as' => 'subject.bulk-action',      'middleware' => ['ability:super-admin,subject-bulk-action'],          'uses' => 'SubjectController@bulkAction']);
       Route::get('subject-name-autocomplete',  ['as' => 'subject-name-autocomplete',                                                                      'uses' => 'SubjectController@subjectNameAutocomplete']);
+
+/*Subject CourseOutline*/
+// Route::get('course-outline',                    ['as' => 'course-outline',                  'middleware' => ['ability:super-admin,courseoutline-index'],                'uses' => 'SubjectCourseOutlinesController@index']);
+Route::post('course-outline/store',             ['as' => 'course-outline.store',            'middleware' => ['ability:super-admin,courseoutline-add'],                  'uses' => 'SubjectCourseOutlinesController@store']);
+Route::get('course-outline/{id}/view',          ['as' => 'course-outline.view',             'middleware' => ['ability:super-admin,course-outline-view'],                 'uses' => 'SubjectCourseOutlinesController@view']);
+
+Route::get('course-outline/{id}/edit',          ['as' => 'course-outline.edit',             'middleware' => ['ability:super-admin,course-outline-edit'],                 'uses' => 'SubjectCourseOutlinesController@edit']);
+Route::put('course-outline/{id}/update',       ['as' => 'course-outline.update',           'middleware' => ['ability:super-admin,course-outline-edit'],                 'uses' => 'SubjectCourseOutlinesController@update']);
+Route::get('course-outline/{id}/delete',        ['as' => 'course-outline.delete',           'middleware' => ['ability:super-admin,course-outline-delete'],               'uses' => 'SubjectCourseOutlinesController@delete']);
+Route::get('course-outline/{id}/active',        ['as' => 'course-outline.active',           'middleware' => ['ability:super-admin,course-outline-active'],               'uses' => 'SubjectCourseOutlinesController@Active']);
+Route::get('course-outline/{id}/in-active',     ['as' => 'course-outline.in-active',        'middleware' => ['ability:super-admin,course-outline-in-active'],            'uses' => 'SubjectCourseOutlinesController@inActive']);
+
+// Route::post('course-outline/bulk-action',       ['as' => 'course-outline.bulk-action',      'middleware' => ['ability:super-admin,course-outline-bulk-action'],          'uses' => 'course-outlineCourseOutlinesController@bulkAction']);
+// Route::get('course-outline-name-autocomplete',  ['as' => 'course-outline-name-autocomplete',                                                                      'uses' => 'SubjectCourseOutlinesController@subjectNameAutocomplete']);
+
 /*Student Status Routes*/
       Route::get('student-status',                    ['as' => 'student-status',                  'middleware' => ['ability:super-admin,student-status-index'],               'uses' => 'StudentStatusController@index']);
       Route::post('student-status/store',             ['as' => 'student-status.store',            'middleware' => ['ability:super-admin,student-status-add'],                 'uses' => 'StudentStatusController@store']);

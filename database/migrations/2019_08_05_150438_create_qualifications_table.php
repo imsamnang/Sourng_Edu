@@ -15,9 +15,9 @@ class CreateQualificationsTable extends Migration
     {
         Schema::create('qualifications', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('teacher_exam_id');
+            $table->unsignedInteger('teacher_exam_id');
             $table->tinyInteger('passed_competency');
-            $table->integer('association_id');
+            $table->unsignedInteger('association_id');
             $table->integer('teaching');
             $table->integer('other');
             $table->timestamps();
