@@ -120,8 +120,8 @@ class QuizResultsController extends Controller
   {
    if($request->ajax())
    {
-    if(!is_null($request->from_date) &&!is_null($request->to_date))
     // if($request->from_date != '' && $request->to_date != '')
+    if(!is_null($request->from_date) &&!is_null($request->to_date))
     {
       $data = DB::table('quiz_results')
        ->whereBetween('result_date', array($request->from_date, $request->to_date))
@@ -129,8 +129,8 @@ class QuizResultsController extends Controller
     } else {
       $data = DB::table('quiz_results')->orderBy('result_date', 'desc')->get();
     }
-    // echo json_encode($data);
     return json_encode($data);
+    // return view('ProjectActivities.quizs.result.fetch_data',compact('data'));
    }
   }
 }

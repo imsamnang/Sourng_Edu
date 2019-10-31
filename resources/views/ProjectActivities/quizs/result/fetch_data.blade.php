@@ -1,4 +1,4 @@
-@foreach ($data as $key => $row)
+	@foreach ($data as $key => $row)
 	<tr>
 		<td>{{++$key}}</td>
 		<td>{{$row->subject_id}}</td>

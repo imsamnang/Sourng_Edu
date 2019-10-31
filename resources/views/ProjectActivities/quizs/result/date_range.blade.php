@@ -43,7 +43,7 @@
          <th width="15%">Quiz Date</th>
         </tr>
        </thead>
-       <tbody>
+       <tbody id="restul_list">
        
        </tbody>
       </table>
@@ -57,21 +57,20 @@
 
 <script>
 $(document).ready(function(){
+var date = new Date();
 
- var date = new Date();
-
- $('.input-daterange').datepicker({
+$('.input-daterange').datepicker({
   todayBtn: 'linked',
   format: 'yyyy-mm-dd',
   autoclose: true
- });
+});
 
- var _token = $('input[name="_token"]').val();
+var _token = $('input[name="_token"]').val();
 
- fetch_data();
+fetch_data();
 
- function fetch_data(from_date = '', to_date = '')
- {
+function fetch_data(from_date = '', to_date = '')
+{
   $.ajax({
    url:"{{ route('quiz.daterange.fetch_data') }}",
    method:"POST",
@@ -79,6 +78,7 @@ $(document).ready(function(){
    dataType:"json",
    success:function(data)
    {
+    console.log(data);
     var output = '';
     $('#total_records').text(data.length);
     for(var count = 0; count < data.length; count++)
@@ -90,50 +90,51 @@ $(document).ready(function(){
      output += '<td>' + 'Q'+data[count].quarter + '</td>';
      output += '<td>' + data[count].result_date + '</td></tr>';
     }
+    // $('#restul_list').html(data);
     $('tbody').html(output);
    }
   })
- }
+}
 
- $('#filter').click(function(){
-  var from_date = $('#from_date').val();
-  var to_date = $('#to_date').val();
-  if(from_date != '' &&  to_date != '')
-  {
-   // fetch_data(from_date, to_date);
-    $.ajax({
-     url:"{{ route('quiz.daterange.fetch_data') }}",
-     method:"POST",
-     data:{from_date:from_date, to_date:to_date, _token:_token},
-     dataType:"json",
-     success:function(data)
-     {
-      var output = '';
-      $('#total_records').text(data.length);
-      for(var count = 0; count < data.length; count++)
-      {
-        output += '<tr>';
-        output += '<td>' + data[count].id + '</td>';
-        output += '<td>' + data[count].user_name + '</td>';
-        output += '<td>' + data[count].marks_scored + '</td>';
-        output += '<td>' + 'Q'+data[count].quarter + '</td>';
-        output += '<td>' + data[count].result_date + '</td></tr>';
-      }
-      $('tbody').html(output);
-     }
-    })   
-  }
-  else
-  {
-   alert('Both Date is required');
-  }
- });
+$('#filter').click(function(){
+var from_date = $('#from_date').val();
+var to_date = $('#to_date').val();
+if(from_date != '' &&  to_date != '')
+{
+ // fetch_data(from_date, to_date);
+  $.ajax({
+   url:"{{ route('quiz.daterange.fetch_data') }}",
+   method:"POST",
+   data:{from_date:from_date, to_date:to_date, _token:_token},
+   dataType:"json",
+   success:function(data)
+   {
+    var output = '';
+    $('#total_records').text(data.length);
+    for(var count = 0; count < data.length; count++)
+    {
+      output += '<tr>';
+      output += '<td>' + data[count].id + '</td>';
+      output += '<td>' + data[count].user_name + '</td>';
+      output += '<td>' + data[count].marks_scored + '</td>';
+      output += '<td>' + 'Q'+data[count].quarter + '</td>';
+      output += '<td>' + data[count].result_date + '</td></tr>';
+    }
+    $('tbody').html(output);
+   }
+  })   
+}
+else
+{
+ alert('Both Date is required');
+}
+});
 
- $('#refresh').click(function(){
+$('#refresh').click(function(){
   $('#from_date').val('');
   $('#to_date').val('');
   fetch_data();
- });
+});
 
 
 });

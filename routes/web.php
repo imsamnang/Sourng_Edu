@@ -31,7 +31,6 @@ Auth::routes();
 
 Route::get('/admin', 'HomeController@index')->name('admin');
 
-
 /*for Dashboard's*/
   Route::get('/admin', ['as' => 'admin',    'uses' => 'HomeController@index']);
 /* Roles Routes */
@@ -1004,7 +1003,7 @@ Route::get('/admin', 'HomeController@index')->name('admin');
       Route::get('/viewSigleResult/{quizappearid}', 'UserController@show')->name('single.result');
       Route::get('/viewAllResult/{test_type_id}', 'UserController@viewAllResult')->name('allresult');
       Route::get('/quizLeaderboard/{quiz}', 'UserController@viewLeaderboard')->name('leaderboard');
-    // date range filter
+  // date range filter
       Route::get('/daterange', 'QuizResultsController@showResult')->name('daterange');
       Route::post('/daterange/fetch_data', 'QuizResultsController@fetch_data')->name('daterange.fetch_data');
 

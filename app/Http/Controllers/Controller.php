@@ -14,4 +14,16 @@ class Controller extends BaseController
     // return preg_replace('/\s+/u', '-', trim($string));
     return str_replace('?', '', preg_replace('/\s+/u', '-', trim($string)));
   }
+
+    // $('#title').on('blur',function(){
+    //   var theTitle = this.value.toLowerCase().trim(),
+    //     slugInput = $('#slug'),
+    //     theSlug = theTitle.replace(/&/g,'-and-')
+    //                       .replace(/[^a-z0-9-]+/g,'-')
+    //                       .replace(/\-\-+/g,'-')
+    //                       .replace(/^-+|-+$/g,'');
+
+    //     slugInput.val(theSlug);
+    // });
+    
 }
