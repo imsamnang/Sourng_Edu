@@ -40,7 +40,7 @@
                         </button>
                     </div>
                 </div>
-                <div class="hr hr-24"></div>
+                {{-- <div class="hr hr-24"></div> --}}
                 {!! Form::close() !!}
             </div><!-- /.col -->
         </div><!-- /.row -->

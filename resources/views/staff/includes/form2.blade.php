@@ -44,11 +44,11 @@
             <div class="form-group">
                 {!! Form::label('first_name', __('staff_frm_reg_NAME_OF_STAFF'), ['class' => 'col-sm-2 control-label',]) !!}
                 <div class="col-sm-3">
-                    {!! Form::text('first_name', null, ["placeholder" => "FIRST NAME", "class" => "form-control border-form upper","required"]) !!}
+                    {!! Form::text('first_name', null, ["placeholder" => "FIRST NAME", "class" => "form-control border-form ","required"]) !!}
                     @include('includes.form_fields_validation_message', ['name' => 'first_name'])
                 </div>
                  <div class="col-sm-3">
-                    {!! Form::text('last_name', null, ["placeholder" => "LAST NAME", "class" => "form-control border-form upper","required"]) !!}
+                    {!! Form::text('last_name', null, ["placeholder" => "LAST NAME", "class" => "form-control border-form ","required"]) !!}
                     @include('includes.form_fields_validation_message', ['name' => 'last_name'])
                 </div>
             @role('super-admin')
@@ -94,11 +94,11 @@
         <div class="form-group">
             {!! Form::label('first_name', __('staff_frm_reg_NAME_OF_STAFF'), ['class' => 'col-sm-2 control-label',]) !!}
             <div class="col-sm-3">
-                {!! Form::text('first_name', null, ["placeholder" => "FIRST NAME", "class" => "form-control border-form upper","required"]) !!}
+                {!! Form::text('first_name', null, ["placeholder" => "FIRST NAME", "class" => "form-control border-form ","required"]) !!}
                 @include('includes.form_fields_validation_message', ['name' => 'first_name'])
             </div>
              <div class="col-sm-3">
-                {!! Form::text('last_name', null, ["placeholder" => "LAST NAME", "class" => "form-control border-form upper","required"]) !!}
+                {!! Form::text('last_name', null, ["placeholder" => "LAST NAME", "class" => "form-control border-form ","required"]) !!}
                 @include('includes.form_fields_validation_message', ['name' => 'last_name'])
             </div>
 
@@ -123,12 +123,12 @@
         <div class="form-group">
             {!! Form::label('father_name', __('staff_frm_reg_Father_Name'), ['class' => 'col-sm-2 control-label',]) !!}
             <div class="col-sm-4">
-                {!! Form::text('father_name', null, ["placeholder" => " ", "class" => "form-control border-form upper"]) !!}
+                {!! Form::text('father_name', null, ["placeholder" => " ", "class" => "form-control border-form "]) !!}
                 @include('includes.form_fields_validation_message', ['name' => 'father_name'])
             </div>
             {!! Form::label('mother_name', __('staff_frm_reg_Mother_Name'), ['class' => 'col-sm-2 control-label',]) !!}
             <div class="col-sm-4">
-                {!! Form::text('mother_name', null, ["placeholder" => " ", "class" => "form-control border-form upper"]) !!}
+                {!! Form::text('mother_name', null, ["placeholder" => " ", "class" => "form-control border-form "]) !!}
                 @include('includes.form_fields_validation_message', ['name' => 'mother_name'])
             </div>
         </div>
@@ -161,13 +161,13 @@
         <div class="form-group">
             {!! Form::label('nationality', __('staff_frm_reg_Nationality'), ['class' => 'col-sm-2 control-label']) !!}
             <div class="col-sm-2">
-                {!! Form::text('nationality', null, ["placeholder" => "", "class" => "form-control border-form upper","required"]) !!}
+                {!! Form::text('nationality', null, ["placeholder" => "", "class" => "form-control border-form ","required"]) !!}
                 @include('includes.form_fields_validation_message', ['name' => 'nationality'])
             </div>
 
             {!! Form::label('mother_tongue', __('staff_frm_reg_MotherTong'), ['class' => 'col-sm-2 control-label']) !!}
             <div class="col-sm-2">
-                {!! Form::text('mother_tongue', null, ["class" => "form-control border-form upper"]) !!}
+                {!! Form::text('mother_tongue', null, ["class" => "form-control border-form "]) !!}
                 @include('includes.form_fields_validation_message', ['name' => 'mother_tongue'])
             </div>
 
@@ -202,7 +202,7 @@
         <div class="form-group">
             {!! Form::label('address', __('staff_frm_reg_Address'), ['class' => 'col-sm-1 control-label']) !!}
             <div class="col-sm-7">
-                {!! Form::text('address', null, ["class" => "form-control border-form upper","required"]) !!}
+                {!! Form::text('address', null, ["class" => "form-control border-form ","required"]) !!}
                 @include('includes.form_fields_validation_message', ['name' => 'address'])
             </div>
               <label class="control-label col-xs-12 col-sm-1 control-label">{{ __('shortcoure_Province') }}</label>
@@ -268,7 +268,7 @@
           </div>
           <label class="control-label col-xs-12 col-sm-1 control-label">{{ __('Village') }}</label>
           <div class="col-sm-3">
-            {!! Form::text('village', null, ["class" => "form-control border-form upper","required"]) !!}
+            {!! Form::text('village', null, ["class" => "form-control border-form ","required"]) !!}
             @include('includes.form_fields_validation_message', ['name' => 'village'])
           </div>
         </div>
@@ -287,7 +287,7 @@
         <div class="form-group">
             {!! Form::label('temp_address', __('staff_frm_reg_Address'), ['class' => 'col-sm-2 control-label']) !!}
             <div class="col-sm-10">
-                {!! Form::text('temp_address', null, ["class" => "form-control border-form upper","required"]) !!}
+                {!! Form::text('temp_address', null, ["class" => "form-control border-form ","required"]) !!}
                 @include('includes.form_fields_validation_message', ['name' => 'temp_address'])
             </div>
             
@@ -299,13 +299,13 @@
         <div class="form-group">
             {!! Form::label('qualification', __('staff_frm_reg_Qualification'), ['class' => 'col-sm-2 control-label']) !!}
             <div class="col-sm-4">
-                {!! Form::text('qualification', null, ["class" => "form-control border-form upper","required"]) !!}
+                {!! Form::text('qualification', null, ["class" => "form-control border-form ","required"]) !!}
                 @include('includes.form_fields_validation_message', ['name' => 'qualification'])
             </div>
 
             {!! Form::label('experience', __('staff_frm_reg_Experience'), ['class' => 'col-sm-2 control-label']) !!}
             <div class="col-sm-4">
-                {!! Form::text('experience', null, ["class" => "form-control border-form upper",]) !!}
+                {!! Form::text('experience', null, ["class" => "form-control border-form ",]) !!}
                 @include('includes.form_fields_validation_message', ['name' => 'experience'])
             </div>
         </div>

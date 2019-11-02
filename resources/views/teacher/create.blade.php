@@ -20,6 +20,7 @@
           'id' => 'validation-form', "enctype" => "multipart/form-data"]) !!}
           <input type="hidden" name="flag" value="{{ $flag }}" id="flag">
           @include($view_path.'.includes.form')
+          
           <div class="clearfix form-actions">
             <div class="col-md-12 align-right">
               <button class="btn btn btn-info btn-sm" type="reset">
@@ -32,7 +33,7 @@
               </button>
             </div>
           </div>
-          <div class="hr hr-24"></div>
+          {{-- <div class="hr hr-24"></div> --}}
           {!! Form::close() !!}
         </div><!-- /.col -->
       </div><!-- /.row -->

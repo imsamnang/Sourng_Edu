@@ -39,11 +39,11 @@
       <div class="form-group">
         {!! Form::label('first_name', __('staff_frm_reg_NAME_OF_STAFF'), ['class' => 'col-sm-2 control-label',]) !!}
         <div class="col-sm-3">
-          {!! Form::text('first_name', null, ["placeholder" => $data['firstName'], "class" => "form-control border-form upper","required"]) !!}
+          {!! Form::text('first_name', null, ["placeholder" => $data['firstName'], "class" => "form-control border-form","required"]) !!}
           @include('includes.form_fields_validation_message', ['name' => 'first_name'])
         </div>
         <div class="col-sm-3">
-          {!! Form::text('last_name', null, ["placeholder" => $data['lastName'], "class" => "form-control border-form upper","required"]) !!}
+          {!! Form::text('last_name', null, ["placeholder" => $data['lastName'], "class" => "form-control border-form","required"]) !!}
           @include('includes.form_fields_validation_message', ['name' => 'last_name'])
         </div>
         @role('super-admin')
@@ -85,7 +85,7 @@
       <div class="form-group">
         {!! Form::label('pob', __('staff_frm_pob_Address'), ['class' => 'col-sm-2 control-label']) !!}
         <div class="col-sm-10">
-          {!! Form::text('pob', null, ["placeholder" => $data['pob'],"class" => "form-control border-form upper","required"]) !!}
+          {!! Form::text('pob', null, ["placeholder" => $data['pob'],"class" => "form-control border-form","required"]) !!}
           @include('includes.form_fields_validation_message', ['name' => 'address'])
         </div>
       </div>
@@ -93,12 +93,12 @@
       <div class="form-group">
         {!! Form::label('nationality', __('staff_frm_reg_Nationality'), ['class' => 'col-sm-2 control-label']) !!}
         <div class="col-sm-2">
-          {!! Form::text('nationality', null, ["placeholder" => $data['Nationality'], "class" => "form-control border-form upper","required"]) !!}
+          {!! Form::text('nationality', null, ["placeholder" => $data['Nationality'], "class" => "form-control border-form","required"]) !!}
           @include('includes.form_fields_validation_message', ['name' => 'nationality'])
         </div>
         {!! Form::label('mother_tongue', __('staff_frm_reg_MotherTong'), ['class' => 'col-sm-2 control-label']) !!}
         <div class="col-sm-2">
-          {!! Form::text('mother_tongue', null, ["placeholder" => $data['Nationality'],"class" => "form-control border-form upper"]) !!}
+          {!! Form::text('mother_tongue', null, ["placeholder" => $data['Nationality'],"class" => "form-control border-form"]) !!}
           @include('includes.form_fields_validation_message', ['name' => 'mother_tongue'])
         </div>
         {!! Form::label('email', __('staff_frm_reg_Email'), ['class' => 'col-sm-1 control-label']) !!}
@@ -111,12 +111,12 @@
       <div class="form-group">
         {!! Form::label('father_name', __('staff_frm_reg_Father_Name'), ['class' => 'col-sm-2 control-label',]) !!}
         <div class="col-sm-4">
-          {!! Form::text('father_name', null, ["placeholder" => " ", "class" => "form-control border-form upper"]) !!}
+          {!! Form::text('father_name', null, ["placeholder" => " ", "class" => "form-control border-form"]) !!}
           @include('includes.form_fields_validation_message', ['name' => 'father_name'])
         </div>
         {!! Form::label('mother_name', __('staff_frm_reg_Mother_Name'), ['class' => 'col-sm-2 control-label',]) !!}
         <div class="col-sm-4">
-          {!! Form::text('mother_name', null, ["placeholder" => " ", "class" => "form-control border-form upper"]) !!}
+          {!! Form::text('mother_name', null, ["placeholder" => " ", "class" => "form-control border-form"]) !!}
           @include('includes.form_fields_validation_message', ['name' => 'mother_name'])
         </div>
       </div>
@@ -147,7 +147,7 @@
       <div class="form-group">
         {!! Form::label('address', __('staff_frm_reg_Address'), ['class' => 'col-sm-2 control-label']) !!}
         <div class="col-sm-10">
-          {!! Form::text('address', null, ["placeholder"=>$data['pob'],"class" => "form-control border-form upper","required"]) !!}
+          {!! Form::text('address', null, ["placeholder"=>$data['pob'],"class" => "form-control border-form","required"]) !!}
           @include('includes.form_fields_validation_message', ['name' => 'address'])
         </div>
       </div>
@@ -193,7 +193,7 @@
       <div class="form-group">
         {!! Form::label('temp_address', __('staff_frm_reg_Address'), ['class' => 'col-sm-2 control-label']) !!}
         <div class="col-sm-10">
-          {!! Form::text('temp_address', null, ["placeholder"=>$data['pob'],"class" => "form-control border-form upper","required"]) !!}
+          {!! Form::text('temp_address', null, ["placeholder"=>$data['pob'],"class" => "form-control border-form","required"]) !!}
           @include('includes.form_fields_validation_message', ['name' => 'temp_address'])
         </div>
       </div>      
@@ -204,7 +204,7 @@
       <div class="form-group">
         {!! Form::label('GeneralEducation', __('cbo_general_education'), ['class' => 'col-sm-2 control-label']) !!}
         <div class="col-sm-2">          
-          <select name="general_education_id" class="form-control border-form upper" required>
+          <select name="general_education_id" class="form-control border-form" required>
             <option value="0">{{  $data['option'] }}</option>
             @foreach ($data['GeneralEducation'] as $key => $item)
               <option value="{{  $key }}">{{  $item }}</option>
@@ -214,7 +214,7 @@
         </div>
         {!! Form::label('qualification_id', __('staff_frm_reg_Qualification'), ['class' => 'col-sm-2 control-label']) !!}
         <div class="col-sm-2">
-          <select name="qualification_id" class="form-control border-form upper" required>
+          <select name="qualification_id" class="form-control border-form" required>
             <option value="0">{{  $data['option'] }}</option>
             @foreach ($data['teacher_exam'] as $key => $item)
               <option value="{{  $key }}">{{  $item }}</option>
@@ -224,7 +224,7 @@
         </div>
         {!! Form::label('experience', __('staff_frm_reg_Experience'), ['class' => 'col-sm-2 control-label']) !!}
         <div class="col-sm-2">
-          {!! Form::number('experience', null, ["class" => "form-control border-form upper",'min'=>'1']) !!}
+          {!! Form::number('experience', null, ["class" => "form-control border-form",'min'=>'1']) !!}
           @include('includes.form_fields_validation_message', ['name' => 'experience'])
         </div>
       </div>

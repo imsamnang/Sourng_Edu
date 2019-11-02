@@ -133,7 +133,9 @@ class TeacherController extends CollegeBaseController
                           ]);
     }
     $request->session()->flash($this->message_success, $this->panel. ' Created Successfully.');
-    return redirect()->route('home');
+    // return redirect()->route('home');
+    return redirect()->route('admin');
+
   }
 
   public function show($id)

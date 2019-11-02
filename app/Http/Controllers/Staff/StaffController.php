@@ -182,6 +182,7 @@ class StaffController extends CollegeBaseController
     $data = [];
     $this->flag=App()->getLocale();
     $data['staff']=Staff::where('id',$id)->first();
+
     if (!$data['staff']){
         request()->session()->flash($this->message_warning, "Not a Valid Staff");
         return redirect()->route($this->base_route);
@@ -243,9 +244,11 @@ class StaffController extends CollegeBaseController
   //login credential
     $data['staff_login'] = User::where([['role_id',5],['hook_id',$data['staff']->id]])->first();
     $data['url'] = URL::current(); 
-    $data['qualifications']=Qualifications::where('id', $data['staff']->qualification_id)->first(); //
-    $data['teacher_exam']=TeacherExam::where('id', $data['qualifications']->teacher_exam_id)->first(); //
+    
+    $data['qualifications']=Qualifications::where('staff_id', $data['staff']->id)->first(); 
+    $data['teacher_exam']=TeacherExam::where('id', $data['qualifications']->teacher_exam_id)->first(); 
     $data['association']=Association::where('id', $data['qualifications']->association_id)->first();
+   
     if($this->flag=='kh'){      
       $data['gender']=DB::table('gender')->where('id', $data['staff']->gender)->pluck('gender_kh')->toArray();
       $data['GeneralEducation']=DB::table('general_education')->where('id', $data['staff']->general_education_id)->pluck('general_education_kh')->toArray();
@@ -275,24 +278,33 @@ class StaffController extends CollegeBaseController
       $data['institute'] = Institute::pluck('name_kh','id')->toArray();
       $data['gender']=Gender::pluck('gender_kh','id')->toArray();
       $data['provinces'] = Province::pluck('name_kh','id')->toArray();
-      $data['districts'] = District::pluck('name_kh','id')
-                            ->where('province_id',$data['row']->province_id)->toArray();
-      $data['communes'] = Commune::pluck('name_kh','id')
-                            ->where('district_id',$data['row']->commune->district_id)->toArray();
+      // $data['districts'] = District::pluck('name_kh','id')
+      //                       ->where('province_id',$data['row']->province_id)->toArray();
+      // $data['communes'] = Commune::pluck('name_kh','id')
+      //                       ->where('district_id',$data['row']->commune->district_id)->toArray();
+      $data['communes'] = Commune::pluck('name_kh','id')->toArray();
+      $data['districts'] = District::pluck('name_kh','id')->toArray();
+
+      // return $data;
       $data['designations'] = StaffDesignation::pluck('title_kh','id')->toArray();
       $data['teacher_exam']=TeacherExam::pluck('title_kh','id')->toArray();  
+ 
+      $data['GeneralEducation']=GeneralEducation::pluck('general_education_kh')->toArray();
+
     }
     if($this->flag=='en'){
       $data['option'] ='Please Choose';
+
       $data['institute'] = Institute::pluck('name_en','id')->toArray();
       $data['gender']=Gender::pluck('gender_en','id')->toArray();
       $data['provinces'] = Province::pluck('name_en','id')->toArray();
-      $data['districts'] = District::where('province_id',$data['row']->province_id)
-                                    ->pluck('name_en','id')->toArray();
-      $data['communes'] = Commune::where('district_id',$data['row']->commune->district_id)
-                                  ->pluck('name_en','id')->toArray();
+        $data['communes'] = Commune::pluck('name_kh','id')->toArray();
+        $data['districts'] = District::pluck('name_kh','id')->toArray();
+
+        // return $data;
       $data['designations'] = StaffDesignation::pluck('title','id')->toArray();
-      $data['teacher_exam']=TeacherExam::pluck('title_en','id')->toArray();   
+      $data['teacher_exam']=TeacherExam::pluck('title_en','id')->toArray();  
+      $data['GeneralEducation']=GeneralEducation::pluck('general_education_en')->toArray(); 
     }    
     // return $data;
     return view(parent::loadDataToView($this->view_path.'.edit'), compact('data'));
@@ -310,30 +322,18 @@ class StaffController extends CollegeBaseController
             @unlink($this->folder_path.$row->staff_image);
     }
 
-  //   $StaffAccessLogin=[
-  //     // 'name'=>$staffSaved->first_name.' '.$staffSaved->middle_name.' '.$staffSaved->last_name,
-  //     // 'email'=>$staffSaved->email,
-  //     // 'password'=>$new_password,
-  //     // 'address'=>$request->address,
-  //     // 'profile_image'=>$staffSaved->staff_image,
-  //     // 'role_id'=>5,
-  //     // 'hook_id'=>$staffSaved->id,
-  //     // 'institute_id'=>$staffSaved->institute_id,
-  //     // 'created_at'=>$request->join_date,
-  //     // 'contact_number'=>$request->home_phone,
-  //     // 'pob'=>$request->pob,
-  //     'province_id'=>$request->province_id,
-  //     'district_id'=>$request->district_id,
-  //     'commune_id'=>$request->commune_id
-  // ];
-
-
-
+ 
     // 'province_id'=>$request->province_id,
     // 'district_id'=>$request->district_id,
     // 'commune_id'=>$request->commune_id
     // teacher_exam_id
     // qualification_id
+    $qualification=Qualifications::where('staff_id',$id); 
+
+    $qualification->update(['teacher_exam_id' => $request->qualification_id]);
+
+
+
     $request->request->add(['qualification_id' => $request->qualification_id]);
     $request->request->add(['province_id' => $request->province_id]);
     $request->request->add(['district_id'=> $request->district_id]);
