@@ -1070,6 +1070,10 @@ Route::get('course-outline/{id}/in-active',     ['as' => 'course-outline.in-acti
     Route::post('/menu/save_menu','MenuController@save_menu');  
     Route::post('/menu/save','MenuController@save');  
     Route::post('/menu/delete','MenuController@delete');  
+  // For Cart
+   Route::get('/chart','ChartController@index');  
+
+    
     
   // Login Logout Activities
 //   Route::group(['namespace' => 'LoginActivity\Http\Controllers', 'middleware' => ['web', 'auth']], function() {
@@ -1077,5 +1081,3 @@ Route::get('course-outline/{id}/in-active',     ['as' => 'course-outline.in-acti
 // });
 
 // Route::get('login-activity', 'LoginActivityController@index');
-
-
