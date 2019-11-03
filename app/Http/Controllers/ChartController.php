@@ -8,7 +8,10 @@ class ChartController extends Controller
 {
     public function index()
     {
+        // $menu=DB::table('tbl_menu')->find(5);
         $menu = DB::table('tbl_menu')->get()->toArray();
+
+        // return $menu;
         $ref   = [];
         $items = [];
         foreach ($menu as $data) {
@@ -22,7 +25,7 @@ class ChartController extends Controller
             $thisRef['target'] = $data->target;
             $thisRef['id'] = $data->id;
 
-            if ($data->parent == 0) {
+            if ($data->parent == 31) {
                 $items[$data->id] = &$thisRef;
             } else {
                 $ref[$data->parent]['children'][] = &$thisRef;
