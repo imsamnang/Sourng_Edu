@@ -7,7 +7,7 @@
     <ul class="nav nav-list">
         {{-- Dashboard --}}
         <li class="{!! request()->is('/')?'active':'' !!}">
-            <a href="{{ route('home') }}" >
+            <a href="{{ route('admin') }}" >
                 <i class="menu-icon fa fa-tachometer"></i>
                 <span class="menu-text"> @lang('m_dashboard') </span>
                 <b class="arrow fa fa-angle-down"></b>

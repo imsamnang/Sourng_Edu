@@ -64,9 +64,9 @@
             <div class="dash-card card-red text-xs-center">
                 <div class="card-block">
                     <h4 class="card-title">
-                        {{ $data['subject_status']->sum('total') }}
+                        {{ $data['bed_status']->sum('total') }}
                     </h4>
-                    <p class="card-text"><i class="ace-icon fa fa-bed"></i> Course</p>
+                    <p class="card-text"><i class="ace-icon fa fa-bed"></i> Hostel</p>
                 </div>
             </div>
         </a>
@@ -84,7 +84,56 @@
             </div>
         </a>
     </div>
+    
+    
 
 </div>
+<hr class="hr-6">
+<div class="row">
+   
+
+    {{-- បញ្ជើវគ្គខ្លី​សង្ខេប --}}
+    <div class="col-md-3" style="padding-top:20px;">
+        <a href="{{route('projects.shortcourse')}}" class="easy-link-menu">
+                <div class="dash-card card-yellow text-xs-center">
+                <div class="card-block">       
+                    <h6 class="card-title" style="padding:5px;">      
+                            <i class="fa fa-briefcase" aria-hidden="true"></i> បញ្ជីវគ្គខ្លី         
+                    </h6>
+                    <p class="card-text" style="padding:5px;">                               
+                        ចំនួនវគ្គសរុប៖​  {{ $data['transport_status']->sum('total') }} វគ្គ 
+                    </p> 
+                    <p class="card-text" style="color:yellow;">
+                            សិស្ស​សរុប៖   {{ $data['transport_status']->sum('total') }} នាក់                                              
+                    </p>
+                        
+                </div>
+            </div>
+        </a>
+    </div>
+
+{{-- បញ្ជីវគ្គវែងសង្ខេប --}}
+        <div class="col-md-3" style="padding-top:20px;">
+                <a href="{{route('projects.longcourse')}}" class="easy-link-menu">
+                        <div class="dash-card card-yellow text-xs-center">
+                        <div class="card-block">       
+                            {{-- {{ $data['transport_status']->sum('total') }} --}}
+
+                            <h6 class="card-title" style="padding:5px;">      
+                                    <i class="fa fa-briefcase" aria-hidden="true"></i> បញ្ជីវគ្គ​វែង         
+                            </h6>
+                            <p class="card-text" style="padding:5px;">                               
+                                ចំនួនវគ្គសរុប៖​  {{ $data['transport_status']->sum('total') }} វគ្គ 
+                            </p> 
+                            <p class="card-text" style="color:yellow;">
+                                    សិស្ស​សរុប៖  55 នាក់                                              
+                            </p>
+                        
+                        </div>
+                    </div>
+                </a>
+        </div>
 
 
+
+</div>

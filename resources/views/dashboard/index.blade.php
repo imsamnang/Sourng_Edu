@@ -73,7 +73,7 @@
                                   @include('dashboard.includes.library')
                               @endrole
                               @role(['super-admin','admin'])
-                              @include('dashboard.includes.attendence')
+                                    @include('dashboard.includes.attendence')
                               @endrole
                           </div><!-- /.col -->
                           <div class="col-sm-3">
