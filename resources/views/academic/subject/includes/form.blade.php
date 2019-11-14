@@ -1,6 +1,6 @@
-
+{{-- @lang('btn_st_Subject') --}}
 <div class="form-group">
-    {!! Form::label('title', __('Subject'), ['class' => 'col-sm-3 control-label']) !!}
+    {!! Form::label('title', __('btn_st_Subject'), ['class' => 'col-sm-3 control-label']) !!}
     <div class="col-sm-9">
         {!! Form::text('title', null, ["placeholder" => __('Faculty.e.g.English'), "class" => "form-control border-form upper","required"]) !!}
         @include('includes.form_fields_validation_message', ['name' => 'title'])
@@ -16,26 +16,26 @@
 </div>
 
 <div class="form-group">
-    {!! Form::label('full_mark_theory', __('Faculty.FM(T)'), ['class' => 'col-sm-3 control-label']) !!}
-    <div class="col-sm-3">
+    {!! Form::label('full_mark_theory', __('Faculty.FM(T)'), ['class' => 'col-sm-4 control-label']) !!}
+    <div class="col-sm-2">
         {!! Form::number('full_mark_theory', null, ["class" => "form-control border-form upper",'min'=>'0']) !!}
         @include('includes.form_fields_validation_message', ['name' => 'full_mark_theory'])
     </div>
-    {!! Form::label('pass_mark_theory', __('Faculty.PM(T)'), ['class' => 'col-sm-3 control-label']) !!}
-    <div class="col-sm-3">
+    {!! Form::label('pass_mark_theory', __('Faculty.PM(T)'), ['class' => 'col-sm-4 control-label']) !!}
+    <div class="col-sm-2">
         {!! Form::number('pass_mark_theory', null, ["class" => "form-control border-form upper",'min'=>'0']) !!}
         @include('includes.form_fields_validation_message', ['name' => 'pass_mark_theory'])
     </div>
 </div>
 
 <div class="form-group">
-    {!! Form::label('full_mark_practical', __('Faculty.FM(P)'), ['class' => 'col-sm-3 control-label']) !!}
-    <div class="col-sm-3">
+    {!! Form::label('full_mark_practical', __('Faculty.FM(P)'), ['class' => 'col-sm-4 control-label']) !!}
+    <div class="col-sm-2">
         {!! Form::number('full_mark_practical', null, ["class" => "form-control border-form upper",'min'=>'0']) !!}
         @include('includes.form_fields_validation_message', ['name' => 'full_mark_practical'])
     </div>
-    {!! Form::label('pass_mark_practical', __('Faculty.PM(P)'), ['class' => 'col-sm-3 control-label']) !!}
-    <div class="col-sm-3">
+    {!! Form::label('pass_mark_practical', __('Faculty.PM(P)'), ['class' => 'col-sm-4 control-label']) !!}
+    <div class="col-sm-2">
         {!! Form::number('pass_mark_practical', null, ["class" => "form-control border-form upper",'min'=>'0']) !!}
         @include('includes.form_fields_validation_message', ['name' => 'pass_mark_practical'])
     </div>
@@ -50,7 +50,7 @@
 </div>
 {{-- Price --}}
 <div class="form-group">
-    {!! Form::label('subject_fee', __('Subject Fee'), ['class' => 'col-sm-4 control-label']) !!}
+    {!! Form::label('subject_fee', __('btn_st_Subject_fee'), ['class' => 'col-sm-4 control-label']) !!}
     <div class="col-sm-8">
         {!! Form::number('subject_fee', null, ["class" => "form-control border-form upper","placeholder" => __('តម្លៃ ០ គឺ Free'),'min'=>'0']) !!}
         @include('includes.form_fields_validation_message', ['name' => 'subject_fee'])

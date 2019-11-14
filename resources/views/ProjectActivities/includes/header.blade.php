@@ -9,7 +9,7 @@
             {{$generalSetting->institute}}
         @else
             {{-- {{ isset($panel)?$panel:'' }} | UNLIMITED Edu Firm --}}
-            UNLIMITED Edu Firm
+           RPITSSR
         @endif
     </title>
     <meta name="csrf-token" content="{{ csrf_token() }}">

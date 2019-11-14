@@ -7,8 +7,8 @@
                     @if(isset($generalSetting->institute))
                         {{$generalSetting->institute}}
                     <strong class="text-capitalize orange2"> IMS </strong>
-                    @else
-                    Sourng Edu
+                    @else                    
+                    {{config('app.name')}} <strong class="text-capitalize orange2"> IMS </strong>
                     @endif
                 </small>
             </a>

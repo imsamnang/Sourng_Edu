@@ -34,11 +34,11 @@ class LongcourseController extends Controller
         $generalSetting = GeneralSetting::findOrFail(1)->first();
       $data['LongCourses']=CourseLong::all();
 
-      if(auth()->user()->hasRole('admin-project')){
+      if(auth()->user()->hasRole('super-admin')){
         // return view('ProjectActivities.courses.shortcourse.index',compact('data'));
         return view('ProjectActivities.courses.longcourse.index',compact('data'));
       }else{
-          return redirect()->route('home');
+          return redirect()->route('admin');
       }
 
         // return view('ProjectActivities.courses.longcourse.index',compact('data'));
@@ -142,7 +142,8 @@ class LongcourseController extends Controller
     ->where('course_long.id',$id)
     ->first();
     $data['faculty_selected']=Faculty::findOrFail($need->faculties_id);
-
+// return "Hello";
+// return $longcoursestudent;
     return view('ProjectActivities.courses.longcourse.longcourse_detail', compact('longcourse_detail','faculty','overal_fund','data','student','longcoursestudent'));
 
    }

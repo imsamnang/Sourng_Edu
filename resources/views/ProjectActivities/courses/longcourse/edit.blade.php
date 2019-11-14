@@ -8,7 +8,8 @@
        <link rel="stylesheet" href="{{ asset('assets/css/bootstrap-datepicker3.min.css') }}" />
        @endsection
        @section('menu-panel')
-       @include('ProjectActivities.layout.menu.menu_admin')
+       {{-- @include('ProjectActivities.layout.menu.menu_admin') --}}
+       @include('layouts.includes.menu')
        @endsection
 
        @section('content')

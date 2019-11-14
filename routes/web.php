@@ -1081,3 +1081,5 @@ Route::get('course-outline/{id}/in-active',     ['as' => 'course-outline.in-acti
 // });
 
 // Route::get('login-activity', 'LoginActivityController@index');
+
+
