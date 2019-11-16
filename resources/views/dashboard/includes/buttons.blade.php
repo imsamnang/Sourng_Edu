@@ -101,10 +101,10 @@
                             <i class="fa fa-briefcase" aria-hidden="true"></i> បញ្ជីវគ្គខ្លី         
                     </h6>
                     <p class="card-text" style="padding:5px;">                               
-                        ចំនួនវគ្គសរុប៖​  {{ $data['transport_status']->sum('total') }} វគ្គ 
+                        ចំនួនវគ្គសរុប៖​  {{ $data['short_course_status']->sum('total') }} វគ្គ 
                     </p> 
                     <p class="card-text" style="color:yellow;">
-                            សិស្ស​សរុប៖   {{ $data['transport_status']->sum('total') }} នាក់                                              
+                            សិស្ស​សរុប៖   {{ $data['short_course_students'] }} នាក់                                              
                     </p>
                         
                 </div>
@@ -123,10 +123,10 @@
                                     <i class="fa fa-briefcase" aria-hidden="true"></i> បញ្ជីវគ្គ​វែង         
                             </h6>
                             <p class="card-text" style="padding:5px;">                               
-                                ចំនួនវគ្គសរុប៖​  {{ $data['transport_status']->sum('total') }} វគ្គ 
+                                ចំនួនវគ្គសរុប៖​  {{ $data['long_course_status']->sum('total') }} វគ្គ 
                             </p> 
                             <p class="card-text" style="color:yellow;">
-                                    សិស្ស​សរុប៖  55 នាក់                                              
+                                    សិស្ស​សរុប៖  {{$data['long_course_students']}} នាក់                                              
                             </p>
                         
                         </div>
