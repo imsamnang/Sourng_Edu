@@ -35,7 +35,7 @@ class ShortcourseController extends Controller
     $data = [];
     $generalSetting = GeneralSetting::findOrFail(1)->first();
     $data['ListCourse'] = Subject::all();
-    return $data;
+    // return $data;
     // return view('ProjectActivities.readbook',compact('data'));
   }
 

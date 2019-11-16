@@ -153,12 +153,12 @@
     </form>
   </div>
   {{-- End add student --}}
-<?php $TF=0; ?>
+    <?php $TF=0; ?>
       @foreach ($longcoursestudent as $key=> $post)
-        @if (strtoupper($post->stu->gender)=='2')
-          <?php $TF=$TF+1; ?>
-        @endif
-      @endforeach
+          @if (strtoupper($post->stu->gender)=='2')
+             <?php $TF=$TF+1; ?>
+          @endif
+       @endforeach
         <h5 style="color: white; font-family: Khmer OS Battambang;
         background-color: #438eb9; padding: 10px;">ចំនួន​សិស្ស​សរុប​ក្នុង​វគ្គ {{ $longcoursestudent->count() }} នាក់ (ស្រី {{ $TF }} នាក់)</h5>
         <div class="table-responsive">

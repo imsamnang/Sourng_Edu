@@ -116,6 +116,32 @@
                 </li>
             </ul>
         </li>
+        {{-- Mange Courses --}}
+        <li class="{!! request()->is('projects*')?'active':'' !!} hover">
+            <a href="#" class="dropdown-toggle">
+                <i class="menu-icon fa fa-book"  aria-hidden="true"></i>
+                <span class="menu-text"> @lang('manage_courses')</span>
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+            <b class="arrow"></b>
+            <ul class="submenu">
+                <li class="{!! request()->is('quiz/subject*')?'active':'' !!} hover">
+                    <a href="{{ route('projects.shortcourse') }}">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                         @lang('S_Course')
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+
+                <li class="{!! request()->is('quiz/daterange*')?'active':'' !!}  hover">
+                    <a href="{{ route('projects.longcourse') }}">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        @lang('m_LongCourse')
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+            </ul>
+        </li>        
         @endability
 
         {{-- Account --}}
@@ -390,6 +416,7 @@
 
         {{-- Examination --}}
         @ability('super-admin','examination')
+        {{-- Examination --}}
         <li class="{!! request()->is('exam*')?'active':'' !!} hover">
             <a href="#" class="dropdown-toggle">
                 <i class="menu-icon fa fa-line-chart"  aria-hidden="true"></i>
@@ -455,19 +482,31 @@
                 </li>
             </ul>
         </li>
-        <li class="{!! request()->is('quiz/subject*')?'active':'' !!}">
-          <a href="{{ route('quiz.subject.index') }}" >
-              <i class="menu-icon fa fa-tachometer"></i>
-              <span class="menu-text"> @lang('Manage Quiz') </span>
-              <b class="arrow fa fa-angle-down"></b>
-          </a>        
-        </li>
-        <li class="{!! request()->is('quiz/daterange*')?'active':'' !!}">
-          <a href="{{ route('quiz.daterange') }}" >
-              <i class="menu-icon fa fa-tachometer"></i>
-              <span class="menu-text"> @lang('All Quiz Result') </span>
-              <b class="arrow fa fa-angle-down"></b>
-          </a>        
+        {{-- Mange Quiz --}}
+        <li class="{!! request()->is('exam*')?'active':'' !!} hover">
+            <a href="#" class="dropdown-toggle">
+                <i class="menu-icon fa fa-book"  aria-hidden="true"></i>
+                <span class="menu-text"> @lang('Quizes')</span>
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+            <b class="arrow"></b>
+            <ul class="submenu">
+                <li class="{!! request()->is('quiz/subject*')?'active':'' !!} hover">
+                    <a href="{{ route('quiz.subject.index') }}">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        @lang('Manage Quiz')
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+
+                <li class="{!! request()->is('quiz/daterange*')?'active':'' !!}  hover">
+                    <a href="{{ route('quiz.daterange') }}">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        @lang('All Quiz Result')
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+            </ul>
         </li>
         @endability
 

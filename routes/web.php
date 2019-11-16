@@ -905,14 +905,15 @@ Route::get('course-outline/{id}/in-active',     ['as' => 'course-outline.in-acti
       Route::post('bulk-action',       ['as' => '.bulk-action',      'middleware' => ['ability:super-admin,download-bulk-action'],          'uses' => 'DownloadController@bulkAction']);
   });
 
-// Manage Projects
-    // get district and commune
-      Route::get('get-district-list','ProjectActivities\ProvinceDistrictCommnueController@getDistrictList');
-      Route::get('get-commune-list','ProjectActivities\ProvinceDistrictCommnueController@getCommuneList');
-      Route::get('get-district-list-kh','ProjectActivities\ProvinceDistrictCommnueController@getDistrictListKh');
-      Route::get('get-commune-list-kh','ProjectActivities\ProvinceDistrictCommnueController@getCommuneListKh'); 
+// =====================Manage Projects===========================//
+  // get district and commune
+    Route::get('get-district-list','ProjectActivities\ProvinceDistrictCommnueController@getDistrictList');
+    Route::get('get-commune-list','ProjectActivities\ProvinceDistrictCommnueController@getCommuneList');
+    Route::get('get-district-list-kh','ProjectActivities\ProvinceDistrictCommnueController@getDistrictListKh');
+    Route::get('get-commune-list-kh','ProjectActivities\ProvinceDistrictCommnueController@getCommuneListKh'); 
 
-    Route::prefix('projects')->group(function(){
+  Route::prefix('projects')->group(function(){
+    //===============================
       Route::get('/','ProjectActivities\ProjectActivitiesController@index')->name('projects');
       Route::post('/login','ProjectActivities\ProjectActivitiesController@authenticate')->name('projects.login');
       Route::get('/staff-register','ProjectActivities\StaffActivitiesController@staffRegister')->name('staff-register');
@@ -922,7 +923,7 @@ Route::get('course-outline/{id}/in-active',     ['as' => 'course-outline.in-acti
       Route::post('/add-newbook','ProjectActivities\AddnewbookController@savenewbook')->name('add-newbook.save');
       Route::get('/readbook-now','ProjectActivities\ReadbookController@index')->name('readbook-now');
       Route::get('/student-course','ProjectActivities\ProjectActivitiesController@studentCourse')->name('student-course');
-      
+
     // Student Project
       Route::get('/student-list','Student\StudentController@studentList')->name('student-list');      
       Route::get('/student/view/{id}','Student\StudentController@view2')->name('project-student-view');
@@ -931,25 +932,65 @@ Route::get('course-outline/{id}/in-active',     ['as' => 'course-outline.in-acti
       Route::match(['get', 'post'],'/student/delete/{id}','Student\StudentController@delete2')->name('project-student-delete');
       Route::get('/student/registerv2','Student\StudentController@Register2');
       Route::post('/student/SaveRegister2','Student\StudentController@SaveRegister2')->name('studentRegister2.save');
-      // Route::post('/SaveRegister2','ProjectActivities\StudentActivitiesController@store')->name('stu.pro.save');
       Route::get('/student-register/{id}/edit','ProjectActivities\StudentActivitiesController@studentEdit');
-      Route::PUT('/student-register/{id}/Update','ProjectActivities\StudentActivitiesController@studentUpdate');  
+      Route::PUT('/student-register/{id}/Update','ProjectActivities\StudentActivitiesController@studentUpdate');
 
     // Staff Project
       Route::get('/staff-list','Staff\StaffController@staffList')->name('staff-list');
       Route::get('/staff-add','Staff\StaffController@staffAdd')->name('staff-add');
       Route::post('/staff-save','Staff\StaffController@save')->name('staff-save');
 
-  //========== Manage Dashboard =========== SENG Sourng
+    //========== Manage Dashboard =========== SENG Sourng
       Route::get('/project-book','ProjectActivities\BookController@index')->name('project-book');    
       Route::get('/admin-project','ProjectActivities\ProjectActivitiesController@admin_project')->name('admin-project');
       Route::get('/user-project','ProjectActivities\ProjectActivitiesController@user_project')->name('user-project');
       Route::get('/student-project','ProjectActivities\ProjectActivitiesController@student_project')->name('student-project');
       Route::get('/teacher-project','ProjectActivities\ProjectActivitiesController@teacher_project')->name('teacher-project');
       Route::get('/userstudent','ProjectActivities\ProjectActivitiesController@user_student')->name('userstudent');
-      Route::get('/shortcourse','ProjectActivities\ManageCourseController@index')->name('projects.shortcourse');
+      // Route::get('/shortcourse','ProjectActivities\ManageCourseController@index')->name('projects.shortcourse');
+    
+    //==============Short Course==============Ratha
+      Route::get('/shortcourse-list','ProjectActivities\ShortCourseController@ShortCourse')->name('projects.shortcourse');
+      Route::get('/register','ProjectActivities\ShortcourseController@ShowForm')->name('shortcourse.create');
+      Route::post('/store','ProjectActivities\ShortcourseController@SaveCourse')->name('shortcourse.savedata');
+      Route::get('/edit-course/{id}','ProjectActivities\ShortcourseController@editshortcourse')->name('edit-shortcourse.edit');
+      Route::put('/update-shortcourse/{id}','ProjectActivities\ShortcourseController@update_shortcourse')->name('update.shortcourse');
+      Route::delete('/delete-shortcourse/{id}','ProjectActivities\ShortcourseController@delete_shortcourse')->name('delete-shortcourse.destroy');
+  
+    //===============Short Course Detail============Ratha
+      Route::get('/shortcourse_detail/viewenrollmentv/{id}','ProjectActivities\ShortcourseController@ShortCourse_detail')->name('projects.shortcourse_detail');
+      Route::post('/shortcourse_detail/store','ProjectActivities\ShortcourseController@SaveCourse_detail')->name('shortcourse_detail.savedata');
+      Route::delete('/shortcourse-detail/delete/{id}','ProjectActivities\ShortcourseController@ShortCoursedetail_delete')->name('shortcourse_detail.destroy');     
 
-  //==============Book================Ratha    
+    //=================View Course Detail==============Ratha
+      Route::get('/shortcourse/detail/{id}','ProjectActivities\ShortcourseController@ViewCourseDetail')->name('projects.coursedetail');
+      
+    //=================Update Overalfund==============
+      Route::get('shortCourse_detail/editFund','ProjectActivities\ShortcourseController@editFund')->name('projects.coursedetail.editfund');
+      Route::post('shortCourse_detail/updateFund','ProjectActivities\ShortcourseController@updateFund')->name('projects.coursedetail.updatefund');
+  
+    //======================Long Course=============Ratha
+      Route::get('/longcourse-list','ProjectActivities\LongcourseController@showLonglist')->name('projects.longcourse');
+      Route::get('/longcourse/register','ProjectActivities\LongcourseController@ShowLongForm')->name('longcourse.create');
+      Route::post('/longcourse/register_save','ProjectActivities\LongcourseController@SaveLongCourse')->name('longcourse.savedata');
+      Route::get('/longcourse/edit/{id}','ProjectActivities\LongcourseController@edit')->name('longcourse.edit');
+      Route::put('/update-longcourse/{id}','ProjectActivities\LongcourseController@update')->name('longcourse.update');
+
+      Route::delete('/delete-longcourse/{id}','ProjectActivities\LongcourseController@delete')->name('delete-longcourse.destroy');
+    
+    //==============Long Course Detail==========Ratha
+      Route::get('/longcourse_detail/{id}','ProjectActivities\LongcourseController@LongCourse_detail')->name('project.longcourse_detail');
+      Route::post('/longcourse_detail/store','ProjectActivities\LongcourseController@SaveLongCourse_detail')->name('longcourse_detail.savedata');
+      Route::delete('/longcourse-detail/delete/{id}','ProjectActivities\LongcourseController@LongCoursedetail_delete')->name('longcourse_detail.destroy');
+    
+    //=================Update Overalfund==============
+      Route::get('longCourse_detail/editFund','ProjectActivities\LongcourseController@Longe_ditFund')->name('projects.longcoursedetail.editfund');
+      Route::post('longCourse_detail/updateFund','ProjectActivities\LongcourseController@Long_updateFund')->name('projects.longcoursedetail.updatefund');
+      //=================View Long Course Detail==============Ratha
+      Route::get('/longcourse/detail/{id}','ProjectActivities\LongcourseController@ViewLongCourseDetail')->name('projects.longcoursedetail');
+  
+
+    // ==============Book Ratha========================
       Route::get('/book-list','Library\BookController@project_books')->name('book-list');
       Route::get('/document/add-newbook','ProjectActivities\AddnewbookController@index')->name('add-newbook');
       Route::post('/add-newbook','ProjectActivities\AddnewbookController@savenewbook')->name('add-newbook.save');
@@ -957,46 +998,10 @@ Route::get('course-outline/{id}/in-active',     ['as' => 'course-outline.in-acti
       Route::get('/document/edit/{id}','ProjectActivities\AddnewbookController@editbook')->name('edit-book.edit');
       Route::put('/update-book/{id}','ProjectActivities\AddnewbookController@updatebook')->name('edit-book.update');
       Route::get('/readbook-now','ProjectActivities\ReadbookController@index')->name('readbook-now');
+  });
+ 
 
-  //==============Short Course==============Ratha
-    Route::get('/shortcourse-list','ProjectActivities\ShortCourseController@ShortCourse')->name('projects.shortcourse');
-    Route::get('/register','ProjectActivities\ShortcourseController@ShowForm')->name('shortcourse.create');
-    Route::post('/store','ProjectActivities\ShortcourseController@SaveCourse')->name('shortcourse.savedata');
-    Route::get('/edit-course/{id}','ProjectActivities\ShortcourseController@editshortcourse')->name('edit-shortcourse.edit');
-    Route::put('/update-shortcourse/{id}','ProjectActivities\ShortcourseController@update_shortcourse')->name('update.shortcourse');
-    Route::delete('/delete-shortcourse/{id}','ProjectActivities\ShortcourseController@delete_shortcourse')->name('delete-shortcourse.destroy');
-  
-  //===============Short Course Detail============Ratha
-    Route::get('/shortcourse_detail/viewenrollmentv/{id}','ProjectActivities\ShortcourseController@ShortCourse_detail')->name('projects.shortcourse_detail');
-    Route::post('/shortcourse_detail/store','ProjectActivities\ShortcourseController@SaveCourse_detail')->name('shortcourse_detail.savedata');
-    Route::delete('/shortcourse-detail/delete/{id}','ProjectActivities\ShortcourseController@ShortCoursedetail_delete')->name('shortcourse_detail.destroy');                                
-  
-  //=================View Course Detail==============Ratha
-    Route::get('/shortcourse/detail/{id}','ProjectActivities\ShortcourseController@ViewCourseDetail')->name('projects.coursedetail');
-  //=================Update Overalfund==============
-    Route::get('shortCourse_detail/editFund','ProjectActivities\ShortcourseController@editFund')->name('projects.coursedetail.editfund');
-    Route::post('shortCourse_detail/updateFund','ProjectActivities\ShortcourseController@updateFund')->name('projects.coursedetail.updatefund');
-  
-    //======================Long Course=============Ratha
-    Route::get('/longcourse-list','ProjectActivities\LongcourseController@showLonglist')->name('projects.longcourse');
-    Route::get('/longcourse/register','ProjectActivities\LongcourseController@ShowLongForm')->name('longcourse.create');
-    Route::post('/longcourse/register_save','ProjectActivities\LongcourseController@SaveLongCourse')->name('longcourse.savedata');
-    Route::get('/longcourse/edit/{id}','ProjectActivities\LongcourseController@edit')->name('longcourse.edit');
-    Route::put('/update-longcourse/{id}','ProjectActivities\LongcourseController@update')->name('longcourse.update');
 
-    Route::delete('/delete-longcourse/{id}','ProjectActivities\LongcourseController@delete')->name('delete-longcourse.destroy');
-    
-    //==============Long Course Detail==========Ratha
-    Route::get('/longcourse_detail/{id}','ProjectActivities\LongcourseController@LongCourse_detail')->name('project.longcourse_detail');
-    Route::post('/longcourse_detail/store','ProjectActivities\LongcourseController@SaveLongCourse_detail')->name('longcourse_detail.savedata');
-    Route::delete('/longcourse-detail/delete/{id}','ProjectActivities\LongcourseController@LongCoursedetail_delete')->name('longcourse_detail.destroy');
-    
-    //=================Update Overalfund==============
-    Route::get('longCourse_detail/editFund','ProjectActivities\LongcourseController@Longe_ditFund')->name('projects.longcoursedetail.editfund');
-    Route::post('longCourse_detail/updateFund','ProjectActivities\LongcourseController@Long_updateFund')->name('projects.longcoursedetail.updatefund');
-    //=================View Long Course Detail==============Ratha
-    Route::get('/longcourse/detail/{id}','ProjectActivities\LongcourseController@ViewLongCourseDetail')->name('projects.longcoursedetail');
-});
 
 //Quiz Route
   Route::get('front','Quiz\QuizController@front')->name('front')->middleware('auth');
@@ -1015,16 +1020,16 @@ Route::get('course-outline/{id}/in-active',     ['as' => 'course-outline.in-acti
       Route::post('nextclick', 'QuizController@nextClickStore')->name('next.quiz');
       Route::post('finishQuiz', 'QuizController@storeQuiz')->name('finish.quiz');
 
-  // QuizResults
+    // QuizResults
       Route::get('/userResults', 'UserController@showAppearedQuiz')->name('user.result');
       Route::get('/viewSigleResult/{quizappearid}', 'UserController@show')->name('single.result');
       Route::get('/viewAllResult/{test_type_id}', 'UserController@viewAllResult')->name('allresult');
       Route::get('/quizLeaderboard/{quiz}', 'UserController@viewLeaderboard')->name('leaderboard');
-  // date range filter
+  
+    // date range filter
       Route::get('/daterange', 'QuizResultsController@showResult')->name('daterange');
       Route::post('/daterange/fetch_data', 'QuizResultsController@fetch_data')->name('daterange.fetch_data');
-
-    });
+  });
 
   // Quiz Questions
     Route::group(['as'=>'quiz.','prefix'=>'quiz/','namespace'=>'Quiz','middleware' =>['auth']],function (){
@@ -1072,7 +1077,6 @@ Route::get('course-outline/{id}/in-active',     ['as' => 'course-outline.in-acti
     Route::post('/menu/delete','MenuController@delete');  
   // For Cart
    Route::get('/chart','ChartController@index');  
-
     
     
   // Login Logout Activities
