@@ -111,13 +111,21 @@
               <select multiple="" name="student_name[]" class="chosen-select form-control" id="form-field-select-4" data-placeholder="ជ្រើសរើសសិស្ស..." style="width: 100% !important" >
                 @foreach ($student as $stu)
                   <?php 
-                    $gender=ucfirst($stu->gender);
-                    if($gender=='MALE'){
-                      $gender='M';
-                    } else {
-                      $gender='F';
-                    }
+                    // $gender=ucfirst($stu->gender);
+                    // if($gender==1){
+                    //   $gender='M';
+                    // } else {
+                    //   $gender='F';
+                    // }                   
+
                   ?>
+                @if ($flag=='en')
+                 {{$gender=$stu->gender==1?'M':'F'}} 
+                @endif
+                @if ($flag=='kh')
+                {{$gender=$stu->gender==1?'ប':'ស'}} 
+                @endif
+
                 <option value="{{ $stu->id }}">{{ $stu->first_name }} - {{ $stu->last_name }} , {{ $gender }} , {{ Carbon\Carbon::parse($stu->date_of_birth)->format('d-m-Y') }} , ID:# {{ $stu->id }}</option>
                 @endforeach
               </select>
