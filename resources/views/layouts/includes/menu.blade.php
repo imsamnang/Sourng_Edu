@@ -486,7 +486,7 @@
         <li class="{!! request()->is('exam*')?'active':'' !!} hover">
             <a href="#" class="dropdown-toggle">
                 <i class="menu-icon fa fa-book"  aria-hidden="true"></i>
-                <span class="menu-text"> @lang('Quizes')</span>
+                <span class="menu-text"> @lang('quizes')</span>
                 <b class="arrow fa fa-angle-down"></b>
             </a>
             <b class="arrow"></b>
@@ -494,7 +494,7 @@
                 <li class="{!! request()->is('quiz/subject*')?'active':'' !!} hover">
                     <a href="{{ route('quiz.subject.index') }}">
                         <i class="menu-icon fa fa-caret-right"></i>
-                        @lang('Manage Quiz')
+                        @lang('manage_quiz')
                     </a>
                     <b class="arrow"></b>
                 </li>
@@ -502,7 +502,7 @@
                 <li class="{!! request()->is('quiz/daterange*')?'active':'' !!}  hover">
                     <a href="{{ route('quiz.daterange') }}">
                         <i class="menu-icon fa fa-caret-right"></i>
-                        @lang('All Quiz Result')
+                        @lang('all_quiz_result')
                     </a>
                     <b class="arrow"></b>
                 </li>
