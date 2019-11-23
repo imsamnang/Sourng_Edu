@@ -1069,9 +1069,9 @@ Route::get('course-outline/{id}/in-active',     ['as' => 'course-outline.in-acti
     Route::get('/menu','MenuController@index');  
     Route::post('/menu/save_menu','MenuController@save_menu');  
     Route::post('/menu/save','MenuController@save');  
-    Route::post('/menu/delete','MenuController@delete');  
-  // For Cart
-   Route::get('/chart','ChartController@index');  
+    Route::post('/menu/delete','MenuController@delete');
+    // For Cart
+    Route::get('/chart','ChartController@index');  
 
     
     

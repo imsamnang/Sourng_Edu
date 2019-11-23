@@ -52,17 +52,17 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/orgchart/2.1.3/js/jquery.orgchart.min.js'></script>
 
     <script id="rendered-js">
-        (function ($) {
-            $(function () {
-            var ds = {!!json_encode($menu)!!};
-            var oc = $('#chart-container').orgchart({
-                data: ds,
-                depth: 2,
-                nodeTitle: 'text', 
-                nodeContent: 'title' 
-            });        
-        
-            });
+      (function ($) {
+          $(function () {
+          var ds = {!!json_encode($menu)!!};
+          var oc = $('#chart-container').orgchart({
+              data: ds,
+              depth: 2,
+              nodeTitle: 'text', 
+              nodeContent: 'title' 
+          });        
+      
+          });
         })(jQuery);  
     </script>
 </body>

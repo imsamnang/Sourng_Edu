@@ -37,6 +37,7 @@ class MenuController extends Controller
         $menu = $toArray;   
         return  view("z-menu", compact('menu'));
     }
+
     public function save_menu()
     {
         if (request()->get("id")) {
@@ -77,10 +78,9 @@ class MenuController extends Controller
 
         return $response;
     }
+    
     public function save()
-    {   
-      
-
+    {
         $json = request()->get("data");
         $data = json_decode($json);     
 
@@ -89,14 +89,10 @@ class MenuController extends Controller
             "data" => $data,
             "message" =>  "data are same before.",
             "type" => "save",
-        );        
-
-
-
+        );
 
         function parseJsonArray($jsonArray, $parentID = 0)
         {
-
             $return = array();
             foreach ($jsonArray as $subArray) {
                 $returnSubSubArray = array();
@@ -132,15 +128,13 @@ class MenuController extends Controller
 
         return $response;
     }
+
     public function delete()
     {
-
         function recursiveDelete($id)
-        {        
-
+        {
             $query = DB::table('tbl_menu')->where('parent', $id)->get();
-         
-            if ($query) {
+                if ($query) {
                 foreach ($query as $row) {                 
                     recursiveDelete($row->id);
                 }
