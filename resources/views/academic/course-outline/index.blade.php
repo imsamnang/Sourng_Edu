@@ -34,6 +34,9 @@
                     <div class="col-md-6 col-xs-12">
                         @include($view_path.'.includes.table')
                     </div>
+
+                   
+
                 </div><!-- /.row -->
 
             </div><!-- /.page-content -->

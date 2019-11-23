@@ -34,11 +34,11 @@ class LongcourseController extends Controller
         $generalSetting = GeneralSetting::findOrFail(1)->first();
       $data['LongCourses']=CourseLong::all();
 
-      if(auth()->user()->hasRole('admin-project')){
+      if(auth()->user()->hasRole('super-admin')){
         // return view('ProjectActivities.courses.shortcourse.index',compact('data'));
         return view('ProjectActivities.courses.longcourse.index',compact('data'));
       }else{
-          return redirect()->route('home');
+          return redirect()->route('admin');
       }
 
         // return view('ProjectActivities.courses.longcourse.index',compact('data'));
@@ -142,37 +142,30 @@ class LongcourseController extends Controller
     ->where('course_long.id',$id)
     ->first();
     $data['faculty_selected']=Faculty::findOrFail($need->faculties_id);
-
     return view('ProjectActivities.courses.longcourse.longcourse_detail', compact('longcourse_detail','faculty','overal_fund','data','student','longcoursestudent'));
 
    }
 
    function SaveLongCourse_detail(Request $request)
     {
-
     //code Insert more data
-
         foreach ($request->student_name as $student_id) {
             $Courselongstudent=new Courselongstudent();
             $Courselongstudent->course_long_id= $request->cbo_faculty;
             $Courselongstudent->overal_fund_id= $request->cbo_overalfund;
             $Courselongstudent->institute_id= 1;
             $Courselongstudent->student_id= $student_id;
-            // return $Courselongstudent;
             $Courselongstudent->save();
-
         }
-
         return redirect()->back()->with('success','Data Saved Successfully');
     }
 
-        public function LongCoursedetail_delete($id)
-      {
-        $longcoursestudent = Courselongstudent::find($id);
-        $longcoursestudent->destroy($id);
-        // return redirect()->Route('projects.shortcourse')->with('success','Deleted Successfully');
-        return redirect()->back()->with('success','Data Deleted Successfully');
-      }
+    public function LongCoursedetail_delete($id)
+    {
+      $longcoursestudent = Courselongstudent::find($id);
+      $longcoursestudent->destroy($id);
+      return redirect()->back()->with('success','Data Deleted Successfully');
+    }
 
     function ViewLongCourseDetail(Request $request, $id)
       {   

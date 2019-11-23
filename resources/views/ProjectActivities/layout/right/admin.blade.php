@@ -115,7 +115,9 @@
                             </a>
                     </div>
 
-    {{-- របាយការណ៍ --}}
+   
+   
+                    {{-- របាយការណ៍ --}}
     <div class="col-md-3" style="padding-top:20px;">
             <a href="{{route('projects.longcourse')}}" class="easy-link-menu">
                     <div class="dash-card card-red text-xs-center">

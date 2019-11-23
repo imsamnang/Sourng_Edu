@@ -31,8 +31,8 @@ class ManageCourseController extends Controller
         $data = [];
         $generalSetting = GeneralSetting::findOrFail(1)->first();
         $data['ListCourse']=Subject::all();
-        return $data;        
-        // return view('ProjectActivities.readbook',compact('data'));
+        // return $data;        
+        return view('ProjectActivities.readbook',compact('data'));
     }
 
     public function courses()
@@ -71,7 +71,7 @@ class ManageCourseController extends Controller
         $data['ListCourse']=CourseShort::all();
         // return $data;
         if(Auth::check()) {
-            return view('ProjectActivities.courses.shortcourse.index1',compact('data'));
+            return view('ProjectActivities.courses.shortcourse.index',compact('data'));
         }else{
             return redirect()->route('projects');
         }

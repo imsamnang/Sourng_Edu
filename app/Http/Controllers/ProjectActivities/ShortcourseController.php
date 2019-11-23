@@ -35,7 +35,7 @@ class ShortcourseController extends Controller
     $data = [];
     $generalSetting = GeneralSetting::findOrFail(1)->first();
     $data['ListCourse'] = Subject::all();
-    return $data;
+    // return $data;
     // return view('ProjectActivities.readbook',compact('data'));
   }
 
@@ -48,10 +48,10 @@ class ShortcourseController extends Controller
     $data['ListCourse'] = CourseShort::all();
     $data['countStudentByCourse'] = Courseshortstudent::WHERE('course_short_id', 1)->count();
     // return $data;
-    if (auth()->user()->hasRole('admin-project')) {
+    if (auth()->user()->hasRole('super-admin') OR auth()->user()->hasRole('admin')) {
       return view('ProjectActivities.courses.shortcourse.index', compact('data'));
     } else {
-      return redirect()->route('home');
+      return redirect()->route('admin');
     }
   }
 

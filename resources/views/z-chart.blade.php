@@ -8,7 +8,7 @@
     <title>Simple Management Menu</title>
     {{-- <link rel="stylesheet" type="text/css" href="{{asset('/css/style.css')}}"> --}}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{ asset('/bootstrap-iconpicker/css/bootstrap-iconpicker.min.css')}}">
     <script src="{{asset('assets/sweetalert2/sweetalert2.min.js')}}"></script>
     <link rel="stylesheet" href="{{asset('assets/sweetalert2/sweetalert2.min.css')}}" id="theme-styles">
@@ -34,7 +34,7 @@
             display: inline-block;
             top: 10px;
             left: 10px;
-            height: 420px;
+            /* height: 420px; */
             width: calc(100% - 24px);
             border: 2px dashed #aaa;
             border-radius: 5px;
@@ -52,17 +52,34 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/orgchart/2.1.3/js/jquery.orgchart.min.js'></script>
 
     <script id="rendered-js">
-      (function ($) {
-          $(function () {
-          var ds = {!!json_encode($menu)!!};
-          var oc = $('#chart-container').orgchart({
-              data: ds,
-              depth: 2,
-              nodeTitle: 'text', 
-              nodeContent: 'title' 
-          });        
-      
-          });
+        (function ($) {
+            $(function () {
+            var ds = {!!json_encode($menu)!!};
+            var nodeTemplate = function(data) {
+            return `
+            <div class="card bg- b1">
+                ${data.children ? '<div><i class="fa fa-group"></i> </div>' : ""}               
+                <div class="card-body text-center">
+                    <img width="50px" src="${data.icon}" class="rounded-circle">
+                    <div class="title">${data.text}</div>             
+                    <div class="content">
+                    <a href="#"><i class="fa fa-facebook-square"></i></a>
+                    <a href="#"><i class="fa fa-twitter-square"></i></a>
+                    <a href="#"><i class="fa fa-google-plus-square"></i></a>
+                    <a href="#"><i class="fa fa-linkedin-square"></i></a>
+                    </div>
+                </div>
+                </div>
+               
+            `;
+            };
+            var oc = $('#chart-container').orgchart({
+                data: ds,
+                depth: 2,
+                nodeTemplate: nodeTemplate
+            });        
+        
+            });
         })(jQuery);  
     </script>
 </body>

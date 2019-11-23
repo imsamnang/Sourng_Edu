@@ -265,7 +265,8 @@ class StaffController extends CollegeBaseController
       $data['Exp_year']='Years';
       $data['association']=$data['association']->association_en;
     }
-    return view(parent::loadDataToView($this->view_path.'.detail.index'), compact('data','gender'));
+    // return view(parent::loadDataToView($this->view_path.'.detail.index'), compact('data','gender'));
+    return view(parent::loadDataToView($this->view_path.'.detail.index'), compact('data'));
   }
 
   public function edit(Request $request, $id)

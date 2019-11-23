@@ -1,7 +1,8 @@
 @extends('ProjectActivities.layout.master')
 <?php  $flag = app()->getLocale();?>
 @section('menu-panel')
-@include('ProjectActivities.layout.menu.menu_admin')
+{{-- @include('ProjectActivities.layout.menu.menu_admin') --}}
+@include('layouts.includes.menu')
 @endsection
 
 @push('custom-css')
@@ -110,13 +111,21 @@
               <select multiple="" name="student_name[]" class="chosen-select form-control" id="form-field-select-4" data-placeholder="ជ្រើសរើសសិស្ស..." style="width: 100% !important" >
                 @foreach ($student as $stu)
                   <?php 
-                    $gender=ucfirst($stu->gender);
-                    if($gender=='MALE'){
-                      $gender='M';
-                    } else {
-                      $gender='F';
-                    }
+                    // $gender=ucfirst($stu->gender);
+                    // if($gender==1){
+                    //   $gender='M';
+                    // } else {
+                    //   $gender='F';
+                    // }                   
+
                   ?>
+                @if ($flag=='en')
+                 {{$gender=$stu->gender==1?'M':'F'}} 
+                @endif
+                @if ($flag=='kh')
+                {{$gender=$stu->gender==1?'ប':'ស'}} 
+                @endif
+
                 <option value="{{ $stu->id }}">{{ $stu->first_name }} - {{ $stu->last_name }} , {{ $gender }} , {{ Carbon\Carbon::parse($stu->date_of_birth)->format('d-m-Y') }} , ID:# {{ $stu->id }}</option>
                 @endforeach
               </select>
@@ -152,12 +161,12 @@
     </form>
   </div>
   {{-- End add student --}}
-<?php $TF=0; ?>
+    <?php $TF=0; ?>
       @foreach ($longcoursestudent as $key=> $post)
-        @if (strtoupper($post->stu->gender)=='2')
-          <?php $TF=$TF+1; ?>
-        @endif
-      @endforeach
+          @if (strtoupper($post->stu->gender)=='2')
+             <?php $TF=$TF+1; ?>
+          @endif
+       @endforeach
         <h5 style="color: white; font-family: Khmer OS Battambang;
         background-color: #438eb9; padding: 10px;">ចំនួន​សិស្ស​សរុប​ក្នុង​វគ្គ {{ $longcoursestudent->count() }} នាក់ (ស្រី {{ $TF }} នាក់)</h5>
         <div class="table-responsive">

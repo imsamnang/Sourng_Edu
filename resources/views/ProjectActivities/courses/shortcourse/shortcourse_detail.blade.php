@@ -1,7 +1,8 @@
 <?php  $flag = App()->getLocale();?>
 @extends('ProjectActivities.layout.master')
 @section('menu-panel')
-  @include('ProjectActivities.layout.menu.menu_admin')
+  {{-- @include('ProjectActivities.layout.menu.menu_admin') --}}
+  @include('layouts.includes.menu')
 @endsection
 @push('custom-css')
   <link rel="stylesheet" href="{{ asset('assets/css/chosen.min.css') }}" />

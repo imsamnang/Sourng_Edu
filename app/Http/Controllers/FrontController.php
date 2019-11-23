@@ -42,7 +42,7 @@ class FrontController extends Controller
       
       $viewKey = 'blog_' .$data['subject']->id;
       if(!Session::has($viewKey)){
-        $data['subject']->increment('view_count');
+          $data['subject']->increment('view_count');
           Session::put($viewKey,1);
       }   
       
@@ -86,7 +86,7 @@ class FrontController extends Controller
     }
 
     public function getStaff($id){
-        return Staff::all();
+        return Staff::find($id);
     }
 
 

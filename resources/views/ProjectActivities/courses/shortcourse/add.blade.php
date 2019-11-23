@@ -19,7 +19,8 @@
 @endpush
 
 @section('menu-panel')
-@include('ProjectActivities.layout.menu.menu_admin')
+{{-- @include('ProjectActivities.layout.menu.menu_admin') --}}
+@include('layouts.includes.menu')
 @endsection
 
 @section('content')

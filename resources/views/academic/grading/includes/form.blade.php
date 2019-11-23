@@ -1,6 +1,6 @@
 <div class="form-group">
-    {!! Form::label('title', __('Faculty.Title'), ['class' => 'col-sm-2 control-label']) !!}
-    <div class="col-sm-10">
+    {!! Form::label('title', __('Faculty.Title'), ['class' => 'col-sm-3 control-label']) !!}
+    <div class="col-sm-9">
         {!! Form::text('title', null, ["placeholder" => __('Faculty.e.g.UniversityLevel'), "class" => "form-control border-form upper","required"]) !!}
         @include('includes.form_fields_validation_message', ['name' => 'title'])
     </div>

@@ -2,32 +2,36 @@
 
 namespace App\Http\Controllers;
 
-use App\Charts\FeeCompareChart;
-use App\Charts\FeesChart;
-use App\Charts\TransactionChart;
-use App\Models\AttendanceMaster;
-use App\Models\Attendence;
-use App\Models\AttendenceMaster;
+use App\Role;
+use App\User;
+use ViewHelper;
+use Carbon\Carbon;
 use App\Models\Bed;
 use App\Models\Book;
+use App\Models\Year;
+use App\Models\Staff;
+use App\Models\Notice;
+use App\Models\Student;
+use App\Models\Subject;
+use App\Models\Vehicle;
+use App\Charts\FeesChart;
 use App\Models\BookIssue;
+use App\Models\FeeMaster;
+use App\Models\SalaryPay;
+use App\Models\Attendence;
+use App\Models\CourseLong;
+use App\Models\CourseShort;
+use App\Models\Transaction;
 use App\Models\ExamSchedule;
 use App\Models\FeeCollection;
-use App\Models\FeeMaster;
-use App\Models\Notice;
-use App\Models\SalaryPay;
-use App\Models\Staff;
-use App\Models\Student;
-use App\Models\Transaction;
-use App\Models\Vehicle;
-use App\Models\Year;
-use App\Models\Subject;
-use App\Role;
 use App\Traits\StudentScopes;
-use App\User;
-use Carbon\Carbon;
+use App\Charts\FeeCompareChart;
+use App\Charts\TransactionChart;
+use App\Models\AttendanceMaster;
+use App\Models\AttendenceMaster;
+use App\Models\Courselongstudent;
+use App\Models\Courseshortstudent;
 use Illuminate\Support\Facades\DB;
-use ViewHelper;
 
 class HomeController extends CollegeBaseController
 {
@@ -165,6 +169,17 @@ class HomeController extends CollegeBaseController
             ->get()
             ->count();
         /*Fees chart*/
+         $data['long_course_status']=CourseLong::select('status',DB::raw('count(*) as total'))
+                ->where('status',1)
+                ->get();
+        $data['long_course_students']=Courselongstudent::get()->count();
+
+        $data['short_course_status']=CourseShort::select('register_status',DB::raw('count(*) as total'))
+                ->where('register_status',1)
+                ->get();
+        $data['short_course_students']=Courseshortstudent::get()->count();
+
+
         $monthBase = [0,0,0,0,0,0,0,0,0,0,0,0];
         $feeMonthly = DB::table('fee_collections')
             ->select(DB::raw('MONTH(date) as month'),DB::raw('YEAR(date) as year'), DB::raw('sum(paid_amount) as total'))
