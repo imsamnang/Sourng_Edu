@@ -13,6 +13,7 @@ class SubjectQuiz extends Model
 	protected $fillable =[
                       'title',
                       'slug',
+                      'subtype_id',
                       'reference',
                       'max_attempts',
                       'pass_percentage',

@@ -22,6 +22,12 @@
                 </div>
 
                 <div class="form-group">
+                    {!! Form::label('type', 'Subject Type') !!}
+                    {!! Form::select('type', $sub_types,null, ['class' => 'form-control']) !!}
+                    {{--{!! Form::input('text', 'name', null, ['class' => 'form-control']) !!} --}}
+                </div>
+
+                <div class="form-group">
                     {!! Form::label('max_attempts', 'Max Attempts') !!}
                     {!! Form::input('number', 'max_attempts', null, ['class' => 'form-control']) !!}
                 </div>

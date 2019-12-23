@@ -23,7 +23,7 @@
                     {!! Form::label('name', 'Name') !!}
                     {!! Form::input('text', 'name', null, ['class' => 'form-control']) !!}
                 </div>
-
+                
                 <div class="form-group">
                     {!! Form::label('max_attempts', 'Max Attempts') !!}
                     {!! Form::input('number', 'max_attempts', null, ['class' => 'form-control']) !!}

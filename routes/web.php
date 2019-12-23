@@ -1001,8 +1001,6 @@ Route::get('course-outline/{id}/in-active',     ['as' => 'course-outline.in-acti
   });
  
 
-
-
 //Quiz Route
   Route::get('front','Quiz\QuizController@front')->name('front')->middleware('auth');
   Route::get('pretest/start','Quiz\QuizController@preTest')->name('pretest')->middleware('auth');
