@@ -416,7 +416,6 @@
 
         {{-- Examination --}}
         @ability('super-admin','examination')
-        {{-- Examination --}}
         <li class="{!! request()->is('exam*')?'active':'' !!} hover">
             <a href="#" class="dropdown-toggle">
                 <i class="menu-icon fa fa-line-chart"  aria-hidden="true"></i>
@@ -491,21 +490,28 @@
             </a>
             <b class="arrow"></b>
             <ul class="submenu">
-                <li class="{!! request()->is('quiz/subject*')?'active':'' !!} hover">
-                    <a href="{{ route('quiz.subject.index') }}">
-                        <i class="menu-icon fa fa-caret-right"></i>
-                        @lang('manage_quiz')
-                    </a>
-                    <b class="arrow"></b>
-                </li>
+              <li class="{!! request()->is('quiz/subject-type*')?'active':'' !!} hover">
+                <a href="{{ route('quiz.subject.type.index') }}">
+                  <i class="menu-icon fa fa-caret-right"></i>
+                  @lang('quiz.subject.type')
+                </a>
+                <b class="arrow"></b>
+              </li>                
+              <li class="{!! request()->is('quiz/subject*')?'active':'' !!} hover">
+                  <a href="{{ route('quiz.subject.index') }}">
+                      <i class="menu-icon fa fa-caret-right"></i>
+                      @lang('manage_quiz')
+                  </a>
+                  <b class="arrow"></b>
+              </li>
 
-                <li class="{!! request()->is('quiz/daterange*')?'active':'' !!}  hover">
-                    <a href="{{ route('quiz.daterange') }}">
-                        <i class="menu-icon fa fa-caret-right"></i>
-                        @lang('all_quiz_result')
-                    </a>
-                    <b class="arrow"></b>
-                </li>
+              <li class="{!! request()->is('quiz/daterange*')?'active':'' !!}  hover">
+                  <a href="{{ route('quiz.daterange') }}">
+                      <i class="menu-icon fa fa-caret-right"></i>
+                      @lang('all_quiz_result')
+                  </a>
+                  <b class="arrow"></b>
+              </li>
             </ul>
         </li>
         @endability

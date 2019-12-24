@@ -36,6 +36,16 @@ class QuizController extends Controller
     return view('ProjectActivities.quizs.test_type');
   }
 
+  public function subTypePretest()
+  {
+    return view('ProjectActivities.quizs.subtype_pretest');
+  }
+
+  public function subTypePosttest()
+  {
+    return view('ProjectActivities.quizs.subtype_posttest');
+  }
+
   public function preTest()
   {
     // DB::enableQueryLog();

@@ -1001,10 +1001,12 @@ Route::get('course-outline/{id}/in-active',     ['as' => 'course-outline.in-acti
   });
  
 
-//Quiz Route
-  Route::get('front','Quiz\QuizController@front')->name('front')->middleware('auth');
-  Route::get('pretest/start','Quiz\QuizController@preTest')->name('pretest')->middleware('auth');
-  Route::get('posttest/start','Quiz\QuizController@postTest')->name('posttest')->middleware('auth');
+  //Quiz Route
+    Route::get('front','Quiz\QuizController@front')->name('front')->middleware('auth');
+    Route::get('pretest','Quiz\QuizController@subTypePretest')->name('pretest')->middleware('auth');
+    Route::get('pretest/start','Quiz\QuizController@preTest')->name('pretest')->middleware('auth');
+    Route::get('posttest','Quiz\QuizController@postTest')->name('posttest')->middleware('auth');
+    Route::get('posttest/start','Quiz\QuizController@postTest')->name('posttest')->middleware('auth');
   
   // Quiz Subject
     Route::group(['as'=>'quiz.','prefix'=>'quiz/','namespace'=>'Quiz','middleware' =>['auth']],function (){
@@ -1027,8 +1029,18 @@ Route::get('course-outline/{id}/in-active',     ['as' => 'course-outline.in-acti
     // date range filter
       Route::get('/daterange', 'QuizResultsController@showResult')->name('daterange');
       Route::post('/daterange/fetch_data', 'QuizResultsController@fetch_data')->name('daterange.fetch_data');
-  });
+    });
 
+  // Quiz Subject Type
+    Route::group(['as'=>'quiz.','prefix'=>'quiz/','namespace'=>'Quiz','middleware' =>['auth']],function (){
+      Route::get('subject-type','SubjectTypeController@index')->name('subject.type.index');
+      Route::get('subject-type/create','SubjectTypeController@create')->name('subject.type.create');
+      Route::post('subject-type/store','SubjectTypeController@store')->name('subject.type.store');
+      Route::get('subject-type/{id}/edit','SubjectTypeController@edit')->name('subject.type.edit');
+      Route::get('subject-type/{id}/show','SubjectTypeController@show')->name('subject.type.show');      
+      Route::put('subject-type/{id}/update','SubjectTypeController@update')->name('subject.type.update');
+      Route::delete('subject-type/{id}/destroy','SubjectTypeController@destroy')->name('subject.type.destroy');
+    });    
   // Quiz Questions
     Route::group(['as'=>'quiz.','prefix'=>'quiz/','namespace'=>'Quiz','middleware' =>['auth']],function (){
       Route::get('{question}/question/create','QuestionsController@create')->name('question.create');
@@ -1039,11 +1051,12 @@ Route::get('course-outline/{id}/in-active',     ['as' => 'course-outline.in-acti
       Route::get('question/{question}/destroy','QuestionsController@destroy')->name('question.destroy');
 
   // Quiz Answers
-      Route::post('answer/{question}/save','QuestionsController@saveAnswer')->name('answer.store');
+    Route::post('answer/{question}/save','QuestionsController@saveAnswer')->name('answer.store');
     });
 
     Route::get('teacher/register','Teacher\TeacherController@create')->name('teacher.register');
     Route::post('teacher/register','Teacher\TeacherController@store')->name('teacher.store');
+  
   // Export data to Excel
 	  Route::get('/export_excel', 'ExportExcelController@index');
 	  Route::get('/export_excel/excel', 'ExportExcelController@excel')->name('export_excel.excel');
@@ -1068,7 +1081,7 @@ Route::get('course-outline/{id}/in-active',     ['as' => 'course-outline.in-acti
     Route::post('/card/result','ZcardController@result');
     Route::get('/card/result','ZcardController@result');
 
-  // For Card
+  // For Menu
     Route::get('/menu','MenuController@index');  
     Route::post('/menu/save_menu','MenuController@save_menu');  
     Route::post('/menu/save','MenuController@save');  
@@ -1078,7 +1091,7 @@ Route::get('course-outline/{id}/in-active',     ['as' => 'course-outline.in-acti
 
     
     
-  // Login Logout Activities
+// Login Logout Activities
 //   Route::group(['namespace' => 'LoginActivity\Http\Controllers', 'middleware' => ['web', 'auth']], function() {
 //     Route::get('login-activity', 'LoginActivityController@index');
 // });
