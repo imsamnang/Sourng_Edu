@@ -23,22 +23,24 @@
           {{-- @include('ProjectActivities.quizs.subject_type.includes.buttons') --}}
           <!-- PAGE CONTENT BEGINS -->
             @include('includes.validation_error_messages')
-            {!! Form::open(['route' =>'quiz.subject.type.store', 'method' => 'POST', 'class' => 'form-horizontal','id' => 'validation-form', "enctype" => "multipart/form-data"]) !!}
-            @include('ProjectActivities.quizs.subject_type.includes.form')
-            <div class="clearfix form-actions">
-              <div class="col-md-12 align-right">
-                <button class="btn btn-sm" type="reset">
-                  <i class="icon-undo bigger-110"></i>
-                  {{ __('user.Reset') }}
-                </button>
-                <button class="btn btn-info btn-sm" type="submit">
-                  <i class="icon-ok bigger-110"></i>
-                  {{ __('user.Create') }}
-                </button>
+              {!! Form::model($data['row'], ['route' => ['quiz.subject.type.update', $data['row']->id], 'method' => 'POST', 'class' => 'form-horizontal', 'id' => 'validation-form', "enctype" => "multipart/form-data"]) !!}
+              {{method_field('PUT')}}
+              {!! Form::hidden('id', $data['row']->id) !!}
+              @include('ProjectActivities.quizs.subject_type.includes.form')
+              <div class="clearfix form-actions">
+                <div class="col-md-12 align-right">
+                  <button class="btn btn-sm" type="reset">
+                    <i class="icon-undo bigger-110"></i>
+                    {{ __('user.Reset') }}
+                  </button>
+                  <button class="btn btn-success btn-sm" type="submit">
+                    <i class="icon-ok bigger-110"></i>
+                    {{ __('user.Update') }}
+                  </button>
+                </div>
               </div>
-            </div>
-            <div class="hr hr-24"></div>
-            {!! Form::close() !!}
+                {{-- <div class="hr hr-24"></div> --}}
+                {!! Form::close() !!}
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.page-content -->

@@ -41,16 +41,29 @@ class SubjectTypeController extends Controller
 
   public function edit($id)
   {
-      //
+    $data = array();
+    $data['row'] = SubjectType::findOrFail($id);
+    return view('ProjectActivities.quizs.subject_type.edit',compact('data'));
   }
 
   public function update(Request $request, $id)
   {
-      //
+    $this->validate($request,[
+      'type' => 'required',
+      'description' => 'required'
+    ]);
+    // return $request->all();
+    $subject_type = SubjectType::findOrfail($id)->update([
+      'type'  => $request->type,
+      'description' => $request->description
+    ]);
+    return redirect()->route('quiz.subject.type.index')->with('success','Subject Type was updated successfully');
   }
 
   public function destroy($id)
   {
-      //
+    $subject_type = SubjectType::findOrfail($id);
+    $subject_type->delete();
+    return redirect()->back()->with('success','Subject Type was deleted successfully');
   }
 }
