@@ -21,13 +21,9 @@
       @endif
     }
   </style>
-
-
 </head>
 
 <body class="A4 {{($card && $card->transform == 'horizontal') ? 'landscape': ''}}"></body>
-
-
 <script>
   var all_cards = @php echo json_encode($data) @endphp;
   var Bprint = $('<button></button>');
@@ -41,9 +37,8 @@
         '<i class="fas fa-sm fa-print"></i>'
         ).on('click',()=>{
         window.print();
-      })
-        
-        $('body').append(Bprint);
+      })        
+      $('body').append(Bprint);
       var j = 1;
       for(var i in all_cards){ 
         var sheet = $("<section></section>");
@@ -51,7 +46,6 @@
               id : all_cards[i].id,
               class : 'sheet padding-10mm'
             });
-
         var container = $("<div></div>");
             container.attr({
               id: "stage-" + all_cards[i].id,
@@ -60,12 +54,11 @@
         if(j == 1){
           $("body").append(sheet);        
         }else if(j == 4){
-            j = 0;                       
+          j = 0;                       
         }
         $("body").find('section:last').append(container);  
         all_cards[i] = Konva.Node.create(all_cards[i], "stage-"+all_cards[i].id);
-        all_cards[i].find("Image").forEach(imageNode => {
-        
+        all_cards[i].find("Image").forEach(imageNode => {        
           const nativeImage = new Image();
           nativeImage.onload = () => {
             imageNode.image(nativeImage);
