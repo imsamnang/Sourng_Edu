@@ -11,6 +11,7 @@ use App\Models\Quiz\Question;
 use App\Models\Quiz\QuestionQuiz;
 use App\Models\Quiz\QuizResults;
 use App\Models\Quiz\SubjectQuiz;
+use App\Models\Quiz\SubjectType;
 use App\Models\Quiz\UserAnswer;
 use App\Models\Subject;
 use Auth;
@@ -33,6 +34,16 @@ class QuizController extends Controller
     // $csStudent = Courseshortstudent::where('student_id',14)->get();
     // dd(DB::getQueryLog($csStudent));
     return view('ProjectActivities.quizs.test_type');
+  }
+
+  public function subTypePretest()
+  {
+    return view('ProjectActivities.quizs.subtype_pretest');
+  }
+
+  public function subTypePosttest()
+  {
+    return view('ProjectActivities.quizs.subtype_posttest');
   }
 
   public function preTest()
@@ -76,23 +87,22 @@ class QuizController extends Controller
   public function create()
   {
     $quizzes = Subject::pluck('title','title');
-    return view('ProjectActivities.quizs.subject.create',compact('quizzes'));
+    $sub_types = SubjectType::pluck('type','id');
+    return view('ProjectActivities.quizs.subject.create',compact('quizzes','sub_types'));
   }
 
   public function store(Request $request)
   {
     $ref = '#'.str_random(10);
     $slug = $this->make_slug($request->name);
-
     // $month = date("n");
     // //the month number without any leading zeros
     // $month = date("n", strtotime($month));
     // //Calculate the year quarter.
     // $yearQuarter = ceil($month / 3);
-
-
     $quiz = SubjectQuiz::create([
       'title'  => $request->name,
+      'subtype_id'  => $request->type,
       'slug'  => $slug,
       'reference' => $ref,
       'max_attempts'  => $request->max_attempts,

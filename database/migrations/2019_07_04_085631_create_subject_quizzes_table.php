@@ -11,8 +11,9 @@ class CreateSubjectQuizzesTable extends Migration
     {
         Schema::create('subject_quizzes', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
+            $table->string('title');            
             $table->string('slug');
+            $table->string('subtype_id');
             $table->string('reference');
             $table->integer('max_attempts');
             $table->float('pass_percentage');

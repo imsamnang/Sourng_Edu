@@ -1,4 +1,4 @@
-!(function ($) {     
+!(function ($) {
   jQuery.fn.extend({
     createCard: function (options) {
     var self = this,            
@@ -25,8 +25,7 @@
           init: () => {
             $('#transform').unbind();
             $('input[type="file"]').unbind();
-            $('form').unbind();
-            
+            $('form').unbind();            
             if (typeof options === 'object') {
               card.CreateLayout($.extend(card.defaultSettings(), options)); 
             }else{
@@ -50,12 +49,10 @@
               text_color: '#23499E',
             };
           },
-          CreateLayout: (settings) => {
-         
+          CreateLayout: (settings) => {         
             $('[id^="stage"]').css({
               width : settings.transform == 'horizontal' ? 504 : 704,
-            });
-         
+            });         
             card.SETTINGS = {
                 transform : settings.transform,
                 container_width : settings.transform == 'horizontal' ? 504 : 704,
@@ -65,21 +62,16 @@
                 font_size : settings.font_size,
                 text_color : settings.text_color,
               }
-              
-            
-
             //Assign 
             card.CARD_FRONT.image = settings.transform == 'horizontal' ? $(self).attr('data-card-front-250x350') : $(self).attr('data-card-front-350x250');
             card.CARD_BACK.image = settings.transform == 'horizontal' ? $(self).attr('data-card-back-250x350') : $(self).attr('data-card-back-350x250');
             card.PROFILE.image = $(self).attr('data-profile');
             card.QR_CODE.image = $(self).attr('data-qr-code');
             card.ID.text = '០០១';
-            card.NAME_KM.text = 'សែម គឹមសាន';
-            card.NAME_EN.text = 'SEM KEAMSAN';
+            card.NAME_KM.text = 'ឧត្តម បញ្ញា';
+            card.NAME_EN.text = 'UDAM PHAGNA';
             card.GENDER.text = 'ប្រុស';
-            card.COURSE.text = 'ព័ត៌មានវិទ្យាសាស្រ្តកំព្យទ័រ';
-          
-         
+            card.COURSE.text = 'ព័ត៌មានវិទ្យាសាស្រ្តកំព្យទ័រ';         
               card.stage = new Konva.Stage({
                 container: $(self).attr('id'),
                 width: card.SETTINGS.container_width,
@@ -88,11 +80,7 @@
               card.stage.add(card.Background);
               card.stage.add(card.Layer);
               card.Background.setZIndex(0);
-              card.Layer.setZIndex(1);
-             
-          
-            
-
+              card.Layer.setZIndex(1);   
             card.FrontImageBackgroud = new Image();
             card.FrontImageBackgroud.onload = function () {
               var BackgroundImage = new Konva.Image({
@@ -106,7 +94,6 @@
               card.Background.batchDraw();
             };
             card.FrontImageBackgroud.src = card.CARD_FRONT.image;
-
             card.BackImageBackgroud = new Image();
             card.BackImageBackgroud.onload = function () {
               var BackgroundImage = new Konva.Image({
@@ -120,7 +107,6 @@
               card.Background.batchDraw();
             };
             card.BackImageBackgroud.src = card.CARD_BACK.image;
-
             var FrontImageProfile = new Image();
             FrontImageProfile.onload = function () {
               var Profile = new Konva.Image({
@@ -132,7 +118,6 @@
                 name: "profile",
                 id: "profile",
                 draggable: true
-
               }).on('transformstart', function (e) {
                 card.PROFILE = e.currentTarget.attrs;
               }).on('transformend', function (e) {
@@ -142,7 +127,6 @@
               card.Layer.batchDraw();
             };
             FrontImageProfile.src = card.PROFILE.image;
-
             var CreateNameKH = new Konva.Text({
               x: settings.transform == 'horizontal' ? 100 : 180,
               y: settings.transform == 'horizontal' ? 205 : 80,
@@ -156,7 +140,6 @@
               name: "name_km",
               id: "name_km",
               draggable: true,
-
             }),
               CreateNameEN = new Konva.Text({
                 x: settings.transform == 'horizontal' ? 100 : 180,
@@ -216,7 +199,7 @@
               }),
 
               CreateQrCode = new Image();
-            CreateQrCode.onload = function () {
+              CreateQrCode.onload = function () {
               var QrCodeImage = new Konva.Image({
                 x: settings.transform == 'horizontal' ? 330 : 480,
                 y: settings.transform == 'horizontal' ? 75 : 35,
@@ -231,33 +214,28 @@
               card.Layer.batchDraw();
             };
             CreateQrCode.src = card.QR_CODE.image;
-
             card.Layer.add(CreateId);
             card.Layer.add(CreateNameKH);
             card.Layer.add(CreateNameEN);
             card.Layer.add(CreateGender);
             card.Layer.add(CreateCourse);
             card.Layer.draw();
-
-
           },
        
           update: (e, x = false, y = false, operator = '-') => {  
-                if (x) {
-                  if (operator == '-') {
-                    card.stage.find('#' + e.target.getName())[0].x(card.stage.find('#' + e.target.getName())[0].x() - card.DELTA);
-                  } else {
-                    card.stage.find('#' + e.target.getName())[0].x(card.stage.find('#' + e.target.getName())[0].x() + card.DELTA);
-                  }
-                } else if (y) {
-                  if (operator == '-') {
-                    card.stage.find('#' + e.target.getName())[0].y(card.stage.find('#' + e.target.getName())[0].y() - card.DELTA);
-                  } else {
-                    card.stage.find('#' + e.target.getName())[0].y(card.stage.find('#' + e.target.getName())[0].y() + card.DELTA);
-                  }
-                }
-
-
+            if (x) {
+              if (operator == '-') {
+                card.stage.find('#' + e.target.getName())[0].x(card.stage.find('#' + e.target.getName())[0].x() - card.DELTA);
+              } else {
+                card.stage.find('#' + e.target.getName())[0].x(card.stage.find('#' + e.target.getName())[0].x() + card.DELTA);
+              }
+            } else if (y) {
+              if (operator == '-') {
+                card.stage.find('#' + e.target.getName())[0].y(card.stage.find('#' + e.target.getName())[0].y() - card.DELTA);
+              } else {
+                card.stage.find('#' + e.target.getName())[0].y(card.stage.find('#' + e.target.getName())[0].y() + card.DELTA);
+              }
+            }
             switch (e.target.getName()) {
               case 'id':                  
                 card.ID = e.target.attrs;
@@ -283,8 +261,7 @@
               default:
                 return;
                 break;
-            }      
-           
+            }
           },
           createEvent: () => {
             $('input[type="file"]').on('input', function (e) {
@@ -305,7 +282,6 @@
               }
             });
 
-
             $('body').on('keydown', function (e) {
               if (card.SELECTED) {
                 if (e.keyCode === 37) {
@@ -317,33 +293,26 @@
                 } else if (e.keyCode === 40) {
                   card.update(card.SELECTED, false, true, '+');
                 }
-
                 e.preventDefault();
                 card.Layer.batchDraw();
               }
-
               return;
             });
 
             card.stage.on("click tap dragmove", function (e) {
-              // if click on empty area - remove all transformers    
-
+              // if click on empty area - remove all transformers 
               if (e.target === stage) {
                 card.stage.find("Transformer").destroy();
                 card.Layer.draw();
                 return;
-              }
-
-            
+              }            
               // do nothing if clicked NOT on our rectangles
               card.stage.find("Transformer").destroy();
               if (!e.target.getName()) {
                 return;
               }
-
               card.SELECTED = e;
               card.update(e);
-
               // remove old transformers
               // TODO: we can skip it if current rect is already selected            
               // create new transformer
@@ -352,7 +321,6 @@
                 rotateEnabled: false,
                 keepRatio: true,
                 boundBoxFunc: function (oldBoundBox, newBoundBox) {
-
                   if (Math.abs(newBoundBox.width) > card.SETTINGS.max_width) {
                     return oldBoundBox;
                   }
@@ -360,18 +328,14 @@
                 }
               });
 
-
               card.Layer.add(tr);
               tr.attachTo(e.target);
               card.Layer.draw();
-            });
-
-                  
+            });                  
               $('#transform').on('click',function(e){               
                 var transform = $(this).attr('data-transform');    
                 card.stage.clear()             
-                //card.stage.destroy();    
-          
+                //card.stage.destroy();              
                 if(transform){
                   if(transform == 'horizontal'){
                     $(self).createCard({
@@ -403,12 +367,8 @@
                       });
                     $(this).attr('data-transform','vertical');
                   }
-                }                  
-             
+                }
             });
-   
-           
-
           },
 
           result : () => {                
@@ -516,8 +476,6 @@
 
               })
             });
-
-
           }
         };
       card.init();

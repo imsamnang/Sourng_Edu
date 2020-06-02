@@ -35,7 +35,7 @@ class ShortcourseController extends Controller
     $data = [];
     $generalSetting = GeneralSetting::findOrFail(1)->first();
     $data['ListCourse'] = Subject::all();
-    // return $data;
+    return $data;
     // return view('ProjectActivities.readbook',compact('data'));
   }
 
@@ -48,10 +48,10 @@ class ShortcourseController extends Controller
     $data['ListCourse'] = CourseShort::all();
     $data['countStudentByCourse'] = Courseshortstudent::WHERE('course_short_id', 1)->count();
     // return $data;
-    if (auth()->user()->hasRole('super-admin') OR auth()->user()->hasRole('admin')) {
+    if (auth()->user()->hasRole('admin-project')) {
       return view('ProjectActivities.courses.shortcourse.index', compact('data'));
     } else {
-      return redirect()->route('admin');
+      return redirect()->route('home');
     }
   }
 
@@ -171,7 +171,7 @@ class ShortcourseController extends Controller
   function ShortCourse_detail(Request $request, $id)
   {
     $csDetail = CourseShort::findOrFail($id);
-    // return $csDetail->courseShortTeacher[1]->staff->first_name;
+    // return $csDetail->courseShortTeacher;
     $shortcoursestudent = Courseshortstudent::WHERE('course_short_id', $csDetail->id)->get();
     $provinces = Province::all();
     $district = District::all();
@@ -254,6 +254,7 @@ class ShortcourseController extends Controller
       ->where('course_short_id', $id)
       ->select('*')
       ->get();
+
 
     $data['faculty_selected'] = Faculty::findOrFail($need->faculty_id);
     $data['curriculum_End'] = CurriculumEndorsement::all();
